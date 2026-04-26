@@ -74,4 +74,8 @@ useSeoMeta({
   background: var(--color-surface);
   margin: 2rem 0;
 }
+@media (max-width: 640px) {
+  .identity-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .identity-card { padding: 1.25rem; }
+}
 </style>

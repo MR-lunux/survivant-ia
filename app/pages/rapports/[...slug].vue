@@ -111,4 +111,8 @@ const categoryLabel = computed(() =>
 }
 .article-body { padding: 2.5rem; background: var(--color-surface); margin-bottom: 4rem; }
 .article-footer { border-top: 1px solid rgba(0, 255, 65, 0.1); padding-top: 3rem; }
+@media (max-width: 640px) {
+  .article-body { padding: 1.25rem; }
+  .article-meta { flex-wrap: wrap; gap: 0.5rem; }
+}
 </style>

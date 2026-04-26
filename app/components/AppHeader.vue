@@ -84,4 +84,21 @@
   transition: color 0.15s;
 }
 .social-links a:hover { color: var(--color-accent); }
+
+@media (max-width: 640px) {
+  .header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.75rem 0;
+    gap: 0.5rem;
+  }
+  .nav {
+    order: 3;
+    width: 100%;
+    gap: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+  .nav-link { font-size: 0.65rem; }
+  .social-links { display: none; }
+}
 </style>
