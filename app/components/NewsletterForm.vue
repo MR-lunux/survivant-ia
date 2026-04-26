@@ -3,14 +3,13 @@
   <div class="newsletter-form-wrapper scanline">
     <ScannerBorder class="newsletter-inner">
       <div class="nl-header">
-        <span class="nl-status font-mono">● FRÉQUENCE ACTIVE</span>
+        <span class="nl-status font-mono"><span class="nl-dot">●</span> FRÉQUENCE ACTIVE</span>
         <h3 class="nl-title">Rejoindre la Fréquence</h3>
         <p class="nl-subtitle">
           1 rapport de survie par semaine. Les outils concrets que les algorithmes ne peuvent pas te donner.
         </p>
       </div>
 
-      <!-- Replace src with your Brevo form embed URL once created in Brevo dashboard -->
       <iframe
         v-if="props.formUrl"
         :src="props.formUrl"
@@ -45,52 +44,35 @@ const props = withDefaults(defineProps<{ formUrl?: string }>(), { formUrl: '' })
 <style scoped>
 .newsletter-form-wrapper { padding: 2rem; background: var(--color-surface); }
 .newsletter-inner { padding: 2rem; }
+
+.nl-dot { animation: nlBlink 1.2s step-end infinite; }
+@keyframes nlBlink { 50% { opacity: 0; } }
+
 .nl-status {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-accent);
-  display: block;
-  margin-bottom: 1rem;
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: var(--color-accent); display: block; margin-bottom: 1rem;
 }
 .nl-title {
   font-family: var(--font-mono);
-  font-size: 1.4rem;
-  color: var(--color-text);
-  margin: 0 0 0.75rem;
+  font-size: 1.4rem; color: var(--color-text); margin: 0 0 0.75rem;
 }
-.nl-subtitle {
-  font-size: 0.9rem;
-  color: var(--color-muted);
-  margin: 0 0 1.5rem;
-}
-.brevo-iframe {
-  width: 100%;
-  min-height: 200px;
-  border: none;
-  background: transparent;
-}
-.form-placeholder {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
+.nl-subtitle { font-size: 0.9rem; color: var(--color-muted); margin: 0 0 1.5rem; }
+.brevo-iframe { width: 100%; min-height: 200px; border: none; background: transparent; }
+.form-placeholder { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
 .email-input {
-  flex: 1;
-  min-width: 200px;
+  flex: 1; min-width: 200px;
   background: var(--color-surface-2);
   border: 1px solid rgba(0, 255, 65, 0.2);
   color: var(--color-text);
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  padding: 0.75rem 1rem;
-  outline: none;
+  font-family: var(--font-mono); font-size: 0.875rem;
+  padding: 0.75rem 1rem; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
   opacity: 0.5;
 }
-.setup-note {
-  width: 100%;
-  font-size: 0.65rem;
-  color: var(--color-danger);
-  margin: 0.5rem 0 0;
+.email-input:not(:disabled):focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(0,255,65,0.12), inset 0 0 12px rgba(0,255,65,0.04);
+  opacity: 1;
 }
+.setup-note { width: 100%; font-size: 0.65rem; color: var(--color-danger); margin: 0.5rem 0 0; }
 </style>

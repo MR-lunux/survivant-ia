@@ -1,5 +1,6 @@
 <template>
   <div class="layout">
+    <ScrollProgress />
     <AppHeader />
     <main class="main-content">
       <slot />

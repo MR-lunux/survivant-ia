@@ -14,21 +14,76 @@ const { data: articles } = await useAsyncData('home-articles', () =>
     .limit(3)
     .all()
 )
+
+const heroGrid   = ref<HTMLElement | null>(null)
+const statusText = ref<HTMLElement | null>(null)
+
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*<>[]{}/'
+
+function scramble(el: HTMLElement, final: string, duration = 700) {
+  const len = final.length
+  let start: number | null = null
+  const step = (ts: number) => {
+    if (!start) start = ts
+    const p = Math.min((ts - start) / duration, 1)
+    const revealed = Math.floor(p * len)
+    let out = ''
+    for (let i = 0; i < len; i++) {
+      out += ([' ', '.', '\''].includes(final[i]) || i < revealed)
+        ? final[i]
+        : CHARS[Math.floor(Math.random() * CHARS.length)]
+    }
+    el.textContent = out
+    if (p < 1) requestAnimationFrame(step)
+    else el.textContent = final
+  }
+  requestAnimationFrame(step)
+}
+
+function onScroll() {
+  if (heroGrid.value) {
+    heroGrid.value.style.transform = `translateY(${window.scrollY * 0.25}px)`
+  }
+}
+
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+  window.addEventListener('scroll', onScroll, { passive: true })
+
+  setTimeout(() => {
+    if (statusText.value) scramble(statusText.value, 'TRANSMISSION EN COURS')
+  }, 250)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+})
 </script>
 
 <template>
   <div>
     <!-- ── HERO ───────────────────────────────── -->
     <section class="hero">
+      <div ref="heroGrid" class="hero-grid-bg" aria-hidden="true" />
+      <ClientOnly><ParticleCanvas /></ClientOnly>
+
       <div class="container hero-inner">
         <div class="hero-status">
-          <span class="status-dot" />
-          <span class="font-mono">TRANSMISSION EN COURS</span>
+          <span class="status-dot" aria-hidden="true" />
+          <span ref="statusText" class="font-mono">TRANSMISSION EN COURS</span>
         </div>
 
         <h1 class="hero-title">
-          L'IA ARRIVE.<br>
-          <span class="text-accent">NE SOYEZ PAS<br>UNE VARIABLE SUPPRIMÉE.</span>
+          <span class="title-line">
+            <span class="title-line-inner">L'IA ARRIVE.</span>
+          </span>
+          <span class="title-line">
+            <span class="title-line-inner">
+              <span class="text-accent accent-glitch">NE SOYEZ PAS<br>UNE VARIABLE SUPPRIMÉE.</span>
+              <span class="typing-cursor" aria-hidden="true" />
+            </span>
+          </span>
         </h1>
 
         <p class="hero-subtitle">
@@ -43,23 +98,25 @@ const { data: articles } = await useAsyncData('home-articles', () =>
           </NuxtLink>
         </div>
       </div>
-
-      <div class="hero-grid-bg" aria-hidden="true" />
     </section>
+
+    <SectionDivider />
 
     <!-- ── MANIFESTE ──────────────────────────── -->
     <section class="manifeste">
       <div class="container">
-        <ScannerBorder class="manifeste-inner" data-reveal>
-          <p class="font-mono" style="color: var(--color-muted); font-size: 0.7rem; letter-spacing: 0.1em; margin-bottom: 1rem;">// MANIFESTE</p>
-          <p>Je suis chef de projet IT. Je vois l'IA arriver. Je refuse de regarder sans agir.</p>
-          <p>Ce site n'est pas là pour vous faire peur — c'est là pour vous armer. Les outils sont plus simples que vous ne le croyez. La menace est réelle mais gérable.</p>
-          <p style="margin: 0;"><strong class="text-accent">Préparons-nous avant que ça arrive.</strong></p>
-        </ScannerBorder>
+        <ManifestoTerminal />
       </div>
     </section>
 
-    <!-- ── DERNIERS RAPPORTS ───────────────────── -->
+    <SectionDivider />
+
+    <!-- ── STATS ─────────────────────────────── -->
+    <StatsStrip />
+
+    <SectionDivider />
+
+    <!-- ── DERNIERS RAPPORTS ──────────────────── -->
     <section class="rapports-section">
       <div class="container">
         <div class="section-header" data-reveal>
@@ -79,6 +136,8 @@ const { data: articles } = await useAsyncData('home-articles', () =>
       </div>
     </section>
 
+    <SectionDivider />
+
     <!-- ── NEWSLETTER ─────────────────────────── -->
     <section class="newsletter-section">
       <div class="container" data-reveal>
@@ -89,96 +148,130 @@ const { data: articles } = await useAsyncData('home-articles', () =>
 </template>
 
 <style scoped>
-/* Hero */
+/* ── Hero ─────────────────────────────────────────────── */
 .hero {
   position: relative;
-  padding: 6rem 0 5rem;
+  padding: 7rem 0 6rem;
   overflow: hidden;
 }
 .hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
+  position: absolute; inset: 0; z-index: 0;
   background-image:
     linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  will-change: transform;
 }
 .hero-inner { max-width: 800px; position: relative; z-index: 1; }
+
+/* status row — fade up on load */
 .hero-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
-  margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: var(--color-muted); margin-bottom: 2rem;
+  opacity: 0;
+  animation: heroFadeUp 0.5s 0.3s ease both;
 }
 .status-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
   background: var(--color-accent);
   animation: pulse 2s infinite;
+  flex-shrink: 0;
 }
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
-}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* title — line-by-line clip reveal */
 .hero-title {
   font-size: clamp(2.2rem, 6vw, 4rem);
-  line-height: 1.1;
-  margin: 0 0 1.5rem;
+  line-height: 1.1; margin: 0 0 1.5rem;
 }
+.title-line { display: block; overflow: hidden; }
+.title-line-inner {
+  display: block;
+  transform: translateY(110%);
+  animation: lineReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.title-line:nth-child(1) .title-line-inner { animation-delay: 0.5s; }
+.title-line:nth-child(2) .title-line-inner { animation-delay: 0.75s; }
+@keyframes lineReveal { to { transform: translateY(0); } }
+
+/* accent glitch loop */
+.accent-glitch {
+  display: inline;
+  animation: accentGlitch 7s 1.8s infinite;
+}
+@keyframes accentGlitch {
+  0%,95%,100% { text-shadow: none; transform: none; color: var(--color-accent); }
+  95.5% {
+    text-shadow: 2px 0 var(--color-danger), -2px 0 #00bfff;
+    transform: translateX(2px); color: #fff;
+  }
+  96% {
+    text-shadow: -2px 0 var(--color-danger), 2px 0 #00bfff;
+    transform: translateX(-2px);
+  }
+  96.5% { text-shadow: none; transform: none; color: var(--color-accent); }
+}
+
+/* typing cursor */
+.typing-cursor {
+  display: inline-block;
+  width: 3px; height: 0.85em;
+  background: var(--color-accent);
+  vertical-align: bottom; margin-left: 4px;
+  opacity: 0;
+  animation: cursorBlink 1s step-end 1.8s infinite;
+}
+@keyframes cursorBlink { 0%{opacity:1} 50%{opacity:0} 100%{opacity:1} }
+
 .hero-subtitle {
-  font-size: 1.1rem;
-  color: var(--color-muted);
-  max-width: 55ch;
-  margin: 0 0 2.5rem;
-  line-height: 1.7;
+  font-size: 1.1rem; color: var(--color-muted);
+  max-width: 55ch; margin: 0 0 2.5rem; line-height: 1.7;
+  opacity: 0;
+  animation: heroFadeUp 0.6s 1.1s ease both;
 }
 .hero-cta {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+  opacity: 0;
+  animation: heroFadeUp 0.5s 1.3s ease both;
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .hero-link {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-  transition: color 0.15s;
+  font-size: 0.75rem; letter-spacing: 0.1em;
+  color: var(--color-muted); transition: color 0.15s;
 }
 .hero-link:hover { color: var(--color-accent); }
 
-/* Manifeste */
-.manifeste { padding: 4rem 0; }
-.manifeste-inner {
-  padding: 2rem;
-  background: var(--color-surface);
-  max-width: 700px;
-}
-.manifeste-inner p {
-  color: var(--color-muted);
-  line-height: 1.8;
-  margin-bottom: 0.75rem;
-}
+/* ── Sections ──────────────────────────────────────────── */
+.manifeste        { padding: 5rem 0; }
+.rapports-section { padding: 5rem 0; }
+.newsletter-section { padding: 5rem 0; }
 
-/* Articles */
-.rapports-section { padding: 4rem 0; }
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 2rem;
+  display: flex; justify-content: space-between;
+  align-items: baseline; margin-bottom: 2.5rem;
 }
 .section-header h2 { margin: 0; }
+.section-header a { color: var(--color-muted); transition: color 0.15s; }
+.section-header a:hover { color: var(--color-accent); }
+
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
-/* Newsletter */
-.newsletter-section { padding: 4rem 0; }
+/* prefers-reduced-motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .hero-status, .hero-subtitle, .hero-cta {
+    opacity: 1 !important; animation: none !important;
+  }
+  .title-line-inner { transform: none !important; animation: none !important; }
+  .typing-cursor    { opacity: 1 !important; animation: none !important; }
+  .accent-glitch    { animation: none !important; }
+}
 </style>
