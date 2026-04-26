@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://survivant-ia.fr/sitemap.xml
