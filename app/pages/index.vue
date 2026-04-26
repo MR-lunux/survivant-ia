@@ -45,12 +45,13 @@ const { data: articles } = await useAsyncData('home-articles', () =>
       </div>
 
       <div class="hero-grid-bg" aria-hidden="true" />
+      <RadarBg />
     </section>
 
     <!-- ── MANIFESTE ──────────────────────────── -->
     <section class="manifeste">
       <div class="container">
-        <ScannerBorder class="manifeste-inner">
+        <ScannerBorder class="manifeste-inner" data-reveal>
           <p class="font-mono" style="color: var(--color-muted); font-size: 0.7rem; letter-spacing: 0.1em; margin-bottom: 1rem;">// MANIFESTE</p>
           <p>Je suis chef de projet IT. Je vois l'IA arriver. Je refuse de regarder sans agir.</p>
           <p>Ce site n'est pas là pour vous faire peur — c'est là pour vous armer. Les outils sont plus simples que vous ne le croyez. La menace est réelle mais gérable.</p>
@@ -62,16 +63,18 @@ const { data: articles } = await useAsyncData('home-articles', () =>
     <!-- ── DERNIERS RAPPORTS ───────────────────── -->
     <section class="rapports-section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" data-reveal>
           <h2>Rapports de Survie</h2>
           <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;">TOUS LES RAPPORTS →</NuxtLink>
         </div>
 
         <div class="articles-grid">
           <ArticleCard
-            v-for="article in articles"
+            v-for="(article, i) in articles"
             :key="article.path"
             :article="article"
+            data-reveal
+            :data-reveal-delay="i * 120"
           />
         </div>
       </div>
@@ -79,7 +82,7 @@ const { data: articles } = await useAsyncData('home-articles', () =>
 
     <!-- ── NEWSLETTER ─────────────────────────── -->
     <section class="newsletter-section">
-      <div class="container">
+      <div class="container" data-reveal>
         <NewsletterForm />
       </div>
     </section>
@@ -103,7 +106,7 @@ const { data: articles } = await useAsyncData('home-articles', () =>
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 }
-.hero-inner { max-width: 800px; }
+.hero-inner { max-width: 800px; position: relative; z-index: 1; }
 .hero-status {
   display: flex;
   align-items: center;

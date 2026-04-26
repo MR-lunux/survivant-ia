@@ -195,10 +195,26 @@ a:hover { opacity: 0.75; }
 .prose ol { list-style: decimal; padding-left: 1.5rem; margin: 0 0 1rem; }
 .prose li { margin-bottom: 0.4rem; }
 
+/* ── Scroll reveal ───────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-glitch:hover::before,
   .btn-glitch:hover::after {
     animation: none;
     opacity: 0;
+  }
+  [data-reveal], [data-reveal].revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
