@@ -7,7 +7,7 @@
         <span class="logo-bracket">]</span>
       </NuxtLink>
 
-      <nav class="nav">
+      <nav v-if="!isHome" class="nav">
         <NuxtLink to="/rapports" class="nav-link">Rapports de Survie</NuxtLink>
         <NuxtLink to="/frequence" class="nav-link">La Fréquence</NuxtLink>
         <NuxtLink to="/identite" class="nav-link">Identité</NuxtLink>
@@ -29,6 +29,8 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
+const isHome = computed(() => route.path === '/')
 </script>
 
 <style scoped>

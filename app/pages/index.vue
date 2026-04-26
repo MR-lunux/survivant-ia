@@ -92,10 +92,7 @@ onUnmounted(() => {
         </p>
 
         <div class="hero-cta">
-          <GlitchButton label="Rejoindre la Fréquence" to="/frequence" />
-          <NuxtLink to="/rapports" class="hero-link font-mono">
-            LIRE LES RAPPORTS →
-          </NuxtLink>
+          <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" />
         </div>
       </div>
     </section>
@@ -109,10 +106,6 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <SectionDivider />
-
-    <!-- ── STATS ─────────────────────────────── -->
-    <StatsStrip />
 
     <SectionDivider />
 
@@ -139,7 +132,7 @@ onUnmounted(() => {
     <SectionDivider />
 
     <!-- ── NEWSLETTER ─────────────────────────── -->
-    <section class="newsletter-section">
+    <section id="newsletter" class="newsletter-section">
       <NewsletterForm data-reveal />
     </section>
   </div>

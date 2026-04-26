@@ -9,9 +9,9 @@
       <ScannerBorder class="newsletter-inner">
         <div class="nl-header">
           <span class="nl-status font-mono"><span class="nl-dot">●</span> FRÉQUENCE ACTIVE</span>
-          <h3 class="nl-title">Rejoindre la Fréquence</h3>
+          <h3 class="nl-title">Accès à la Fréquence — Sécurisé</h3>
           <p class="nl-subtitle">
-            1 rapport de survie par semaine. Les outils concrets que les algorithmes ne peuvent pas te donner.
+            Recevez chaque semaine mon analyse terrain pour comprendre l'IA sans jargon, et développez les soft skills qui sécuriseront votre carrière.
           </p>
         </div>
 
@@ -31,8 +31,8 @@
             aria-label="Adresse email"
             disabled
           />
-          <button class="btn-glitch" data-text="REJOINDRE" disabled>
-            REJOINDRE
+          <button class="btn-glitch" data-text="SÉCURISER MON POSTE" disabled>
+            SÉCURISER MON POSTE
           </button>
           <p class="setup-note font-mono">
             → Configurer Brevo : remplacer formUrl dans ce composant
