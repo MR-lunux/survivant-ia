@@ -45,7 +45,6 @@ const { data: articles } = await useAsyncData('home-articles', () =>
       </div>
 
       <div class="hero-grid-bg" aria-hidden="true" />
-      <RadarBg />
     </section>
 
     <!-- ── MANIFESTE ──────────────────────────── -->
