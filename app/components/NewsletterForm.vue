@@ -5,6 +5,7 @@
     <canvas ref="canvasEl" class="osc-canvas" aria-hidden="true" />
 
     <div class="newsletter-form-wrapper scanline">
+      <div class="container">
       <ScannerBorder class="newsletter-inner">
         <div class="nl-header">
           <span class="nl-status font-mono"><span class="nl-dot">●</span> FRÉQUENCE ACTIVE</span>
@@ -38,6 +39,7 @@
           </p>
         </div>
       </ScannerBorder>
+      </div>
     </div>
   </div>
 </template>
@@ -130,7 +132,7 @@ onUnmounted(() => {
 
 .newsletter-form-wrapper {
   position: relative; z-index: 1;
-  padding: 2rem; background: transparent;
+  padding: 3rem 0; background: transparent;
 }
 .newsletter-inner { padding: 2rem; background: var(--color-surface); }
 

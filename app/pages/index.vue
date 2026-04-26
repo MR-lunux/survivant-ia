@@ -140,9 +140,7 @@ onUnmounted(() => {
 
     <!-- ── NEWSLETTER ─────────────────────────── -->
     <section class="newsletter-section">
-      <div class="container" data-reveal>
-        <NewsletterForm />
-      </div>
+      <NewsletterForm data-reveal />
     </section>
   </div>
 </template>
