@@ -55,9 +55,9 @@ function typeLines() {
     row.appendChild(prefix); row.appendChild(textSpan); row.appendChild(cursor)
     linesEl.value!.appendChild(row)
     let i = 0
-    const speed = isLast ? 30 : 18
+    const speed = isLast ? 15 : 9
     function type() {
-      if (i < text.length) { textSpan.textContent += text[i++]; setTimeout(type, speed + Math.random()*14) }
+      if (i < text.length) { textSpan.textContent += text[i++]; setTimeout(type, speed + Math.random()*7) }
       else {
         cursor.remove()
         if (isLast) {
@@ -66,7 +66,7 @@ function typeLines() {
           const blk = document.createElement('span'); blk.className = 'v2-cursor'
           textSpan.appendChild(strong); textSpan.appendChild(blk)
         }
-        lineIdx++; setTimeout(nextLine, isLast ? 0 : 360)
+        lineIdx++; setTimeout(nextLine, isLast ? 0 : 180)
       }
     }
     type()
@@ -94,7 +94,7 @@ onMounted(() => {
     if (!e.isIntersecting) return
     obs.disconnect()
     if (labelEl.value) scramble(labelEl.value, '// MANIFESTE')
-    setTimeout(typeLines, 400)
+    setTimeout(typeLines, 200)
   }, { threshold: 0.2 })
   obs.observe(target)
 })
