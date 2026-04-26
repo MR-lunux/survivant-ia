@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     .order('date', 'DESC')
     .all()
 
-  const siteUrl = 'https://survivant-ia.fr'
+  const siteUrl = 'https://survivant-ia.ch'
 
   const items = articles.map((article) => {
     const slug = article.path?.split('/').pop() ?? ''

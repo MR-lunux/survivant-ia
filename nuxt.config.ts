@@ -17,14 +17,14 @@ export default defineNuxtConfig({
     highlight: { theme: 'github-dark' },
   },
   site: {
-    url: 'https://survivant-ia.fr',
+    url: 'https://survivant-ia.ch',
   },
   css: ['~/assets/css/main.css'],
   app: {
     head: {
       htmlAttrs: { lang: 'fr' },
       link: [
-        { rel: 'alternate', type: 'application/rss+xml', title: "Survivant de l'IA — RSS", href: 'https://survivant-ia.fr/rss.xml' },
+        { rel: 'alternate', type: 'application/rss+xml', title: "Survivant de l'IA — RSS", href: 'https://survivant-ia.ch/rss.xml' },
       ],
       meta: [
         { name: 'theme-color', content: '#0D0D0D' },
