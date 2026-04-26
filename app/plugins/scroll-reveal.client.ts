@@ -1,6 +1,5 @@
 // app/plugins/scroll-reveal.client.ts
-export default defineNuxtPlugin(() => {
-  const router = useRouter()
+export default defineNuxtPlugin((nuxtApp) => {
   let mutObs: MutationObserver | null = null
 
   const intObs = new IntersectionObserver(
@@ -23,12 +22,13 @@ export default defineNuxtPlugin(() => {
     mutObs?.disconnect()
     nextTick(() => {
       observeAll()
-      // Watch for async-loaded elements (e.g. article cards from useAsyncData)
       mutObs = new MutationObserver(observeAll)
       mutObs.observe(document.body, { childList: true, subtree: true })
     })
   }
 
-  router.afterEach(initReveal)
-  initReveal()
+  // app:mounted fires once the Vue app is fully hydrated on first load
+  nuxtApp.hook('app:mounted', initReveal)
+  // page:finish fires after each SPA navigation resolves (including async data)
+  nuxtApp.hook('page:finish', initReveal)
 })
