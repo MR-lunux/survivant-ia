@@ -42,6 +42,9 @@ function scramble(el: HTMLElement, final: string, duration = 600) {
 
 function typeLines() {
   if (!linesEl.value || !footerEl.value) return
+  // clear stale content from a previous mount cycle
+  while (linesEl.value.firstChild) linesEl.value.removeChild(linesEl.value.firstChild)
+  footerEl.value.classList.remove('visible')
   let lineIdx = 0
   function nextLine() {
     if (lineIdx >= LINES.length) {
@@ -86,16 +89,22 @@ function showReduced() {
   footerEl.value.classList.add('visible')
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { showReduced(); return }
+
+  // nextTick garantit que les refs Vue et les composants enfants (ScannerBorder)
+  // sont tous dans le DOM avant de lancer l'observer
+  await nextTick()
+
   const target = linesEl.value?.closest('.scanner-border-wrapper') ?? linesEl.value
   if (!target) return
+
   const obs = new IntersectionObserver(([e]) => {
     if (!e.isIntersecting) return
     obs.disconnect()
     if (labelEl.value) scramble(labelEl.value, '// MANIFESTE')
     setTimeout(typeLines, 200)
-  }, { threshold: 0.2 })
+  }, { threshold: 0.15 })
   obs.observe(target)
 })
 </script>
