@@ -61,7 +61,7 @@
           </form>
 
           <div v-else class="nl-success font-mono">
-            <span class="nl-dot">●</span> ACCÈS ACCORDÉ. BIENVENUE DANS LA FRÉQUENCE.
+            <span class="nl-dot">●</span> > ACCÈS ACCORDÉ. BIENVENUE DANS LA FRÉQUENCE.
           </div>
         </ScannerBorder>
       </div>
@@ -203,8 +203,6 @@ onUnmounted(() => {
   font-size: 1.4rem; color: var(--color-text); margin: 0 0 0.75rem;
 }
 .nl-subtitle { font-size: 0.9rem; color: var(--color-muted); margin: 0 0 1.5rem; }
-.brevo-iframe { width: 100%; min-height: 200px; border: none; background: transparent; }
-.form-placeholder { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
 .email-input {
   flex: 1; min-width: 200px;
   background: var(--color-surface-2);
@@ -215,6 +213,7 @@ onUnmounted(() => {
   transition: border-color 0.2s, box-shadow 0.2s;
   opacity: 0.5;
 }
+.email-input:not(:disabled) { opacity: 1; }
 .email-input:not(:disabled):focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.12), inset 0 0 12px rgba(0, 255, 65, 0.04);

@@ -2,6 +2,10 @@
 export default defineEventHandler(async (event) => {
   const { brevoApiKey, brevoListId } = useRuntimeConfig()
 
+  if (!brevoApiKey || !brevoListId) {
+    throw createError({ statusCode: 500, message: 'Configuration serveur manquante.' })
+  }
+
   const body = await readBody(event)
   const { prenom, email, consent } = body ?? {}
 
