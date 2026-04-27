@@ -1,4 +1,24 @@
 // server/api/subscribe.post.ts
+const _rateMap = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT = 5
+const RATE_WINDOW_MS = 60 * 60 * 1000 // 1 heure
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = _rateMap.get(ip)
+  if (!entry || now > entry.resetAt) {
+    _rateMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    return true
+  }
+  if (entry.count >= RATE_LIMIT) return false
+  entry.count++
+  return true
+}
+
+function stripHtml(str: string): string {
+  return str.replace(/<[^>]*>/g, '').trim()
+}
+
 export default defineEventHandler(async (event) => {
   const { brevoApiKey, brevoListId } = useRuntimeConfig()
 
@@ -9,8 +29,17 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { prenom, email, consent } = body ?? {}
 
+  const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
+  if (!checkRateLimit(ip)) {
+    throw createError({ statusCode: 429, message: 'Trop de tentatives. Réessayez dans une heure.' })
+  }
+
   if (!prenom || typeof prenom !== 'string' || prenom.trim().length === 0) {
     throw createError({ statusCode: 400, message: 'Prénom requis.' })
+  }
+
+  if (stripHtml(prenom.trim()).length > 100) {
+    throw createError({ statusCode: 400, message: 'Prénom trop long.' })
   }
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -31,7 +60,7 @@ export default defineEventHandler(async (event) => {
       email,
       listIds: [Number(brevoListId)],
       attributes: {
-        PRENOM: prenom.trim(),
+        PRENOM: stripHtml(prenom.trim()),
         CONSENT: true,
         SOURCE: 'website',
       },
