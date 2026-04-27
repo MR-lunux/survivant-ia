@@ -25,12 +25,12 @@ Hors périmètre : RSS-to-email automatique, double opt-in, système de grades.
 ## Flow complet
 
 ```
-User remplit formulaire (email + checkbox)
+User remplit formulaire (prénom + email + checkbox)
   → POST /api/subscribe
-      ├── Validation : format email + consent === true
-      ├── Brevo API — POST /contacts (ajout à la liste)
+      ├── Validation : prénom non vide + format email + consent === true
+      ├── Brevo API — POST /contacts (ajout à la liste avec PRENOM)
       └── Réponse { ok: true } ou { error: "..." }
-           → Brevo Automation déclenche le welcome email
+           → Brevo Automation déclenche le welcome email personnalisé
 ```
 
 Brevo est la source de vérité pour les contacts. Pas de base SQLite locale.
@@ -42,9 +42,10 @@ Brevo est la source de vérité pour les contacts. Pas de base SQLite locale.
 Le placeholder existant (actuellement disabled) devient fonctionnel.
 
 **Champs :**
-- Input email
+- Input prénom (obligatoire)
+- Input email (obligatoire)
 - Checkbox : "J'accepte de recevoir la newsletter hebdomadaire et j'ai pris connaissance de la [Politique de confidentialité]"
-- Bouton submit : désactivé tant que la checkbox n'est pas cochée
+- Bouton submit : désactivé tant que prénom vide, email invalide, ou checkbox non cochée
 
 **États UI :**
 
@@ -63,12 +64,12 @@ Le composant reçoit toujours la prop `formUrl` pour compatibilité mais elle n'
 
 Page simple dans le design du site. Contenu minimal légalement suffisant (RGPD + LPD suisse) :
 
-- Responsable du traitement : Mathieu [À COMPLÉTER : nom de famille], survivant-ia.ch
-- Données collectées : adresse email uniquement
+- Responsable du traitement : Mathieu Rérat, survivant-ia.ch
+- Données collectées : adresse email uniquement et prénom
 - Finalité : envoi de la newsletter hebdomadaire
 - Sous-traitant : Brevo (hébergé en UE)
 - Durée de conservation : jusqu'au désabonnement
-- Droits : accès, rectification, suppression → contact par email
+- Droits : accès, rectification, suppression → contact par email à mathieu@survivant-ia.ch
 - Désabonnement : lien en bas de chaque email
 
 ---
@@ -77,15 +78,14 @@ Page simple dans le design du site. Contenu minimal légalement suffisant (RGPD 
 
 ```typescript
 // Logique
-POST { email: string, consent: boolean }
+POST { prenom: string, email: string, consent: boolean }
 
-1. Valider format email (regex ou validator)
-2. Vérifier consent === true
-3. Appeler Brevo API POST /v3/contacts :
+1. Valider prénom non vide + format email + consent === true
+2. Appeler Brevo API POST /v3/contacts :
    {
      email,
      listIds: [ID_LISTE_BREVO],
-     attributes: { CONSENT: true, SOURCE: 'website' }
+     attributes: { PRENOM: prenom, CONSENT: true, SOURCE: 'website' }
    }
 4. Gérer les cas :
    - 201 Created → { ok: true }
@@ -117,7 +117,7 @@ Elle n'est jamais exposée côté client.
 - Ton : direct, militaire-bienveillant, vouvoiement
 
 **Contenu :**
-1. Accroche de bienvenue dans le ton du site
+1. Accroche personnalisée : `Bonjour {{ contact.PRENOM }},` dans le ton du site
 2. Rappel de ce qu'ils vont recevoir (les 3 bénéfices de la page fréquence)
 3. Liens principaux : site, LinkedIn, Instagram
 4. Lien de désabonnement (obligatoire, géré par Brevo)
