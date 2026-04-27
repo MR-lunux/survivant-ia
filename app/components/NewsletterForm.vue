@@ -244,4 +244,12 @@ onUnmounted(() => {
   padding: 0.5rem 0;
 }
 .nl-success .nl-dot { animation: nlBlink 1.2s step-end infinite; }
+
+.nl-form .btn-glitch:disabled {
+  background-color: var(--color-surface-2);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+.nl-form .btn-glitch:disabled::before,
+.nl-form .btn-glitch:disabled::after { display: none; }
 </style>
