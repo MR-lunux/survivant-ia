@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  runtimeConfig: {
+    brevoApiKey: '',
+    brevoListId: '',
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/content',
