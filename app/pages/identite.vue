@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Identité du Survivant — Mathieu le Survivant de l\'IA',
-  description: 'Chef de projet IT, papa, et guide pour survivre à l\'IA. Pourquoi ce site existe.',
+  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech — et un burnout par surutilisation de l\'IA. Voici pourquoi ce site existe.',
 })
 </script>
 
@@ -93,6 +93,16 @@ useSeoMeta({
 
       </div>
     </div>
+
+    <!-- ── CTA ──────────────────────────────────────────── -->
+    <div class="identite-cta">
+      <p class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted); margin-bottom: 1rem;">// PROCHAINE ÉTAPE</p>
+      <p class="identite-cta-text">
+        Tu traverses la même zone&nbsp;?<br>
+        <strong class="text-accent">Rejoins les premiers dans la Fréquence.</strong>
+      </p>
+      <GlitchButton label="Rejoindre la Fréquence" to="/#newsletter" />
+    </div>
   </div><!-- end .container -->
 </template>
 
@@ -159,5 +169,19 @@ useSeoMeta({
   color: var(--color-muted);
   margin: 0;
   letter-spacing: 0.08em;
+}
+
+/* ── CTA ──────────────────────────────────────────────── */
+.identite-cta {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(0, 255, 65, 0.12);
+  text-align: center;
+}
+.identite-cta-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-muted);
+  margin-bottom: 2rem;
 }
 </style>
