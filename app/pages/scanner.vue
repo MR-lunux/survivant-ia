@@ -321,6 +321,7 @@ function reset() {
   letter-spacing: 0.1em;
   color: var(--color-muted);
   margin-bottom: 0;
+  max-width: 780px;
 }
 .term-dots    { display: flex; gap: 0.35rem; }
 .dot          { width: 10px; height: 10px; border-radius: 50%; }
