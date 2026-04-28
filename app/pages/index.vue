@@ -106,7 +106,8 @@ onUnmounted(() => {
       </div>
     </section>
 
-
+    <SectionDivider />
+    <StatsStrip />
     <SectionDivider />
 
     <!-- ── DERNIERS RAPPORTS ──────────────────── -->
@@ -126,6 +127,12 @@ onUnmounted(() => {
             :data-reveal-delay="i * 120"
           />
         </div>
+        <p
+          v-if="articles && articles.length < 3"
+          class="font-mono rapports-coming"
+        >
+          // D'AUTRES RAPPORTS EN COURS DE CHIFFREMENT...
+        </p>
       </div>
     </section>
 
@@ -254,6 +261,13 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+}
+.rapports-coming {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-top: 1.5rem;
+  opacity: 0.6;
 }
 
 /* prefers-reduced-motion overrides */
