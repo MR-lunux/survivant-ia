@@ -25,15 +25,29 @@ useSeoMeta({
 
     <div class="identity-text">
       <p>
-        Je travaille comme chef de projet IT. Je vois l'IA arriver dans mon domaine, dans mon entreprise, dans ma façon de travailler. Et je me suis posé une question simple : <strong class="text-accent">comment est-ce qu'on se prépare ?</strong>
+        Mon parcours n'a rien d'un parcours tech pur : économie, master en systèmes d'information,
+        puis PwC en audit IT, Nestlé comme Business Analyst, Imopac où je suis passé de consultant
+        à Head of Office Romandie, et aujourd'hui Deputy Head of IT chez Solutions&nbsp;&amp;&nbsp;Funds.
+        Des environnements différents, un fil rouge : être l'interface entre les gens, les process,
+        et les outils.
       </p>
 
       <p>
-        Pas en devenant développeur. Pas en apprenant Python ou en maîtrisant ChatGPT comme un pro. Mais en développant ce que personne ne peut automatiser : la façon de penser, de communiquer, de gérer l'incertitude.
+        Quand l'IA s'est invitée dans mon quotidien, j'ai plongé. Claude, ChatGPT, automatisations,
+        code... Je lis les articles, j'écoute les podcasts, je teste. Pendant un moment, j'ai cru
+        que plus j'en utilisais, mieux je travaillais.
       </p>
 
       <p>
-        Ce site est né de cette conviction. Il s'adresse aux professionnels qui ne sont pas dans la tech, qui ont peur pour leur poste, et qui cherchent des outils concrets — pas des promesses vagues.
+        Jusqu'au jour où j'ai réalisé que je n'avais plus la notion de l'effort. Je produisais vite,
+        beaucoup — mais je ne construisais plus rien. L'IA faisait, je validais. Ce signal ne m'a
+        pas rendu anti-IA. Il m'a rendu <strong class="text-accent">lucide</strong>.
+      </p>
+
+      <p>
+        Ce site existe pour les professionnels qui voient l'IA arriver sans savoir comment se
+        positionner. Pas pour en faire des experts. Pour leur donner les cartes que j'aurais
+        aimé avoir — et éviter les erreurs que j'ai faites.
       </p>
 
       <ScannerBorder class="mission-block">
