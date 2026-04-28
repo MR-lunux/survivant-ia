@@ -61,8 +61,39 @@ useSeoMeta({
         Je ne suis pas l'expert IA ultime. Je suis quelqu'un qui traverse la même zone que vous,
         avec quelques cartes en main — et les cicatrices pour prouver que j'y suis déjà passé.
       </p>
+    </div><!-- end .identity-text -->
+
+    <!-- ── PARCOURS ─────────────────────────────────────── -->
+    <div class="parcours-section">
+      <p class="font-mono parcours-label">// PARCOURS</p>
+      <div class="parcours-grid">
+
+        <ScannerBorder class="parcours-card">
+          <p class="parcours-company">PwC</p>
+          <p class="parcours-role">Audit IT</p>
+          <p class="parcours-detail font-mono">Stage</p>
+        </ScannerBorder>
+
+        <ScannerBorder class="parcours-card">
+          <p class="parcours-company">Nestlé</p>
+          <p class="parcours-role">Business Analyst</p>
+        </ScannerBorder>
+
+        <ScannerBorder class="parcours-card">
+          <p class="parcours-company">Imopac</p>
+          <p class="parcours-role">Head of Office Romandie</p>
+          <p class="parcours-detail font-mono">Consultant → Dev Xyrion → HO</p>
+        </ScannerBorder>
+
+        <ScannerBorder class="parcours-card">
+          <p class="parcours-company">Solutions & Funds</p>
+          <p class="parcours-role">Deputy Head of IT</p>
+          <p class="parcours-detail font-mono">En poste</p>
+        </ScannerBorder>
+
+      </div>
     </div>
-  </div>
+  </div><!-- end .container -->
 </template>
 
 <style scoped>
@@ -92,5 +123,40 @@ useSeoMeta({
 @media (max-width: 640px) {
   .identity-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .identity-card { padding: 1.25rem; }
+}
+
+/* ── Parcours ─────────────────────────────────────────── */
+.parcours-section { margin-top: 3rem; }
+.parcours-label {
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: var(--color-muted); margin-bottom: 1.25rem;
+}
+.parcours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+.parcours-card {
+  padding: 1.25rem 1rem;
+  background: var(--color-surface);
+}
+.parcours-company {
+  font-family: var(--font-mono);
+  font-size: 0.8rem; font-weight: 700;
+  color: var(--color-accent);
+  margin: 0 0 0.35rem;
+  letter-spacing: 0.05em;
+}
+.parcours-role {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  margin: 0 0 0.35rem;
+  line-height: 1.4;
+}
+.parcours-detail {
+  font-size: 0.65rem;
+  color: var(--color-muted);
+  margin: 0;
+  letter-spacing: 0.08em;
 }
 </style>
