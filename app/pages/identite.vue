@@ -86,7 +86,7 @@ useSeoMeta({
         </ScannerBorder>
 
         <ScannerBorder class="parcours-card">
-          <p class="parcours-company">Solutions & Funds</p>
+          <p class="parcours-company">Solutions &amp; Funds</p>
           <p class="parcours-role">Deputy Head of IT</p>
           <p class="parcours-detail font-mono">En poste</p>
         </ScannerBorder>
@@ -128,6 +128,7 @@ useSeoMeta({
 /* ── Parcours ─────────────────────────────────────────── */
 .parcours-section { margin-top: 3rem; }
 .parcours-label {
+  font-family: var(--font-mono);
   font-size: 0.65rem; letter-spacing: 0.15em;
   color: var(--color-muted); margin-bottom: 1.25rem;
 }
