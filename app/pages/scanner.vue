@@ -18,6 +18,7 @@ const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
 const selectedJob = ref<Job | null>(null)
 const termLines   = ref<{ text: string; done: boolean }[]>([])
 const copied      = ref(false)
+let copyTimer: ReturnType<typeof setTimeout> | null = null
 const scanTimers: ReturnType<typeof setTimeout>[] = []
 
 // ── Autocomplete ─────────────────────────────────────────
@@ -48,6 +49,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   scanTimers.forEach(id => clearTimeout(id))
+  if (copyTimer) clearTimeout(copyTimer)
 })
 
 // ── Terminal animation ───────────────────────────────────
@@ -139,13 +141,16 @@ const ctaLabel = computed(() => {
 
 // ── Share ─────────────────────────────────────────────────
 function copyLink() {
-  navigator.clipboard.writeText(window.location.href)
+  navigator.clipboard.writeText(window.location.href).catch(() => {})
   copied.value = true
-  setTimeout(() => { copied.value = false }, 1500)
+  if (copyTimer) clearTimeout(copyTimer)
+  copyTimer = setTimeout(() => { copied.value = false }, 1500)
 }
 
 // ── Reset ─────────────────────────────────────────────────
 function reset() {
+  scanTimers.forEach(id => clearTimeout(id))
+  scanTimers.length = 0
   query.value       = ''
   suggestions.value = []
   selectedJob.value = null

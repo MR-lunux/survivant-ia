@@ -135,6 +135,7 @@ export const JOBS: Job[] = [
   { slug: 'serrurier',            label: 'Serrurier',                 risk: 9,  horizon: 10, status: 'resistant', source: 'Goldman Sachs 2023' },
   { slug: 'conducteur-engins',    label: "Conducteur d'engins",       risk: 18, horizon: 10, status: 'resistant', source: 'Goldman Sachs 2023' },
   { slug: 'juge',                 label: 'Juge / Magistrat',          risk: 26, horizon: 10, status: 'resistant', source: 'Goldman Sachs 2023' },
+  { slug: 'pompiste',             label: 'Technicien de surface',     risk: 8,  horizon: 10, status: 'resistant', source: 'Goldman Sachs 2023' },
 ]
 
 export function findJobBySlug(slug: string): Job | undefined {
