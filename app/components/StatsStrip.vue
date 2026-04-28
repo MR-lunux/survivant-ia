@@ -29,9 +29,9 @@
 const statEls = ref<HTMLElement[]>([])
 
 const stats = reactive([
-  { target: 1,   suffix: '',  label: 'rapport / semaine',  displayed: 0 },
-  { target: 100, suffix: '%', label: 'sans jargon',         displayed: 0 },
-  { target: 0,   suffix: '+', label: 'survivants inscrits', displayed: 0 },
+  { target: 1,   suffix: '',     label: 'rapport / semaine',        displayed: 0 },
+  { target: 5,   suffix: ' min', label: 'de lecture par édition',   displayed: 0 },
+  { target: 100, suffix: '%',    label: 'terrain, aucun théoricien', displayed: 0 },
 ])
 
 function animateCounter(stat: typeof stats[0]) {
