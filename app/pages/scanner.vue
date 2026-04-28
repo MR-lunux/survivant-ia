@@ -18,6 +18,7 @@ const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
 const selectedJob = ref<Job | null>(null)
 const termLines   = ref<{ text: string; done: boolean }[]>([])
 const copied      = ref(false)
+const jobInputRef = ref<HTMLInputElement | null>(null)
 let copyTimer: ReturnType<typeof setTimeout> | null = null
 const scanTimers: ReturnType<typeof setTimeout>[] = []
 
@@ -44,6 +45,8 @@ onMounted(() => {
       phase.value       = 'result'
       setDynamicMeta(job)
     }
+  } else {
+    jobInputRef.value?.focus()
   }
 })
 
@@ -187,10 +190,11 @@ function reset() {
             <div class="input-row font-mono">
               <span class="prompt-char text-accent">$&nbsp;</span>
               <input
+                ref="jobInputRef"
                 v-model="query"
                 class="job-input font-mono"
                 type="text"
-                placeholder='survival_check --job="..."'
+                placeholder="Ex : Comptable, Développeur, Infirmier..."
                 autocomplete="off"
                 spellcheck="false"
               />
