@@ -17,7 +17,7 @@ useSeoMeta({
           <div class="identity-avatar">M</div>
           <div>
             <h2 style="margin: 0 0 0.25rem; font-size: 1.2rem;">Mathieu</h2>
-            <span class="font-mono" style="font-size: 0.7rem; color: var(--color-accent); letter-spacing: 0.1em;">CHEF DE PROJET IT — SURVIVANT EN COURS</span>
+            <span class="font-mono" style="font-size: 0.7rem; color: var(--color-accent); letter-spacing: 0.1em;">DEPUTY HEAD OF IT — SURVIVANT EN COURS</span>
           </div>
         </div>
       </div>
