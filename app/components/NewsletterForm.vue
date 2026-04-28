@@ -10,7 +10,8 @@
             <span class="nl-status font-mono"><span class="nl-dot">●</span> FRÉQUENCE ACTIVE</span>
             <h3 class="nl-title">Accès à la Fréquence — Sécurisé</h3>
             <p class="nl-subtitle">
-              Recevez chaque semaine mon analyse terrain pour comprendre l'IA sans jargon, et développez les soft skills qui sécuriseront votre carrière.
+              Chaque semaine : 1 analyse terrain, 3 axes pratiques, 5 minutes chrono.<br>
+              Rejoignez les premiers dans la zone.
             </p>
           </div>
 
