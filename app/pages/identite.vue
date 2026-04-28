@@ -58,7 +58,8 @@ useSeoMeta({
       </ScannerBorder>
 
       <p>
-        Je publie un rapport de survie chaque semaine. Je ne suis pas l'expert IA ultime. Je suis quelqu'un qui traverse la même zone que vous, avec quelques cartes en main.
+        Je ne suis pas l'expert IA ultime. Je suis quelqu'un qui traverse la même zone que vous,
+        avec quelques cartes en main — et les cicatrices pour prouver que j'y suis déjà passé.
       </p>
     </div>
   </div>
