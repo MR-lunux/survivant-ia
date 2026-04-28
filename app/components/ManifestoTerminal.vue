@@ -16,9 +16,9 @@ const linesEl  = ref<HTMLElement | null>(null)
 const footerEl = ref<HTMLElement | null>(null)
 
 const LINES = [
-  "Je suis chef de projet IT. Je vois l'IA arriver. Je refuse de regarder sans agir.",
-  "Ce site n'est pas là pour vous faire peur — c'est là pour vous armer. Les outils sont plus simples que vous ne le croyez. La menace est réelle mais gérable.",
-  "Préparons-nous avant que ça arrive.",
+  "Vous voyez l'IA arriver dans votre job. Vous ne savez pas comment vous positionner. Vous n'êtes pas seul.",
+  "Ce n'est pas un cours de Python. Ce n'est pas du jargon. C'est une carte de survie pratique, une fois par semaine.",
+  "Préparez-vous avant que ça arrive.",
 ]
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*<>[]{}/'
 
