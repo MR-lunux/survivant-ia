@@ -3,7 +3,10 @@
   <ScannerBorder class="manifeste-inner">
     <div class="v2-header">
       <span ref="labelEl" class="v2-label font-mono">// MANIFESTE</span>
-      <span class="v2-blink font-mono">● LIVE</span>
+      <div class="v2-header-right">
+        <span class="v2-blink font-mono">● LIVE</span>
+        <NuxtLink to="/identite" class="v2-monogram" title="Identité du Survivant">M</NuxtLink>
+      </div>
     </div>
     <div ref="linesEl" class="v2-lines" />
     <div ref="footerEl" class="v2-footer font-mono">— FIN DE TRANSMISSION —</div>
@@ -118,6 +121,22 @@ onMounted(async () => {
 }
 .v2-label { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--color-muted); }
 .v2-blink { font-size: 0.6rem; color: var(--color-accent); animation: vblink 1.5s infinite; }
+.v2-header-right { display: flex; align-items: center; gap: 0.75rem; }
+.v2-monogram {
+  display: flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  border: 1px solid rgba(0, 255, 65, 0.4);
+  background: var(--color-bg);
+  font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
+  color: var(--color-accent);
+  text-decoration: none;
+  image-rendering: pixelated;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.v2-monogram:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.35);
+}
 @keyframes vblink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 .v2-lines { min-height: 8rem; }
 :deep(.v2-line) {
