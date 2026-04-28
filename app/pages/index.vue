@@ -107,6 +107,21 @@ onUnmounted(() => {
     </section>
 
     <SectionDivider />
+
+    <!-- ── SCANNER TEASER ─────────────────────────── -->
+    <section class="scanner-teaser-section">
+      <div class="container">
+        <ScannerBorder class="scanner-teaser">
+          <span class="font-mono scanner-teaser-label">// DIAGNOSTIC IA</span>
+          <p class="scanner-teaser-text">
+            Scanne ton métier — découvre ton score d'obsolescence en 10 secondes.
+          </p>
+          <GlitchButton label="Lancer le scan" to="/scanner" />
+        </ScannerBorder>
+      </div>
+    </section>
+
+    <SectionDivider />
     <StatsStrip />
     <SectionDivider />
 
@@ -278,5 +293,29 @@ onUnmounted(() => {
   .title-line-inner { transform: none !important; animation: none !important; }
   .typing-cursor    { opacity: 1 !important; animation: none !important; }
   .accent-glitch    { animation: none !important; }
+}
+
+/* ── Scanner teaser ──────────────────────────────── */
+.scanner-teaser-section { padding: 0; }
+.scanner-teaser {
+  padding: 2rem;
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.scanner-teaser-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+.scanner-teaser-text {
+  flex: 1;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  min-width: 200px;
 }
 </style>
