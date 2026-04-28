@@ -1,6 +1,6 @@
 <!-- app/pages/scanner.vue -->
 <script setup lang="ts">
-import { JOBS, findJobBySlug, searchJobs, type Job } from '~/data/jobs'
+import { findJobBySlug, searchJobs, type Job } from '~/data/jobs'
 
 // ── SEO static ──────────────────────────────────────────
 useSeoMeta({
@@ -18,6 +18,7 @@ const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
 const selectedJob = ref<Job | null>(null)
 const termLines   = ref<{ text: string; done: boolean }[]>([])
 const copied      = ref(false)
+const scanTimers: ReturnType<typeof setTimeout>[] = []
 
 // ── Autocomplete ─────────────────────────────────────────
 watch(query, (val) => {
@@ -45,6 +46,10 @@ onMounted(() => {
   }
 })
 
+onBeforeUnmount(() => {
+  scanTimers.forEach(id => clearTimeout(id))
+})
+
 // ── Terminal animation ───────────────────────────────────
 const SCAN_LINES = (jobLabel: string) => [
   `$ survival_check --job="${jobLabel}"`,
@@ -60,35 +65,43 @@ const VERDICT: Record<Job['status'], string> = {
   resistant: 'résistance confirmée',
 }
 
+const STATUS_LABELS: Record<Job['status'], string> = {
+  danger:    'EN DANGER',
+  augmente:  'AUGMENTÉ',
+  resistant: 'RÉSISTANT',
+}
+
 function startScan(job: Job) {
+  scanTimers.forEach(id => clearTimeout(id))
+  scanTimers.length = 0
+
   phase.value     = 'scanning'
   termLines.value = []
 
   const lines = SCAN_LINES(job.label)
   lines.forEach((text, i) => {
-    setTimeout(() => {
+    scanTimers.push(setTimeout(() => {
       termLines.value.push({ text, done: false })
-      setTimeout(() => {
+      scanTimers.push(setTimeout(() => {
         termLines.value[i].done = true
         if (i === lines.length - 1) {
-          setTimeout(() => {
+          scanTimers.push(setTimeout(() => {
             phase.value = 'result'
             router.replace({ query: { job: job.slug } })
             setDynamicMeta(job)
-          }, 400)
+          }, 400))
         }
-      }, 350)
-    }, i * 420)
+      }, 350))
+    }, i * 420))
   })
 }
 
 // ── Dynamic og meta ──────────────────────────────────────
 function setDynamicMeta(job: Job) {
-  const statusLabel = { danger: 'EN DANGER', augmente: 'AUGMENTÉ', resistant: 'RÉSISTANT' }[job.status]
   useHead({
     meta: [
       { property: 'og:title',       content: `Mon risque IA : ${job.risk}% — ${job.label} | Survival Check` },
-      { property: 'og:description', content: `J'ai scanné mon métier sur survivant-ia.ch. Résultat : ${statusLabel}. Et toi ?` },
+      { property: 'og:description', content: `J'ai scanné mon métier sur survivant-ia.ch. Résultat : ${STATUS_LABELS[job.status]}. Et toi ?` },
     ],
   })
 }
@@ -106,7 +119,7 @@ const riskColor = computed(() => {
 
 const statusLabel = computed(() => {
   if (!selectedJob.value) return ''
-  return { danger: 'EN DANGER', augmente: 'AUGMENTÉ', resistant: 'RÉSISTANT' }[selectedJob.value.status]
+  return STATUS_LABELS[selectedJob.value.status]
 })
 
 const message = computed(() => {
