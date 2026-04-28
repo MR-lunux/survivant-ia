@@ -26,7 +26,7 @@ useSeoMeta({
     <div class="identity-text">
       <p>
         Mon parcours n'a rien d'un parcours tech pur : économie, master en systèmes d'information,
-        puis PwC en audit IT, Nestlé comme Business Analyst, Imopac où je suis passé de consultant
+        puis PwC en audit IT, Nestlé comme Business Analyst, Immopac où je suis passé de consultant
         à Head of Office Romandie, et aujourd'hui Deputy Head of IT chez Solutions&nbsp;&amp;&nbsp;Funds.
         Des environnements différents, un fil rouge : être l'interface entre les gens, les process,
         et les outils.
@@ -80,7 +80,7 @@ useSeoMeta({
         </ScannerBorder>
 
         <ScannerBorder class="parcours-card">
-          <p class="parcours-company">Imopac</p>
+          <p class="parcours-company">Immopac</p>
           <p class="parcours-role">Head of Office Romandie</p>
           <p class="parcours-detail font-mono">Consultant → Dev Xyrion → HO</p>
         </ScannerBorder>
