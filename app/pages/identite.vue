@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Identité du Survivant — Mathieu le Survivant de l\'IA',
-  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech — et un burnout par surutilisation de l\'IA. Voici pourquoi ce site existe.',
+  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech — et le jour où l\'IA m\'a appris à redevenir lucide. Voici pourquoi ce site existe.',
 })
 </script>
 
