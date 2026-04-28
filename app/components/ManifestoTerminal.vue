@@ -175,7 +175,7 @@ onMounted(async () => {
 }
 
 /* ── Terminal ───────────────────────────────────────────── */
-.manifeste-inner { padding: 2.5rem; background: var(--color-surface); max-width: 700px; }
+.manifeste-inner { padding: 2.5rem; background: var(--color-surface); max-width: 700px; flex: 1; }
 .v2-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 1.5rem; padding-bottom: 0.75rem;
