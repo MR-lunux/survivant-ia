@@ -296,7 +296,7 @@ onUnmounted(() => {
 }
 
 /* ── Scanner teaser ──────────────────────────────── */
-.scanner-teaser-section { padding: 0; }
+.scanner-teaser-section { padding: 0 0 3rem; }
 .scanner-teaser {
   padding: 2rem;
   background: var(--color-surface);
