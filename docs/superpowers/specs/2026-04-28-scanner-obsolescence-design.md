@@ -104,7 +104,7 @@ Couleurs : EN DANGER → rouge `#FF3E3E` ; AUGMENTÉ et RÉSISTANT → vert `#00
 Les deux boutons pointent vers `/#newsletter`.
 
 ### 5. Partage
-Bouton discret sous le CTA : `[ Partager mon résultat ]` — copie l'URL dans le presse-papier. L'URL est mise à jour silencieusement dès l'affichage des résultats (`/scanner?job=comptable`). Quand la page est chargée avec un paramètre `?job=`, le résultat est pré-chargé sans animation.
+Bouton discret sous le CTA : `[ Partager mon résultat ]` — copie l'URL dans le presse-papier et affiche brièvement `[ Lien copié ! ]` (1.5s) avant de revenir à l'état initial. L'URL est mise à jour silencieusement dès l'affichage des résultats (`/scanner?job=comptable`). Quand la page est chargée avec un paramètre `?job=` valide, le résultat est pré-chargé sans animation. Si le slug `?job=` ne correspond à aucun métier de la table, le paramètre est ignoré et la page s'affiche normalement (champ vide, pas d'erreur).
 
 ---
 
