@@ -193,6 +193,11 @@ const statusColor = computed(() => {
   return 'var(--color-accent)'
 })
 
+// When danger: value + gauge use white (card has red bg); otherwise use statusColor
+const riskCardFg = computed(() =>
+  selectedJob.value?.status === 'danger' ? '#ffffff' : statusColor.value
+)
+
 const statusLabel = computed(() => {
   if (!selectedJob.value) return ''
   return STATUS_LABELS[selectedJob.value.status]
@@ -316,13 +321,16 @@ function reset() {
 
         <!-- 3 stat cards -->
         <div class="stats-grid">
-          <ScannerBorder class="stat-card">
+          <ScannerBorder
+            class="stat-card"
+            :class="{ 'stat-card--danger': selectedJob?.status === 'danger' }"
+          >
             <p class="stat-label font-mono">RISQUE</p>
-            <p class="stat-value font-mono" :style="{ color: statusColor }">
+            <p class="stat-value font-mono" :style="{ color: riskCardFg }">
               {{ displayRisk }}<span class="stat-unit">%</span>
             </p>
             <div class="gauge-track" aria-hidden="true">
-              <div class="gauge-fill" :style="{ width: displayRisk + '%', background: statusColor }" />
+              <div class="gauge-fill" :style="{ width: displayRisk + '%', background: riskCardFg }" />
             </div>
           </ScannerBorder>
           <ScannerBorder class="stat-card">
@@ -504,6 +512,9 @@ function reset() {
   margin-bottom: 2rem;
 }
 .stat-card { padding: 1.5rem 1.25rem; background: var(--color-surface); }
+.stat-card--danger { background: var(--color-danger); }
+.stat-card--danger .stat-label { color: rgba(255, 255, 255, 0.7); }
+.stat-card--danger .gauge-track { background: rgba(255, 255, 255, 0.25); }
 .stat-label {
   font-size: 0.6rem;
   letter-spacing: 0.18em;
