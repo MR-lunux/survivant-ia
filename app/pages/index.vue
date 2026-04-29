@@ -1,8 +1,8 @@
 <!-- app/pages/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Se former à l\'IA pour ne pas se faire remplacer | Survivant-IA',
-  description: 'Reçois chaque semaine un rapport pour ne pas te faire remplacer par l\'IA. Compétences, astuces, cas concrets — gratuit, sans jargon. Bonus : scanner d\'obsolescence par métier.',
+  title: 'Se former à l\'IA, ne pas se faire remplacer | Survivant-IA',
+  description: '1 rapport gratuit / semaine pour ne pas te faire remplacer par l\'IA. Compétences, astuces, cas concrets, sans jargon. Bonus : scanner par métier.',
   ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer — Survivant-IA',
   ogDescription: '1 rapport par semaine pour ne pas te faire remplacer par l\'IA. Gratuit, sans jargon. Et un scanner d\'obsolescence par métier.',
   twitterCard: 'summary_large_image',
