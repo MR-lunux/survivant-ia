@@ -54,10 +54,10 @@
             <button
               type="submit"
               class="btn-glitch"
-              :data-text="status === 'loading' ? 'CHIFFREMENT EN COURS...' : 'SÉCURISER MON POSTE'"
+              :data-text="status === 'loading' ? 'CHIFFREMENT EN COURS...' : 'PRENDRE LES DEVANTS'"
               :disabled="!canSubmit"
             >
-              {{ status === 'loading' ? 'CHIFFREMENT EN COURS...' : 'SÉCURISER MON POSTE' }}
+              {{ status === 'loading' ? 'CHIFFREMENT EN COURS...' : 'PRENDRE LES DEVANTS' }}
             </button>
           </form>
 

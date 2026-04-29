@@ -104,8 +104,14 @@ onUnmounted(() => {
         </p>
 
         <div class="hero-cta">
-          <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" />
-          <NuxtLink to="/scanner" class="hero-link font-mono">TESTER MON MÉTIER →</NuxtLink>
+          <div class="cta-group">
+            <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" />
+            <span class="cta-subline font-mono">1 rapport gratuit / semaine · 5 min</span>
+          </div>
+          <div class="cta-group">
+            <NuxtLink to="/scanner" class="hero-link font-mono">TESTER MON MÉTIER →</NuxtLink>
+            <span class="cta-subline font-mono">10 secondes · sans inscription</span>
+          </div>
         </div>
       </div>
     </section>
@@ -138,7 +144,7 @@ onUnmounted(() => {
           <p class="scanner-teaser-text">
             Scanne ton métier — découvre ton score d'obsolescence en 10 secondes.
           </p>
-          <GlitchButton label="Lancer le scan" to="/scanner" />
+          <GlitchButton label="Lancer le scan (gratuit)" to="/scanner" />
         </ScannerBorder>
       </div>
     </section>
@@ -312,9 +318,21 @@ onUnmounted(() => {
   animation: heroFadeUp 0.6s 1.1s ease both;
 }
 .hero-cta {
-  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+  display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;
   opacity: 0;
   animation: heroFadeUp 0.5s 1.3s ease both;
+}
+.cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+.cta-subline {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  opacity: 0.85;
 }
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(16px); }
