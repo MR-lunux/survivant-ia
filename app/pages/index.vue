@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Se former à l\'IA pour ne pas se faire remplacer | Survivant-IA',
-  description: 'Reçois chaque semaine un rapport pour ne pas te faire remplacer par l\'IA. Compétences, méthodes, cas concrets — gratuit, sans jargon. Bonus : scanner d\'obsolescence par métier.',
+  description: 'Reçois chaque semaine un rapport pour ne pas te faire remplacer par l\'IA. Compétences, astuces, cas concrets — gratuit, sans jargon. Bonus : scanner d\'obsolescence par métier.',
   ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer — Survivant-IA',
   ogDescription: '1 rapport par semaine pour ne pas te faire remplacer par l\'IA. Gratuit, sans jargon. Et un scanner d\'obsolescence par métier.',
   twitterCard: 'summary_large_image',
@@ -160,7 +160,7 @@ onUnmounted(() => {
     <section class="rapports-section">
       <div class="container">
         <div class="section-header" data-reveal>
-          <h2>Rapports de Survie — la méthode pour prendre le virage de l'IA</h2>
+          <h2>Rapports de Survie — la veille hebdo pour prendre le virage de l'IA</h2>
           <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;">LIRE LES RAPPORTS ANTI-OBSOLESCENCE →</NuxtLink>
         </div>
 

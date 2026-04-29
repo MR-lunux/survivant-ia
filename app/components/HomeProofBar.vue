@@ -17,8 +17,9 @@
             </p>
             <p class="proof-bio">
               15 ans à l'interface entre les humains, les process et les outils.
-              Survivant-IA, c'est la méthode que j'aurais aimé avoir le jour où
-              l'IA m'a appris à redevenir lucide.
+              Survivant-IA, c'est ce que j'aurais aimé trouver le jour où l'IA
+              m'a appris à redevenir lucide — un site, une newsletter, des
+              astuces qui marchent, et des échanges entre survivants.
             </p>
           </div>
         </div>

@@ -2,9 +2,9 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Mathieu Rerat — Qui est derrière Survivant-IA',
-  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech. Le parcours de Mathieu Rerat et la méthode anti-obsolescence derrière Survivant-IA.',
+  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech. Le parcours de Mathieu Rerat et l\'esprit anti-obsolescence derrière Survivant-IA.',
   ogTitle: 'Mathieu Rerat — Identité du Survivant-IA',
-  ogDescription: 'Le parcours et la méthode derrière Survivant-IA. Concret, sans théorie.',
+  ogDescription: 'Le parcours et l\'esprit derrière Survivant-IA. Concret, sans théorie.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Mathieu Rerat — Identité du Survivant-IA',
   twitterDescription: 'Le parcours derrière Survivant-IA — anti-obsolescence pour les pros.',
