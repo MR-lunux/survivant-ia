@@ -2,18 +2,23 @@
 <template>
   <section class="proof-section" data-reveal>
     <ScannerBorder class="proof-card">
+      <span class="proof-kicker font-mono">// SIGNAL ENTRANT · IDENTITÉ</span>
+
       <div class="proof-grid">
         <!-- Identity block -->
         <div class="proof-identity">
           <div class="proof-avatar" aria-hidden="true">M</div>
           <div class="proof-id-text">
             <p class="proof-name">
-              Mathieu Rerat
-              <span class="proof-role font-mono">DEPUTY HEAD OF IT</span>
+              Mathieu <span class="proof-persona">le Survivant de l'IA</span>
+            </p>
+            <p class="proof-role font-mono">
+              DEPUTY HEAD OF IT · EX-PWC, NESTLÉ, IMMOPAC
             </p>
             <p class="proof-bio">
-              15 ans à voir des métiers évoluer — PwC, Nestlé, Immopac, Solutions&nbsp;&amp;&nbsp;Funds.
-              Survivant-IA, c'est la méthode que j'aurais aimé avoir.
+              15 ans à l'interface entre les humains, les process et les outils.
+              Survivant-IA, c'est la méthode que j'aurais aimé avoir le jour où
+              l'IA m'a appris à redevenir lucide.
             </p>
           </div>
         </div>
@@ -38,21 +43,29 @@
 .proof-section { padding: 0 0 4rem; }
 
 .proof-card {
-  padding: 2rem 2rem 1.5rem;
+  padding: 1.5rem 2rem 1.5rem;
   background: var(--color-surface);
+}
+
+.proof-kicker {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--color-muted);
+  margin-bottom: 1.25rem;
 }
 
 .proof-grid {
   display: flex;
   gap: 2rem;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 1.25rem;
 }
 
 .proof-identity {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.25rem;
   flex: 1;
   min-width: 280px;
@@ -70,32 +83,34 @@
   font-weight: 700;
   color: var(--color-accent);
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .proof-id-text { flex: 1; min-width: 0; }
 
 .proof-name {
-  margin: 0 0 0.4rem;
-  font-size: 1rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--color-text);
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  line-height: 1.3;
+}
+.proof-persona {
+  color: var(--color-accent);
+  font-weight: 600;
 }
 .proof-role {
+  margin: 0 0 0.85rem;
   font-size: 0.6rem;
   letter-spacing: 0.12em;
-  color: var(--color-accent);
-  font-weight: 400;
+  color: var(--color-muted);
 }
 .proof-bio {
   margin: 0;
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--color-muted);
-  max-width: 60ch;
+  max-width: 62ch;
 }
 
 .proof-chips {

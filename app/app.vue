@@ -22,6 +22,7 @@ const orgWebsiteJsonLd = computed(() => JSON.stringify({
         '@type': 'Person',
         '@id': 'https://survivant-ia.ch/identite#mathieu',
         name: 'Mathieu Rerat',
+        alternateName: 'Mathieu le Survivant de l\'IA',
         url: 'https://survivant-ia.ch/identite',
       },
     },

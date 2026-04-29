@@ -20,6 +20,7 @@ useHead({
           '@type': 'Person',
           '@id': 'https://survivant-ia.ch/identite#mathieu',
           name: 'Mathieu Rerat',
+          alternateName: 'Mathieu le Survivant de l\'IA',
           url: 'https://survivant-ia.ch/identite',
           jobTitle: 'Deputy Head of IT',
           description: 'Fondateur de Survivant-IA. Ex-PwC, Nestlé, Immopac. Aide les professionnels à se former à l\'IA pour ne pas se faire remplacer.',
@@ -63,8 +64,10 @@ defineOgImage('Default', {
         <div class="identity-header">
           <div class="identity-avatar">M</div>
           <div>
-            <h2 style="margin: 0 0 0.25rem; font-size: 1.2rem;">Mathieu</h2>
-            <span class="font-mono" style="font-size: 0.7rem; color: var(--color-accent); letter-spacing: 0.1em;">DEPUTY HEAD OF IT — SURVIVANT EN COURS</span>
+            <h2 style="margin: 0 0 0.35rem; font-size: 1.25rem; line-height: 1.3;">
+              Mathieu <span class="text-accent">le Survivant de l'IA</span>
+            </h2>
+            <span class="font-mono" style="font-size: 0.65rem; color: var(--color-muted); letter-spacing: 0.1em;">DEPUTY HEAD OF IT · SURVIVANT EN COURS</span>
           </div>
         </div>
       </div>
