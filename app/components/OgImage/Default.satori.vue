@@ -4,7 +4,7 @@ withDefaults(defineProps<{
   kicker?: string
 }>(), {
   title: 'Survivant-IA',
-  kicker: '// FORMATION ANTI-OBSOLESCENCE',
+  kicker: '// ZONE ANTI-OBSOLESCENCE',
 })
 </script>
 

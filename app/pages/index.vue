@@ -12,7 +12,7 @@ useSeoMeta({
 
 defineOgImage('Default', {
   title: 'Comment ne pas se faire remplacer par l\'IA',
-  kicker: '// FORMATION ANTI-OBSOLESCENCE',
+  kicker: '// ZONE ANTI-OBSOLESCENCE',
 })
 
 const { data: articles } = await useAsyncData('home-articles', () =>
@@ -81,7 +81,7 @@ onUnmounted(() => {
           <span ref="statusText" class="font-mono">TRANSMISSION EN COURS</span>
         </div>
 
-        <span class="hero-kicker font-mono">// FORMATION ANTI-OBSOLESCENCE</span>
+        <span class="hero-kicker font-mono">// ZONE ANTI-OBSOLESCENCE</span>
 
         <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
 
