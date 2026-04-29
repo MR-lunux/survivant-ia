@@ -16,11 +16,58 @@ if (!article.value) {
 }
 
 useSeoMeta({
-  title: () => `${article.value?.title} — Survivant de l'IA`,
+  title: () => `${article.value?.title} | Survivant-IA`,
   description: () => article.value?.description ?? '',
-  ogTitle: () => article.value?.title,
+  ogTitle: () => article.value?.title ?? '',
   ogDescription: () => article.value?.description ?? '',
-  twitterCard: 'summary',
+  ogType: 'article',
+  articleAuthor: ['Mathieu Rerat'],
+  articlePublishedTime: () => article.value?.date ? new Date(article.value.date).toISOString() : undefined,
+  articleSection: () => article.value?.category ?? undefined,
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => article.value?.title ?? '',
+  twitterDescription: () => article.value?.description ?? '',
+})
+
+const articleJsonLd = computed(() => JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `https://survivant-ia.ch/rapports/${slug}#article`,
+      headline: article.value?.title ?? '',
+      description: article.value?.description ?? '',
+      datePublished: article.value?.date ? new Date(article.value.date).toISOString() : undefined,
+      dateModified: article.value?.date ? new Date(article.value.date).toISOString() : undefined,
+      author: {
+        '@type': 'Person',
+        '@id': 'https://survivant-ia.ch/identite#mathieu',
+        name: 'Mathieu Rerat',
+        url: 'https://survivant-ia.ch/identite',
+      },
+      publisher: { '@id': 'https://survivant-ia.ch/#organization' },
+      mainEntityOfPage: `https://survivant-ia.ch/rapports/${slug}`,
+      inLanguage: 'fr-CH',
+      articleSection: article.value?.category ?? undefined,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Rapports de Survie', item: 'https://survivant-ia.ch/rapports' },
+        { '@type': 'ListItem', position: 3, name: article.value?.title ?? '' },
+      ],
+    },
+  ],
+}))
+
+useHead({
+  script: [{ type: 'application/ld+json', innerHTML: articleJsonLd }],
+})
+
+defineOgImage('Default', {
+  title: article.value?.title ?? '',
+  kicker: '// RAPPORT DE SURVIE',
 })
 
 const formattedDate = computed(() => {
@@ -38,7 +85,12 @@ const categoryLabel = computed(() =>
 
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem;">
-    <NuxtLink to="/rapports" class="back-link font-mono">← RETOUR AUX RAPPORTS</NuxtLink>
+    <Breadcrumbs
+      :items="[
+        { label: 'Rapports', to: '/rapports' },
+        { label: article?.title ?? '' },
+      ]"
+    />
 
     <article class="article-wrapper" v-if="article">
       <header class="article-header">
@@ -69,16 +121,6 @@ const categoryLabel = computed(() =>
 </template>
 
 <style scoped>
-.back-link {
-  display: inline-block;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-  margin-bottom: 3rem;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.back-link:hover { color: var(--color-accent); }
 .article-wrapper { max-width: 780px; }
 .article-header { margin-bottom: 3rem; }
 .article-meta {

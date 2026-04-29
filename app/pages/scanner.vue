@@ -4,8 +4,48 @@ import { findJobBySlug, searchJobs, type Job } from '~/data/jobs'
 
 // ── SEO static ──────────────────────────────────────────
 useSeoMeta({
-  title: 'Scanner IA — Risque automatisation par métier | Survivant-IA',
-  description: 'Découvre en 10 secondes si ton métier est menacé par l\'IA. Données MIT, OCDE, WEF. Gratuit.',
+  title: 'Scanner IA — Tester si mon métier est menacé par l\'IA | Survivant-IA',
+  description: 'Teste en 10 secondes le risque que l\'IA remplace ton métier. Score d\'obsolescence basé sur les données MIT, OCDE, WEF. Gratuit, sans inscription.',
+  ogTitle: 'Scanner IA — Mon métier est-il menacé par l\'IA ?',
+  ogDescription: 'Score de risque automatisation en 10 secondes. Données MIT, OCDE, WEF. Survivant-IA.',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Mon métier est-il menacé par l\'IA ?',
+  twitterDescription: 'Test gratuit en 10 secondes. Données MIT, OCDE, WEF. Survivant-IA.',
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebApplication',
+          '@id': 'https://survivant-ia.ch/scanner#app',
+          name: 'Scanner IA — Risque automatisation par métier',
+          url: 'https://survivant-ia.ch/scanner',
+          description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur MIT, OCDE, WEF.',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          inLanguage: 'fr-CH',
+          isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
+            { '@type': 'ListItem', position: 2, name: 'Scanner IA' },
+          ],
+        },
+      ],
+    }),
+  }],
+})
+
+defineOgImage('Default', {
+  title: 'Mon métier est-il menacé par l\'IA ?',
+  kicker: '// SCANNER · 10 SECONDES',
 })
 
 // ── State ────────────────────────────────────────────────
@@ -166,6 +206,8 @@ function reset() {
 <template>
   <div class="scanner-page">
     <div class="container">
+
+      <Breadcrumbs :items="[{ label: 'Scanner IA' }]" />
 
       <!-- ── Header terminal ──────────────────────── -->
       <div class="terminal-header font-mono">

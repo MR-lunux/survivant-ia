@@ -1,8 +1,44 @@
 <!-- app/pages/rapports/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Rapports de Survie — Mathieu le Survivant de l\'IA',
-  description: 'Tous les rapports : soft skills, comprendre l\'IA, cas pratiques. Préparez-vous.',
+  title: 'Rapports de Survie — Compétences à développer face à l\'IA | Survivant-IA',
+  description: 'Tous les rapports anti-obsolescence : soft skills, comprendre l\'IA, cas pratiques. La méthode pour prendre le virage de l\'IA, pas pour le subir.',
+  ogTitle: 'Rapports de Survie — Survivant-IA',
+  ogDescription: 'Soft skills, compréhension de l\'IA, cas pratiques. Anti-obsolescence pour les pros.',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Rapports de Survie — Survivant-IA',
+  twitterDescription: 'La méthode pour prendre le virage de l\'IA, pas pour le subir.',
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': 'https://survivant-ia.ch/rapports#page',
+          name: 'Rapports de Survie',
+          description: 'Tous les rapports anti-obsolescence : soft skills, comprendre l\'IA, cas pratiques.',
+          inLanguage: 'fr-CH',
+          isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
+            { '@type': 'ListItem', position: 2, name: 'Rapports de Survie' },
+          ],
+        },
+      ],
+    }),
+  }],
+})
+
+defineOgImage('Default', {
+  title: 'Rapports de Survie',
+  kicker: '// COMPÉTENCES ANTI-OBSOLESCENCE',
 })
 
 const activeCategory = ref<string | null>(null)
@@ -28,6 +64,7 @@ const categories = [
 
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem;">
+    <Breadcrumbs :items="[{ label: 'Rapports de Survie' }]" />
     <div class="page-header">
       <span class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted);">// RAPPORTS DE SURVIE</span>
       <h1>Tous les Rapports</h1>

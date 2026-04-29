@@ -1,9 +1,12 @@
 <!-- app/pages/confidentialite.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Politique de confidentialité — Survivant de l\'IA',
-  description: 'Comment vos données sont collectées et utilisées par Survivant de l\'IA.',
+  title: 'Politique de confidentialité — Survivant-IA',
+  description: 'Comment vos données sont collectées et utilisées par Survivant-IA. RGPD + LPD suisse.',
+  robots: 'noindex, follow',
 })
+
+defineOgImage(false)
 </script>
 
 <template>

@@ -1,11 +1,18 @@
 <!-- app/pages/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Mathieu le Survivant de l\'IA — Préparez-vous avant que ça arrive',
-  description: 'Soft skills, comprendre l\'IA, cas pratiques. 1 rapport de survie par semaine pour ne pas se faire remplacer.',
-  ogTitle: 'Mathieu le Survivant de l\'IA',
-  ogDescription: 'Soft skills, comprendre l\'IA, cas pratiques. 1 rapport de survie par semaine.',
+  title: 'Se former à l\'IA pour ne pas se faire remplacer | Survivant-IA',
+  description: 'Survivre à l\'IA au travail, c\'est se former. Découvre les compétences à développer face à l\'IA, scanne ton métier, et reçois 1 rapport par semaine. Gratuit.',
+  ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer — Survivant-IA',
+  ogDescription: 'Scanne ton métier en 10 secondes. Forme-toi aux compétences que l\'IA ne remplace pas. 1 rapport de survie chaque semaine — gratuit.',
   twitterCard: 'summary_large_image',
+  twitterTitle: 'Se former à l\'IA pour ne pas se faire remplacer',
+  twitterDescription: 'Scanne ton métier, forme-toi aux compétences anti-obsolescence, prends le virage de l\'IA. Survivant-IA.',
+})
+
+defineOgImage('Default', {
+  title: 'Comment ne pas se faire remplacer par l\'IA',
+  kicker: '// FORMATION ANTI-OBSOLESCENCE',
 })
 
 const { data: articles } = await useAsyncData('home-articles', () =>
@@ -74,7 +81,11 @@ onUnmounted(() => {
           <span ref="statusText" class="font-mono">TRANSMISSION EN COURS</span>
         </div>
 
-        <h1 class="hero-title">
+        <span class="hero-kicker font-mono">// FORMATION ANTI-OBSOLESCENCE</span>
+
+        <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
+
+        <p class="hero-tagline">
           <span class="title-line">
             <span class="title-line-inner">L'IA ARRIVE.</span>
           </span>
@@ -84,24 +95,34 @@ onUnmounted(() => {
               <span class="typing-cursor" aria-hidden="true" />
             </span>
           </span>
-        </h1>
+        </p>
 
         <p class="hero-subtitle">
-          Développez les compétences que les algorithmes ne pourront jamais copier.
-          Soft skills, compréhension de l'IA, cas pratiques concrets — sans jargon.
+          Tu sens que l'IA arrive sur ton métier. Tu as raison.
+          Voici les compétences à développer pour <strong>prendre le virage</strong> — pas pour le subir.
+          Soft skills, compréhension de l'IA, cas pratiques concrets, sans jargon.
         </p>
 
         <div class="hero-cta">
-          <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" />
+          <GlitchButton label="Tester si mon métier est menacé" to="/scanner" />
+          <NuxtLink to="#newsletter" class="hero-link font-mono">REJOINDRE LA FRÉQUENCE →</NuxtLink>
         </div>
       </div>
     </section>
 
     <SectionDivider />
 
+    <!-- ── E-E-A-T PROOF BAR ──────────────────── -->
+    <div class="container">
+      <HomeProofBar />
+    </div>
+
+    <SectionDivider />
+
     <!-- ── MANIFESTE ──────────────────────────── -->
     <section class="manifeste">
       <div class="container">
+        <h2 class="section-h2">Se former à l'IA, sans devenir développeur</h2>
         <ManifestoTerminal />
       </div>
     </section>
@@ -111,6 +132,7 @@ onUnmounted(() => {
     <!-- ── SCANNER TEASER ─────────────────────────── -->
     <section class="scanner-teaser-section">
       <div class="container">
+        <h2 class="section-h2">Survivre à l'IA au travail commence par un diagnostic</h2>
         <ScannerBorder class="scanner-teaser">
           <span class="font-mono scanner-teaser-label">// DIAGNOSTIC IA</span>
           <p class="scanner-teaser-text">
@@ -125,12 +147,21 @@ onUnmounted(() => {
     <StatsStrip />
     <SectionDivider />
 
+    <!-- ── 3 COMPÉTENCES IA-PROOF ──────────────── -->
+    <section class="skills-triad-section">
+      <div class="container">
+        <HomeSkillsTriad />
+      </div>
+    </section>
+
+    <SectionDivider />
+
     <!-- ── DERNIERS RAPPORTS ──────────────────── -->
     <section class="rapports-section">
       <div class="container">
         <div class="section-header" data-reveal>
-          <h2>Rapports de Survie</h2>
-          <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;">TOUS LES RAPPORTS →</NuxtLink>
+          <h2>Rapports de Survie — la méthode pour prendre le virage de l'IA</h2>
+          <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;">LIRE LES RAPPORTS ANTI-OBSOLESCENCE →</NuxtLink>
         </div>
 
         <div class="articles-grid">
@@ -150,6 +181,13 @@ onUnmounted(() => {
         </p>
       </div>
     </section>
+
+    <SectionDivider />
+
+    <!-- ── FAQ ─────────────────────────────────── -->
+    <div class="container">
+      <HomeFaq />
+    </div>
 
     <SectionDivider />
 
@@ -194,10 +232,39 @@ onUnmounted(() => {
 }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-/* title — line-by-line clip reveal */
-.hero-title {
+/* kicker — small mono label above H1 */
+.hero-kicker {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
+  margin-bottom: 0.85rem;
+  opacity: 0;
+  animation: heroFadeUp 0.5s 0.4s ease both;
+}
+
+/* SEO H1 — semantic, keyword-rich, modest visual */
+.hero-h1 {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--color-muted);
+  margin: 0 0 1.25rem;
+  font-family: var(--font-sans);
+  text-transform: none;
+  opacity: 0;
+  animation: heroFadeUp 0.5s 0.45s ease both;
+}
+
+/* tagline (former h1) — visual climax, line-by-line clip reveal */
+.hero-tagline {
   font-size: clamp(2.2rem, 6vw, 4rem);
-  line-height: 1.1; margin: 0 0 1.5rem;
+  line-height: 1.1;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
 }
 .title-line { display: block; overflow: hidden; }
 .title-line-inner {
@@ -264,11 +331,20 @@ onUnmounted(() => {
 .rapports-section { padding: 5rem 0; }
 .newsletter-section { padding: 5rem 0; }
 
+/* H2 used for keyword-bearing section headings */
+.section-h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  line-height: 1.25;
+  margin: 0 0 1.75rem;
+  max-width: 38ch;
+}
+
 .section-header {
   display: flex; justify-content: space-between;
   align-items: baseline; margin-bottom: 2.5rem;
+  gap: 1.5rem; flex-wrap: wrap;
 }
-.section-header h2 { margin: 0; }
+.section-header h2 { margin: 0; max-width: 38ch; }
 .section-header a { color: var(--color-muted); transition: color 0.15s; }
 .section-header a:hover { color: var(--color-accent); }
 
@@ -287,7 +363,7 @@ onUnmounted(() => {
 
 /* prefers-reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
-  .hero-status, .hero-subtitle, .hero-cta {
+  .hero-status, .hero-subtitle, .hero-cta, .hero-kicker, .hero-h1 {
     opacity: 1 !important; animation: none !important;
   }
   .title-line-inner { transform: none !important; animation: none !important; }

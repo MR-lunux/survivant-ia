@@ -13,14 +13,14 @@
         <NuxtLink to="/identite" class="nav-link">Identité</NuxtLink>
       </nav>
 
-      <div class="social-links">
-        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <div v-if="socials.linkedin || socials.instagram || socials.youtube" class="social-links">
+        <a v-if="socials.linkedin" :href="socials.linkedin" target="_blank" rel="noopener me" aria-label="LinkedIn">
           <IconLinkedIn />
         </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+        <a v-if="socials.instagram" :href="socials.instagram" target="_blank" rel="noopener me" aria-label="Instagram">
           <IconInstagram />
         </a>
-        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+        <a v-if="socials.youtube" :href="socials.youtube" target="_blank" rel="noopener me" aria-label="YouTube">
           <IconYoutube />
         </a>
       </div>
@@ -31,6 +31,12 @@
 <script setup lang="ts">
 const route = useRoute()
 const isHome = computed(() => route.path === '/')
+
+const socials = {
+  linkedin: '',
+  instagram: '',
+  youtube: '',
+}
 </script>
 
 <style scoped>

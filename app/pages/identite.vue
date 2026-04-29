@@ -1,13 +1,60 @@
 <!-- app/pages/identite.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Identité du Survivant — Mathieu le Survivant de l\'IA',
-  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech — et le jour où l\'IA m\'a appris à redevenir lucide. Voici pourquoi ce site existe.',
+  title: 'Mathieu Rerat — Qui est derrière Survivant-IA',
+  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech. Le parcours de Mathieu Rerat et la méthode anti-obsolescence derrière Survivant-IA.',
+  ogTitle: 'Mathieu Rerat — Identité du Survivant-IA',
+  ogDescription: 'Le parcours et la méthode derrière Survivant-IA. Concret, sans théorie.',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Mathieu Rerat — Identité du Survivant-IA',
+  twitterDescription: 'Le parcours derrière Survivant-IA — anti-obsolescence pour les pros.',
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': 'https://survivant-ia.ch/identite#mathieu',
+          name: 'Mathieu Rerat',
+          url: 'https://survivant-ia.ch/identite',
+          jobTitle: 'Deputy Head of IT',
+          description: 'Fondateur de Survivant-IA. Ex-PwC, Nestlé, Immopac. Aide les professionnels à se former à l\'IA pour ne pas se faire remplacer.',
+          worksFor: { '@id': 'https://survivant-ia.ch/#organization' },
+        },
+        {
+          '@type': 'AboutPage',
+          '@id': 'https://survivant-ia.ch/identite#page',
+          name: 'Identité du Survivant-IA',
+          url: 'https://survivant-ia.ch/identite',
+          inLanguage: 'fr-CH',
+          isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
+          mainEntity: { '@id': 'https://survivant-ia.ch/identite#mathieu' },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
+            { '@type': 'ListItem', position: 2, name: 'Identité' },
+          ],
+        },
+      ],
+    }),
+  }],
+})
+
+defineOgImage('Default', {
+  title: 'Mathieu Rerat',
+  kicker: '// IDENTITÉ DU SURVIVANT',
 })
 </script>
 
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem; max-width: 780px;">
+    <Breadcrumbs :items="[{ label: 'Identité' }]" />
     <span class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted);">// IDENTITÉ DU SURVIVANT</span>
     <h1 style="margin: 0.5rem 0 3rem;">Qui suis-je ?</h1>
 
