@@ -2,12 +2,12 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Se former à l\'IA pour ne pas se faire remplacer | Survivant-IA',
-  description: 'Survivre à l\'IA au travail, c\'est se former. Découvre les compétences à développer face à l\'IA, scanne ton métier, et reçois 1 rapport par semaine. Gratuit.',
+  description: 'Reçois chaque semaine un rapport pour ne pas te faire remplacer par l\'IA. Compétences, méthodes, cas concrets — gratuit, sans jargon. Bonus : scanner d\'obsolescence par métier.',
   ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer — Survivant-IA',
-  ogDescription: 'Scanne ton métier en 10 secondes. Forme-toi aux compétences que l\'IA ne remplace pas. 1 rapport de survie chaque semaine — gratuit.',
+  ogDescription: '1 rapport par semaine pour ne pas te faire remplacer par l\'IA. Gratuit, sans jargon. Et un scanner d\'obsolescence par métier.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Se former à l\'IA pour ne pas se faire remplacer',
-  twitterDescription: 'Scanne ton métier, forme-toi aux compétences anti-obsolescence, prends le virage de l\'IA. Survivant-IA.',
+  twitterDescription: '1 rapport par semaine pour prendre le virage de l\'IA. Gratuit, sans jargon. Survivant-IA.',
 })
 
 defineOgImage('Default', {
@@ -104,8 +104,8 @@ onUnmounted(() => {
         </p>
 
         <div class="hero-cta">
-          <GlitchButton label="Tester si mon métier est menacé" to="/scanner" />
-          <NuxtLink to="#newsletter" class="hero-link font-mono">REJOINDRE LA FRÉQUENCE →</NuxtLink>
+          <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" />
+          <NuxtLink to="/scanner" class="hero-link font-mono">TESTER MON MÉTIER →</NuxtLink>
         </div>
       </div>
     </section>
