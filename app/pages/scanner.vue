@@ -59,7 +59,9 @@ const selectedJob = ref<Job | null>(null)
 const termLines   = ref<{ text: string; done: boolean }[]>([])
 const copied      = ref(false)
 const jobInputRef = ref<HTMLInputElement | null>(null)
-let copyTimer: ReturnType<typeof setTimeout> | null = null
+const displayRisk = ref(0)
+let copyTimer:     ReturnType<typeof setTimeout>  | null = null
+let riskAnimTimer: ReturnType<typeof setInterval> | null = null
 const scanTimers: ReturnType<typeof setTimeout>[] = []
 
 // ── Autocomplete ─────────────────────────────────────────
@@ -92,7 +94,8 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   scanTimers.forEach(id => clearTimeout(id))
-  if (copyTimer) clearTimeout(copyTimer)
+  if (copyTimer)     clearTimeout(copyTimer)
+  if (riskAnimTimer) clearInterval(riskAnimTimer)
 })
 
 // ── Terminal animation ───────────────────────────────────
@@ -115,6 +118,32 @@ const STATUS_LABELS: Record<Job['status'], string> = {
   augmente:  'AUGMENTÉ',
   resistant: 'RÉSISTANT',
 }
+
+function animateRisk(target: number) {
+  if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
+  if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    displayRisk.value = target
+    return
+  }
+  displayRisk.value = 0
+  const steps    = 40
+  const interval = 800 / steps
+  let current    = 0
+  riskAnimTimer  = setInterval(() => {
+    current += target / steps
+    if (current >= target) {
+      displayRisk.value = target
+      clearInterval(riskAnimTimer!)
+      riskAnimTimer = null
+    } else {
+      displayRisk.value = Math.round(current)
+    }
+  }, interval)
+}
+
+watch(() => phase.value, (newPhase) => {
+  if (newPhase === 'result' && selectedJob.value) animateRisk(selectedJob.value.risk)
+})
 
 function startScan(job: Job) {
   scanTimers.forEach(id => clearTimeout(id))
@@ -157,9 +186,11 @@ const resultLine = computed(() => {
   return `✓ obsolescence risk: ${selectedJob.value.risk}% — ${VERDICT[selectedJob.value.status]}`
 })
 
-const riskColor = computed(() => {
+const statusColor = computed(() => {
   if (!selectedJob.value) return 'var(--color-accent)'
-  return selectedJob.value.status === 'danger' ? 'var(--color-danger)' : 'var(--color-accent)'
+  if (selectedJob.value.status === 'danger')   return 'var(--color-danger)'
+  if (selectedJob.value.status === 'augmente') return '#FEBC2E'
+  return 'var(--color-accent)'
 })
 
 const statusLabel = computed(() => {
@@ -194,6 +225,8 @@ function copyLink() {
 function reset() {
   scanTimers.forEach(id => clearTimeout(id))
   scanTimers.length = 0
+  if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
+  displayRisk.value = 0
   query.value       = ''
   suggestions.value = []
   selectedJob.value = null
@@ -285,9 +318,12 @@ function reset() {
         <div class="stats-grid">
           <ScannerBorder class="stat-card">
             <p class="stat-label font-mono">RISQUE</p>
-            <p class="stat-value font-mono" :style="{ color: riskColor }">
-              {{ selectedJob.risk }}<span class="stat-unit">%</span>
+            <p class="stat-value font-mono" :style="{ color: statusColor }">
+              {{ displayRisk }}<span class="stat-unit">%</span>
             </p>
+            <div class="gauge-track" aria-hidden="true">
+              <div class="gauge-fill" :style="{ width: displayRisk + '%', background: statusColor }" />
+            </div>
           </ScannerBorder>
           <ScannerBorder class="stat-card">
             <p class="stat-label font-mono">HORIZON</p>
@@ -297,7 +333,7 @@ function reset() {
           </ScannerBorder>
           <ScannerBorder class="stat-card">
             <p class="stat-label font-mono">STATUT</p>
-            <p class="stat-value stat-status font-mono" :style="{ color: riskColor }">
+            <p class="stat-value stat-status font-mono" :style="{ color: statusColor }">
               {{ statusLabel }}
             </p>
           </ScannerBorder>
@@ -305,7 +341,7 @@ function reset() {
 
         <!-- Message + CTA -->
         <div class="message-block">
-          <span class="message-bar" :style="{ background: riskColor }" aria-hidden="true" />
+          <span class="message-bar" :style="{ background: statusColor }" aria-hidden="true" />
           <p class="message-text">{{ message }}</p>
         </div>
 
@@ -544,6 +580,20 @@ function reset() {
   padding-top: 1rem;
 }
 
+/* ── Gauge ───────────────────────────────────────── */
+.gauge-track {
+  margin-top: 0.75rem;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.gauge-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.02s linear;
+}
+
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 600px) {
   .stats-grid { grid-template-columns: 1fr; }
@@ -553,5 +603,6 @@ function reset() {
 
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; opacity: 1; }
+  .gauge-fill { transition: none; }
 }
 </style>
