@@ -243,6 +243,7 @@ function reset() {
 
 <template>
   <div class="scanner-page">
+    <div class="scanner-bg" aria-hidden="true" />
     <div class="container">
 
       <Breadcrumbs :items="[{ label: 'Scanner IA' }]" />
@@ -380,6 +381,46 @@ function reset() {
 <style scoped>
 .scanner-page {
   padding: 4rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Background scan effect ──────────────────────── */
+.scanner-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle, rgba(0, 255, 65, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.scanner-bg::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: -4px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 65, 0.45) 20%,
+    rgba(0, 255, 65, 0.9) 50%,
+    rgba(0, 255, 65, 0.45) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 14px 4px rgba(0, 255, 65, 0.25);
+  animation: scan-sweep 5s linear infinite;
+}
+@keyframes scan-sweep {
+  0%   { top: -4px; opacity: 0; }
+  5%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.scanner-page > .container {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── H1 — visible pour SEO, discret dans l'UI ─────── */
@@ -615,5 +656,6 @@ function reset() {
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; opacity: 1; }
   .gauge-fill { transition: none; }
+  .scanner-bg::after { animation: none; }
 }
 </style>
