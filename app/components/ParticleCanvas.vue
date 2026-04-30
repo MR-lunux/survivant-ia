@@ -23,6 +23,11 @@ const PULSE_SPEED        = 0.012
 const GLOW_FACTOR        = 3
 const LINK_OPACITY       = 0.12
 const VIGNETTE_ALPHA     = 0.85
+const PULSE_ALPHA_BOOST  = 0.8
+const PULSE_GLOW_BOOST   = 0.6
+const PULSE_DECAY        = 0.96
+const PULSE_THROTTLE_MS  = 800
+const PULSE_TARGET_THRESHOLD = 0.5
 
 interface Particle { x: number; y: number; vx: number; vy: number; r: number; alpha: number; phase: number }
 
@@ -32,6 +37,11 @@ let particles: Particle[] = []
 let raf: number | null = null
 let count   = COUNT_DESKTOP
 let maxDist = MAX_DIST_DESKTOP
+let pulseEnergy = 0
+let lastPulseAt = 0
+let io: IntersectionObserver | null = null
+let vignette: CanvasGradient | null = null
+const router = useRouter()
 
 const rand = (a: number, b: number) => Math.random() * (b - a) + a
 const isMobile = () => typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAK
@@ -68,15 +78,39 @@ function resize() {
     if (p.x > W) p.x = W
     if (p.y > H) p.y = H
   }
+  if (ctx) {
+    vignette = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.52)
+    vignette.addColorStop(0,   'rgba(0,0,0,0)')
+    vignette.addColorStop(0.6, 'rgba(0,0,0,0)')
+    vignette.addColorStop(1,   `rgba(13,13,13,${VIGNETTE_ALPHA})`)
+  }
+}
+
+function onIntersect(entries: IntersectionObserverEntry[]) {
+  for (const e of entries) {
+    if (!e.isIntersecting) continue
+    const now = performance.now()
+    if (now - lastPulseAt < PULSE_THROTTLE_MS) return
+    lastPulseAt = now
+    pulseEnergy = 1
+    return
+  }
+}
+
+function rescanTargets() {
+  if (!io) return
+  io.disconnect()
+  document.querySelectorAll('main section').forEach(el => io!.observe(el))
+  const path = router.currentRoute.value.path
+  const isArticle = path.startsWith('/rapports/') && path !== '/rapports' && path !== '/rapports/'
+  if (isArticle) {
+    document.querySelectorAll('main .article-body h2').forEach(el => io!.observe(el))
+  }
 }
 
 function loop() {
   if (!ctx) return
   ctx.clearRect(0, 0, W, H)
-  const grd = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.52)
-  grd.addColorStop(0,   'rgba(0,0,0,0)')
-  grd.addColorStop(0.6, 'rgba(0,0,0,0)')
-  grd.addColorStop(1,   `rgba(13,13,13,${VIGNETTE_ALPHA})`)
 
   for (let i = 0; i < particles.length; i++) {
     const p = particles[i]
@@ -85,7 +119,7 @@ function loop() {
     if (p.x > W + 10) p.x = -10
     if (p.y < -10) p.y = H + 10
     if (p.y > H + 10) p.y = -10
-    const a = p.alpha * (0.7 + 0.3 * Math.sin(p.phase))
+    const a = p.alpha * (0.7 + 0.3 * Math.sin(p.phase)) * (1 + PULSE_ALPHA_BOOST * pulseEnergy)
     for (let j = i + 1; j < particles.length; j++) {
       const q = particles[j]
       const dx = p.x - q.x, dy = p.y - q.y
@@ -101,12 +135,18 @@ function loop() {
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
     ctx.fillStyle   = `rgba(${ACCENT},${a})`
     ctx.shadowColor = `rgba(${ACCENT},${a * 0.8})`
-    ctx.shadowBlur  = p.r * GLOW_FACTOR
+    ctx.shadowBlur  = p.r * GLOW_FACTOR * (1 + PULSE_GLOW_BOOST * pulseEnergy)
     ctx.fill()
     ctx.shadowBlur = 0
   }
-  ctx.fillStyle = grd
-  ctx.fillRect(0, 0, W, H)
+  if (vignette) {
+    ctx.fillStyle = vignette
+    ctx.fillRect(0, 0, W, H)
+  }
+
+  pulseEnergy *= PULSE_DECAY
+  if (pulseEnergy < 0.001) pulseEnergy = 0
+
   raf = requestAnimationFrame(loop)
 }
 
@@ -134,6 +174,9 @@ onMounted(() => {
   resize()
   particles = Array.from({ length: count }, createParticle)
   loop()
+  io = new IntersectionObserver(onIntersect, { threshold: PULSE_TARGET_THRESHOLD })
+  rescanTargets()
+  router.afterEach(() => nextTick(() => rescanTargets()))
   window.addEventListener('resize', handleResize, { passive: true })
   document.addEventListener('visibilitychange', handleVisibility)
 })
@@ -142,6 +185,7 @@ onUnmounted(() => {
   if (raf) cancelAnimationFrame(raf)
   window.removeEventListener('resize', handleResize)
   document.removeEventListener('visibilitychange', handleVisibility)
+  if (io) { io.disconnect(); io = null }
 })
 </script>
 
