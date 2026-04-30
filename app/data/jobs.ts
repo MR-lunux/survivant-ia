@@ -806,6 +806,28 @@ export const JOBS: Job[] = [
   { slug: 'pompiste', label: 'Technicien de surface', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Le nettoyage en environnements complexes, l\'adaptation aux salissures et la responsabilité hygiène en milieu sensible restent fondamentalement humains.',
     sources: [21] },
+
+  // ── AJOUTS COMMUNAUTÉ (métiers signalés par les utilisateurs) ──
+
+  { slug: 'business-analyst', label: 'Business Analyst', risk: 58, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Traduction des besoins métier en specs, reporting et analyse de données structurées sont accélérés par l\'IA. Tu te concentres sur l\'arbitrage entre stakeholders, la modélisation de processus complexes et la conduite du changement.',
+    sources: [3, 4] },
+
+  { slug: 'asset-manager', label: 'Asset Manager', risk: 52, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. McKinsey projette 8% de gain d\'efficacité par l\'IA générative sur la recherche, l\'analyse de tendances et la due diligence. Tu te recentres sur la relation client institutionnel et l\'arbitrage stratégique.',
+    sources: [4, 7] },
+
+  { slug: 'portfolio-manager', label: 'Portfolio Manager', risk: 54, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Screening, rebalancing et optimisation de portefeuilles sont accélérés par l\'IA prédictive. La valeur humaine se déplace vers la conviction d\'investissement, la gestion des biais émotionnels du client et les cas atypiques.',
+    sources: [4, 7] },
+
+  { slug: 'consultant-it', label: 'Consultant IT', risk: 45, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Audits techniques, roadmaps de transformation et benchmarks fournisseurs sont accélérés par l\'IA. La demande explose à l\'inverse pour les consultants spécialisés IA — déploiement, gouvernance, MLOps.',
+    sources: [4, 13] },
+
+  { slug: 'expert-immobilier', label: 'Expert immobilier', risk: 42, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Les AVM (modèles de valorisation automatique) absorbent les biens standards en data-rich markets. Tu te concentres sur les biens atypiques, l\'expertise judiciaire et la responsabilité légale — irréductibles à l\'IA.',
+    sources: [21] },
 ]
 
 // ── Fonctions utilitaires ─────────────────────────────────
