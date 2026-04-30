@@ -42,6 +42,7 @@ let lastPulseAt = 0
 let io: IntersectionObserver | null = null
 let vignette: CanvasGradient | null = null
 const router = useRouter()
+let unregisterRouterHook: (() => void) | null = null
 
 const rand = (a: number, b: number) => Math.random() * (b - a) + a
 const isMobile = () => typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAK
@@ -176,7 +177,7 @@ onMounted(() => {
   loop()
   io = new IntersectionObserver(onIntersect, { threshold: PULSE_TARGET_THRESHOLD })
   rescanTargets()
-  router.afterEach(() => nextTick(() => rescanTargets()))
+  unregisterRouterHook = router.afterEach(() => nextTick(() => rescanTargets()))
   window.addEventListener('resize', handleResize, { passive: true })
   document.addEventListener('visibilitychange', handleVisibility)
 })
@@ -186,6 +187,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
   document.removeEventListener('visibilitychange', handleVisibility)
   if (io) { io.disconnect(); io = null }
+  if (unregisterRouterHook) { unregisterRouterHook(); unregisterRouterHook = null }
 })
 </script>
 
