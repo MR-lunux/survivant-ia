@@ -34,6 +34,7 @@
                 aria-label="Adresse email"
                 :disabled="status === 'loading'"
                 required
+                @focus="onEmailFocus"
               />
             </div>
 
@@ -73,6 +74,17 @@
 <script setup lang="ts">
 const props = defineProps<{ formUrl?: string }>()
 
+const { capture } = usePosthogEvent()
+const route = useRoute()
+const sourcePage = computed(() => route.path)
+const focusedOnce = ref(false)
+
+function onEmailFocus() {
+  if (focusedOnce.value) return
+  focusedOnce.value = true
+  capture('newsletter_form_focused', { source_page: sourcePage.value })
+}
+
 const prenom  = ref('')
 const email   = ref('')
 const consent = ref(false)
@@ -91,15 +103,27 @@ async function submit() {
   status.value = 'loading'
   errorMsg.value = ''
 
+  capture('newsletter_signup_submitted', { source_page: sourcePage.value })
+
   try {
     await $fetch('/api/subscribe', {
       method: 'POST',
       body: { prenom: prenom.value.trim(), email: email.value, consent: consent.value },
     })
     status.value = 'success'
+    capture('newsletter_signup_succeeded', { source_page: sourcePage.value })
   } catch (err: any) {
     status.value = 'error'
     errorMsg.value = err?.data?.message ?? 'Erreur technique, réessayez.'
+    const reason: 'validation' | 'server' | 'network' =
+      err?.statusCode && err.statusCode >= 400 && err.statusCode < 500 ? 'validation'
+      : err?.statusCode && err.statusCode >= 500 ? 'server'
+      : 'network'
+    capture('newsletter_signup_failed', {
+      source_page: sourcePage.value,
+      reason,
+      error_message: err?.data?.message ?? err?.message ?? 'unknown',
+    })
   }
 }
 
