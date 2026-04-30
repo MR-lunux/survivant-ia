@@ -103,8 +103,8 @@ onBeforeUnmount(() => {
 // ── Terminal animation ───────────────────────────────────
 const SCAN_LINES = (jobLabel: string) => [
   `$ survival_check --job="${jobLabel}"`,
-  'connecting to OECD-2023 dataset .............. ok',
-  'cross-referencing McKinsey automation index ... ok',
+  'connecting to Tufts-2026 dataset ............. ok',
+  'cross-referencing McKinsey agentic index ..... ok',
   'parsing job description ...................... ok',
   'simulating LLM capability curve (2026 → 2031) . ok',
 ]

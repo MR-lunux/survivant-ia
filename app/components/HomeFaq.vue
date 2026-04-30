@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Mon métier va-t-il vraiment être remplacé par l'IA ?",
-    a: "Probablement pas en entier — mais certaines tâches le seront. Lance le diagnostic Survivant-IA : il croise les données MIT, OCDE et WEF pour estimer ton score d'obsolescence en 10 secondes. Tu sauras quelles tâches sont à risque, et lesquelles deviennent au contraire plus précieuses.",
+    a: "Probablement pas en entier — mais certaines tâches le seront. Lance le diagnostic Survivant-IA : il croise les rapports 2026 (Tufts, McKinsey, WEF) pour estimer ton score d'obsolescence en 10 secondes. Tu sauras quelles tâches sont à risque, et lesquelles deviennent au contraire plus précieuses.",
   },
   {
     q: "Combien de temps me reste-t-il avant que l'IA remplace mon métier ?",

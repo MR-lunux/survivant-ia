@@ -1,6 +1,6 @@
 <!-- app/components/SourcesModal.vue -->
 <script setup lang="ts">
-import { computed, watch, nextTick, ref } from 'vue'
+import { computed, watch, nextTick, onBeforeUnmount, ref } from 'vue'
 import type { Job } from '~/data/jobs'
 import {
   getSourcesByIds,
@@ -48,6 +48,14 @@ watch(() => props.open, async (isOpen) => {
 function onBackdropClick(event: MouseEvent) {
   if (event.target === dialogRef.value) emit('close')
 }
+
+// Defensive: if the parent unmounts while the modal is open, restore body scroll
+// and remove the global keydown listener so they don't leak across route changes.
+onBeforeUnmount(() => {
+  if (typeof window === 'undefined') return
+  document.body.style.overflow = ''
+  window.removeEventListener('keydown', onKeydown)
+})
 </script>
 
 <template>
