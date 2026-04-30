@@ -828,6 +828,10 @@ export const JOBS: Job[] = [
   { slug: 'expert-immobilier', label: 'Expert immobilier', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Les AVM (modèles de valorisation automatique) absorbent les biens standards en data-rich markets. Tu te concentres sur les biens atypiques, l\'expertise judiciaire et la responsabilité légale — irréductibles à l\'IA.',
     sources: [21] },
+
+  { slug: 'juriste', label: 'Juriste d\'entreprise', risk: 55, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Revue contractuelle, recherche jurisprudentielle et notes de conformité sont les terrains de chasse les plus efficaces des LLM. Tu pivotes vers le conseil stratégique au business, la gestion du risque réglementaire et l\'arbitrage des cas complexes — ou tu te fais commoditiser.',
+    sources: [3, 7] },
 ]
 
 // ── Fonctions utilitaires ─────────────────────────────────
