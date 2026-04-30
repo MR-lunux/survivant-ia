@@ -1,16 +1,17 @@
 <!-- app/pages/scanner.vue -->
 <script setup lang="ts">
 import { findJobBySlug, searchJobs, type Job } from '~/data/jobs'
+import SourcesModal from '~/components/SourcesModal.vue'
 
 // ── SEO static ──────────────────────────────────────────
 useSeoMeta({
   title: 'Scanner IA — Tester si mon métier est menacé par l\'IA | Survivant-IA',
-  description: 'Teste en 10 secondes le risque que l\'IA remplace ton métier. Score d\'obsolescence basé sur les données MIT, OCDE, WEF. Gratuit, sans inscription.',
+  description: 'Teste en 10 secondes le risque que l\'IA remplace ton métier. Score basé sur les rapports 2026 (Tufts, McKinsey, WEF). Gratuit, sans inscription.',
   ogTitle: 'Scanner IA — Mon métier est-il menacé par l\'IA ?',
-  ogDescription: 'Score de risque automatisation en 10 secondes. Données MIT, OCDE, WEF. Survivant-IA.',
+  ogDescription: 'Score de risque automatisation en 10 secondes. Données 2026 (Tufts, McKinsey, WEF). Survivant-IA.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Mon métier est-il menacé par l\'IA ?',
-  twitterDescription: 'Test gratuit en 10 secondes. Données MIT, OCDE, WEF. Survivant-IA.',
+  twitterDescription: 'Test gratuit en 10 secondes. Données 2026 (Tufts, McKinsey, WEF). Survivant-IA.',
 })
 
 useHead({
@@ -24,7 +25,7 @@ useHead({
           '@id': 'https://survivant-ia.ch/scanner#app',
           name: 'Scanner IA — Risque automatisation par métier',
           url: 'https://survivant-ia.ch/scanner',
-          description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur MIT, OCDE, WEF.',
+          description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur les rapports 2026 (Tufts, McKinsey, WEF).',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
           inLanguage: 'fr-CH',
@@ -393,16 +394,16 @@ function reset() {
           // <button class="reset-btn font-mono" @click="reset">Nouveau scan →</button>
         </p>
 
-        <!-- Footer sources -->
-        <div class="sources-footer font-mono">
-          // Données issues de : MIT Project Iceberg 2025 · OCDE Employment Outlook 2023 ·
-          WEF Future of Jobs 2025 · Goldman Sachs 2023 · Oxford/Frey & Osborne 2013
-        </div>
-
       </div><!-- end results-section -->
 
     </div><!-- end container -->
   </div>
+
+  <SourcesModal
+    :open="sourcesModalOpen"
+    :job="selectedJob"
+    @close="sourcesModalOpen = false"
+  />
 </template>
 
 <style scoped>
@@ -691,16 +692,6 @@ function reset() {
   padding: 0;
 }
 .reset-btn:hover { opacity: 0.75; }
-
-.sources-footer {
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  color: var(--color-muted);
-  opacity: 0.6;
-  line-height: 1.6;
-  border-top: 1px solid rgba(0, 255, 65, 0.08);
-  padding-top: 1rem;
-}
 
 /* ── Gauge ───────────────────────────────────────── */
 .gauge-track {
