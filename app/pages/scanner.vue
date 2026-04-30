@@ -57,7 +57,8 @@ const suggestions = ref<Job[]>([])
 const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
 const selectedJob = ref<Job | null>(null)
 const termLines   = ref<{ text: string; done: boolean }[]>([])
-const copied      = ref(false)
+const copied            = ref(false)
+const sourcesModalOpen  = ref(false)
 const jobInputRef = ref<HTMLInputElement | null>(null)
 const displayRisk = ref(0)
 let copyTimer:     ReturnType<typeof setTimeout>  | null = null
@@ -108,15 +109,24 @@ const SCAN_LINES = (jobLabel: string) => [
 ]
 
 const VERDICT: Record<Job['status'], string> = {
-  danger:    'remplacement probable',
-  augmente:  'augmentation possible',
-  resistant: 'résistance confirmée',
+  danger:     'remplacement probable',
+  mutation:   'mutation sévère imminente',
+  protege:    'résistance confirmée',
+  croissance: 'croissance structurelle',
 }
 
 const STATUS_LABELS: Record<Job['status'], string> = {
-  danger:    'EN DANGER',
-  augmente:  'AUGMENTÉ',
-  resistant: 'RÉSISTANT',
+  danger:     'EN DANGER',
+  mutation:   'EN MUTATION SÉVÈRE',
+  protege:    'PROTÉGÉ',
+  croissance: 'EN CROISSANCE',
+}
+
+const STATUS_VERDICT_LINE: Record<Job['status'], string> = {
+  danger:     'Ton métier est dans le viseur.',
+  mutation:   'Ton métier ne disparaît pas. Il devient méconnaissable.',
+  protege:    'L\'IA ne te remplace pas — elle a besoin de toi.',
+  croissance: 'Tu es dans le bon wagon. Pour l\'instant.',
 }
 
 function animateRisk(target: number) {
@@ -187,10 +197,13 @@ const resultLine = computed(() => {
 })
 
 const statusColor = computed(() => {
-  if (!selectedJob.value) return 'var(--color-accent)'
-  if (selectedJob.value.status === 'danger')   return 'var(--color-danger)'
-  if (selectedJob.value.status === 'augmente') return '#FEBC2E'
-  return 'var(--color-accent)'
+  if (!selectedJob.value) return 'var(--color-muted)'
+  switch (selectedJob.value.status) {
+    case 'danger':     return 'var(--color-danger)'
+    case 'mutation':   return '#FFA630'
+    case 'protege':    return '#5BC0EB'
+    case 'croissance': return '#3DDC84'
+  }
 })
 
 // When danger: value + gauge use white (card has red bg); otherwise use statusColor
@@ -203,19 +216,19 @@ const statusLabel = computed(() => {
   return STATUS_LABELS[selectedJob.value.status]
 })
 
-const message = computed(() => {
+const ctaHook = computed(() => {
   if (!selectedJob.value) return ''
-  const label = selectedJob.value.label
-  if (selectedJob.value.status === 'danger')
-    return `Ton métier (${label}) est dans le viseur. Les premiers qui s'adaptent survivent — les autres subissent.`
-  if (selectedJob.value.status === 'augmente')
-    return `Ton métier (${label}) va changer. Ceux qui maîtrisent les outils maintenant gardent l'avantage sur leurs collègues.`
-  return `L'IA ne remplace pas ton métier (${label}) — mais tes concurrents qui l'utilisent vont te dépasser si tu attends.`
+  switch (selectedJob.value.status) {
+    case 'danger':     return 'La newsletter qui te dit comment NE PAS te faire remplacer.'
+    case 'mutation':   return 'Apprends à muter avant que ton métier ne le fasse sans toi.'
+    case 'protege':    return 'Reste devant. La veille IA chaque semaine.'
+    case 'croissance': return 'Capitalise sur ta position. Reçois La Fréquence.'
+  }
 })
 
-const ctaLabel = computed(() => {
+const ctaButton = computed(() => {
   if (!selectedJob.value) return 'Rejoindre la Fréquence'
-  return selectedJob.value.status === 'resistant' ? "Utiliser l'IA pour s'imposer" : 'Rejoindre la Fréquence'
+  return selectedJob.value.status === 'danger' ? 'Rejoindre La Fréquence' : "S'inscrire"
 })
 
 // ── Share ─────────────────────────────────────────────────
@@ -351,11 +364,25 @@ function reset() {
         <!-- Message + CTA -->
         <div class="message-block">
           <span class="message-bar" :style="{ background: statusColor }" aria-hidden="true" />
-          <p class="message-text">{{ message }}</p>
+          <p class="message-text">{{ STATUS_VERDICT_LINE[selectedJob.status] }}</p>
         </div>
 
+        <!-- Dynamique block -->
+        <div class="dynamic-block font-mono">
+          <div class="dynamic-label">// DYNAMIQUE ANTICIPÉE</div>
+          <p class="dynamic-text">{{ selectedJob.dynamic }}</p>
+        </div>
+
+        <!-- Sources trigger -->
+        <button type="button" class="sources-trigger font-mono" @click="sourcesModalOpen = true">
+          → Voir les sources de cette analyse
+        </button>
+
         <div class="cta-zone">
-          <GlitchButton :label="ctaLabel" to="/#newsletter" />
+          <div class="cta-inner">
+            <p class="cta-hook font-mono">{{ ctaHook }}</p>
+            <GlitchButton :label="ctaButton" to="/#newsletter" />
+          </div>
           <button class="share-btn font-mono" @click="copyLink">
             {{ copied ? '[ Lien copié ! ]' : '[ Partager mon résultat ]' }}
           </button>
@@ -363,7 +390,7 @@ function reset() {
 
         <!-- Source -->
         <p class="source-note font-mono">
-          // Source : {{ selectedJob.source }} · <button class="reset-btn font-mono" @click="reset">Nouveau scan →</button>
+          // <button class="reset-btn font-mono" @click="reset">Nouveau scan →</button>
         </p>
 
         <!-- Footer sources -->
@@ -582,12 +609,55 @@ function reset() {
 .message-bar { width: 3px; flex-shrink: 0; align-self: stretch; border-radius: 2px; }
 .message-text { margin: 0; font-size: 1rem; line-height: 1.7; color: var(--color-text); }
 
+.dynamic-block {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface-2);
+  border-left: 3px solid v-bind(statusColor);
+}
+.dynamic-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+.dynamic-text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.sources-trigger {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0 1.5rem;
+  text-align: left;
+}
+.sources-trigger:hover { color: var(--color-text); }
+
 .cta-zone {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
+}
+.cta-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.cta-hook {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin: 0;
 }
 .share-btn {
   background: transparent;
