@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     brevoApiKey: '',
     brevoListId: '',
+    public: {
+      posthogKey: '',
+    },
   },
   modules: [
     '@nuxtjs/tailwindcss',
@@ -38,6 +41,8 @@ export default defineNuxtConfig({
     '/rapports/**': { sitemap: { priority: 0.7, changefreq: 'monthly' } },
     '/frequence': { sitemap: { priority: 0.8, changefreq: 'monthly' } },
     '/identite': { sitemap: { priority: 0.6, changefreq: 'yearly' } },
+    '/_ph/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
+    '/_ph/**':        { proxy: 'https://eu.i.posthog.com/**' },
     '/confidentialite': { sitemap: false },
   },
   content: {
