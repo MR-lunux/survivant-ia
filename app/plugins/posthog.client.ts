@@ -36,10 +36,14 @@ export default defineNuxtPlugin((nuxtApp) => {
   })
 
   // Pageview manuel sur chaque navigation, après que le DOM soit settled.
-  const router = nuxtApp.$router as { afterEach: (cb: (to: { fullPath: string }) => void) => void }
-  router.afterEach((to) => {
+  const router = useRouter()
+  const unsubscribe = router.afterEach((to) => {
     posthog.capture('$pageview', { $current_url: window.location.origin + to.fullPath })
   })
+
+  if (import.meta.hot) {
+    import.meta.hot.dispose(() => unsubscribe())
+  }
 
   return {
     provide: {
