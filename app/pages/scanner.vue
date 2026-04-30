@@ -225,6 +225,29 @@ const STATUS_VERDICT_LINE: Record<Job['status'], string> = {
   croissance: 'Tu es dans le bon wagon. Pour l\'instant.',
 }
 
+const ACTIONS: Record<Job['status'], string[]> = {
+  danger: [
+    'Identifie les tâches de ton poste qui nécessitent jugement et relation humaine — c\'est ton bouclier.',
+    'Commence à piloter l\'IA plutôt que la subir : automatise ce qui te ralentit, garde le contrôle sur ce qui sort.',
+    'Renforce ta valeur relationnelle dans ton équipe et ton secteur. L\'irremplaçabilité se construit dans les liens.',
+  ],
+  mutation: [
+    'Cartographie ton rôle : distingue ce qui va disparaître de ce qui va évoluer — ce sont deux trajectoires différentes.',
+    'Apprends à superviser l\'IA sur les tâches qui t\'échappent déjà — tu restes maître si tu maîtrises l\'outil.',
+    'Développe la couche de jugement que l\'IA ne peut pas reproduire : contexte métier, éthique, décision en incertitude.',
+  ],
+  protege: [
+    'Documente ce qui rend ton travail irremplaçable — c\'est ton capital le plus précieux, rends-le visible.',
+    'Utilise l\'IA pour déléguer les tâches répétitives et concentre-toi sur ce qui crée de la valeur humaine.',
+    'Reste en veille : ta position protégée aujourd\'hui peut basculer dans 5 ans. Anticipe plutôt que réagir.',
+  ],
+  croissance: [
+    'Capitalise sur la demande actuelle — c\'est le moment de monter en compétence et en visibilité dans ton domaine.',
+    'Utilise l\'IA comme multiplicateur de productivité : tu produis plus, pas moins bien.',
+    'Anticipe la prochaine vague : les métiers en croissance aujourd\'hui ne sont pas immunisés pour toujours.',
+  ],
+}
+
 function animateRisk(target: number) {
   if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
   if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -316,10 +339,10 @@ const statusLabel = computed(() => {
 const ctaHook = computed(() => {
   if (!selectedJob.value) return ''
   switch (selectedJob.value.status) {
-    case 'danger':     return 'La newsletter qui te dit comment NE PAS te faire remplacer.'
-    case 'mutation':   return 'Apprends à muter avant que ton métier ne le fasse sans toi.'
-    case 'protege':    return 'Reste devant. La veille IA chaque semaine.'
-    case 'croissance': return 'Capitalise sur ta position. Reçois La Fréquence.'
+    case 'danger':     return 'La Fréquence te montre comment mettre ces 3 axes en pratique — une technique concrète par semaine.'
+    case 'mutation':   return 'La Fréquence t\'accompagne dans cette mutation — une carte de survie par semaine, sans jargon.'
+    case 'protege':    return 'La Fréquence te permet de garder une longueur d\'avance — sans devenir expert en IA.'
+    case 'croissance': return 'La Fréquence te donne les outils pour capitaliser sur ta position — avant que la fenêtre ne se referme.'
   }
 })
 
@@ -488,6 +511,17 @@ function reset() {
         <div class="dynamic-block font-mono">
           <div class="dynamic-label">// DYNAMIQUE ANTICIPÉE</div>
           <p class="dynamic-text">{{ selectedJob.dynamic }}</p>
+        </div>
+
+        <!-- Actions block -->
+        <div class="actions-block">
+          <div class="actions-label font-mono">// CE QUE TU PEUX FAIRE</div>
+          <ol class="actions-list">
+            <li v-for="(action, i) in ACTIONS[selectedJob.status]" :key="i" class="action-item">
+              <span class="action-num font-mono" :style="{ color: statusColor }">0{{ i + 1 }}</span>
+              <span class="action-text">{{ action }}</span>
+            </li>
+          </ol>
         </div>
 
         <!-- Sources trigger -->
@@ -800,6 +834,45 @@ function reset() {
   line-height: 1.55;
   color: var(--color-text);
   margin: 0;
+}
+
+/* ── Actions block ───────────────────────────── */
+.actions-block {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface);
+  border-left: 3px solid v-bind(statusColor);
+}
+.actions-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+.actions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.action-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.action-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  padding-top: 0.2rem;
+}
+.action-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.55;
 }
 
 .sources-trigger {
