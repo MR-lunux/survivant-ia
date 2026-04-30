@@ -528,30 +528,45 @@ function reset() {
       </div>
 
       <!-- ── FAQ ───────────────────────────────────── -->
-      <section class="faq-section" aria-label="Questions fréquentes">
-        <p class="faq-header font-mono">// QUESTIONS FRÉQUENTES</p>
-        <dl class="faq-list">
-          <div class="faq-item">
-            <dt class="faq-q">Comment est calculé le score de risque d'automatisation ?</dt>
-            <dd class="faq-a">Le score est basé sur 3 sources académiques et institutionnelles : Tufts University (2026), McKinsey Global Institute et World Economic Forum. Il prend en compte la substituabilité des tâches, l'horizon temporel d'impact et les tendances d'adoption des LLM par secteur.</dd>
-          </div>
-          <div class="faq-item">
-            <dt class="faq-q">Quels métiers sont les plus menacés par l'IA en 2026 ?</dt>
-            <dd class="faq-a">Les professions les plus exposées sont celles à forte composante répétitive : agents de saisie (90&nbsp;%), télévendeurs (92&nbsp;%), correcteurs (85&nbsp;%), traducteurs (82&nbsp;%). Ces métiers sont touchés sur un horizon de 2 ans selon les projections 2026.</dd>
-          </div>
-          <div class="faq-item">
-            <dt class="faq-q">Mes données personnelles sont-elles enregistrées ?</dt>
-            <dd class="faq-a">Non. Le scanner ne collecte aucune donnée personnelle. Aucune inscription n'est nécessaire. Seuls des événements anonymes d'usage sont transmis pour améliorer l'outil.</dd>
-          </div>
-          <div class="faq-item">
-            <dt class="faq-q">Combien de métiers sont couverts ?</dt>
-            <dd class="faq-a">197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0–100&nbsp;%), un horizon d'impact et une dynamique anticipée.</dd>
-          </div>
-          <div class="faq-item">
-            <dt class="faq-q">Les résultats sont-ils fiables ?</dt>
-            <dd class="faq-a">Les scores reflètent l'état des recherches académiques en 2026. Ils donnent une tendance sectorielle, pas une prédiction individuelle garantie. Chaque résultat inclut ses sources pour que vous puissiez évaluer la solidité des données.</dd>
-          </div>
-        </dl>
+      <section class="faq-section">
+        <span class="faq-label font-mono">// QUESTIONS FRÉQUENTES</span>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span class="faq-q-text">Comment est calculé le score de risque d'automatisation ?</span>
+              <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer">Le score est basé sur 3 sources académiques et institutionnelles : Tufts University (2026), McKinsey Global Institute et World Economic Forum. Il prend en compte la substituabilité des tâches, l'horizon temporel d'impact et les tendances d'adoption des LLM par secteur.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span class="faq-q-text">Quels métiers sont les plus menacés par l'IA en 2026 ?</span>
+              <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer">Les professions les plus exposées sont celles à forte composante répétitive : agents de saisie (90&nbsp;%), télévendeurs (92&nbsp;%), correcteurs (85&nbsp;%), traducteurs (82&nbsp;%). Ces métiers sont touchés sur un horizon de 2 ans selon les projections 2026.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span class="faq-q-text">Mes données personnelles sont-elles enregistrées ?</span>
+              <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer">Non. Le scanner ne collecte aucune donnée personnelle. Aucune inscription n'est nécessaire. Seuls des événements anonymes d'usage sont transmis pour améliorer l'outil.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span class="faq-q-text">Combien de métiers sont couverts ?</span>
+              <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer">197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0–100&nbsp;%), un horizon d'impact et une dynamique anticipée.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span class="faq-q-text">Les résultats sont-ils fiables ?</span>
+              <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq-answer">Les scores reflètent l'état des recherches académiques en 2026. Ils donnent une tendance sectorielle, pas une prédiction individuelle garantie. Chaque résultat inclut ses sources pour que vous puissiez évaluer la solidité des données.</p>
+          </details>
+        </div>
       </section>
 
     </div><!-- end container -->
@@ -911,29 +926,63 @@ function reset() {
   padding-top: 2.5rem;
   border-top: 1px solid rgba(0, 255, 65, 0.1);
 }
-.faq-header {
+.faq-label {
+  display: block;
   font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   color: var(--color-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
-.faq-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid rgba(0, 255, 65, 0.12);
+}
 .faq-item {
-  padding: 1.25rem;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.12);
   background: var(--color-surface);
-  border-left: 2px solid rgba(0, 255, 65, 0.3);
+  transition: background 0.2s;
 }
-.faq-q {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
+.faq-item:hover { background: var(--color-surface-2); }
+.faq-item[open] { background: var(--color-surface-2); }
+.faq-question {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--color-text);
-  margin: 0 0 0.6rem;
-  letter-spacing: 0.02em;
+  user-select: none;
 }
-.faq-a {
-  font-size: 0.9rem;
+.faq-question::-webkit-details-marker { display: none; }
+.faq-question:hover .faq-q-icon { color: var(--color-accent); }
+.faq-q-text { flex: 1; line-height: 1.45; }
+.faq-q-icon {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  line-height: 1;
   color: var(--color-muted);
-  line-height: 1.7;
+  transition: transform 0.2s ease, color 0.15s;
+  width: 1.5em;
+  text-align: center;
+}
+.faq-item[open] .faq-q-icon { transform: rotate(45deg); color: var(--color-accent); }
+.faq-answer {
+  padding: 0 1.5rem 1.5rem;
   margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-muted);
+  max-width: 75ch;
+}
+@media (max-width: 640px) {
+  .faq-question { padding: 1rem 1.1rem; font-size: 0.95rem; }
+  .faq-answer   { padding: 0 1.1rem 1.2rem; font-size: 0.9rem; }
 }
 </style>
