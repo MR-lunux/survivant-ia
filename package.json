@@ -25,5 +25,12 @@
   },
   "overrides": {
     "tailwindcss": "3.4.19"
-  }
+  },
+  "browserslist": [
+    "chrome >= 100",
+    "firefox >= 100",
+    "edge >= 100",
+    "safari >= 15",
+    "ios_saf >= 15"
+  ]
 }

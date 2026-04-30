@@ -79,4 +79,9 @@ export default defineNuxtConfig({
       routes: ['/', '/rss.xml', '/scanner', '/rapports', '/frequence', '/identite', '/confidentialite'],
     },
   },
+  vite: {
+    build: {
+      target: 'es2022',
+    },
+  },
 })
