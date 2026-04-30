@@ -49,6 +49,20 @@ defineOgImage('Default', {
   kicker: '// SCANNER · 10 SECONDES',
 })
 
+// ── PostHog tracking ─────────────────────────────────────
+const { capture } = usePosthogEvent()
+
+function jobProps(job: Job, source: 'suggestion' | 'url_param') {
+  return {
+    job_slug:    job.slug,
+    job_label:   job.label,
+    job_status:  job.status,
+    job_risk:    job.risk,
+    job_horizon: job.horizon,
+    source,
+  }
+}
+
 // ── State ────────────────────────────────────────────────
 const route  = useRoute()
 const router = useRouter()
@@ -67,14 +81,22 @@ let riskAnimTimer: ReturnType<typeof setInterval> | null = null
 const scanTimers: ReturnType<typeof setTimeout>[] = []
 
 // ── Autocomplete ─────────────────────────────────────────
+let noResultsTimer: ReturnType<typeof setTimeout> | null = null
 watch(query, (val) => {
   suggestions.value = searchJobs(val)
+  if (noResultsTimer) clearTimeout(noResultsTimer)
+  if (val.length >= 3 && suggestions.value.length === 0) {
+    noResultsTimer = setTimeout(() => {
+      capture('scanner_search_no_results', { query: val.trim() })
+    }, 600)
+  }
 })
 
 function selectJob(job: Job) {
   query.value       = job.label
   suggestions.value = []
   selectedJob.value = job
+  capture('scanner_job_selected', jobProps(job, 'suggestion'))
   startScan(job)
 }
 
@@ -88,6 +110,8 @@ onMounted(() => {
       selectedJob.value = job
       phase.value       = 'result'
       setDynamicMeta(job)
+      capture('scanner_job_selected', jobProps(job, 'url_param'))
+      capture('scanner_scan_completed', jobProps(job, 'url_param'))
     }
   } else {
     jobInputRef.value?.focus()
@@ -96,8 +120,9 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   scanTimers.forEach(id => clearTimeout(id))
-  if (copyTimer)     clearTimeout(copyTimer)
-  if (riskAnimTimer) clearInterval(riskAnimTimer)
+  if (copyTimer)      clearTimeout(copyTimer)
+  if (riskAnimTimer)  clearInterval(riskAnimTimer)
+  if (noResultsTimer) clearTimeout(noResultsTimer)
 })
 
 // ── Terminal animation ───────────────────────────────────
@@ -174,6 +199,7 @@ function startScan(job: Job) {
             phase.value = 'result'
             router.replace({ query: { job: job.slug } })
             setDynamicMeta(job)
+            capture('scanner_scan_completed', jobProps(job, 'suggestion'))
           }, 400))
         }
       }, 350))
@@ -234,14 +260,33 @@ const ctaButton = computed(() => {
 
 // ── Share ─────────────────────────────────────────────────
 function copyLink() {
+  if (selectedJob.value) {
+    capture('scanner_result_shared', {
+      job_slug:   selectedJob.value.slug,
+      job_status: selectedJob.value.status,
+      risk:       selectedJob.value.risk,
+    })
+  }
   navigator.clipboard.writeText(window.location.href).catch(() => {})
   copied.value = true
   if (copyTimer) clearTimeout(copyTimer)
   copyTimer = setTimeout(() => { copied.value = false }, 1500)
 }
 
+function onCtaClick() {
+  if (!selectedJob.value) return
+  capture('scanner_cta_clicked', {
+    job_slug:   selectedJob.value.slug,
+    job_status: selectedJob.value.status,
+    cta_label:  ctaButton.value,
+  })
+}
+
 // ── Reset ─────────────────────────────────────────────────
 function reset() {
+  if (selectedJob.value) {
+    capture('scanner_reset', { previous_job_slug: selectedJob.value.slug })
+  }
   scanTimers.forEach(id => clearTimeout(id))
   scanTimers.length = 0
   if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
@@ -382,7 +427,7 @@ function reset() {
         <div class="cta-zone">
           <div class="cta-inner">
             <p class="cta-hook font-mono">{{ ctaHook }}</p>
-            <GlitchButton :label="ctaButton" to="/#newsletter" />
+            <GlitchButton :label="ctaButton" to="/#newsletter" @click="onCtaClick" />
           </div>
           <button class="share-btn font-mono" @click="copyLink">
             {{ copied ? '[ Lien copié ! ]' : '[ Partager mon résultat ]' }}
