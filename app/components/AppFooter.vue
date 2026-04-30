@@ -15,15 +15,15 @@ const socials = {
       </div>
 
       <div class="footer-links">
-        <NuxtLink to="/rapports">Rapports de Survie</NuxtLink>
-        <NuxtLink to="/frequence">Rejoindre la Fréquence</NuxtLink>
-        <NuxtLink to="/identite">Identité du Survivant</NuxtLink>
+        <NuxtLink to="/rapports" data-attr="footer-nav-rapports">Rapports de Survie</NuxtLink>
+        <NuxtLink to="/frequence" data-attr="footer-nav-frequence">Rejoindre la Fréquence</NuxtLink>
+        <NuxtLink to="/identite" data-attr="footer-nav-identite">Identité du Survivant</NuxtLink>
       </div>
 
       <div v-if="socials.linkedin || socials.instagram || socials.youtube" class="footer-social">
-        <a v-if="socials.linkedin" :href="socials.linkedin" target="_blank" rel="noopener me" aria-label="LinkedIn"><IconLinkedIn /></a>
-        <a v-if="socials.instagram" :href="socials.instagram" target="_blank" rel="noopener me" aria-label="Instagram"><IconInstagram /></a>
-        <a v-if="socials.youtube" :href="socials.youtube" target="_blank" rel="noopener me" aria-label="YouTube"><IconYoutube /></a>
+        <a v-if="socials.linkedin" :href="socials.linkedin" target="_blank" rel="noopener me" aria-label="LinkedIn" data-attr="footer-social-linkedin"><IconLinkedIn /></a>
+        <a v-if="socials.instagram" :href="socials.instagram" target="_blank" rel="noopener me" aria-label="Instagram" data-attr="footer-social-instagram"><IconInstagram /></a>
+        <a v-if="socials.youtube" :href="socials.youtube" target="_blank" rel="noopener me" aria-label="YouTube" data-attr="footer-social-youtube"><IconYoutube /></a>
       </div>
     </div>
 

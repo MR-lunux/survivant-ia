@@ -1,16 +1,16 @@
 <template>
   <header class="app-header">
     <div class="container header-inner">
-      <NuxtLink to="/" class="logo">
+      <NuxtLink to="/" class="logo" data-attr="header-nav-home">
         <span class="logo-bracket">[</span>
         <span class="logo-text">SURVIVANT</span>
         <span class="logo-bracket">]</span>
       </NuxtLink>
 
       <nav v-if="!isHome" class="nav">
-        <NuxtLink to="/rapports" class="nav-link">Rapports de Survie</NuxtLink>
-        <NuxtLink to="/frequence" class="nav-link">La Fréquence</NuxtLink>
-        <NuxtLink to="/identite" class="nav-link">Identité</NuxtLink>
+        <NuxtLink to="/rapports" class="nav-link" data-attr="header-nav-rapports">Rapports de Survie</NuxtLink>
+        <NuxtLink to="/frequence" class="nav-link" data-attr="header-nav-frequence">La Fréquence</NuxtLink>
+        <NuxtLink to="/identite" class="nav-link" data-attr="header-nav-identite">Identité</NuxtLink>
       </nav>
 
       <div v-if="socials.linkedin || socials.instagram || socials.youtube" class="social-links">

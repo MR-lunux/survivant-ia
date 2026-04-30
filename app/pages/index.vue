@@ -111,11 +111,11 @@ onUnmounted(() => {
 
         <div class="hero-cta">
           <div class="cta-group">
-            <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" @click="onHomeCta('newsletter')" />
+            <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')" />
             <span class="cta-subline font-mono">1 rapport gratuit / semaine · 5 min</span>
           </div>
           <div class="cta-group">
-            <NuxtLink to="/scanner" class="hero-link font-mono" @click="onHomeCta('scanner')">TESTER MON MÉTIER →</NuxtLink>
+            <NuxtLink to="/scanner" class="hero-link font-mono" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">TESTER MON MÉTIER →</NuxtLink>
             <span class="cta-subline font-mono">10 secondes · sans inscription</span>
           </div>
         </div>
@@ -150,7 +150,7 @@ onUnmounted(() => {
           <p class="scanner-teaser-text">
             Scanne ton métier — découvre ton score d'obsolescence en 10 secondes.
           </p>
-          <GlitchButton label="Lancer le scan (gratuit)" to="/scanner" @click="onHomeCta('scanner')" />
+          <GlitchButton label="Lancer le scan (gratuit)" to="/scanner" data-attr="teaser-cta-scanner" @click="onHomeCta('scanner')" />
         </ScannerBorder>
       </div>
     </section>
@@ -173,7 +173,7 @@ onUnmounted(() => {
       <div class="container">
         <div class="section-header" data-reveal>
           <h2>Rapports de Survie — la veille hebdo pour prendre le virage de l'IA</h2>
-          <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;" @click="onHomeCta('rapports')">LIRE LES RAPPORTS ANTI-OBSOLESCENCE →</NuxtLink>
+          <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;" data-attr="home-link-rapports" @click="onHomeCta('rapports')">LIRE LES RAPPORTS ANTI-OBSOLESCENCE →</NuxtLink>
         </div>
 
         <div class="articles-grid">
