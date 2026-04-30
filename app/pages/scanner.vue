@@ -49,7 +49,7 @@ useHead({
               name: 'Comment est calculé le score de risque d\'automatisation IA ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Le score est basé sur 3 sources académiques et institutionnelles : Tufts University (2026), McKinsey Global Institute et World Economic Forum. Il prend en compte la substituabilité des tâches, l\'horizon temporel d\'impact et les tendances d\'adoption des LLM par secteur.',
+                text: 'Le score est une estimation éditoriale informée par un ensemble de recherches : études académiques (Tufts University, PayScope), rapports de cabinets (McKinsey, Goldman Sachs), institutions internationales (WEF) et données de plateformes (LinkedIn). Il donne une tendance sectorielle — pas un algorithme mécanique. Les sources complètes sont accessibles depuis chaque résultat.',
               },
             },
             {
@@ -570,7 +570,7 @@ function reset() {
               <span class="faq-q-text">Comment est calculé le score de risque d'automatisation ?</span>
               <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
             </summary>
-            <p class="faq-answer">Le score est basé sur 3 sources académiques et institutionnelles : Tufts University (2026), McKinsey Global Institute et World Economic Forum. Il prend en compte la substituabilité des tâches, l'horizon temporel d'impact et les tendances d'adoption des LLM par secteur.</p>
+            <p class="faq-answer">Le score est une estimation éditoriale informée par un ensemble de recherches : études académiques (Tufts University, PayScope), rapports de cabinets (McKinsey, Goldman Sachs), institutions internationales (WEF) et données de plateformes (LinkedIn). Il donne une tendance sectorielle — pas un algorithme mécanique. Les sources complètes sont accessibles depuis chaque résultat.</p>
           </details>
           <details class="faq-item">
             <summary class="faq-question">
