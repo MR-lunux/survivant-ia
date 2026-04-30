@@ -85,9 +85,11 @@ let noResultsTimer: ReturnType<typeof setTimeout> | null = null
 watch(query, (val) => {
   suggestions.value = searchJobs(val)
   if (noResultsTimer) clearTimeout(noResultsTimer)
+  // Tracking threshold is 3 (UX shows "no result" at 2) — avoids noise from short partial queries
   if (val.length >= 3 && suggestions.value.length === 0) {
     noResultsTimer = setTimeout(() => {
       capture('scanner_search_no_results', { query: val.trim() })
+      noResultsTimer = null
     }, 600)
   }
 })
@@ -284,6 +286,7 @@ function onCtaClick() {
 
 // ── Reset ─────────────────────────────────────────────────
 function reset() {
+  if (noResultsTimer) { clearTimeout(noResultsTimer); noResultsTimer = null }
   if (selectedJob.value) {
     capture('scanner_reset', { previous_job_slug: selectedJob.value.slug })
   }
