@@ -83,7 +83,6 @@ const categoryLabel = computed(() =>
 
 const { capture } = usePosthogEvent()
 const articleRef = ref<HTMLElement | null>(null)
-const articleBodyRef = ref<HTMLElement | null>(null)
 
 const PROGRESS_THRESHOLDS = [25, 50, 75, 100] as const
 const reachedThresholds = new Set<number>()
@@ -164,7 +163,7 @@ onBeforeUnmount(() => {
       </header>
 
       <ScannerBorder class="article-body">
-        <div ref="articleBodyRef" @click="onArticleClick">
+        <div @click="onArticleClick">
           <ContentRenderer :value="article" class="prose" />
         </div>
       </ScannerBorder>
