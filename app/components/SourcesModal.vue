@@ -14,8 +14,9 @@ const props = defineProps<{
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const dialogRef = ref<HTMLDialogElement | null>(null)
+const dialogRef = ref<HTMLDivElement | null>(null)
 const closeBtnRef = ref<HTMLButtonElement | null>(null)
+const previousActive = ref<HTMLElement | null>(null)
 
 const contextualSources = computed(() => {
   if (!props.job || props.job.sources.length === 0) return []
@@ -24,19 +25,28 @@ const contextualSources = computed(() => {
 
 const groupedCatalog = computed(() => getSourcesByCategory())
 
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') emit('close')
+}
+
 watch(() => props.open, async (isOpen) => {
+  if (typeof window === 'undefined') return
   if (isOpen) {
+    previousActive.value = document.activeElement as HTMLElement | null
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeydown)
     await nextTick()
     closeBtnRef.value?.focus()
+  } else {
+    document.body.style.overflow = ''
+    window.removeEventListener('keydown', onKeydown)
+    previousActive.value?.focus?.()
+    previousActive.value = null
   }
 })
 
 function onBackdropClick(event: MouseEvent) {
   if (event.target === dialogRef.value) emit('close')
-}
-
-function onKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape') emit('close')
 }
 </script>
 
@@ -51,7 +61,6 @@ function onKeydown(event: KeyboardEvent) {
         aria-modal="true"
         aria-labelledby="sources-modal-title"
         @click="onBackdropClick"
-        @keydown="onKeydown"
       >
         <div class="modal-panel font-mono" @click.stop>
           <header class="modal-header">
