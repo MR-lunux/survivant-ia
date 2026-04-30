@@ -18,7 +18,11 @@ export default {
         text: '#E0E0E0',
         muted: '#666666',
         accent: '#00FF41',
+        // Status tokens (4 levels — keep `danger` value unchanged)
         danger: '#FF3E3E',
+        mutation: '#FFA630',
+        protege: '#5BC0EB',
+        croissance: '#3DDC84',
       },
       fontFamily: {
         mono: ['"Space Mono"', 'monospace'],
