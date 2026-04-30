@@ -79,7 +79,6 @@ onUnmounted(() => {
     <!-- ── HERO ───────────────────────────────── -->
     <section class="hero">
       <div ref="heroGrid" class="hero-grid-bg" aria-hidden="true" />
-      <ClientOnly><ParticleCanvas /></ClientOnly>
 
       <div class="container hero-inner">
         <div class="hero-status">

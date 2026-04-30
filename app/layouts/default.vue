@@ -1,5 +1,6 @@
 <template>
   <div class="layout">
+    <ClientOnly><ParticleCanvas /></ClientOnly>
     <ScrollProgress />
     <AppHeader />
     <main class="main-content">

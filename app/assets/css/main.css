@@ -41,6 +41,11 @@ body {
   background-color: var(--color-bg);
 }
 
+main {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Grain effect (film noise overlay) ──────────── */
 body::after {
   content: '';
