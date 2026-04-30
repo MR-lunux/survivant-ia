@@ -31,6 +31,60 @@ useHead({
           inLanguage: 'fr-CH',
           isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
           offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: 'https://survivant-ia.ch/scanner?job={job_slug}',
+            },
+            'query-input': 'required name=job_slug',
+          },
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': 'https://survivant-ia.ch/scanner#faq',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'Comment est calculé le score de risque d\'automatisation IA ?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Le score est basé sur 3 sources académiques et institutionnelles : Tufts University (2026), McKinsey Global Institute et World Economic Forum. Il prend en compte la substituabilité des tâches, l\'horizon temporel d\'impact et les tendances d\'adoption des LLM par secteur.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Quels métiers sont les plus menacés par l\'IA en 2026 ?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Les professions les plus exposées sont celles à forte composante répétitive : agents de saisie (90 %), télévendeurs (92 %), correcteurs (85 %), traducteurs (82 %). Ces métiers sont touchés sur un horizon de 2 ans selon les projections 2026.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Mes données personnelles sont-elles enregistrées ?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Non. Le scanner ne collecte aucune donnée personnelle. Aucune inscription n\'est nécessaire. Seuls des événements anonymes d\'usage sont transmis pour améliorer l\'outil.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Combien de métiers sont couverts par le scanner IA ?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: '197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0–100 %), un horizon d\'impact et une dynamique anticipée.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Les résultats du scanner IA sont-ils fiables ?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Les scores reflètent l\'état des recherches académiques en 2026. Ils donnent une tendance sectorielle, pas une prédiction individuelle garantie. Chaque résultat inclut ses sources pour que vous puissiez évaluer la solidité des données.',
+              },
+            },
+          ],
         },
         {
           '@type': 'BreadcrumbList',
@@ -48,6 +102,20 @@ defineOgImage('Default', {
   title: 'Mon métier est-il menacé par l\'IA ?',
   kicker: '// SCANNER · 10 SECONDES',
 })
+
+// ── Popular jobs (crawlable quick-links) ─────────────────
+const POPULAR_JOBS = [
+  { slug: 'comptable',          label: 'Comptable' },
+  { slug: 'developpeur-logiciel', label: 'Développeur logiciel' },
+  { slug: 'infirmier',          label: 'Infirmier' },
+  { slug: 'commercial',         label: 'Commercial B2B' },
+  { slug: 'chef-de-projet-it',  label: 'Chef de projet IT' },
+  { slug: 'avocat',             label: 'Avocat' },
+  { slug: 'medecin-generaliste', label: 'Médecin généraliste' },
+  { slug: 'recruteur',          label: 'Recruteur' },
+  { slug: 'journaliste-presse', label: 'Journaliste' },
+  { slug: 'data-scientist',     label: 'Data Scientist' },
+]
 
 // ── PostHog tracking ─────────────────────────────────────
 const { capture } = usePosthogEvent()
@@ -444,6 +512,48 @@ function reset() {
 
       </div><!-- end results-section -->
 
+      <!-- ── MÉTIERS FRÉQUENTS ──────────────────────── -->
+      <div class="popular-jobs">
+        <p class="popular-label font-mono">// MÉTIERS FRÉQUENTS</p>
+        <div class="popular-chips">
+          <NuxtLink
+            v-for="job in POPULAR_JOBS"
+            :key="job.slug"
+            :to="`/scanner?job=${job.slug}`"
+            class="job-chip font-mono"
+          >
+            {{ job.label }}
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- ── FAQ ───────────────────────────────────── -->
+      <section class="faq-section" aria-label="Questions fréquentes">
+        <p class="faq-header font-mono">// QUESTIONS FRÉQUENTES</p>
+        <dl class="faq-list">
+          <div class="faq-item">
+            <dt class="faq-q">Comment est calculé le score de risque d'automatisation ?</dt>
+            <dd class="faq-a">Le score est basé sur 3 sources académiques et institutionnelles : Tufts University (2026), McKinsey Global Institute et World Economic Forum. Il prend en compte la substituabilité des tâches, l'horizon temporel d'impact et les tendances d'adoption des LLM par secteur.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q">Quels métiers sont les plus menacés par l'IA en 2026 ?</dt>
+            <dd class="faq-a">Les professions les plus exposées sont celles à forte composante répétitive : agents de saisie (90&nbsp;%), télévendeurs (92&nbsp;%), correcteurs (85&nbsp;%), traducteurs (82&nbsp;%). Ces métiers sont touchés sur un horizon de 2 ans selon les projections 2026.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q">Mes données personnelles sont-elles enregistrées ?</dt>
+            <dd class="faq-a">Non. Le scanner ne collecte aucune donnée personnelle. Aucune inscription n'est nécessaire. Seuls des événements anonymes d'usage sont transmis pour améliorer l'outil.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q">Combien de métiers sont couverts ?</dt>
+            <dd class="faq-a">197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0–100&nbsp;%), un horizon d'impact et une dynamique anticipée.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q">Les résultats sont-ils fiables ?</dt>
+            <dd class="faq-a">Les scores reflètent l'état des recherches académiques en 2026. Ils donnent une tendance sectorielle, pas une prédiction individuelle garantie. Chaque résultat inclut ses sources pour que vous puissiez évaluer la solidité des données.</dd>
+          </div>
+        </dl>
+      </section>
+
     </div><!-- end container -->
   </div>
 
@@ -766,5 +876,64 @@ function reset() {
   .cursor { animation: none; opacity: 1; }
   .gauge-fill { transition: none; }
   .scanner-bg::after { animation: none; }
+}
+
+/* ── Popular jobs ─────────────────────────────── */
+.popular-jobs {
+  max-width: 780px;
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(0, 255, 65, 0.1);
+}
+.popular-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+.popular-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.job-chip {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  color: var(--color-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.job-chip:hover { color: var(--color-accent); border-color: rgba(0, 255, 65, 0.5); }
+
+/* ── FAQ ──────────────────────────────────────── */
+.faq-section {
+  max-width: 780px;
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(0, 255, 65, 0.1);
+}
+.faq-header {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  margin-bottom: 1.5rem;
+}
+.faq-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.faq-item {
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border-left: 2px solid rgba(0, 255, 65, 0.3);
+}
+.faq-q {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  margin: 0 0 0.6rem;
+  letter-spacing: 0.02em;
+}
+.faq-a {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 0;
 }
 </style>
