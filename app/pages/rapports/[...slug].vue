@@ -81,6 +81,65 @@ const categoryLabel = computed(() =>
   categoryLabels[article.value?.category ?? ''] ?? article.value?.category ?? ''
 )
 
+const { capture } = usePosthogEvent()
+const articleRef = ref<HTMLElement | null>(null)
+const articleBodyRef = ref<HTMLElement | null>(null)
+
+const PROGRESS_THRESHOLDS = [25, 50, 75, 100] as const
+const reachedThresholds = new Set<number>()
+
+function onScroll() {
+  const el = articleRef.value
+  if (!el) return
+  const rect = el.getBoundingClientRect()
+  const totalHeight = el.scrollHeight - window.innerHeight
+  if (totalHeight <= 0) return
+  const scrolled = Math.max(0, -rect.top)
+  const percent = Math.min(100, Math.round((scrolled / totalHeight) * 100))
+
+  for (const t of PROGRESS_THRESHOLDS) {
+    if (percent >= t && !reachedThresholds.has(t)) {
+      reachedThresholds.add(t)
+      capture('report_read_progress', {
+        slug,
+        category: article.value?.category ?? null,
+        depth: t,
+      })
+    }
+  }
+}
+
+function onArticleClick(event: MouseEvent) {
+  const target = event.target as HTMLElement | null
+  const anchor = target?.closest('a') as HTMLAnchorElement | null
+  if (!anchor || !anchor.href) return
+
+  const url = new URL(anchor.href, window.location.origin)
+  const isInternal = url.origin === window.location.origin
+
+  if (isInternal) {
+    capture('article_internal_link_clicked', {
+      from_slug: slug,
+      to_url:    url.pathname + url.search + url.hash,
+      link_text: (anchor.textContent ?? '').trim().slice(0, 120),
+    })
+  } else {
+    capture('article_source_clicked', {
+      from_slug:       slug,
+      external_domain: url.hostname,
+    })
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  // First check in case article already fits in viewport
+  onScroll()
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+})
 </script>
 
 <template>
@@ -92,7 +151,7 @@ const categoryLabel = computed(() =>
       ]"
     />
 
-    <article class="article-wrapper" v-if="article">
+    <article ref="articleRef" class="article-wrapper" v-if="article">
       <header class="article-header">
         <div class="article-meta">
           <span class="article-category font-mono">
@@ -105,7 +164,9 @@ const categoryLabel = computed(() =>
       </header>
 
       <ScannerBorder class="article-body">
-        <ContentRenderer :value="article" class="prose" />
+        <div ref="articleBodyRef" @click="onArticleClick">
+          <ContentRenderer :value="article" class="prose" />
+        </div>
       </ScannerBorder>
 
       <div class="article-footer">
