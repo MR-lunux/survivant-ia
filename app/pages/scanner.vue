@@ -200,9 +200,9 @@ const statusColor = computed(() => {
   if (!selectedJob.value) return 'var(--color-muted)'
   switch (selectedJob.value.status) {
     case 'danger':     return 'var(--color-danger)'
-    case 'mutation':   return '#FFA630'
-    case 'protege':    return '#5BC0EB'
-    case 'croissance': return '#3DDC84'
+    case 'mutation':   return 'var(--color-mutation)'
+    case 'protege':    return 'var(--color-protege)'
+    case 'croissance': return 'var(--color-croissance)'
   }
 })
 
@@ -227,7 +227,7 @@ const ctaHook = computed(() => {
 })
 
 const ctaButton = computed(() => {
-  if (!selectedJob.value) return 'Rejoindre la Fréquence'
+  if (!selectedJob.value) return 'Rejoindre La Fréquence'
   return selectedJob.value.status === 'danger' ? 'Rejoindre La Fréquence' : "S'inscrire"
 })
 

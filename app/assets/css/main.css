@@ -14,6 +14,9 @@
   --color-muted: #888888;
   --color-accent: #00FF41;
   --color-danger: #FF3E3E;
+  --color-mutation: #FFA630;
+  --color-protege: #5BC0EB;
+  --color-croissance: #3DDC84;
   --font-mono: 'Space Mono', monospace;
   --font-sans: 'Inter', sans-serif;
 }
