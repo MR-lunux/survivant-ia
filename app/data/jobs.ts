@@ -638,6 +638,174 @@ export const JOBS: Job[] = [
   { slug: 'guide-touristique', label: 'Guide touristique', risk: 35, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste mais ne te remplace pas. Le récit incarné sur le lieu, l\'adaptation au groupe et l\'authenticité restent demandés. Le tourisme expérientiel soutient la profession.',
     sources: [21] },
+
+  // ── MÉTIERS RESTAURÉS (legacy slugs préservés depuis le scanner v0.7) ──
+  // Ces entrées maintiennent les URLs `/scanner?job=<slug>` historiques pour ne pas casser
+  // les liens partagés. Le contenu est mis à niveau au schéma 2026 (statut éditorial + dynamique).
+
+  { slug: 'technicien-support', label: 'Technicien support IT', risk: 66, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Le dépannage logiciel et matériel de niveau 1 est pris en charge par des agents internes capables de lire les logs et guider les utilisateurs. Tu remontes en complexité ou tu te fais commoditiser.',
+    sources: [3] },
+
+  { slug: 'analyste-donnees', label: 'Analyste données', risk: 67, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Nettoyage, agrégation et reporting standardisé sont absorbés par les agents intégrés aux plateformes BI. Tu pivotes vers la modélisation business, le storytelling data et l\'arbitrage stratégique.',
+    sources: [3] },
+
+  { slug: 'gestionnaire-projet', label: 'Gestionnaire de projet', risk: 52, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Suivi de tâches, comptes rendus et coordination basique sont automatisés. Tu te concentres sur la gestion humaine d\'équipe, l\'arbitrage de scope et la communication exécutive.',
+    sources: [9] },
+
+  { slug: 'responsable-qualite', label: 'Responsable qualité', risk: 50, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Contrôle conformité, reporting ISO et détection d\'anomalies sont accélérés par l\'IA. Tu te recentres sur la culture qualité, la gouvernance et l\'audit stratégique des risques.',
+    sources: [3] },
+
+  { slug: 'controleur-gestion', label: 'Contrôleur de gestion', risk: 60, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Reporting standardisé, écarts budgétaires et tableaux de bord sont automatisés. Tu te concentres sur le partenariat business, l\'arbitrage de scenarii stratégiques et la lecture critique des données.',
+    sources: [7] },
+
+  { slug: 'assistant-direction', label: 'Assistant de direction', risk: 62, horizon: 5, status: 'danger',
+    dynamic: 'Tu es dans le viseur. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Subsistent les rares postes proches du pouvoir où la confiance et la discrétion priment.',
+    sources: [3] },
+
+  { slug: 'chef-de-produit', label: 'Chef de produit', risk: 48, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit — la partie irréductiblement politique.',
+    sources: [10] },
+
+  { slug: 'responsable-logistique', label: 'Responsable logistique', risk: 45, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Planification, optimisation de routes et prévision de demande sont accélérées par l\'IA. Tu deviens orchestrateur d\'exceptions, négociateur transporteurs et arbitre stratégique multi-sites.',
+    sources: [3] },
+
+  { slug: 'responsable-communication', label: 'Responsable communication', risk: 42, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque — la part politique et humaine du rôle.',
+    sources: [1] },
+
+  { slug: 'technicien-laboratoire', label: 'Technicien de laboratoire', risk: 38, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Robotique de laboratoire et IA d\'interprétation des résultats accélèrent les analyses. Tu te concentres sur la mise au point de protocoles, l\'assurance qualité et l\'expertise sur cas atypiques.',
+    sources: [21] },
+
+  { slug: 'infographiste', label: 'Infographiste', risk: 62, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. La génération d\'images, retouches et déclinaisons de gabarits sont commoditisées par l\'IA. La direction artistique et la signature visuelle survivent ; l\'exécution se vend de moins en moins seule.',
+    sources: [1] },
+
+  { slug: 'actuaire', label: 'Actuaire', risk: 62, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Modélisation tarifaire, calcul de provisions et stress tests sont accélérés par l\'IA. Tu te concentres sur l\'innovation produit, la conformité Solvency et la gouvernance des modèles.',
+    sources: [7] },
+
+  { slug: 'administrateur-sys', label: 'Administrateur système', risk: 58, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Provisioning, patches et monitoring sont gérés par des agents IA et des outils IaC. Tu pivotes vers SRE, sécurité opérationnelle et architecture cloud — ou tu es remplacé par un script.',
+    sources: [3] },
+
+  { slug: 'ingenieur-reseau', label: 'Ingénieur réseau', risk: 50, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Configuration, troubleshooting et optimisation des liens sont automatisés. Tu te recentres sur l\'architecture réseau, la sécurité périmétrique et l\'intégration cloud-edge.',
+    sources: [3] },
+
+  { slug: 'responsable-si', label: 'Responsable SI / DSI', risk: 45, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. La gouvernance IT classique cède la place à la gouvernance des agents IA, de la donnée et des risques cyber. Tu deviens stratège technologique au service du métier — pas administrateur d\'infrastructure.',
+    sources: [4] },
+
+  { slug: 'acheteur', label: 'Acheteur', risk: 52, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Sourcing fournisseurs, RFP et benchmark prix sont accélérés par l\'IA. Tu te concentres sur la négociation stratégique, la résilience de la supply chain et la RSE des fournisseurs.',
+    sources: [3] },
+
+  { slug: 'responsable-achats', label: 'Directeur des achats', risk: 40, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Le pilotage analytique des dépenses et la veille fournisseurs sont assistés par IA. La valeur reste dans la stratégie make-or-buy, la gestion des risques géopolitiques et la négociation top-niveau.',
+    sources: [9] },
+
+  { slug: 'geometre', label: 'Géomètre', risk: 35, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Drones, LiDAR et IA de traitement nuage de points accélèrent les relevés. Tu te concentres sur l\'expertise foncière, la responsabilité légale et les missions complexes.',
+    sources: [21] },
+
+  { slug: 'ingenieur-automatisme', label: 'Ingénieur automatisme', risk: 40, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. La programmation d\'automates et la mise au point de cycles sont accélérées par l\'IA générative et les jumeaux numériques. Tu pivotes vers l\'intégration cyber-physique et la robotique collaborative.',
+    sources: [9] },
+
+  { slug: 'formateur', label: 'Formateur professionnel', risk: 35, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Le WEF projette que 39% des compétences devront être réapprises d\'ici 2030. La requalification massive crée un appel d\'air pour les formateurs en présentiel, surtout sur les soft skills.',
+    sources: [10] },
+
+  { slug: 'responsable-hse', label: 'Responsable HSE', risk: 32, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA t\'assiste sur la veille réglementaire et l\'analyse de risques. Mais l\'audit terrain, la culture sécurité et la responsabilité juridique restent humaines. La pression réglementaire soutient durablement la demande.',
+    sources: [21] },
+
+  { slug: 'agent-de-voyage', label: 'Agent de voyage', risk: 65, horizon: 5, status: 'danger',
+    dynamic: 'Tu es dans le viseur. La réservation autonome, les agents IA conversationnels et les comparateurs ont massivement absorbé le métier. Subsistent uniquement les agences de niche (luxe, voyages d\'affaires complexes).',
+    sources: [3] },
+
+  { slug: 'chef-de-chantier', label: 'Chef de chantier', risk: 32, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA t\'assiste sur la planification et le suivi BIM. Mais la coordination terrain, la gestion d\'équipes humaines en environnement chaotique et la responsabilité d\'exécution restent fondamentalement humaines.',
+    sources: [21] },
+
+  { slug: 'ingenieur-mecanique', label: 'Ingénieur mécanique', risk: 35, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Le design génératif, la simulation et l\'optimisation topologique sont accélérés par l\'IA. Tu te concentres sur l\'intégration systémique, la responsabilité produit et l\'innovation conceptuelle.',
+    sources: [6] },
+
+  { slug: 'technicien-son', label: 'Technicien son / image', risk: 38, horizon: 10, status: 'mutation',
+    dynamic: 'Ton métier mute. Mixage automatique, étalonnage IA et upscaling vidéo commoditisent une partie du travail. Tu te concentres sur les captations live, la direction artistique sonore et les productions premium.',
+    sources: [21] },
+
+  { slug: 'carreleur', label: 'Carreleur', risk: 8, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Lecture du support, ajustement aux contraintes du chantier et précision millimétrique restent hors de portée des robots. La rénovation immobilière soutient durablement la demande.',
+    sources: [21] },
+
+  { slug: 'professeur-lycee', label: 'Professeur (lycée)', risk: 18, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Autorité pédagogique, médiation des conflits, transmission de la culture commune et présence physique sont au cœur de la mission éducative. La demande structurelle est forte.',
+    sources: [6] },
+
+  { slug: 'chef-cuisinier', label: 'Chef cuisinier', risk: 15, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Créativité culinaire, leadership en cuisine sous pression et signature gastronomique sont fondamentalement humaines. La gastronomie expérientielle continue de croître.',
+    sources: [21] },
+
+  { slug: 'technicien-maintenance', label: 'Technicien de maintenance', risk: 15, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Diagnostic sensoriel, intervention dans des espaces contraints et adaptation à des installations vieillissantes hétérogènes restent hors de portée des robots. La demande est structurelle.',
+    sources: [21] },
+
+  { slug: 'moniteur-auto-ecole', label: 'Moniteur d\'auto-école', risk: 18, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Pédagogie au volant, gestion du stress de l\'élève et adaptation en temps réel restent humaines. Le permis de conduire reste un rite de passage requérant un humain à côté.',
+    sources: [21] },
+
+  { slug: 'ambulancier', label: 'Ambulancier', risk: 12, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Soins d\'urgence, transport médicalisé et accompagnement psychologique du patient restent humains. Le vieillissement démographique fait croître structurellement la demande.',
+    sources: [21] },
+
+  { slug: 'ergotherapeute', label: 'Ergothérapeute', risk: 14, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Réadaptation fonctionnelle, adaptation du domicile et accompagnement post-AVC sont irréductibles à l\'IA. Le vieillissement et la complexité des handicaps soutiennent la demande.',
+    sources: [21] },
+
+  { slug: 'educateur-specialise', label: 'Éducateur spécialisé', risk: 12, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Accompagnement de personnes en situation de handicap, médiation familiale et insertion sociale exigent un jugement moral et une présence que l\'IA ne peut pas offrir.',
+    sources: [22] },
+
+  { slug: 'peintre-batiment', label: 'Peintre en bâtiment', risk: 8, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Préparation des supports, ajustement aux configurations et finition à l\'œil restent humaines. Robots peintres existent en industrie, jamais sur chantier résidentiel.',
+    sources: [21] },
+
+  { slug: 'patissier', label: 'Pâtissier', risk: 7, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Geste précis, créativité gustative et adaptation aux ingrédients restent humains. Le marché de l\'artisanat pâtissier soutient durablement la profession.',
+    sources: [21] },
+
+  { slug: 'moniteur-sport', label: 'Moniteur de sport', risk: 13, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Encadrement physique, motivation incarnée et adaptation au niveau de l\'élève restent humains. La demande de bien-être et de coaching personnalisé soutient la profession.',
+    sources: [21] },
+
+  { slug: 'dieteticien', label: 'Diététicien', risk: 20, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Apps de tracking nutritionnel proposent des plans automatisés, mais l\'accompagnement personnalisé sur troubles alimentaires et pathologies chroniques exige l\'humain. La demande explose.',
+    sources: [21] },
+
+  { slug: 'technicien-cvc', label: 'Technicien CVC (chauffage)', risk: 10, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Pompes à chaleur, climatisation et rénovation énergétique : la transition écologique structure une demande massive. Les entreprises peinent à recruter assez vite.',
+    sources: [9] },
+
+  { slug: 'serrurier', label: 'Serrurier', risk: 9, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Intervention d\'urgence, expertise mécanique et serrurerie sécurisée sur installations existantes restent humaines. La demande est stable.',
+    sources: [21] },
+
+  { slug: 'conducteur-engins', label: 'Conducteur d\'engins', risk: 18, horizon: 10, status: 'croissance',
+    dynamic: 'Tu es dans le bon wagon. Engins autonomes progressent en mine et en agriculture, mais le BTP urbain non standardisé reste humain. La transition énergétique et le logement structurent la demande.',
+    sources: [9] },
+
+  { slug: 'pompiste', label: 'Technicien de surface', risk: 8, horizon: 10, status: 'protege',
+    dynamic: 'L\'IA ne te remplace pas. Le nettoyage en environnements complexes, l\'adaptation aux salissures et la responsabilité hygiène en milieu sensible restent fondamentalement humains.',
+    sources: [21] },
 ]
 
 // ── Fonctions utilitaires ─────────────────────────────────
