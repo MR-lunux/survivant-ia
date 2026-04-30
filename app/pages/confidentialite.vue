@@ -27,7 +27,7 @@ defineOgImage(false)
         <li>Votre adresse email</li>
         <li>Votre prénom</li>
       </ul>
-      <p>Aucune autre donnée n'est collectée.</p>
+      <p>Au-delà de la newsletter, nous collectons des données d'audience anonymes (voir ci-dessous : <em>Mesure d'audience anonyme</em>).</p>
     </section>
 
     <section class="policy-section">
@@ -38,6 +38,19 @@ defineOgImage(false)
     <section class="policy-section">
       <h2>Sous-traitant</h2>
       <p>Les données sont traitées par <strong>Brevo</strong> (Sendinblue SAS), hébergé dans l'Union européenne, dans le respect du RGPD. <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">Politique de confidentialité Brevo ↗</a></p>
+    </section>
+
+    <section class="policy-section">
+      <h2>Mesure d'audience anonyme</h2>
+      <p>Pour comprendre comment le site est utilisé et l'améliorer, nous utilisons <strong>PostHog</strong> (hébergé dans l'Union européenne, à Francfort) en mode strictement anonyme :</p>
+      <ul>
+        <li>Aucun cookie n'est déposé sur votre appareil</li>
+        <li>Aucun identifiant persistant n'est créé</li>
+        <li>Les données collectées (pages visitées, clics, métiers scannés, performances techniques) sont agrégées et ne permettent pas de vous identifier</li>
+        <li>Conformément à l'exemption CNIL pour la mesure d'audience, ces données sont conservées 13 mois maximum</li>
+      </ul>
+      <p>Vous pouvez vous opposer à cette mesure en activant le mode <em>Do Not Track</em> de votre navigateur — nous le respectons automatiquement.</p>
+      <p><a href="https://posthog.com/privacy" target="_blank" rel="noopener">Politique de confidentialité PostHog ↗</a></p>
     </section>
 
     <section class="policy-section">
