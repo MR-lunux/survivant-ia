@@ -1,6 +1,6 @@
 <!-- app/components/ArticleCard.vue -->
 <template>
-  <NuxtLink :to="`/rapports/${article.path?.split('/').pop() ?? ''}`" class="article-card-link">
+  <NuxtLink :to="`/rapports/${articleSlug}`" class="article-card-link" @click="onClick">
     <ScannerBorder class="article-card">
       <div class="card-meta">
         <span class="card-category" :class="`cat-${article.category}`">
@@ -25,6 +25,14 @@ const props = defineProps<{
     category: string
   }
 }>()
+
+const emit = defineEmits<{ 'card-click': [slug: string] }>()
+
+const articleSlug = computed(() => props.article.path?.split('/').pop() ?? '')
+
+function onClick() {
+  emit('card-click', articleSlug.value)
+}
 
 const categoryLabel = computed(() => categoryLabels[props.article.category] ?? props.article.category)
 

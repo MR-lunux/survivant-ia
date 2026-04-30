@@ -60,6 +60,17 @@ const categories = [
   { key: 'comprendre-ia', label: "COMPRENDRE L'IA" },
   { key: 'cas-pratiques', label: 'CAS PRATIQUES' },
 ]
+
+const { capture } = usePosthogEvent()
+
+function onCardClick(slug: string, position: number) {
+  const found = filteredArticles.value.find(a => a.path?.endsWith(slug))
+  capture('report_card_clicked', {
+    slug,
+    category: found?.category ?? null,
+    position,
+  })
+}
 </script>
 
 <template>
@@ -87,9 +98,10 @@ const categories = [
 
     <div class="articles-grid">
       <ArticleCard
-        v-for="article in filteredArticles"
+        v-for="(article, index) in filteredArticles"
         :key="article.path"
         :article="article"
+        @card-click="onCardClick($event, index + 1)"
       />
     </div>
 
