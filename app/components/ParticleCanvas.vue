@@ -170,16 +170,28 @@ const handleVisibility = () => {
 onMounted(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   if (!canvasEl.value) return
-  ctx = canvasEl.value.getContext('2d')
-  applyMobileTuning()
-  resize()
-  particles = Array.from({ length: count }, createParticle)
-  loop()
-  io = new IntersectionObserver(onIntersect, { threshold: PULSE_TARGET_THRESHOLD })
-  rescanTargets()
-  unregisterRouterHook = router.afterEach(() => nextTick(() => rescanTargets()))
-  window.addEventListener('resize', handleResize, { passive: true })
-  document.addEventListener('visibilitychange', handleVisibility)
+
+  // Defer the heavy setup (RAF, IO, particles array) until the browser is idle,
+  // so we don't block hydration / TBT for a purely decorative background.
+  const start = () => {
+    if (!canvasEl.value) return
+    ctx = canvasEl.value.getContext('2d')
+    applyMobileTuning()
+    resize()
+    particles = Array.from({ length: count }, createParticle)
+    loop()
+    io = new IntersectionObserver(onIntersect, { threshold: PULSE_TARGET_THRESHOLD })
+    rescanTargets()
+    unregisterRouterHook = router.afterEach(() => nextTick(() => rescanTargets()))
+    window.addEventListener('resize', handleResize, { passive: true })
+    document.addEventListener('visibilitychange', handleVisibility)
+  }
+
+  if (typeof window.requestIdleCallback === 'function') {
+    window.requestIdleCallback(start, { timeout: 1500 })
+  } else {
+    setTimeout(start, 500)
+  }
 })
 
 onUnmounted(() => {
