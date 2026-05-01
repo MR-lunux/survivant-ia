@@ -476,6 +476,16 @@ function reset() {
       <Breadcrumbs :items="[{ label: 'Scanner IA' }]" />
       <h1 class="scanner-h1">Scanner d'obsolescence IA — Quel est le risque pour ton métier&nbsp;?</h1>
 
+      <!-- ── Intro ─────────────────────────────────────── -->
+      <div class="scanner-intro">
+        <p class="intro-lead">Ton métier face à l'IA — résultat en 10 secondes.</p>
+        <ol class="intro-steps font-mono">
+          <li><span class="step-num">01</span> Tape ton métier dans le champ <span class="step-accent">SUJET</span></li>
+          <li><span class="step-num">02</span> Clique sur la correspondance — le rapport se déclassifie</li>
+          <li><span class="step-num">03</span> Lis ton score, ta trajectoire et ce que tu peux faire</li>
+        </ol>
+      </div>
+
       <!-- ── Report card ─────────────────────────────── -->
       <article class="report" :data-state="phase" aria-label="Rapport prédictif">
 
@@ -492,7 +502,7 @@ function reset() {
         </div>
 
         <!-- SUJET -->
-        <div class="rep-field">
+        <div class="rep-field rep-field--sujet">
           <span class="k font-mono">SUJET</span>
           <span class="arrow font-mono" aria-hidden="true">›</span>
           <span class="v">
@@ -739,6 +749,43 @@ function reset() {
   white-space: nowrap;
 }
 
+/* ── Intro ────────────────────────────────────────── */
+.scanner-intro {
+  max-width: 780px;
+  margin-bottom: 1.75rem;
+}
+.intro-lead {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 0.85rem;
+  line-height: 1.6;
+}
+.intro-steps {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.intro-steps li {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+.step-num {
+  color: var(--color-accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-accent {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
 /* ── Report card ──────────────────────────────────── */
 .report {
   max-width: 780px;
@@ -819,6 +866,10 @@ function reset() {
 }
 
 /* ── Field rows ───────────────────────────────────── */
+/* SUJET field needs higher z-index so its dropdown sits above the other fields
+   (all .report > * share z-index:2; later DOM elements stack on top) */
+.rep-field--sujet { z-index: 10; }
+
 .rep-field {
   display: flex;
   align-items: baseline;
@@ -885,12 +936,12 @@ function reset() {
   right: 0;
   list-style: none;
   margin: 0; padding: 0;
-  background: var(--color-surface-2);
-  border: 1px solid rgba(0, 255, 65, 0.18);
+  background: #1A1A1A;
+  border: 1px solid rgba(0, 255, 65, 0.25);
   z-index: 30;
   max-height: 240px;
   overflow-y: auto;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
 }
 .suggestions li {
   padding: 0.6rem 0.95rem;
