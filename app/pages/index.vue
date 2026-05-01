@@ -232,7 +232,6 @@ onUnmounted(() => {
 .hero-kicker {
   display: block;
   margin-bottom: 0.85rem;
-  opacity: 0;
   animation: heroFadeUp 0.5s 0.4s ease both;
 }
 
@@ -246,7 +245,6 @@ onUnmounted(() => {
   margin: 0 0 1.25rem;
   font-family: var(--font-sans);
   text-transform: none;
-  opacity: 0;
   animation: heroFadeUp 0.5s 0.45s ease both;
 }
 
@@ -301,12 +299,11 @@ onUnmounted(() => {
 .hero-subtitle {
   font-size: 1.1rem; color: var(--color-muted);
   max-width: 55ch; margin: 0 0 2.5rem; line-height: 1.7;
-  opacity: 0;
   animation: heroFadeUp 0.6s 1.1s ease both;
 }
 @keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(16px); }
+  to   { transform: translateY(0); }
 }
 
 /* ── Hero question cards ───────────────────────────── */
@@ -318,7 +315,6 @@ onUnmounted(() => {
   text-transform: uppercase;
   color: var(--color-muted);
   margin: 0 0 2rem;
-  opacity: 0;
   animation: heroFadeUp 0.5s 1.3s ease both;
 }
 .hero-prompt::before, .hero-prompt::after {
@@ -329,7 +325,6 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  opacity: 0;
   animation: heroFadeUp 0.5s 1.5s ease both;
 }
 .qcard {
