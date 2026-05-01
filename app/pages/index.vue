@@ -76,15 +76,55 @@ onUnmounted(() => {
           Soft skills, compréhension de l'IA, cas pratiques concrets, sans jargon.
         </p>
 
-        <div class="hero-cta">
-          <div class="cta-group">
-            <GlitchButton label="Rejoindre la Fréquence" to="#newsletter" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')" />
-            <span class="cta-subline font-mono">1 rapport gratuit / semaine · 5 min</span>
-          </div>
-          <div class="cta-group">
-            <NuxtLink to="/scanner" class="hero-link font-mono" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">TESTER MON MÉTIER →</NuxtLink>
-            <span class="cta-subline font-mono">10 secondes · sans inscription</span>
-          </div>
+        <p class="hero-prompt">Tu te poses laquelle ?</p>
+
+        <div class="qcards">
+          <NuxtLink to="#newsletter" class="qcard" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')">
+            <KickerLabel class="qcard-num">01 · ÉMISSION</KickerLabel>
+            <div class="qcard-icon">
+              <svg viewBox="0 0 170 150" class="ic-soundwave" aria-hidden="true">
+                <rect class="bar" style="--delay: 0s;     --dur: 2.4s" x="10"  y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.4s;   --dur: 3.0s" x="28"  y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.15s;  --dur: 2.0s" x="46"  y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.6s;   --dur: 2.6s" x="64"  y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.25s;  --dur: 1.8s" x="82"  y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.5s;   --dur: 2.8s" x="100" y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.7s;   --dur: 2.4s" x="118" y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.3s;   --dur: 3.2s" x="136" y="20" width="10" height="110"/>
+                <rect class="bar" style="--delay: 0.55s;  --dur: 2.2s" x="154" y="20" width="10" height="110"/>
+              </svg>
+            </div>
+            <h3 class="qcard-question">Veux-tu <span class="em">survivre</span><br>avec l'IA ?</h3>
+            <div class="qcard-foot">
+              <span class="qcard-cta">▸ La Fréquence</span>
+              <span class="qcard-meta font-mono">1 rapport gratuit / semaine · 5 min</span>
+            </div>
+          </NuxtLink>
+
+          <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
+            <KickerLabel class="qcard-num">02 · ÉCOULEMENT</KickerLabel>
+            <div class="qcard-icon">
+              <svg viewBox="0 0 130 150" class="ic-hourglass" aria-hidden="true">
+                <g class="hourglass-body">
+                  <line class="frame" x1="22" y1="14" x2="108" y2="14"/>
+                  <line class="frame" x1="22" y1="136" x2="108" y2="136"/>
+                  <path class="frame" d="M 28 14 L 28 22 L 60 70 L 60 80 L 28 128 L 28 136"/>
+                  <path class="frame" d="M 102 14 L 102 22 L 70 70 L 70 80 L 102 128 L 102 136"/>
+                  <path class="sand-top" d="M 30 22 L 100 22 L 65 70 Z"/>
+                  <path class="sand-bot" d="M 65 80 L 100 128 L 30 128 Z"/>
+                </g>
+                <g class="grains-overlay">
+                  <circle class="grain grain-1" cx="65" cy="75" r="1.5"/>
+                  <circle class="grain grain-2" cx="65" cy="75" r="1.5"/>
+                  <circle class="grain grain-3" cx="65" cy="75" r="1.5"/>
+                </g>
+              </svg>
+            </div>
+            <h3 class="qcard-question">Veux-tu connaître<br>ton <span class="em">obsolescence</span> ?</h3>
+            <div class="qcard-foot">
+              <span class="qcard-cta">▸ Le Scanner</span>
+            </div>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -263,32 +303,199 @@ onUnmounted(() => {
   opacity: 0;
   animation: heroFadeUp 0.6s 1.1s ease both;
 }
-.hero-cta {
-  display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;
-  opacity: 0;
-  animation: heroFadeUp 0.5s 1.3s ease both;
-}
-.cta-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.55rem;
-}
-.cta-subline {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-  opacity: 0.85;
-}
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hero-link {
-  font-size: 0.75rem; letter-spacing: 0.1em;
-  color: var(--color-muted); transition: color 0.15s;
+
+/* ── Hero question cards ───────────────────────────── */
+.hero-prompt {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 2rem;
+  opacity: 0;
+  animation: heroFadeUp 0.5s 1.3s ease both;
 }
-.hero-link:hover { color: var(--color-accent); }
+.hero-prompt::before, .hero-prompt::after {
+  content: '—'; color: #555; margin: 0 0.85rem;
+}
+
+.qcards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  opacity: 0;
+  animation: heroFadeUp 0.5s 1.5s ease both;
+}
+.qcard {
+  background: var(--color-surface);
+  border: 1px solid rgba(0, 255, 65, 0.25);
+  padding: 2rem 1.75rem 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.qcard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 30%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.06), transparent);
+  pointer-events: none;
+  transition: left 0.9s ease;
+}
+.qcard:hover {
+  border-color: var(--color-accent);
+  background: rgba(0, 255, 65, 0.025);
+  transform: translateY(-4px);
+}
+.qcard:hover::after { left: 130%; }
+
+.qcard-num { align-self: flex-start; }
+
+.qcard-icon {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin: 0.5rem 0;
+}
+.qcard-icon svg {
+  overflow: visible;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 65, 0.3));
+  transition: filter 0.3s ease;
+}
+.qcard:hover .qcard-icon svg {
+  filter: drop-shadow(0 0 24px rgba(0, 255, 65, 0.6));
+}
+
+.qcard-question {
+  font-family: var(--font-mono);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.25;
+  text-align: center;
+  margin: 0.25rem 0 0.5rem;
+}
+.qcard-question .em { color: var(--color-accent); }
+
+.qcard-foot {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+}
+.qcard-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--color-accent);
+  text-transform: uppercase;
+  transition: letter-spacing 0.3s ease;
+}
+.qcard:hover .qcard-cta { letter-spacing: 0.22em; }
+.qcard-meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+/* ── Sound wave icon (carte 01) ────────────────────── */
+.ic-soundwave { width: 170px; height: 150px; }
+.ic-soundwave .bar {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: eq-bounce var(--dur, 2.4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(0.25); }
+  50%      { transform: scaleY(1); }
+}
+
+/* ── Hourglass icon (carte 02) ─────────────────────── */
+.ic-hourglass { width: 130px; height: 150px; }
+.hourglass-body {
+  transform-box: view-box;
+  transform-origin: 65px 75px;
+  animation: hourglass-flip 10s ease-in-out infinite;
+}
+@keyframes hourglass-flip {
+  0%, 40%   { transform: rotate(0deg); }
+  50%, 90%  { transform: rotate(180deg); }
+  100%      { transform: rotate(360deg); }
+}
+.ic-hourglass .frame {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ic-hourglass .sand-top {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: sand-top-cycle 10s ease-in-out infinite;
+}
+@keyframes sand-top-cycle {
+  0%   { transform: scaleY(1); }
+  40%  { transform: scaleY(0); }
+  50%  { transform: scaleY(0); }
+  90%  { transform: scaleY(1); }
+  100% { transform: scaleY(1); }
+}
+.ic-hourglass .sand-bot {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: sand-bot-cycle 10s ease-in-out infinite;
+}
+@keyframes sand-bot-cycle {
+  0%   { transform: scaleY(0); }
+  40%  { transform: scaleY(1); }
+  50%  { transform: scaleY(1); }
+  90%  { transform: scaleY(0); }
+  100% { transform: scaleY(0); }
+}
+.grains-overlay { animation: grains-cycle 10s linear infinite; }
+@keyframes grains-cycle {
+  0%, 38%   { opacity: 1; }
+  41%, 49%  { opacity: 0; }
+  52%, 88%  { opacity: 1; }
+  91%, 100% { opacity: 0; }
+}
+.ic-hourglass .grain {
+  fill: currentColor;
+  filter: drop-shadow(0 0 2px currentColor);
+  animation: grain-fall 1.1s linear infinite;
+}
+.ic-hourglass .grain-1 { animation-delay: 0s; }
+.ic-hourglass .grain-2 { animation-delay: 0.36s; }
+.ic-hourglass .grain-3 { animation-delay: 0.72s; }
+@keyframes grain-fall {
+  0%   { transform: translate(0, -10px); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translate(0, 10px); opacity: 0; }
+}
 
 /* ── Sections ──────────────────────────────────────────── */
 .manifeste        { padding: 5rem 0; }
@@ -325,14 +532,29 @@ onUnmounted(() => {
   opacity: 0.6;
 }
 
+/* responsive overrides for the hero cards */
+@media (max-width: 720px) {
+  .qcards { grid-template-columns: 1fr; gap: 1.5rem; }
+  .qcard { padding: 1.5rem 1.25rem 1.25rem; }
+  .qcard-icon { height: 160px; }
+}
+
 /* prefers-reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
-  .hero-subtitle, .hero-cta, .hero-kicker, .hero-h1 {
+  .hero-subtitle, .hero-prompt, .qcards, .hero-kicker, .hero-h1 {
     opacity: 1 !important; animation: none !important;
   }
   .title-line-inner { transform: none !important; animation: none !important; }
   .typing-cursor    { opacity: 1 !important; animation: none !important; }
   .accent-glitch    { animation: none !important; }
+  .ic-soundwave .bar,
+  .hourglass-body,
+  .ic-hourglass .sand-top,
+  .ic-hourglass .sand-bot,
+  .grains-overlay,
+  .ic-hourglass .grain { animation: none !important; }
+  .ic-soundwave .bar { transform: scaleY(0.7); transform-origin: center bottom; transform-box: fill-box; }
+  .grains-overlay { opacity: 0; }
 }
 
 </style>
