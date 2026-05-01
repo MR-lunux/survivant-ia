@@ -2,14 +2,18 @@
 const STORAGE_KEY = 'hasUnlockedScanner'
 
 export function useScannerUnlock() {
-  const isUnlocked = ref(false)
+  // useState() crée un ref partagé par tous les appelants (clé 'scanner-unlocked').
+  // Sans ça, chaque composant aurait son propre ref local et markUnlocked()
+  // ne propagerait pas l'état au parent — bug de désynchronisation intra-session.
+  const isUnlocked = useState<boolean>('scanner-unlocked', () => false)
 
   onMounted(() => {
     try {
-      isUnlocked.value = localStorage.getItem(STORAGE_KEY) === 'true'
+      if (localStorage.getItem(STORAGE_KEY) === 'true') {
+        isUnlocked.value = true
+      }
     } catch {
       // Safari private mode / disabled storage : on reste à false, pas de plantage
-      isUnlocked.value = false
     }
   })
 
