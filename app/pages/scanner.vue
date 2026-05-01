@@ -154,6 +154,7 @@ const { isUnlocked } = useScannerUnlock()
 const reducedMotion = ref(false)
 const classifiedVisible = ref(false)
 const shimmering = ref(false)
+const justUnlocked = ref(false)
 
 function rm(ms: number): number {
   return reducedMotion.value ? 0 : ms
@@ -332,6 +333,7 @@ function setDynamicMeta(job: Job) {
 
 // ── Scan ─────────────────────────────────────────────────
 function resetDecryptState() {
+  justUnlocked.value = false
   riskText.value    = 'XX'
   horizonText.value = 'XX'
   statusText.value  = 'EN MUTATION SÉVÈRE'
@@ -434,6 +436,52 @@ async function startScan(job: Job) {
   progressPct.value = 100
 }
 
+async function unlockAndReveal(job: Job) {
+  const scanId = ++currentScanId
+  const ok = () => scanId === currentScanId
+
+  phase.value = 'unlocking'
+  classifiedVisible.value = false  // retire le pulse
+  await sleep(rm(250)); if (!ok()) return
+
+  // TRAJECTOIRE
+  progressPct.value = 92
+  trajVisible.value = true
+  await scrambleTo(trajText, trajState, job.dynamic, rm(700)); if (!ok()) return
+  await sleep(rm(180)); if (!ok()) return
+
+  // ACTIONS — cascade
+  progressPct.value = 95
+  const actions = ACTIONS[job.status]
+  for (let i = 0; i < 3; i++) {
+    const textRef  = { get value() { return actionTexts.value[i] }, set value(v: string) { actionTexts.value = actionTexts.value.map((t, idx) => idx === i ? v : t) } }
+    const stateRef = { get value() { return actionStates.value[i] }, set value(v: any) { actionStates.value = actionStates.value.map((s, idx) => idx === i ? v : s) as any } }
+    await scrambleTo(textRef, stateRef, actions[i], rm(350)); if (!ok()) return
+    await sleep(rm(80)); if (!ok()) return
+  }
+
+  // SOURCES + result
+  phase.value = 'unlocked'
+  router.replace({ query: { job: job.slug } })
+  setDynamicMeta(job)
+
+  const sources = getSourcesByIds(job.sources)
+  jobSources.value = sources
+  revealedSources.value = new Array(sources.length).fill(false)
+  for (let i = 0; i < sources.length; i++) {
+    await sleep(rm(20)); if (!ok()) return
+    revealedSources.value[i] = true
+    await sleep(rm(160)); if (!ok()) return
+  }
+  progressPct.value = 100
+}
+
+function onGateUnlocked() {
+  if (!selectedJob.value) return
+  justUnlocked.value = true
+  unlockAndReveal(selectedJob.value)
+}
+
 function showResultImmediate(job: Job) {
   showInput.value    = false
   riskText.value     = String(job.risk)
@@ -507,6 +555,12 @@ function reset() {
   currentScanId++
   if (noResultsTimer) { clearTimeout(noResultsTimer); noResultsTimer = null }
   if (selectedJob.value) {
+    if (phase.value === 'gated') {
+      capture('scanner_gate_dismissed', {
+        job_slug:   selectedJob.value.slug,
+        job_status: selectedJob.value.status,
+      })
+    }
     capture('scanner_reset', { previous_job_slug: selectedJob.value.slug })
   }
   resetDecryptState()
@@ -724,11 +778,33 @@ function reset() {
           ↑ tape ton métier dans le champ SUJET pour déclassifier le rapport
         </div>
 
+        <!-- Gate (locked state) -->
+        <ScannerGate
+          v-if="phase === 'gated' && selectedJob"
+          :job="selectedJob"
+          @unlocked="onGateUnlocked"
+        />
+
+        <!-- Access granted message (post-unlock confirmation) -->
+        <div
+          v-if="phase === 'unlocked' && justUnlocked"
+          class="rep-access-granted font-mono"
+          role="status"
+        >
+          <span class="ag-dot" aria-hidden="true">●</span>
+          [ ACCÈS ACCORDÉ ] BIENVENUE DANS LA FRÉQUENCE
+        </div>
+
         <!-- Result zone -->
         <div class="result-zone">
-          <p class="result-hook font-mono">{{ ctaHook }}</p>
+          <p v-if="!justUnlocked" class="result-hook font-mono">{{ ctaHook }}</p>
           <div class="result-actions">
-            <GlitchButton :label="ctaButton" to="/#newsletter" @click="onCtaClick" />
+            <GlitchButton
+              v-if="!justUnlocked"
+              :label="ctaButton"
+              to="/#newsletter"
+              @click="onCtaClick"
+            />
             <button class="share-btn font-mono" @click="copyLink">
               {{ copied ? '[ Lien copié ! ]' : '[ Partager mon résultat ]' }}
             </button>
@@ -1472,6 +1548,25 @@ function reset() {
   .rep-classified { animation: none; }
   .rep-block.is-shimmering .redact-line,
   .rep-block.is-shimmering .action-item.is-locked .action-text { animation: none; }
+}
+
+.rep-access-granted {
+  margin: 1.5rem 0 0;
+  padding: 0.85rem 1rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  text-align: center;
+  border-top: 1px solid rgba(0, 255, 65, 0.2);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+  background: rgba(0, 255, 65, 0.04);
+}
+.rep-access-granted .ag-dot {
+  margin-right: 0.45rem;
+  animation: led-pulse 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rep-access-granted .ag-dot { animation: none; }
 }
 
 /* ── Responsive ───────────────────────────────────── */
