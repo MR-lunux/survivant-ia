@@ -11,7 +11,7 @@ defineOgImage(false)
 
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem; max-width: 65ch;">
-    <span class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted);">// POLITIQUE DE CONFIDENTIALITÉ</span>
+    <KickerLabel>POLITIQUE DE CONFIDENTIALITÉ</KickerLabel>
     <h1 style="margin: 0.5rem 0 2.5rem;">Politique de confidentialité</h1>
 
     <section class="policy-section">

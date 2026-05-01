@@ -86,7 +86,7 @@ onUnmounted(() => {
           <span ref="statusText" class="font-mono">TRANSMISSION EN COURS</span>
         </div>
 
-        <span class="hero-kicker font-mono">// ZONE ANTI-OBSOLESCENCE</span>
+        <div class="hero-kicker"><KickerLabel>ZONE ANTI-OBSOLESCENCE</KickerLabel></div>
 
         <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
 
@@ -237,9 +237,6 @@ onUnmounted(() => {
 /* kicker — small mono label above H1 */
 .hero-kicker {
   display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  color: var(--color-accent);
   margin-bottom: 0.85rem;
   opacity: 0;
   animation: heroFadeUp 0.5s 0.4s ease both;

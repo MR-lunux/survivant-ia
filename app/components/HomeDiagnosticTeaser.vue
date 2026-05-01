@@ -7,7 +7,7 @@ const emit = defineEmits<{ click: [] }>()
   <section class="diag-section" data-reveal aria-labelledby="diag-heading">
 
     <div class="diag-header">
-      <span class="diag-kicker font-mono">// DIAGNOSTIC IA</span>
+      <div class="diag-kicker"><KickerLabel>DIAGNOSTIC IA</KickerLabel></div>
       <h2 id="diag-heading" class="diag-h2">Survivre à l'IA au travail commence par un diagnostic</h2>
       <p class="diag-lead">Scanne ton métier — découvre ton score d'obsolescence en 10 secondes.</p>
     </div>
@@ -64,10 +64,6 @@ const emit = defineEmits<{ click: [] }>()
   text-align: center;
 }
 .diag-kicker {
-  display: inline-block;
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  color: var(--color-accent);
   margin-bottom: 1rem;
 }
 .diag-h2 {

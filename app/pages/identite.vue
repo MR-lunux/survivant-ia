@@ -56,7 +56,7 @@ defineOgImage('Default', {
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem; max-width: 780px;">
     <Breadcrumbs :items="[{ label: 'Identité' }]" />
-    <span class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted);">// IDENTITÉ DU SURVIVANT</span>
+    <KickerLabel>IDENTITÉ DU SURVIVANT</KickerLabel>
     <h1 style="margin: 0.5rem 0 3rem;">Qui suis-je ?</h1>
 
     <ScannerBorder class="identity-card">
@@ -101,7 +101,7 @@ defineOgImage('Default', {
       </p>
 
       <ScannerBorder class="mission-block">
-        <p class="font-mono" style="font-size: 0.7rem; color: var(--color-muted); margin-bottom: 0.75rem; letter-spacing: 0.1em;">// MISSION</p>
+        <p style="margin-bottom: 0.75rem;"><KickerLabel>MISSION</KickerLabel></p>
         <p style="margin: 0; font-size: 1rem;">
           Aider les gens à se préparer <em>avant</em> que l'IA ne prenne leur job — pas à pleurer <em>après</em>.
         </p>
@@ -115,7 +115,7 @@ defineOgImage('Default', {
 
     <!-- ── PARCOURS ─────────────────────────────────────── -->
     <div class="parcours-section">
-      <p class="font-mono parcours-label">// PARCOURS</p>
+      <p class="parcours-label"><KickerLabel>PARCOURS</KickerLabel></p>
       <div class="parcours-grid">
 
         <ScannerBorder class="parcours-card">
@@ -146,7 +146,7 @@ defineOgImage('Default', {
 
     <!-- ── CTA ──────────────────────────────────────────── -->
     <div class="identite-cta">
-      <p class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted); margin-bottom: 1rem;">// PROCHAINE ÉTAPE</p>
+      <p style="margin-bottom: 1rem;"><KickerLabel>PROCHAINE ÉTAPE</KickerLabel></p>
       <p class="identite-cta-text">
         Tu traverses la même zone&nbsp;?<br>
         <strong class="text-accent">Rejoins les premiers dans la Fréquence.</strong>
@@ -188,9 +188,7 @@ defineOgImage('Default', {
 /* ── Parcours ─────────────────────────────────────────── */
 .parcours-section { margin-top: 3rem; }
 .parcours-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem; letter-spacing: 0.15em;
-  color: var(--color-muted); margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 .parcours-grid {
   display: grid;

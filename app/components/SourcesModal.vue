@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
       >
         <div class="modal-panel font-mono" @click.stop>
           <header class="modal-header">
-            <span id="sources-modal-title" class="modal-title">// SOURCES</span>
+            <span id="sources-modal-title" class="modal-title"><KickerLabel>SOURCES</KickerLabel></span>
             <button
               ref="closeBtnRef"
               type="button"

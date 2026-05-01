@@ -35,7 +35,7 @@ const skills = [
 <template>
   <section class="skills-section" data-reveal aria-labelledby="skills-heading">
     <div class="skills-header">
-      <span class="skills-kicker font-mono">// 4 COMPÉTENCES IA-PROOF</span>
+      <div class="skills-kicker"><KickerLabel>4 COMPÉTENCES IA-PROOF</KickerLabel></div>
       <h2 id="skills-heading" class="skills-h2">Les compétences à développer face à l'IA</h2>
       <p class="skills-intro">
         Ce que les modèles de langage ne savent pas faire — et ne sauront pas faire de sitôt.
@@ -101,10 +101,6 @@ const skills = [
 
 .skills-header { margin-bottom: 2.5rem; max-width: 60ch; }
 .skills-kicker {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  color: var(--color-accent);
   margin-bottom: 0.75rem;
 }
 .skills-h2 {

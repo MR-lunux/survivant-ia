@@ -77,7 +77,7 @@ function onCardClick(slug: string, position: number) {
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem;">
     <Breadcrumbs :items="[{ label: 'Rapports de Survie' }]" />
     <div class="page-header">
-      <span class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted);">// RAPPORTS DE SURVIE</span>
+      <KickerLabel>RAPPORTS DE SURVIE</KickerLabel>
       <h1>Tous les Rapports</h1>
       <p style="color: var(--color-muted); max-width: 55ch;">
         Soft skills, compréhension de l'IA, cas pratiques concrets. Des outils pour survivre, pas de la théorie.

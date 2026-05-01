@@ -52,7 +52,7 @@ useHead({
 
 <template>
   <section class="faq-section" data-reveal>
-    <span class="faq-label font-mono">// QUESTIONS FRÉQUENTES</span>
+    <div class="faq-label"><KickerLabel>QUESTIONS FRÉQUENTES</KickerLabel></div>
     <h2 class="section-h2">Questions fréquentes sur le remplacement par l'IA</h2>
 
     <div class="faq-list">
@@ -71,10 +71,6 @@ useHead({
 .faq-section { padding: 5rem 0; }
 
 .faq-label {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  color: var(--color-muted);
   margin-bottom: 0.75rem;
 }
 

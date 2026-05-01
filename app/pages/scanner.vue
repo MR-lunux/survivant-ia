@@ -589,7 +589,7 @@ function reset() {
 
         <!-- TRAJECTOIRE -->
         <div class="rep-block">
-          <div class="label font-mono">// TRAJECTOIRE</div>
+          <div class="label"><KickerLabel>TRAJECTOIRE</KickerLabel></div>
           <div class="traj-text" :class="{ 'is-decrypted': trajVisible }">
             <div v-if="!trajVisible" class="placeholder" aria-hidden="true">
               <span class="redact-line" />
@@ -602,7 +602,7 @@ function reset() {
 
         <!-- ACTIONS -->
         <div class="rep-block">
-          <div class="label font-mono">// CE QUE TU PEUX FAIRE <span class="ct">(3)</span></div>
+          <div class="label"><KickerLabel>CE QUE TU PEUX FAIRE <span class="ct">(3)</span></KickerLabel></div>
           <ol class="actions-list">
             <li
               v-for="(action, i) in currentActions"
@@ -624,7 +624,7 @@ function reset() {
         <div class="rep-block sources-block">
           <details class="sources-details">
             <summary class="sources-summary font-mono">
-              <span>// SOURCES CITÉES <span class="ct">({{ jobSources.length }})</span></span>
+              <KickerLabel>SOURCES CITÉES <span class="ct">({{ jobSources.length }})</span></KickerLabel>
               <span class="sources-toggle font-mono" aria-hidden="true">+</span>
             </summary>
             <ul class="sources-list">
@@ -677,7 +677,7 @@ function reset() {
 
       <!-- ── Popular jobs ──────────────────────────────── -->
       <div class="popular-jobs">
-        <p class="popular-label font-mono">// MÉTIERS FRÉQUENTS</p>
+        <p class="popular-label"><KickerLabel>MÉTIERS FRÉQUENTS</KickerLabel></p>
         <div class="popular-chips">
           <NuxtLink
             v-for="job in POPULAR_JOBS"
@@ -692,7 +692,7 @@ function reset() {
 
       <!-- ── FAQ ───────────────────────────────────────── -->
       <section class="faq-section">
-        <span class="faq-label font-mono">// QUESTIONS FRÉQUENTES</span>
+        <div class="faq-label"><KickerLabel>QUESTIONS FRÉQUENTES</KickerLabel></div>
         <div class="faq-list">
           <details class="faq-item">
             <summary class="faq-question">
@@ -1045,10 +1045,7 @@ function reset() {
   border-top: 1px dashed rgba(255, 255, 255, 0.06);
 }
 .label {
-  color: var(--color-muted);
-  letter-spacing: 0.1em;
   margin-bottom: 0.65rem;
-  font-size: 0.72rem;
 }
 .ct { color: #555; margin-left: 0.35rem; font-weight: 400; }
 
@@ -1283,9 +1280,6 @@ function reset() {
   border-top: 1px solid rgba(0, 255, 65, 0.1);
 }
 .popular-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
   margin-bottom: 1rem;
 }
 .popular-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -1310,9 +1304,6 @@ function reset() {
 }
 .faq-label {
   display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  color: var(--color-muted);
   margin-bottom: 0.75rem;
 }
 .faq-list {

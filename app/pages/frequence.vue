@@ -33,7 +33,7 @@ defineOgImage('Default', {
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem;">
     <div class="freq-header">
-      <span class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.15em; color: var(--color-muted);">// LA FRÉQUENCE</span>
+      <KickerLabel>LA FRÉQUENCE</KickerLabel>
       <h1>Rejoindre la Fréquence</h1>
       <p class="freq-intro">
         Chaque semaine, un rapport de survie dans votre boîte mail. Concret, actionnable, sans jargon.
@@ -48,7 +48,7 @@ defineOgImage('Default', {
 
       <div class="freq-benefits">
         <ScannerBorder class="benefits-inner">
-          <p class="font-mono" style="font-size: 0.65rem; letter-spacing: 0.1em; color: var(--color-muted); margin-bottom: 1.5rem;">// CE QUE VOUS RECEVEZ</p>
+          <p style="margin-bottom: 1.5rem;"><KickerLabel>CE QUE VOUS RECEVEZ</KickerLabel></p>
           <ul class="benefits-list">
             <li>
               <span class="benefit-icon">▸</span>

@@ -2,7 +2,7 @@
 <template>
   <section class="proof-section" data-reveal>
     <ScannerBorder class="proof-card">
-      <span class="proof-kicker font-mono">// SIGNAL ENTRANT · IDENTITÉ</span>
+      <div class="proof-kicker"><KickerLabel>SIGNAL ENTRANT · IDENTITÉ</KickerLabel></div>
 
       <div class="proof-grid">
         <!-- Identity block -->
@@ -49,10 +49,6 @@
 }
 
 .proof-kicker {
-  display: block;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  color: var(--color-muted);
   margin-bottom: 1.25rem;
 }
 
