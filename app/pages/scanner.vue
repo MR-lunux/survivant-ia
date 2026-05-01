@@ -1,9 +1,9 @@
 <!-- app/pages/scanner.vue -->
 <script setup lang="ts">
 import { findJobBySlug, searchJobs, type Job } from '~/data/jobs'
-import SourcesModal from '~/components/SourcesModal.vue'
+import { getSourcesByIds, type Source } from '~/data/sources'
 
-// ── SEO static ──────────────────────────────────────────
+// ── SEO ──────────────────────────────────────────────────
 useSeoMeta({
   title: 'Scanner IA — Tester si mon métier est menacé par l\'IA | Survivant-IA',
   description: 'Teste en 10 secondes le risque que l\'IA remplace ton métier. Score basé sur les rapports 2026 (Tufts, McKinsey, WEF). Gratuit, sans inscription.',
@@ -103,126 +103,26 @@ defineOgImage('Default', {
   kicker: '// SCANNER · 10 SECONDES',
 })
 
-// ── Popular jobs (crawlable quick-links) ─────────────────
+// ── Popular jobs ─────────────────────────────────────────
 const POPULAR_JOBS = [
-  { slug: 'comptable',          label: 'Comptable' },
+  { slug: 'comptable',            label: 'Comptable' },
   { slug: 'developpeur-logiciel', label: 'Développeur logiciel' },
-  { slug: 'infirmier',          label: 'Infirmier' },
-  { slug: 'commercial',         label: 'Commercial B2B' },
-  { slug: 'chef-de-projet-it',  label: 'Chef de projet IT' },
-  { slug: 'avocat',             label: 'Avocat' },
-  { slug: 'medecin-generaliste', label: 'Médecin généraliste' },
-  { slug: 'recruteur',          label: 'Recruteur' },
-  { slug: 'journaliste-presse', label: 'Journaliste' },
-  { slug: 'data-scientist',     label: 'Data Scientist' },
+  { slug: 'infirmier',            label: 'Infirmier' },
+  { slug: 'commercial',           label: 'Commercial B2B' },
+  { slug: 'chef-de-projet-it',    label: 'Chef de projet IT' },
+  { slug: 'avocat',               label: 'Avocat' },
+  { slug: 'medecin-generaliste',  label: 'Médecin généraliste' },
+  { slug: 'recruteur',            label: 'Recruteur' },
+  { slug: 'journaliste-presse',   label: 'Journaliste' },
+  { slug: 'data-scientist',       label: 'Data Scientist' },
 ]
 
-// ── PostHog tracking ─────────────────────────────────────
-const { capture } = usePosthogEvent()
-
-function jobProps(job: Job, source: 'suggestion' | 'url_param') {
-  return {
-    job_slug:    job.slug,
-    job_label:   job.label,
-    job_status:  job.status,
-    job_risk:    job.risk,
-    job_horizon: job.horizon,
-    source,
-  }
-}
-
-// ── State ────────────────────────────────────────────────
-const route  = useRoute()
-const router = useRouter()
-
-const query       = ref('')
-const suggestions = ref<Job[]>([])
-const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
-const selectedJob = ref<Job | null>(null)
-const termLines   = ref<{ text: string; done: boolean }[]>([])
-const copied            = ref(false)
-const sourcesModalOpen  = ref(false)
-const jobInputRef = ref<HTMLInputElement | null>(null)
-const displayRisk = ref(0)
-let copyTimer:     ReturnType<typeof setTimeout>  | null = null
-let riskAnimTimer: ReturnType<typeof setInterval> | null = null
-const scanTimers: ReturnType<typeof setTimeout>[] = []
-
-// ── Autocomplete ─────────────────────────────────────────
-let noResultsTimer: ReturnType<typeof setTimeout> | null = null
-watch(query, (val) => {
-  suggestions.value = searchJobs(val)
-  if (noResultsTimer) clearTimeout(noResultsTimer)
-  // Tracking threshold is 3 (UX shows "no result" at 2) — avoids noise from short partial queries
-  if (val.length >= 3 && suggestions.value.length === 0) {
-    noResultsTimer = setTimeout(() => {
-      capture('scanner_search_no_results', { query: val.trim() })
-      noResultsTimer = null
-    }, 600)
-  }
-})
-
-function selectJob(job: Job) {
-  query.value       = job.label
-  suggestions.value = []
-  selectedJob.value = job
-  capture('scanner_job_selected', jobProps(job, 'suggestion'))
-  startScan(job)
-}
-
-// ── URL param pre-load ───────────────────────────────────
-onMounted(() => {
-  const slug = route.query.job as string | undefined
-  if (slug) {
-    const job = findJobBySlug(slug)
-    if (job) {
-      query.value       = job.label
-      selectedJob.value = job
-      phase.value       = 'result'
-      setDynamicMeta(job)
-      capture('scanner_job_selected', jobProps(job, 'url_param'))
-      capture('scanner_scan_completed', jobProps(job, 'url_param'))
-    }
-  } else {
-    jobInputRef.value?.focus()
-  }
-})
-
-onBeforeUnmount(() => {
-  scanTimers.forEach(id => clearTimeout(id))
-  if (copyTimer)      clearTimeout(copyTimer)
-  if (riskAnimTimer)  clearInterval(riskAnimTimer)
-  if (noResultsTimer) clearTimeout(noResultsTimer)
-})
-
-// ── Terminal animation ───────────────────────────────────
-const SCAN_LINES = (jobLabel: string) => [
-  `$ survival_check --job="${jobLabel}"`,
-  'connecting to Tufts-2026 dataset ............. ok',
-  'cross-referencing McKinsey agentic index ..... ok',
-  'parsing job description ...................... ok',
-  'simulating LLM capability curve (2026 → 2031) . ok',
-]
-
-const VERDICT: Record<Job['status'], string> = {
-  danger:     'remplacement probable',
-  mutation:   'mutation sévère imminente',
-  protege:    'résistance confirmée',
-  croissance: 'croissance structurelle',
-}
-
+// ── Static content ───────────────────────────────────────
 const STATUS_LABELS: Record<Job['status'], string> = {
   danger:     'EN DANGER',
   mutation:   'EN MUTATION SÉVÈRE',
   protege:    'PROTÉGÉ',
   croissance: 'EN CROISSANCE',
-}
-
-const STATUS_VERDICT_LINE: Record<Job['status'], string> = {
-  danger:     'Ton métier est dans le viseur.',
-  mutation:   'Ton métier ne disparaît pas. Il devient méconnaissable.',
-  protege:    'L\'IA ne te remplace pas — elle a besoin de toi.',
-  croissance: 'Tu es dans le bon wagon. Pour l\'instant.',
 }
 
 const ACTIONS: Record<Job['status'], string[]> = {
@@ -248,93 +148,128 @@ const ACTIONS: Record<Job['status'], string[]> = {
   ],
 }
 
-function animateRisk(target: number) {
-  if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
-  if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    displayRisk.value = target
-    return
+// ── PostHog ──────────────────────────────────────────────
+const { capture } = usePosthogEvent()
+
+function jobProps(job: Job, source: 'suggestion' | 'url_param') {
+  return {
+    job_slug:    job.slug,
+    job_label:   job.label,
+    job_status:  job.status,
+    job_risk:    job.risk,
+    job_horizon: job.horizon,
+    source,
   }
-  displayRisk.value = 0
-  const steps    = 40
-  const interval = 800 / steps
-  let current    = 0
-  riskAnimTimer  = setInterval(() => {
-    current += target / steps
-    if (current >= target) {
-      displayRisk.value = target
-      clearInterval(riskAnimTimer!)
-      riskAnimTimer = null
-    } else {
-      displayRisk.value = Math.round(current)
+}
+
+// ── Scramble helpers ─────────────────────────────────────
+const SCRAMBLE_CHARS = '█▓▒░·#@%&*+/?\\|^~-_=<>'
+const sleep = (ms: number) => new Promise<void>(r => setTimeout(r, ms))
+const randStr = (len: number) =>
+  Array.from({ length: Math.max(2, len) }, () =>
+    SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]
+  ).join('')
+
+type DecryptState = 'locked' | 'scrambling' | 'decrypted'
+
+function scrambleTo(
+  textRef: { value: string },
+  stateRef: { value: string },
+  finalText: string,
+  durationMs: number,
+): Promise<void> {
+  return new Promise(resolve => {
+    stateRef.value = 'scrambling'
+    const len = finalText.length
+    const start = Date.now()
+    const tick = () => {
+      if (Date.now() - start < durationMs) {
+        textRef.value = randStr(len)
+        requestAnimationFrame(tick)
+      } else {
+        textRef.value = finalText
+        stateRef.value = 'decrypted'
+        resolve()
+      }
     }
-  }, interval)
-}
-
-watch(() => phase.value, (newPhase) => {
-  if (newPhase === 'result' && selectedJob.value) animateRisk(selectedJob.value.risk)
-})
-
-function startScan(job: Job) {
-  scanTimers.forEach(id => clearTimeout(id))
-  scanTimers.length = 0
-
-  phase.value     = 'scanning'
-  termLines.value = []
-
-  const lines = SCAN_LINES(job.label)
-  lines.forEach((text, i) => {
-    scanTimers.push(setTimeout(() => {
-      termLines.value.push({ text, done: false })
-      scanTimers.push(setTimeout(() => {
-        termLines.value[i].done = true
-        if (i === lines.length - 1) {
-          scanTimers.push(setTimeout(() => {
-            phase.value = 'result'
-            router.replace({ query: { job: job.slug } })
-            setDynamicMeta(job)
-            capture('scanner_scan_completed', jobProps(job, 'suggestion'))
-          }, 400))
-        }
-      }, 350))
-    }, i * 420))
+    requestAnimationFrame(tick)
   })
 }
 
-// ── Dynamic og meta ──────────────────────────────────────
-function setDynamicMeta(job: Job) {
-  useHead({
-    meta: [
-      { property: 'og:title',       content: `Mon risque IA : ${job.risk}% — ${job.label} | Survival Check` },
-      { property: 'og:description', content: `J'ai scanné mon métier sur survivant-ia.ch. Résultat : ${STATUS_LABELS[job.status]}. Et toi ?` },
-    ],
+function countUpTo(
+  textRef: { value: string },
+  stateRef: { value: string },
+  target: number,
+  scrambleDuration: number,
+  countDuration: number,
+): Promise<void> {
+  return new Promise(resolve => {
+    stateRef.value = 'scrambling'
+    const start = Date.now()
+    const scrambleTick = () => {
+      if (Date.now() - start < scrambleDuration) {
+        textRef.value = randStr(2)
+        requestAnimationFrame(scrambleTick)
+      } else {
+        stateRef.value = 'decrypted'
+        textRef.value = '0'
+        const steps = 30
+        const interval = countDuration / steps
+        let current = 0
+        const t = setInterval(() => {
+          current += target / steps
+          if (current >= target) {
+            textRef.value = String(target)
+            clearInterval(t)
+            resolve()
+          } else {
+            textRef.value = String(Math.round(current))
+          }
+        }, interval)
+      }
+    }
+    requestAnimationFrame(scrambleTick)
   })
 }
 
-// ── Result computed ──────────────────────────────────────
-const resultLine = computed(() => {
-  if (!selectedJob.value) return ''
-  return `✓ obsolescence risk: ${selectedJob.value.risk}% — ${VERDICT[selectedJob.value.status]}`
+// ── State ────────────────────────────────────────────────
+const route  = useRoute()
+const router = useRouter()
+
+const query       = ref('')
+const suggestions = ref<Job[]>([])
+const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
+const selectedJob = ref<Job | null>(null)
+const copied      = ref(false)
+const jobInputRef = ref<HTMLInputElement | null>(null)
+const showInput   = ref(true)
+
+// Decryption state
+const riskText    = ref('XX')
+const horizonText = ref('XX')
+const statusText  = ref('EN MUTATION SÉVÈRE')
+const riskState    = ref<DecryptState>('locked')
+const horizonState = ref<DecryptState>('locked')
+const statusState  = ref<DecryptState>('locked')
+const trajVisible  = ref(false)
+const actionsRevealed  = ref<boolean[]>([false, false, false])
+const progressPct  = ref(0)
+const jobSources   = ref<Source[]>([])
+const revealedSources = ref<boolean[]>([])
+
+let copyTimer:     ReturnType<typeof setTimeout> | null = null
+let noResultsTimer: ReturnType<typeof setTimeout> | null = null
+let currentScanId = 0
+
+// ── Computed ─────────────────────────────────────────────
+const statusColorClass = computed(() => {
+  if (statusState.value !== 'decrypted' || !selectedJob.value) return ''
+  return `color-${selectedJob.value.status}`
 })
 
-const statusColor = computed(() => {
-  if (!selectedJob.value) return 'var(--color-muted)'
-  switch (selectedJob.value.status) {
-    case 'danger':     return 'var(--color-danger)'
-    case 'mutation':   return 'var(--color-mutation)'
-    case 'protege':    return 'var(--color-protege)'
-    case 'croissance': return 'var(--color-croissance)'
-  }
-})
-
-// When danger: value + gauge use white (card has red bg); otherwise use statusColor
-const riskCardFg = computed(() =>
-  selectedJob.value?.status === 'danger' ? '#ffffff' : statusColor.value
+const currentActions = computed<string[]>(() =>
+  selectedJob.value ? ACTIONS[selectedJob.value.status] : ACTIONS.mutation
 )
-
-const statusLabel = computed(() => {
-  if (!selectedJob.value) return ''
-  return STATUS_LABELS[selectedJob.value.status]
-})
 
 const ctaHook = computed(() => {
   if (!selectedJob.value) return ''
@@ -346,9 +281,149 @@ const ctaHook = computed(() => {
   }
 })
 
-const ctaButton = computed(() => {
-  if (!selectedJob.value) return 'Rejoindre La Fréquence'
-  return selectedJob.value.status === 'danger' ? 'Rejoindre La Fréquence' : "S'inscrire"
+const ctaButton = computed(() =>
+  selectedJob.value?.status === 'danger' ? 'Rejoindre La Fréquence' : "S'inscrire"
+)
+
+// ── Autocomplete ─────────────────────────────────────────
+watch(query, (val) => {
+  suggestions.value = searchJobs(val)
+  if (noResultsTimer) clearTimeout(noResultsTimer)
+  if (val.length >= 3 && suggestions.value.length === 0) {
+    noResultsTimer = setTimeout(() => {
+      capture('scanner_search_no_results', { query: val.trim() })
+      noResultsTimer = null
+    }, 600)
+  }
+})
+
+function selectJob(job: Job) {
+  suggestions.value = []
+  selectedJob.value = job
+  capture('scanner_job_selected', jobProps(job, 'suggestion'))
+  startScan(job)
+}
+
+// ── Dynamic meta ─────────────────────────────────────────
+function setDynamicMeta(job: Job) {
+  useHead({
+    meta: [
+      { property: 'og:title',       content: `Mon risque IA : ${job.risk}% — ${job.label} | Survival Check` },
+      { property: 'og:description', content: `J'ai scanné mon métier sur survivant-ia.ch. Résultat : ${STATUS_LABELS[job.status]}. Et toi ?` },
+    ],
+  })
+}
+
+// ── Scan ─────────────────────────────────────────────────
+function resetDecryptState() {
+  riskText.value    = 'XX'
+  horizonText.value = 'XX'
+  statusText.value  = 'EN MUTATION SÉVÈRE'
+  riskState.value    = 'locked'
+  horizonState.value = 'locked'
+  statusState.value  = 'locked'
+  trajVisible.value  = false
+  actionsRevealed.value = [false, false, false]
+  progressPct.value  = 0
+  jobSources.value   = []
+  revealedSources.value = []
+}
+
+async function startScan(job: Job) {
+  const scanId = ++currentScanId
+  const ok = () => scanId === currentScanId
+
+  resetDecryptState()
+  showInput.value = false
+  phase.value = 'scanning'
+
+  progressPct.value = 5
+  await sleep(200); if (!ok()) return
+
+  // 1. HORIZON
+  progressPct.value = 20
+  await scrambleTo(horizonText, horizonState, String(job.horizon), 500); if (!ok()) return
+  await sleep(180); if (!ok()) return
+
+  // 2. STATUT
+  progressPct.value = 40
+  await scrambleTo(statusText, statusState, STATUS_LABELS[job.status], 700); if (!ok()) return
+  await sleep(220); if (!ok()) return
+
+  // 3. RISQUE (scramble → count-up)
+  progressPct.value = 60
+  await countUpTo(riskText, riskState, job.risk, 500, 600); if (!ok()) return
+  await sleep(280); if (!ok()) return
+
+  // 4. TRAJECTOIRE
+  progressPct.value = 75
+  trajVisible.value = true
+  await sleep(700); if (!ok()) return
+
+  // 5. ACTIONS
+  progressPct.value = 88
+  for (let i = 0; i < 3; i++) {
+    actionsRevealed.value[i] = true
+    await sleep(220); if (!ok()) return
+  }
+  await sleep(180); if (!ok()) return
+
+  // 6. SOURCES + result
+  progressPct.value = 95
+  phase.value = 'result'
+  router.replace({ query: { job: job.slug } })
+  setDynamicMeta(job)
+  capture('scanner_scan_completed', jobProps(job, 'suggestion'))
+
+  const sources = getSourcesByIds(job.sources)
+  jobSources.value = sources
+  revealedSources.value = new Array(sources.length).fill(false)
+
+  for (let i = 0; i < sources.length; i++) {
+    await sleep(20); if (!ok()) return
+    revealedSources.value[i] = true
+    await sleep(160); if (!ok()) return
+  }
+  progressPct.value = 100
+}
+
+function showResultImmediate(job: Job) {
+  showInput.value    = false
+  riskText.value     = String(job.risk)
+  horizonText.value  = String(job.horizon)
+  statusText.value   = STATUS_LABELS[job.status]
+  riskState.value    = 'decrypted'
+  horizonState.value = 'decrypted'
+  statusState.value  = 'decrypted'
+  trajVisible.value  = true
+  actionsRevealed.value = [true, true, true]
+  const sources = getSourcesByIds(job.sources)
+  jobSources.value   = sources
+  revealedSources.value = new Array(sources.length).fill(true)
+}
+
+// ── URL param pre-load ───────────────────────────────────
+onMounted(() => {
+  const slug = route.query.job as string | undefined
+  if (slug) {
+    const job = findJobBySlug(slug)
+    if (job) {
+      selectedJob.value = job
+      phase.value = 'result'
+      showResultImmediate(job)
+      setDynamicMeta(job)
+      capture('scanner_job_selected', jobProps(job, 'url_param'))
+      capture('scanner_scan_completed', jobProps(job, 'url_param'))
+    }
+  } else {
+    jobInputRef.value?.focus()
+  }
+})
+
+onBeforeUnmount(() => {
+  currentScanId++
+  if (copyTimer)      clearTimeout(copyTimer)
+  if (noResultsTimer) clearTimeout(noResultsTimer)
 })
 
 // ── Share ─────────────────────────────────────────────────
@@ -377,20 +452,19 @@ function onCtaClick() {
 
 // ── Reset ─────────────────────────────────────────────────
 function reset() {
+  currentScanId++
   if (noResultsTimer) { clearTimeout(noResultsTimer); noResultsTimer = null }
   if (selectedJob.value) {
     capture('scanner_reset', { previous_job_slug: selectedJob.value.slug })
   }
-  scanTimers.forEach(id => clearTimeout(id))
-  scanTimers.length = 0
-  if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
-  displayRisk.value = 0
+  resetDecryptState()
+  showInput.value   = true
   query.value       = ''
   suggestions.value = []
   selectedJob.value = null
-  termLines.value   = []
   phase.value       = 'idle'
   router.replace({ query: {} })
+  nextTick(() => jobInputRef.value?.focus())
 }
 </script>
 
@@ -400,153 +474,187 @@ function reset() {
     <div class="container">
 
       <Breadcrumbs :items="[{ label: 'Scanner IA' }]" />
+      <h1 class="scanner-h1">Scanner d'obsolescence IA — Quel est le risque pour ton métier&nbsp;?</h1>
 
-      <!-- ── Header terminal ──────────────────────── -->
-      <div class="terminal-header font-mono">
-        <span class="term-dots" aria-hidden="true">
-          <span class="dot dot-r" />
-          <span class="dot dot-y" />
-          <span class="dot dot-g" />
-        </span>
-        <span class="term-title">SURVIVANT-IA · ./SURVIVAL_CHECK.SH</span>
-        <span class="term-version">V0.7.3</span>
-      </div>
+      <!-- ── Report card ─────────────────────────────── -->
+      <article class="report" :data-state="phase" aria-label="Rapport prédictif">
 
-      <!-- ── Main terminal body ───────────────────── -->
-      <div class="terminal-body">
-        <span class="section-label font-mono">// SCANNER D'OBSOLESCENCE</span>
-        <h1 class="scanner-h1">Scanner d'obsolescence IA — Quel est le risque pour ton métier&nbsp;?</h1>
+        <!-- Progress bar -->
+        <div class="report-progress" :style="{ width: progressPct + '%' }" aria-hidden="true" />
 
-        <!-- Input autocomplete -->
-        <div v-if="phase === 'idle'" class="input-zone">
-          <p class="input-prompt font-mono">Quel est votre métier ?</p>
-          <div class="autocomplete-wrapper">
-            <div class="input-row font-mono">
-              <span class="prompt-char text-accent">$&nbsp;</span>
+        <!-- Meta bar -->
+        <div class="rep-meta">
+          <div class="group">
+            <span><span class="k font-mono">RÉFÉRENCE</span><span class="v font-mono">SCAN-A7B3-CE45</span></span>
+            <span><span class="k font-mono">DATASET</span><span class="v font-mono"><b>197 métiers</b></span></span>
+          </div>
+          <span class="live font-mono"><span class="led" aria-hidden="true" />online · ready</span>
+        </div>
+
+        <!-- SUJET -->
+        <div class="rep-field">
+          <span class="k font-mono">SUJET</span>
+          <span class="arrow font-mono" aria-hidden="true">›</span>
+          <span class="v">
+            <div v-if="showInput" class="sujet-input-wrap">
+              <span class="sujet-prompt-char font-mono" aria-hidden="true">$</span>
               <input
                 ref="jobInputRef"
                 v-model="query"
-                class="job-input font-mono"
+                class="sujet-input font-mono"
                 type="text"
-                placeholder="Ex : Comptable, Développeur, Infirmier..."
+                placeholder="Tape ton métier..."
                 autocomplete="off"
                 spellcheck="false"
               />
+              <ul v-if="suggestions.length" class="suggestions">
+                <li
+                  v-for="job in suggestions"
+                  :key="job.slug"
+                  @mousedown.prevent="selectJob(job)"
+                >{{ job.label }}</li>
+              </ul>
+              <ul v-else-if="query.length >= 2" class="suggestions">
+                <li class="no-result">// Aucun résultat — essaie un autre terme</li>
+              </ul>
             </div>
-            <ul v-if="suggestions.length" class="suggestions-list">
-              <li
-                v-for="job in suggestions"
-                :key="job.slug"
-                class="suggestion-item font-mono"
-                @click="selectJob(job)"
-              >
-                {{ job.label }}
-              </li>
-            </ul>
-            <p v-if="query.length >= 2 && suggestions.length === 0" class="no-result font-mono">
-              // Aucun résultat — essaie un autre terme
-            </p>
-          </div>
+            <span v-else class="sujet-name font-mono">{{ selectedJob?.label }}</span>
+          </span>
         </div>
 
-        <!-- Terminal scanning animation -->
-        <div v-if="phase === 'scanning' || phase === 'result'" class="terminal-output">
-          <div
-            v-for="(line, i) in termLines"
-            :key="i"
-            class="term-line font-mono"
-            :class="{ 'line-prompt': i === 0 }"
-          >
-            <span v-if="i === 0" class="text-accent">{{ line.text }}</span>
-            <span v-else>
-              {{ line.text }}
-              <span v-if="!line.done" class="cursor" aria-hidden="true" />
-            </span>
-          </div>
-          <div v-if="phase === 'result'" class="term-line result-line font-mono">
-            {{ resultLine }}
-          </div>
+        <!-- RISQUE -->
+        <div class="rep-field">
+          <span class="k font-mono">RISQUE</span>
+          <span class="arrow font-mono" aria-hidden="true">›</span>
+          <span class="v">
+            <span
+              class="redact"
+              :class="{
+                'is-scrambling': riskState === 'scrambling',
+                'is-decrypted':  riskState === 'decrypted',
+              }"
+              style="animation-delay: 0s"
+            >{{ riskText }}</span>
+            <span class="hint"> / 100</span>
+          </span>
         </div>
 
-      </div><!-- end terminal-body -->
+        <!-- HORIZON -->
+        <div class="rep-field">
+          <span class="k font-mono">HORIZON</span>
+          <span class="arrow font-mono" aria-hidden="true">›</span>
+          <span class="v">
+            <span
+              class="redact"
+              :class="{
+                'is-scrambling': horizonState === 'scrambling',
+                'is-decrypted':  horizonState === 'decrypted',
+              }"
+              style="animation-delay: 3s"
+            >{{ horizonText }}</span>
+            <span class="hint">ans <span class="dim">(2 · 5 · 10)</span></span>
+          </span>
+        </div>
 
-      <!-- ── Results ──────────────────────────────── -->
-      <div v-if="phase === 'result' && selectedJob" class="results-section">
+        <!-- STATUT -->
+        <div class="rep-field">
+          <span class="k font-mono">STATUT</span>
+          <span class="arrow font-mono" aria-hidden="true">›</span>
+          <span class="v">
+            <span
+              class="redact"
+              :class="[
+                { 'is-scrambling': statusState === 'scrambling' },
+                { 'is-decrypted':  statusState === 'decrypted'  },
+                statusColorClass,
+              ]"
+              style="animation-delay: 6s"
+            >{{ statusText }}</span>
+            <span class="hint">(1 sur 4)</span>
+          </span>
+        </div>
 
-        <!-- 3 stat cards -->
-        <div class="stats-grid">
-          <ScannerBorder
-            class="stat-card"
-            :class="{ 'stat-card--danger': selectedJob?.status === 'danger' }"
-          >
-            <p class="stat-label font-mono">RISQUE</p>
-            <p class="stat-value font-mono" :style="{ color: riskCardFg }">
-              {{ displayRisk }}<span class="stat-unit">%</span>
-            </p>
-            <div class="gauge-track" aria-hidden="true">
-              <div class="gauge-fill" :style="{ width: displayRisk + '%', background: riskCardFg }" />
+        <!-- TRAJECTOIRE -->
+        <div class="rep-block">
+          <div class="label font-mono">// TRAJECTOIRE</div>
+          <div class="traj-text" :class="{ 'is-decrypted': trajVisible }">
+            <div v-if="!trajVisible" class="placeholder" aria-hidden="true">
+              <span class="redact-line" />
+              <span class="redact-line" />
+              <span class="redact-line" />
             </div>
-          </ScannerBorder>
-          <ScannerBorder class="stat-card">
-            <p class="stat-label font-mono">HORIZON</p>
-            <p class="stat-value font-mono text-accent">
-              {{ selectedJob.horizon }}<span class="stat-unit"> ans</span>
-            </p>
-          </ScannerBorder>
-          <ScannerBorder class="stat-card">
-            <p class="stat-label font-mono">STATUT</p>
-            <p class="stat-value stat-status font-mono" :style="{ color: statusColor }">
-              {{ statusLabel }}
-            </p>
-          </ScannerBorder>
+            <span v-else class="traj-revealed is-shown">{{ selectedJob?.dynamic }}</span>
+          </div>
         </div>
 
-        <!-- Message + CTA -->
-        <div class="message-block">
-          <span class="message-bar" :style="{ background: statusColor }" aria-hidden="true" />
-          <p class="message-text">{{ STATUS_VERDICT_LINE[selectedJob.status] }}</p>
-        </div>
-
-        <!-- Dynamique block -->
-        <div class="dynamic-block font-mono">
-          <div class="dynamic-label">// DYNAMIQUE ANTICIPÉE</div>
-          <p class="dynamic-text">{{ selectedJob.dynamic }}</p>
-        </div>
-
-        <!-- Actions block -->
-        <div class="actions-block">
-          <div class="actions-label font-mono">// CE QUE TU PEUX FAIRE</div>
+        <!-- ACTIONS -->
+        <div class="rep-block">
+          <div class="label font-mono">// CE QUE TU PEUX FAIRE <span class="ct">(3)</span></div>
           <ol class="actions-list">
-            <li v-for="(action, i) in ACTIONS[selectedJob.status]" :key="i" class="action-item">
-              <span class="action-num font-mono" :style="{ color: statusColor }">0{{ i + 1 }}</span>
+            <li
+              v-for="(action, i) in currentActions"
+              :key="i"
+              class="action-item"
+              :class="{
+                'is-locked':    !actionsRevealed[i],
+                'is-decrypted': actionsRevealed[i],
+              }"
+            >
+              <span class="action-num font-mono">0{{ i + 1 }}</span>
+              <span class="action-arrow font-mono" aria-hidden="true">▸</span>
               <span class="action-text">{{ action }}</span>
             </li>
           </ol>
         </div>
 
-        <!-- Sources trigger -->
-        <button type="button" class="sources-trigger font-mono" @click="sourcesModalOpen = true">
-          → Voir les sources de cette analyse
-        </button>
-
-        <div class="cta-zone">
-          <div class="cta-inner">
-            <p class="cta-hook font-mono">{{ ctaHook }}</p>
-            <GlitchButton :label="ctaButton" to="/#newsletter" @click="onCtaClick" />
+        <!-- SOURCES (visible only in result state) -->
+        <div class="rep-block sources-block">
+          <div class="label font-mono">
+            // SOURCES CITÉES <span class="ct">({{ jobSources.length }})</span>
           </div>
-          <button class="share-btn font-mono" @click="copyLink">
-            {{ copied ? '[ Lien copié ! ]' : '[ Partager mon résultat ]' }}
-          </button>
+          <ul class="sources-list">
+            <li
+              v-for="(src, i) in jobSources"
+              :key="src.id"
+              class="source-item"
+              :class="{ 'is-revealed': revealedSources[i] }"
+            >
+              <div class="source-id font-mono">[{{ src.id }}]</div>
+              <div class="source-content">
+                <div class="source-title">
+                  <a :href="src.url" target="_blank" rel="noopener noreferrer">
+                    {{ src.title }}<span class="source-arrow" aria-hidden="true"> ↗</span>
+                  </a>
+                </div>
+                <div class="source-meta font-mono">{{ src.author }} · {{ src.year }}</div>
+                <div class="source-context">{{ src.context }}</div>
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <!-- Source -->
-        <p class="source-note font-mono">
-          // <button class="reset-btn font-mono" @click="reset">Nouveau scan →</button>
-        </p>
+        <!-- Idle hint -->
+        <div class="idle-hint font-mono" aria-hidden="true">
+          ↑ tape ton métier dans le champ SUJET pour déclassifier le rapport
+        </div>
 
-      </div><!-- end results-section -->
+        <!-- Result zone -->
+        <div class="result-zone">
+          <p class="result-hook font-mono">{{ ctaHook }}</p>
+          <div class="result-actions">
+            <GlitchButton :label="ctaButton" to="/#newsletter" @click="onCtaClick" />
+            <button class="share-btn font-mono" @click="copyLink">
+              {{ copied ? '[ Lien copié ! ]' : '[ Partager mon résultat ]' }}
+            </button>
+          </div>
+          <div class="reset-zone">
+            <button class="reset-btn font-mono" @click="reset">// nouveau scan ←</button>
+          </div>
+        </div>
 
-      <!-- ── MÉTIERS FRÉQUENTS ──────────────────────── -->
+      </article>
+
+      <!-- ── Popular jobs ──────────────────────────────── -->
       <div class="popular-jobs">
         <p class="popular-label font-mono">// MÉTIERS FRÉQUENTS</p>
         <div class="popular-chips">
@@ -561,7 +669,7 @@ function reset() {
         </div>
       </div>
 
-      <!-- ── FAQ ───────────────────────────────────── -->
+      <!-- ── FAQ ───────────────────────────────────────── -->
       <section class="faq-section">
         <span class="faq-label font-mono">// QUESTIONS FRÉQUENTES</span>
         <div class="faq-list">
@@ -603,345 +711,458 @@ function reset() {
         </div>
       </section>
 
-    </div><!-- end container -->
+    </div>
   </div>
-
-  <SourcesModal
-    :open="sourcesModalOpen"
-    :job="selectedJob"
-    @close="sourcesModalOpen = false"
-  />
 </template>
 
 <style scoped>
+/* ── Page ─────────────────────────────────────────── */
 .scanner-page {
   padding: 4rem 0 6rem;
   position: relative;
   overflow: hidden;
 }
-
-/* ── Background scan effect ──────────────────────── */
 .scanner-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: radial-gradient(circle, rgba(0, 255, 65, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }
-.scanner-page > .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── H1 — visible pour SEO, discret dans l'UI ─────── */
+.scanner-page > .container { position: relative; z-index: 1; }
 .scanner-h1 {
   position: absolute;
   width: 1px; height: 1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0,0,0,0);
   white-space: nowrap;
 }
 
-.section-label {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
-  margin-bottom: 1.5rem;
-}
-
-/* ── Terminal header ─────────────────────────────── */
-.terminal-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background: var(--color-surface);
-  border: 1px solid rgba(0, 255, 65, 0.12);
-  padding: 0.6rem 1rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-  margin-bottom: 0;
+/* ── Report card ──────────────────────────────────── */
+.report {
   max-width: 780px;
-}
-.term-dots    { display: flex; gap: 0.35rem; }
-.dot          { width: 10px; height: 10px; border-radius: 50%; }
-.dot-r        { background: #FF5F57; }
-.dot-y        { background: #FEBC2E; }
-.dot-g        { background: #28C840; }
-.term-title   { flex: 1; text-align: center; }
-.term-version { color: var(--color-muted); }
-
-/* ── Terminal body ───────────────────────────────── */
-.terminal-body {
-  background: var(--color-surface);
-  border: 1px solid rgba(0, 255, 65, 0.12);
-  border-top: none;
-  padding: 2rem;
-  max-width: 780px;
-  margin-bottom: 2.5rem;
-}
-
-/* ── Input zone ──────────────────────────────────── */
-.input-prompt {
-  font-size: 1rem;
-  font-weight: 700;
+  background: #0A0A0A;
+  border: 1px solid rgba(0, 255, 65, 0.25);
+  font-family: var(--font-mono);
   color: var(--color-text);
-  margin-bottom: 1.25rem;
+  padding: 2rem 2.25rem;
+  position: relative;
+  overflow: visible;
+  box-shadow:
+    0 0 80px rgba(0, 255, 65, 0.05),
+    0 30px 80px rgba(0, 0, 0, 0.5);
 }
-.autocomplete-wrapper { position: relative; }
-.input-row {
+.report::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(0, 255, 65, 0.012) 2px,
+    rgba(0, 255, 65, 0.012) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.report > * { position: relative; z-index: 2; }
+
+/* Progress bar */
+.report-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+  transition: width 0.3s ease-out;
+  z-index: 5;
+  opacity: 0;
+}
+.report[data-state="scanning"] .report-progress { opacity: 1; }
+.report[data-state="result"]   .report-progress { opacity: 0; transition: opacity 0.4s ease 0.5s; }
+
+/* ── Meta bar ─────────────────────────────────────── */
+.rep-meta {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
 }
-.prompt-char { font-size: 1rem; flex-shrink: 0; }
-.job-input {
+.rep-meta .group { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.rep-meta .k { color: #555; }
+.rep-meta .v { color: var(--color-muted); margin-left: 0.4rem; }
+.rep-meta .v b { color: var(--color-text); font-weight: 400; }
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-accent);
+}
+.led {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 6px var(--color-accent);
+  animation: led-pulse 1.4s ease-in-out infinite;
+}
+@keyframes led-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+/* ── Field rows ───────────────────────────────────── */
+.rep-field {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.55rem 0;
+  font-size: 0.92rem;
+}
+.rep-field .k {
+  color: var(--color-muted);
+  min-width: 6.5rem;
+  flex-shrink: 0;
+  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+}
+.rep-field .arrow { color: var(--color-accent); flex-shrink: 0; font-size: 1rem; }
+.rep-field .v {
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+.hint { color: var(--color-muted); font-size: 0.8rem; letter-spacing: 0.05em; }
+.dim  { color: #555; }
+
+/* ── SUJET input ──────────────────────────────────── */
+.sujet-input-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 0;
+}
+.sujet-prompt-char { color: var(--color-accent); font-size: 1rem; flex-shrink: 0; }
+.sujet-input {
   flex: 1;
   background: transparent;
   border: none;
   outline: none;
   color: var(--color-accent);
-  font-size: 1rem;
+  font-size: 0.95rem;
   caret-color: var(--color-accent);
+  padding: 0.15rem 0;
+  border-bottom: 1px dashed rgba(0, 255, 65, 0.18);
+  min-width: 200px;
+  transition: border-color 0.2s;
 }
-.job-input::placeholder { color: var(--color-muted); }
+.sujet-input:focus { border-bottom-color: var(--color-accent); }
+.sujet-input::placeholder { color: #555; letter-spacing: 0.04em; }
+.sujet-name {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.sujet-name::before { content: '$ '; }
 
-.suggestions-list {
+.suggestions {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 1.4rem;
+  right: 0;
   list-style: none;
-  margin: 0.5rem 0 0 0;
-  padding: 0;
-  border: 1px solid rgba(0, 255, 65, 0.2);
+  margin: 0; padding: 0;
   background: var(--color-surface-2);
+  border: 1px solid rgba(0, 255, 65, 0.18);
+  z-index: 30;
+  max-height: 240px;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
-.suggestion-item {
-  padding: 0.6rem 1rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
+.suggestions li {
+  padding: 0.6rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
   color: var(--color-text);
   cursor: pointer;
-  transition: background 0.1s;
+  transition: background 0.1s, color 0.1s;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.05);
+  letter-spacing: 0.02em;
 }
-.suggestion-item:hover {
-  background: rgba(0, 255, 65, 0.08);
+.suggestions li:last-child { border-bottom: none; }
+.suggestions li:hover { background: rgba(0, 255, 65, 0.08); color: var(--color-accent); }
+.suggestions li.no-result {
+  color: var(--color-muted);
+  cursor: default;
+  font-size: 0.75rem;
+}
+.suggestions li.no-result:hover { background: transparent; color: var(--color-muted); }
+
+/* ── Redact bars ──────────────────────────────────── */
+.redact {
+  display: inline-block;
+  position: relative;
+  background: #2C2C2C;
+  color: transparent;
+  user-select: none;
+  height: 1.05em;
+  line-height: 1.05;
+  vertical-align: -0.15em;
+  padding: 0 0.4em;
+  border-top: 1px solid #383838;
+  overflow: hidden;
+  transition: background 0.4s ease, color 0.3s ease, padding 0.3s ease, border 0.3s ease, height 0.3s ease;
+}
+.redact::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 255, 65, 0.18) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: redact-shimmer 9s ease-in-out infinite;
+}
+@keyframes redact-shimmer {
+  0%, 88%  { transform: translateX(-100%); opacity: 0; }
+  90%      { opacity: 1; }
+  99%      { transform: translateX(100%); opacity: 0; }
+  100%     { transform: translateX(100%); opacity: 0; }
+}
+
+.redact.is-scrambling {
+  background: rgba(0, 255, 65, 0.05);
+  border-top-color: var(--color-accent);
   color: var(--color-accent);
 }
+.redact.is-scrambling::after { animation: none; opacity: 0; }
 
-.no-result {
-  font-size: 0.7rem;
-  color: var(--color-muted);
-  margin-top: 0.75rem;
-  letter-spacing: 0.1em;
-}
-
-/* ── Terminal output lines ───────────────────────── */
-.terminal-output { margin-top: 0.5rem; }
-.term-line {
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  color: var(--color-muted);
-  line-height: 1.8;
-}
-.result-line { color: var(--color-accent); font-weight: 700; margin-top: 0.25rem; }
-.cursor {
-  display: inline-block;
-  width: 8px; height: 1em;
-  background: var(--color-accent);
-  vertical-align: middle;
-  margin-left: 2px;
-  animation: blink 0.7s step-end infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-/* ── Results ─────────────────────────────────────── */
-.results-section { max-width: 780px; }
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.stat-card { padding: 1.5rem 1.25rem; background: var(--color-surface); }
-.stat-card--danger { background: var(--color-danger); }
-.stat-card--danger .stat-label { color: rgba(255, 255, 255, 0.7); }
-.stat-card--danger .gauge-track { background: rgba(255, 255, 255, 0.25); }
-.stat-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  color: var(--color-muted);
-  margin: 0 0 0.5rem;
-}
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  line-height: 1;
-}
-.stat-unit  { font-size: 1rem; }
-.stat-status { font-size: 1.1rem; line-height: 1.3; }
-
-.message-block {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--color-surface);
-}
-.message-bar { width: 3px; flex-shrink: 0; align-self: stretch; border-radius: 2px; }
-.message-text { margin: 0; font-size: 1rem; line-height: 1.7; color: var(--color-text); }
-
-.dynamic-block {
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
-  background: var(--color-surface-2);
-  border-left: 3px solid v-bind(statusColor);
-}
-.dynamic-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
-  margin-bottom: 0.5rem;
-}
-.dynamic-text {
-  font-size: 0.95rem;
-  line-height: 1.55;
+.redact.is-decrypted {
+  background: transparent;
+  border-top: none;
   color: var(--color-text);
-  margin: 0;
+  padding: 0;
+  height: auto;
+  vertical-align: baseline;
+  overflow: visible;
 }
+.redact.is-decrypted::after { display: none; }
+.redact.is-decrypted.color-mutation   { color: var(--color-mutation);   font-weight: 700; }
+.redact.is-decrypted.color-danger     { color: var(--color-danger);     font-weight: 700; }
+.redact.is-decrypted.color-protege    { color: var(--color-protege);    font-weight: 700; }
+.redact.is-decrypted.color-croissance { color: var(--color-croissance); font-weight: 700; }
 
-/* ── Actions block ───────────────────────────── */
-.actions-block {
-  margin: 1.5rem 0;
-  padding: 1.25rem 1.5rem;
-  background: var(--color-surface);
-  border-left: 3px solid v-bind(statusColor);
+/* ── Content blocks ───────────────────────────────── */
+.rep-block {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.06);
 }
-.actions-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
+.label {
   color: var(--color-muted);
-  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.65rem;
+  font-size: 0.72rem;
 }
+.ct { color: #555; margin-left: 0.35rem; font-weight: 400; }
+
+/* Trajectoire */
+.traj-text {
+  padding-left: 0.85rem;
+  border-left: 2px solid #333;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  transition: border-color 0.3s;
+  min-height: 4.2em;
+  color: var(--color-text);
+}
+.traj-text.is-decrypted { border-color: var(--color-accent); }
+.placeholder { display: flex; flex-direction: column; gap: 0.4rem; }
+.redact-line {
+  display: block;
+  background: #2C2C2C;
+  height: 0.85em;
+  border-top: 1px solid #383838;
+}
+.redact-line:nth-child(1) { width: 92%; }
+.redact-line:nth-child(2) { width: 78%; }
+.redact-line:nth-child(3) { width: 88%; }
+.traj-revealed { display: block; opacity: 0; transition: opacity 0.6s; }
+.traj-revealed.is-shown { opacity: 1; }
+
+/* Actions */
 .actions-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 .action-item {
   display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-}
-.action-num {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-  padding-top: 0.2rem;
-}
-.action-text {
-  font-size: 0.9rem;
-  color: var(--color-text);
+  gap: 0.7rem;
+  align-items: baseline;
+  font-size: 0.88rem;
   line-height: 1.55;
 }
-
-.sources-trigger {
-  background: none;
-  border: none;
-  color: var(--color-muted);
-  font-size: 0.8rem;
-  text-decoration: underline;
-  cursor: pointer;
-  padding: 0.5rem 0;
-  margin: 0.5rem 0 1.5rem;
-  text-align: left;
+.action-num { color: var(--color-accent); font-weight: 700; flex-shrink: 0; width: 1.6rem; }
+.action-arrow { color: var(--color-muted); flex-shrink: 0; }
+.action-text { color: var(--color-text); flex: 1; }
+.action-item.is-locked .action-text {
+  display: inline-block;
+  background: #2C2C2C;
+  color: transparent;
+  border-top: 1px solid #383838;
+  padding: 0 0.4em;
+  user-select: none;
+  height: 1.05em;
+  line-height: 1.05;
+  vertical-align: -0.1em;
+  min-width: 70%;
 }
-.sources-trigger:hover { color: var(--color-text); }
 
-.cta-zone {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-}
-.cta-inner {
+/* Sources */
+.sources-block { display: none; }
+.report[data-state="result"] .sources-block { display: block; }
+.sources-list {
+  list-style: none;
+  margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
-.cta-hook {
+.source-item {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.45rem 0.7rem;
+  border-left: 1px solid #333;
+  transition: border-left-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateX(-6px);
+}
+.source-item.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+  border-left-color: rgba(0, 255, 65, 0.18);
+}
+.source-item:hover { border-left-color: var(--color-accent); background: rgba(0,255,65,0.02); }
+.source-id {
+  color: var(--color-accent);
   font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  width: 1.85rem;
+  padding-top: 0.1em;
+}
+.source-content { flex: 1; }
+.source-title {
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.2rem;
+}
+.source-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.source-title a:hover { color: var(--color-accent); }
+.source-arrow { color: var(--color-muted); margin-left: 0.3rem; font-size: 0.85em; }
+.source-meta {
+  font-size: 0.72rem;
   color: var(--color-muted);
-  margin: 0;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.04em;
+}
+.source-context {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ── Idle hint ────────────────────────────────────── */
+.idle-hint {
+  display: block;
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.06);
+  font-size: 0.7rem;
+  color: #555;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.report[data-state="scanning"] .idle-hint,
+.report[data-state="result"]   .idle-hint { display: none; }
+
+/* ── Result zone ──────────────────────────────────── */
+.result-zone {
+  display: none;
+  margin-top: 1.75rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(0, 255, 65, 0.18);
+  text-align: center;
+}
+.report[data-state="result"] .result-zone { display: block; }
+.result-hook {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+  max-width: 50ch;
+}
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .share-btn {
   background: transparent;
   border: 1px solid rgba(0, 255, 65, 0.25);
   color: var(--color-muted);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  text-transform: uppercase;
+}
+.share-btn:hover { color: var(--color-accent); border-color: rgba(0, 255, 65, 0.5); }
+.reset-zone { margin-top: 1.25rem; }
+.reset-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.2s;
 }
-.share-btn:hover {
-  color: var(--color-accent);
-  border-color: rgba(0, 255, 65, 0.5);
-}
+.reset-btn:hover { color: var(--color-accent); }
 
-.source-note {
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-  margin-bottom: 2rem;
-}
-.reset-btn {
-  background: none;
-  border: none;
-  color: var(--color-accent);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  padding: 0;
-}
-.reset-btn:hover { opacity: 0.75; }
-
-/* ── Gauge ───────────────────────────────────────── */
-.gauge-track {
-  margin-top: 0.75rem;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.gauge-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 0.02s linear;
-}
-
-/* ── Responsive ──────────────────────────────────── */
-@media (max-width: 600px) {
-  .stats-grid { grid-template-columns: 1fr; }
-  .terminal-body { padding: 1.25rem; }
-  .stat-value { font-size: 1.6rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cursor { animation: none; opacity: 1; }
-  .gauge-fill { transition: none; }
-}
-
-/* ── Popular jobs ─────────────────────────────── */
+/* ── Popular jobs ─────────────────────────────────── */
 .popular-jobs {
   max-width: 780px;
   margin-top: 3rem;
@@ -967,7 +1188,7 @@ function reset() {
 }
 .job-chip:hover { color: var(--color-accent); border-color: rgba(0, 255, 65, 0.5); }
 
-/* ── FAQ ──────────────────────────────────────── */
+/* ── FAQ ──────────────────────────────────────────── */
 .faq-section {
   max-width: 780px;
   margin-top: 3rem;
@@ -984,7 +1205,6 @@ function reset() {
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
   border-top: 1px solid rgba(0, 255, 65, 0.12);
 }
 .faq-item {
@@ -1029,8 +1249,31 @@ function reset() {
   color: var(--color-muted);
   max-width: 75ch;
 }
-@media (max-width: 640px) {
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 600px) {
+  .report { padding: 1.5rem 1.25rem; }
+  .rep-field {
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+  }
+  .rep-field .k { min-width: 0; }
+  .rep-field .arrow { display: none; }
+  .rep-meta { font-size: 0.65rem; }
+  .sujet-input { min-width: 140px; }
+  .suggestions { left: 0; }
+  .source-item { flex-direction: column; gap: 0.3rem; }
+  .source-id { width: auto; }
   .faq-question { padding: 1rem 1.1rem; font-size: 0.95rem; }
   .faq-answer   { padding: 0 1.1rem 1.2rem; font-size: 0.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .redact::after      { animation: none; }
+  .led                { animation: none; opacity: 1; }
+  .traj-revealed      { transition: none; opacity: 1; }
+  .source-item        { transition: none; opacity: 1; transform: none; }
 }
 </style>
