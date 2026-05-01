@@ -54,6 +54,20 @@ defineOgImage(false)
     </section>
 
     <section class="policy-section">
+      <h2>Stockage local (localStorage)</h2>
+      <h3>Indicateur technique du scanner</h3>
+      <p>
+        Lorsque vous déverrouillez le rapport complet du scanner via votre email,
+        nous stockons un indicateur technique (<code>hasUnlockedScanner</code>) dans
+        le <code>localStorage</code> de votre navigateur. Cet indicateur ne contient
+        aucune donnée personnelle — il sert uniquement à éviter de vous redemander
+        votre email lors de visites ultérieures depuis le même navigateur. Vous
+        pouvez le supprimer à tout moment via les paramètres de votre navigateur
+        (section "Données du site" ou "Stockage local").
+      </p>
+    </section>
+
+    <section class="policy-section">
       <h2>Durée de conservation</h2>
       <p>Vos données sont conservées jusqu'à votre désabonnement. Chaque email contient un lien de désabonnement en un clic.</p>
     </section>

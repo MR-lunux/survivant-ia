@@ -7,12 +7,12 @@ import SourcesModal from '~/components/SourcesModal.vue'
 // ── SEO ──────────────────────────────────────────────────
 useSeoMeta({
   title: 'Scanner IA — Tester si mon métier est menacé par l\'IA | Survivant-IA',
-  description: 'Teste en 10 secondes le risque que l\'IA remplace ton métier. Score basé sur les rapports 2026 (Tufts, McKinsey, WEF). Gratuit, sans inscription.',
+  description: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription à La Fréquence. Données 2026 (Tufts, McKinsey, WEF).',
   ogTitle: 'Scanner IA — Mon métier est-il menacé par l\'IA ?',
-  ogDescription: 'Score de risque automatisation en 10 secondes. Données 2026 (Tufts, McKinsey, WEF). Survivant-IA.',
+  ogDescription: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription. Données 2026 (Tufts, McKinsey, WEF). Survivant-IA.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Mon métier est-il menacé par l\'IA ?',
-  twitterDescription: 'Test gratuit en 10 secondes. Données 2026 (Tufts, McKinsey, WEF). Survivant-IA.',
+  twitterDescription: 'Score gratuit en 10 secondes. Plan d\'action sur inscription. Données 2026 (Tufts, McKinsey, WEF).',
 })
 
 useHead({
@@ -66,7 +66,7 @@ useHead({
               name: 'Mes données personnelles sont-elles enregistrées ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Non. Le scanner ne collecte aucune donnée personnelle. Aucune inscription n\'est nécessaire. Seuls des événements anonymes d\'usage sont transmis pour améliorer l\'outil.',
+                text: 'Le score, l\'horizon et le statut sont accessibles sans inscription. Le plan d\'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — l\'inscription se fait avec votre email et votre prénom, conformément à notre politique de confidentialité.',
               },
             },
             {
@@ -713,7 +713,7 @@ function reset() {
               <span class="faq-q-text">Mes données personnelles sont-elles enregistrées ?</span>
               <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
             </summary>
-            <p class="faq-answer">Non. Le scanner ne collecte aucune donnée personnelle. Aucune inscription n'est nécessaire. Seuls des événements anonymes d'usage sont transmis pour améliorer l'outil.</p>
+            <p class="faq-answer">Le score, l'horizon et le statut sont accessibles sans inscription. Le plan d'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — l'inscription se fait avec votre email et votre prénom, conformément à notre <NuxtLink to="/confidentialite">politique de confidentialité</NuxtLink>.</p>
           </details>
           <details class="faq-item">
             <summary class="faq-question">
