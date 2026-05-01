@@ -149,6 +149,16 @@ const ACTIONS: Record<Job['status'], string[]> = {
   ],
 }
 
+// ── Scanner unlock ───────────────────────────────────────
+const { isUnlocked } = useScannerUnlock()
+const reducedMotion = ref(false)
+const classifiedVisible = ref(false)
+const shimmering = ref(false)
+
+function rm(ms: number): number {
+  return reducedMotion.value ? 0 : ms
+}
+
 // ── PostHog ──────────────────────────────────────────────
 const { capture } = usePosthogEvent()
 
@@ -239,7 +249,7 @@ const router = useRouter()
 
 const query       = ref('')
 const suggestions = ref<Job[]>([])
-const phase       = ref<'idle' | 'scanning' | 'result'>('idle')
+const phase = ref<'idle' | 'scanning' | 'gated' | 'unlocking' | 'unlocked'>('idle')
 const selectedJob = ref<Job | null>(null)
 const copied      = ref(false)
 const jobInputRef = ref<HTMLInputElement | null>(null)
@@ -336,6 +346,8 @@ function resetDecryptState() {
   progressPct.value  = 0
   jobSources.value   = []
   revealedSources.value = []
+  classifiedVisible.value = false
+  shimmering.value = false
 }
 
 async function startScan(job: Job) {
@@ -364,27 +376,48 @@ async function startScan(job: Job) {
   await countUpTo(riskText, riskState, job.risk, 500, 600); if (!ok()) return
   await sleep(280); if (!ok()) return
 
+  // ── BRANCHEMENT : si pas déverrouillé, on s'arrête au gate ──
+  if (!isUnlocked.value) {
+    // 4-classified. Phase classifiée
+    progressPct.value = 70
+    classifiedVisible.value = true
+    await sleep(rm(500)); if (!ok()) return
+
+    progressPct.value = 80
+    shimmering.value = true
+    await sleep(rm(500)); if (!ok()) return
+    shimmering.value = false
+
+    progressPct.value = 88
+    phase.value = 'gated'
+    capture('scanner_gate_shown', {
+      ...jobProps(job, 'suggestion'),
+      job_risk: job.risk, job_horizon: job.horizon,
+    })
+    return
+  }
+
+  // ── Path déverrouillé : continue le scan complet ──
   // 4. TRAJECTOIRE
   progressPct.value = 75
   trajVisible.value = true
-  await scrambleTo(trajText, trajState, job.dynamic, 700); if (!ok()) return
-  await sleep(180); if (!ok()) return
+  await scrambleTo(trajText, trajState, job.dynamic, rm(700)); if (!ok()) return
+  await sleep(rm(180)); if (!ok()) return
 
   // 5. ACTIONS — scramble en cascade
   progressPct.value = 88
   const actions = ACTIONS[job.status]
   for (let i = 0; i < 3; i++) {
-    // helper local pour scrambler un index spécifique du tableau
-    const textRef   = { get value() { return actionTexts.value[i] }, set value(v: string) { actionTexts.value = actionTexts.value.map((t, idx) => idx === i ? v : t) } }
-    const stateRef  = { get value() { return actionStates.value[i] }, set value(v: any) { actionStates.value = actionStates.value.map((s, idx) => idx === i ? v : s) as any } }
-    await scrambleTo(textRef, stateRef, actions[i], 350); if (!ok()) return
-    await sleep(80); if (!ok()) return
+    const textRef  = { get value() { return actionTexts.value[i] }, set value(v: string) { actionTexts.value = actionTexts.value.map((t, idx) => idx === i ? v : t) } }
+    const stateRef = { get value() { return actionStates.value[i] }, set value(v: any) { actionStates.value = actionStates.value.map((s, idx) => idx === i ? v : s) as any } }
+    await scrambleTo(textRef, stateRef, actions[i], rm(350)); if (!ok()) return
+    await sleep(rm(80)); if (!ok()) return
   }
-  await sleep(180); if (!ok()) return
+  await sleep(rm(180)); if (!ok()) return
 
   // 6. SOURCES + result
   progressPct.value = 95
-  phase.value = 'result'
+  phase.value = 'unlocked'
   router.replace({ query: { job: job.slug } })
   setDynamicMeta(job)
   capture('scanner_scan_completed', jobProps(job, 'suggestion'))
@@ -394,9 +427,9 @@ async function startScan(job: Job) {
   revealedSources.value = new Array(sources.length).fill(false)
 
   for (let i = 0; i < sources.length; i++) {
-    await sleep(20); if (!ok()) return
+    await sleep(rm(20)); if (!ok()) return
     revealedSources.value[i] = true
-    await sleep(160); if (!ok()) return
+    await sleep(rm(160)); if (!ok()) return
   }
   progressPct.value = 100
 }
@@ -422,12 +455,13 @@ function showResultImmediate(job: Job) {
 
 // ── URL param pre-load ───────────────────────────────────
 onMounted(() => {
+  reducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const slug = route.query.job as string | undefined
   if (slug) {
     const job = findJobBySlug(slug)
     if (job) {
       selectedJob.value = job
-      phase.value = 'result'
+      phase.value = 'unlocked'
       showResultImmediate(job)
       setDynamicMeta(job)
       capture('scanner_job_selected', jobProps(job, 'url_param'))
@@ -602,8 +636,17 @@ function reset() {
           </span>
         </div>
 
+        <!-- Classified pulse -->
+        <div
+          v-if="classifiedVisible"
+          class="rep-classified font-mono"
+          aria-live="polite"
+        >
+          // CLASSIFIÉ — ACCÈS RESTREINT
+        </div>
+
         <!-- TRAJECTOIRE -->
-        <div class="rep-block">
+        <div class="rep-block" :class="{ 'is-shimmering': shimmering }">
           <div class="label"><KickerLabel>TRAJECTOIRE</KickerLabel></div>
           <div class="traj-text" :class="{ 'is-decrypted': trajState === 'decrypted' }">
             <div v-if="trajState === 'locked'" class="placeholder" aria-hidden="true">
@@ -622,7 +665,7 @@ function reset() {
         </div>
 
         <!-- ACTIONS -->
-        <div class="rep-block">
+        <div class="rep-block" :class="{ 'is-shimmering': shimmering }">
           <div class="label"><KickerLabel>CE QUE TU PEUX FAIRE <span class="ct">(3)</span></KickerLabel></div>
           <ol class="actions-list">
             <li
@@ -867,7 +910,8 @@ function reset() {
   opacity: 0;
 }
 .report[data-state="scanning"] .report-progress { opacity: 1; }
-.report[data-state="result"]   .report-progress { opacity: 0; transition: opacity 0.4s ease 0.5s; }
+.report[data-state="gated"]    .report-progress { opacity: 1; }
+.report[data-state="unlocked"] .report-progress { opacity: 0; transition: opacity 0.4s ease 0.5s; }
 
 /* ── Meta bar ─────────────────────────────────────── */
 .rep-meta {
@@ -1143,7 +1187,7 @@ function reset() {
 
 /* Sources */
 .sources-block { display: none; }
-.report[data-state="result"] .sources-block { display: block; }
+.report[data-state="unlocked"] .sources-block { display: block; }
 
 .sources-details { list-style: none; }
 .sources-summary {
@@ -1257,7 +1301,9 @@ function reset() {
   text-align: center;
 }
 .report[data-state="scanning"] .idle-hint,
-.report[data-state="result"]   .idle-hint { display: none; }
+.report[data-state="gated"]    .idle-hint,
+.report[data-state="unlocking"] .idle-hint,
+.report[data-state="unlocked"]  .idle-hint { display: none; }
 
 /* ── Result zone ──────────────────────────────────── */
 .result-zone {
@@ -1267,7 +1313,7 @@ function reset() {
   border-top: 1px solid rgba(0, 255, 65, 0.18);
   text-align: center;
 }
-.report[data-state="result"] .result-zone { display: block; }
+.report[data-state="unlocked"] .result-zone { display: block; }
 .result-hook {
   font-size: 0.8rem;
   color: var(--color-muted);
@@ -1388,6 +1434,44 @@ function reset() {
   line-height: 1.75;
   color: var(--color-muted);
   max-width: 75ch;
+}
+
+/* ── Classified pulse ─────────────────────────────────── */
+.rep-classified {
+  margin: 1.2rem 0 0.4rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--color-danger);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed rgba(255, 0, 0, 0.25);
+  background: rgba(255, 0, 0, 0.03);
+  animation: classified-pulse 500ms ease-out;
+}
+@keyframes classified-pulse {
+  0%   { opacity: 0; transform: scale(0.95); }
+  50%  { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ── Shimmer one-shot pour blocs verrouillés ──────────── */
+.rep-block.is-shimmering .redact-line,
+.rep-block.is-shimmering .action-item.is-locked .action-text {
+  animation: shimmer-once 500ms ease-out;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes shimmer-once {
+  0%   { box-shadow: inset 0 0 0 0 rgba(0, 255, 65, 0); }
+  50%  { box-shadow: inset 200px 0 30px -15px rgba(0, 255, 65, 0.2); }
+  100% { box-shadow: inset 400px 0 30px -15px rgba(0, 255, 65, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rep-classified { animation: none; }
+  .rep-block.is-shimmering .redact-line,
+  .rep-block.is-shimmering .action-item.is-locked .action-text { animation: none; }
 }
 
 /* ── Responsive ───────────────────────────────────── */
