@@ -56,6 +56,10 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'fr' },
       link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/site.webmanifest' },
         { rel: 'alternate', type: 'application/rss+xml', title: "Survivant-IA — RSS", href: 'https://survivant-ia.ch/rss.xml' },
         { rel: 'alternate', hreflang: 'fr-CH', href: 'https://survivant-ia.ch/' },
         { rel: 'alternate', hreflang: 'fr', href: 'https://survivant-ia.ch/' },
