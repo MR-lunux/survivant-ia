@@ -435,6 +435,16 @@ async function unlockAndReveal(job: Job) {
 
   phase.value = 'unlocking'
   classifiedVisible.value = false  // retire le pulse
+
+  // Mobile UX : dismisse le clavier virtuel + scroll vers la TRAJECTOIRE
+  // pour que l'utilisateur voie la révélation se dérouler
+  ;(document.activeElement as HTMLElement | null)?.blur?.()
+  await nextTick()
+  document.querySelector('.report .rep-block')?.scrollIntoView({
+    behavior: reducedMotion.value ? 'auto' : 'smooth',
+    block: 'start',
+  })
+
   await sleep(rm(250)); if (!ok()) return
 
   // TRAJECTOIRE
