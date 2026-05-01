@@ -66,7 +66,7 @@ useHead({
               name: 'Mes données personnelles sont-elles enregistrées ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Le score, l\'horizon et le statut sont accessibles sans inscription. Le plan d\'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — l\'inscription se fait avec votre email et votre prénom, conformément à notre politique de confidentialité.',
+                text: 'Le score, l\'horizon et le statut s\'affichent immédiatement et gratuitement, sans collecte de données. Le plan d\'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — un email et un prénom suffisent, conformément à notre politique de confidentialité.',
               },
             },
             {
@@ -873,7 +873,7 @@ function reset() {
               <span class="faq-q-text">Mes données personnelles sont-elles enregistrées ?</span>
               <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
             </summary>
-            <p class="faq-answer">Le score, l'horizon et le statut sont accessibles sans inscription. Le plan d'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — l'inscription se fait avec votre email et votre prénom, conformément à notre <NuxtLink to="/confidentialite">politique de confidentialité</NuxtLink>.</p>
+            <p class="faq-answer">Le score, l'horizon et le statut s'affichent immédiatement et gratuitement, sans collecte de données. Le plan d'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — un email et un prénom suffisent, conformément à notre <NuxtLink to="/confidentialite">politique de confidentialité</NuxtLink>.</p>
           </details>
           <details class="faq-item">
             <summary class="faq-question">
