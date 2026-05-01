@@ -263,7 +263,6 @@ const statusText  = ref('EN MUTATION SÉVÈRE')
 const riskState    = ref<DecryptState>('locked')
 const horizonState = ref<DecryptState>('locked')
 const statusState  = ref<DecryptState>('locked')
-const trajVisible  = ref(false)
 const trajText  = ref('')
 const trajState = ref<DecryptState>('locked')
 const actionTexts  = ref<string[]>(['', '', ''])
@@ -283,10 +282,6 @@ const statusColorClass = computed(() => {
   if (statusState.value !== 'decrypted' || !selectedJob.value) return ''
   return `color-${selectedJob.value.status}`
 })
-
-const currentActions = computed<string[]>(() =>
-  selectedJob.value ? ACTIONS[selectedJob.value.status] : ACTIONS.mutation
-)
 
 const ctaHook = computed(() => {
   if (!selectedJob.value) return ''
@@ -340,7 +335,6 @@ function resetDecryptState() {
   riskState.value    = 'locked'
   horizonState.value = 'locked'
   statusState.value  = 'locked'
-  trajVisible.value  = false
   trajText.value  = ''
   trajState.value = 'locked'
   actionTexts.value  = ['', '', '']
@@ -402,7 +396,6 @@ async function startScan(job: Job) {
   // ── Path déverrouillé : continue le scan complet ──
   // 4. TRAJECTOIRE
   progressPct.value = 75
-  trajVisible.value = true
   await scrambleTo(trajText, trajState, job.dynamic, rm(700)); if (!ok()) return
   await sleep(rm(180)); if (!ok()) return
 
@@ -446,7 +439,6 @@ async function unlockAndReveal(job: Job) {
 
   // TRAJECTOIRE
   progressPct.value = 92
-  trajVisible.value = true
   await scrambleTo(trajText, trajState, job.dynamic, rm(700)); if (!ok()) return
   await sleep(rm(180)); if (!ok()) return
 
@@ -503,7 +495,6 @@ function showResultImmediate(job: Job) {
   }
 
   // Path unlocked : tout en clair (comportement historique)
-  trajVisible.value = true
   trajText.value    = job.dynamic
   trajState.value   = 'decrypted'
   const actions = ACTIONS[job.status]
@@ -1003,9 +994,10 @@ function reset() {
   z-index: 5;
   opacity: 0;
 }
-.report[data-state="scanning"] .report-progress { opacity: 1; }
-.report[data-state="gated"]    .report-progress { opacity: 1; }
-.report[data-state="unlocked"] .report-progress { opacity: 0; transition: opacity 0.4s ease 0.5s; }
+.report[data-state="scanning"]  .report-progress { opacity: 1; }
+.report[data-state="gated"]     .report-progress { opacity: 1; }
+.report[data-state="unlocking"] .report-progress { opacity: 1; }
+.report[data-state="unlocked"]  .report-progress { opacity: 0; transition: opacity 0.4s ease 0.5s; }
 
 /* ── Meta bar ─────────────────────────────────────── */
 .rep-meta {
