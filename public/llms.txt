@@ -1,0 +1,28 @@
+# Survivant-IA
+
+> Survivant-IA aide les professionnels à ne pas se faire remplacer par l'IA — sans jargon, sans cours de Python. Une newsletter hebdomadaire gratuite (La Fréquence), un scanner de risque par métier, et des rapports terrain concrets.
+
+Fondé par Mathieu Rerat (Deputy Head of IT, ex-PwC, Nestlé, Immopac). Basé en Suisse. En français.
+
+## Pages principales
+
+- [Accueil](https://survivant-ia.ch/): Présentation du projet, manifeste, derniers rapports, newsletter
+- [Scanner IA](https://survivant-ia.ch/scanner): Outil gratuit — teste en 10 secondes le risque que l'IA remplace ton métier. 197 métiers couverts, score éditorial basé sur Tufts University, McKinsey, Goldman Sachs, WEF, LinkedIn.
+- [Rapports](https://survivant-ia.ch/rapports): Analyses terrain hebdomadaires sur l'IA et l'emploi, classées par catégorie (soft skills, comprendre l'IA, cas pratiques)
+- [La Fréquence](https://survivant-ia.ch/frequence): Newsletter gratuite — 1 rapport par semaine, 5 minutes de lecture, sans jargon
+- [Identité](https://survivant-ia.ch/identite): Qui est Mathieu Rerat, le fondateur, et pourquoi ce site existe
+
+## Rapports publiés
+
+- [Bienvenue dans la Zone : pourquoi l'IA ne doit pas vous faire peur](https://survivant-ia.ch/rapports/2026-04-25-bienvenue-survivant): L'IA n'est pas votre ennemi. Les 3 compétences qui rendent indispensable quoi qu'il arrive.
+
+## Positionnement
+
+- Public cible : professionnels 28–60 ans, non-techniques, qui voient l'IA arriver dans leur métier
+- Angle : anti-obsolescence pratique, pas de théorie, pas de jargon, pas de cours
+- Ton : direct, terrain, lucide — "le survivant qui partage ses cicatrices"
+- Langue : français suisse romand
+
+## Sources du Scanner IA
+
+Le scanner s'appuie sur 22 sources réparties en 5 catégories : études académiques (Tufts University 2026, PayScope), rapports de cabinets (McKinsey Global Institute, Goldman Sachs), institutions internationales (World Economic Forum), plateformes professionnelles (LinkedIn Economic Graph) et synthèses médias. Les scores sont des estimations éditoriales — tendances sectorielles, pas des prédictions individuelles.
