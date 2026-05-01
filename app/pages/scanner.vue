@@ -255,7 +255,8 @@ const statusState  = ref<DecryptState>('locked')
 const trajVisible  = ref(false)
 const trajText  = ref('')
 const trajState = ref<DecryptState>('locked')
-const actionsRevealed  = ref<boolean[]>([false, false, false])
+const actionTexts  = ref<string[]>(['', '', ''])
+const actionStates = ref<DecryptState[]>(['locked', 'locked', 'locked'])
 const progressPct  = ref(0)
 const jobSources   = ref<Source[]>([])
 const revealedSources = ref<boolean[]>([])
@@ -330,7 +331,8 @@ function resetDecryptState() {
   trajVisible.value  = false
   trajText.value  = ''
   trajState.value = 'locked'
-  actionsRevealed.value = [false, false, false]
+  actionTexts.value  = ['', '', '']
+  actionStates.value = ['locked', 'locked', 'locked']
   progressPct.value  = 0
   jobSources.value   = []
   revealedSources.value = []
@@ -368,11 +370,15 @@ async function startScan(job: Job) {
   await scrambleTo(trajText, trajState, job.dynamic, 700); if (!ok()) return
   await sleep(180); if (!ok()) return
 
-  // 5. ACTIONS
+  // 5. ACTIONS — scramble en cascade
   progressPct.value = 88
+  const actions = ACTIONS[job.status]
   for (let i = 0; i < 3; i++) {
-    actionsRevealed.value[i] = true
-    await sleep(220); if (!ok()) return
+    // helper local pour scrambler un index spécifique du tableau
+    const textRef   = { get value() { return actionTexts.value[i] }, set value(v: string) { actionTexts.value = actionTexts.value.map((t, idx) => idx === i ? v : t) } }
+    const stateRef  = { get value() { return actionStates.value[i] }, set value(v: any) { actionStates.value = actionStates.value.map((s, idx) => idx === i ? v : s) as any } }
+    await scrambleTo(textRef, stateRef, actions[i], 350); if (!ok()) return
+    await sleep(80); if (!ok()) return
   }
   await sleep(180); if (!ok()) return
 
@@ -406,7 +412,9 @@ function showResultImmediate(job: Job) {
   trajVisible.value  = true
   trajText.value     = job.dynamic
   trajState.value    = 'decrypted'
-  actionsRevealed.value = [true, true, true]
+  const actions = ACTIONS[job.status]
+  actionTexts.value  = [actions[0], actions[1], actions[2]]
+  actionStates.value = ['decrypted', 'decrypted', 'decrypted']
   const sources = getSourcesByIds(job.sources)
   jobSources.value   = sources
   revealedSources.value = new Array(sources.length).fill(true)
@@ -618,17 +626,18 @@ function reset() {
           <div class="label"><KickerLabel>CE QUE TU PEUX FAIRE <span class="ct">(3)</span></KickerLabel></div>
           <ol class="actions-list">
             <li
-              v-for="(action, i) in currentActions"
+              v-for="(_, i) in actionStates"
               :key="i"
               class="action-item"
               :class="{
-                'is-locked':    !actionsRevealed[i],
-                'is-decrypted': actionsRevealed[i],
+                'is-locked':     actionStates[i] === 'locked',
+                'is-scrambling': actionStates[i] === 'scrambling',
+                'is-decrypted':  actionStates[i] === 'decrypted',
               }"
             >
               <span class="action-num font-mono">0{{ i + 1 }}</span>
               <span class="action-arrow font-mono" aria-hidden="true">▸</span>
-              <span class="action-text">{{ action }}</span>
+              <span class="action-text">{{ actionTexts[i] }}</span>
             </li>
           </ol>
         </div>
@@ -1121,6 +1130,15 @@ function reset() {
   line-height: 1.05;
   vertical-align: -0.1em;
   min-width: 70%;
+}
+.action-item.is-scrambling .action-text {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: auto;
+  user-select: text;
 }
 
 /* Sources */
