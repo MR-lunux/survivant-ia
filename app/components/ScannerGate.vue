@@ -8,24 +8,6 @@ const emit = defineEmits<{ unlocked: [] }>()
 const { capture } = usePosthogEvent()
 const { markUnlocked } = useScannerUnlock()
 
-// Copy par statut
-const HEADLINES: Record<Job['status'], string> = {
-  danger:     'Diagnostic confirmé : EN DANGER. Le plan d\'action reste classifié.',
-  mutation:   'Diagnostic confirmé : EN MUTATION. Ta carte de navigation reste classifiée.',
-  protege:    'Diagnostic confirmé : PROTÉGÉ. Le plan pour le rester est classifié.',
-  croissance: 'Diagnostic confirmé : EN CROISSANCE. Le plan pour capitaliser est classifié.',
-}
-
-const SUBLINES: Record<Job['status'], string> = {
-  danger:     'La Fréquence te montre comment mettre ces 3 axes en pratique — une technique concrète par semaine.',
-  mutation:   'La Fréquence t\'accompagne dans cette mutation — une carte de survie par semaine, sans jargon.',
-  protege:    'La Fréquence te permet de garder une longueur d\'avance — sans devenir expert en IA.',
-  croissance: 'La Fréquence te donne les outils pour capitaliser sur ta position — avant que la fenêtre ne se referme.',
-}
-
-const headline = computed(() => HEADLINES[props.job.status])
-const subline  = computed(() => SUBLINES[props.job.status])
-
 // Form state
 const prenom   = ref('')
 const email    = ref('')
@@ -106,8 +88,11 @@ onMounted(() => {
       <span class="badge-lock">🔒</span>
     </div>
 
-    <h3 class="gate-headline">{{ headline }}</h3>
-    <p class="gate-subline">{{ subline }}</p>
+    <h3 class="gate-headline">Accès restreint.</h3>
+    <p class="gate-subline">
+      Déverrouille la fin du rapport et rejoins La Fréquence pour garder une longueur d'avance sur l'IA.
+      <span class="gate-rassur-inline">Gratuit, sans jargon.</span>
+    </p>
 
     <form class="gate-form" @submit.prevent="submit" novalidate>
       <!-- Honeypot (invisible aux humains, attractif pour les bots) -->
@@ -164,7 +149,7 @@ onMounted(() => {
         class="gate-submit"
         :disabled="!canSubmit"
       >
-        {{ status === 'loading' ? 'DÉVERROUILLAGE...' : 'DÉVERROUILLER LE PLAN D\'ACTION' }}
+        {{ status === 'loading' ? 'DÉCHIFFREMENT...' : 'DÉCHIFFRER MON PLAN D\'ACTION' }}
       </button>
 
       <p class="gate-rassur font-mono">// 1 clic pour te désinscrire à tout moment</p>
@@ -216,6 +201,14 @@ onMounted(() => {
   line-height: 1.6;
   margin: 0 0 1.4rem;
   max-width: 56ch;
+}
+.gate-rassur-inline {
+  display: inline;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  margin-left: 0.25rem;
 }
 
 .gate-form { display: flex; flex-direction: column; gap: 1rem; }
