@@ -123,6 +123,7 @@ onUnmounted(() => {
             <h3 class="qcard-question">Veux-tu connaître<br>ton <span class="em">obsolescence</span> ?</h3>
             <div class="qcard-foot">
               <span class="qcard-cta">▸ Le Scanner</span>
+              <span class="qcard-meta font-mono">Test gratuit · ton score en 10 secondes</span>
             </div>
           </NuxtLink>
         </div>
