@@ -253,6 +253,8 @@ const riskState    = ref<DecryptState>('locked')
 const horizonState = ref<DecryptState>('locked')
 const statusState  = ref<DecryptState>('locked')
 const trajVisible  = ref(false)
+const trajText  = ref('')
+const trajState = ref<DecryptState>('locked')
 const actionsRevealed  = ref<boolean[]>([false, false, false])
 const progressPct  = ref(0)
 const jobSources   = ref<Source[]>([])
@@ -326,6 +328,8 @@ function resetDecryptState() {
   horizonState.value = 'locked'
   statusState.value  = 'locked'
   trajVisible.value  = false
+  trajText.value  = ''
+  trajState.value = 'locked'
   actionsRevealed.value = [false, false, false]
   progressPct.value  = 0
   jobSources.value   = []
@@ -361,7 +365,8 @@ async function startScan(job: Job) {
   // 4. TRAJECTOIRE
   progressPct.value = 75
   trajVisible.value = true
-  await sleep(700); if (!ok()) return
+  await scrambleTo(trajText, trajState, job.dynamic, 700); if (!ok()) return
+  await sleep(180); if (!ok()) return
 
   // 5. ACTIONS
   progressPct.value = 88
@@ -399,6 +404,8 @@ function showResultImmediate(job: Job) {
   horizonState.value = 'decrypted'
   statusState.value  = 'decrypted'
   trajVisible.value  = true
+  trajText.value     = job.dynamic
+  trajState.value    = 'decrypted'
   actionsRevealed.value = [true, true, true]
   const sources = getSourcesByIds(job.sources)
   jobSources.value   = sources
@@ -590,13 +597,19 @@ function reset() {
         <!-- TRAJECTOIRE -->
         <div class="rep-block">
           <div class="label"><KickerLabel>TRAJECTOIRE</KickerLabel></div>
-          <div class="traj-text" :class="{ 'is-decrypted': trajVisible }">
-            <div v-if="!trajVisible" class="placeholder" aria-hidden="true">
+          <div class="traj-text" :class="{ 'is-decrypted': trajState === 'decrypted' }">
+            <div v-if="trajState === 'locked'" class="placeholder" aria-hidden="true">
               <span class="redact-line" />
               <span class="redact-line" />
               <span class="redact-line" />
             </div>
-            <span v-else class="traj-revealed is-shown">{{ selectedJob?.dynamic }}</span>
+            <span
+              v-else
+              class="traj-revealed is-shown"
+              :class="{
+                'is-scrambling': trajState === 'scrambling',
+              }"
+            >{{ trajText }}</span>
           </div>
         </div>
 
@@ -1073,6 +1086,11 @@ function reset() {
 .redact-line:nth-child(3) { width: 88%; }
 .traj-revealed { display: block; opacity: 0; transition: opacity 0.6s; }
 .traj-revealed.is-shown { opacity: 1; }
+.traj-revealed.is-scrambling {
+  color: var(--color-accent);
+  opacity: 1;
+  font-family: var(--font-mono);
+}
 
 /* Actions */
 .actions-list {
