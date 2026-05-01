@@ -1,10 +1,8 @@
 <template>
   <header class="app-header">
     <div class="container header-inner">
-      <NuxtLink to="/" class="logo" data-attr="header-nav-home">
-        <span class="logo-bracket">[</span>
-        <span class="logo-text">SURVIVANT</span>
-        <span class="logo-bracket">]</span>
+      <NuxtLink to="/" class="logo-link" data-attr="header-nav-home" aria-label="Survivant-IA — accueil">
+        <AppLogo variant="lockup" />
       </NuxtLink>
 
       <nav v-if="!isHome" class="nav">
@@ -60,16 +58,11 @@ const socials = {
   height: 64px;
   gap: 2rem;
 }
-.logo {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--color-text);
+.logo-link {
+  display: inline-flex;
   text-decoration: none;
-  white-space: nowrap;
+  color: inherit;
 }
-.logo-bracket { color: var(--color-accent); }
 .nav { display: flex; gap: 2rem; }
 .nav-link {
   font-family: var(--font-mono);
