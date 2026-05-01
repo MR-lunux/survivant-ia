@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { findJobBySlug, searchJobs, type Job } from '~/data/jobs'
 import { getSourcesByIds, type Source } from '~/data/sources'
+import SourcesModal from '~/components/SourcesModal.vue'
 
 // ── SEO ──────────────────────────────────────────────────
 useSeoMeta({
@@ -256,6 +257,8 @@ const actionsRevealed  = ref<boolean[]>([false, false, false])
 const progressPct  = ref(0)
 const jobSources   = ref<Source[]>([])
 const revealedSources = ref<boolean[]>([])
+
+const sourcesModalOpen = ref(false)
 
 let copyTimer:     ReturnType<typeof setTimeout> | null = null
 let noResultsTimer: ReturnType<typeof setTimeout> | null = null
@@ -617,30 +620,38 @@ function reset() {
           </ol>
         </div>
 
-        <!-- SOURCES (visible only in result state) -->
+        <!-- SOURCES (visible only in result state, collapsed by default) -->
         <div class="rep-block sources-block">
-          <div class="label font-mono">
-            // SOURCES CITÉES <span class="ct">({{ jobSources.length }})</span>
-          </div>
-          <ul class="sources-list">
-            <li
-              v-for="(src, i) in jobSources"
-              :key="src.id"
-              class="source-item"
-              :class="{ 'is-revealed': revealedSources[i] }"
-            >
-              <div class="source-id font-mono">[{{ src.id }}]</div>
-              <div class="source-content">
-                <div class="source-title">
-                  <a :href="src.url" target="_blank" rel="noopener noreferrer">
-                    {{ src.title }}<span class="source-arrow" aria-hidden="true"> ↗</span>
-                  </a>
+          <details class="sources-details">
+            <summary class="sources-summary font-mono">
+              <span>// SOURCES CITÉES <span class="ct">({{ jobSources.length }})</span></span>
+              <span class="sources-toggle font-mono" aria-hidden="true">+</span>
+            </summary>
+            <ul class="sources-list">
+              <li
+                v-for="(src, i) in jobSources"
+                :key="src.id"
+                class="source-item"
+                :class="{ 'is-revealed': revealedSources[i] }"
+              >
+                <div class="source-id font-mono">[{{ src.id }}]</div>
+                <div class="source-content">
+                  <div class="source-title">
+                    <a :href="src.url" target="_blank" rel="noopener noreferrer">
+                      {{ src.title }}<span class="source-arrow" aria-hidden="true"> ↗</span>
+                    </a>
+                  </div>
+                  <div class="source-meta font-mono">{{ src.author }} · {{ src.year }}</div>
+                  <div class="source-context">{{ src.context }}</div>
                 </div>
-                <div class="source-meta font-mono">{{ src.author }} · {{ src.year }}</div>
-                <div class="source-context">{{ src.context }}</div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+            <div class="sources-catalog-link">
+              <button class="catalog-btn font-mono" type="button" @click="sourcesModalOpen = true">
+                → Voir le catalogue complet (22 sources)
+              </button>
+            </div>
+          </details>
         </div>
 
         <!-- Idle hint -->
@@ -723,6 +734,12 @@ function reset() {
 
     </div>
   </div>
+
+  <SourcesModal
+    :open="sourcesModalOpen"
+    :job="selectedJob"
+    @close="sourcesModalOpen = false"
+  />
 </template>
 
 <style scoped>
@@ -1094,6 +1111,51 @@ function reset() {
 /* Sources */
 .sources-block { display: none; }
 .report[data-state="result"] .sources-block { display: block; }
+
+.sources-details { list-style: none; }
+.sources-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0;
+  user-select: none;
+  margin-bottom: 0;
+}
+.sources-summary::-webkit-details-marker { display: none; }
+.sources-summary:hover { color: var(--color-text); }
+.sources-toggle {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--color-muted);
+  transition: transform 0.2s ease, color 0.15s;
+  flex-shrink: 0;
+}
+.sources-details[open] .sources-summary { color: var(--color-text); margin-bottom: 0.65rem; }
+.sources-details[open] .sources-toggle  { transform: rotate(45deg); color: var(--color-accent); }
+
+.sources-catalog-link {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  text-align: right;
+}
+.catalog-btn {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+.catalog-btn:hover { color: var(--color-accent); }
 .sources-list {
   list-style: none;
   margin: 0; padding: 0;
