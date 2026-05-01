@@ -27,7 +27,12 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  const { prenom, email, consent } = body ?? {}
+  const { prenom, email, consent, source, job_slug, job_status, website } = body ?? {}
+
+  // Honeypot anti-bot : silencieux, pas d'appel Brevo, pas de rate-limit incrémenté
+  if (website) {
+    return { ok: true }
+  }
 
   const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
   if (!checkRateLimit(ip)) {
@@ -50,6 +55,11 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Consentement requis.' })
   }
 
+  const allowedSources = ['website', 'scanner_gate']
+  const safeSource = typeof source === 'string' && allowedSources.includes(source)
+    ? source
+    : 'website'
+
   const res = await fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
     headers: {
@@ -62,7 +72,13 @@ export default defineEventHandler(async (event) => {
       attributes: {
         PRENOM: stripHtml(prenom.trim()),
         CONSENT: true,
-        SOURCE: 'website',
+        SOURCE: safeSource,
+        ...(typeof job_slug === 'string' && job_slug
+          ? { JOB_SLUG: stripHtml(job_slug.slice(0, 80)) }
+          : {}),
+        ...(typeof job_status === 'string' && job_status
+          ? { JOB_STATUS: stripHtml(job_status.slice(0, 30)) }
+          : {}),
       },
       updateEnabled: false,
     }),
