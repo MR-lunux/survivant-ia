@@ -28,30 +28,7 @@ function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter') {
   capture('home_cta_clicked', { cta })
 }
 
-const heroGrid   = ref<HTMLElement | null>(null)
-const statusText = ref<HTMLElement | null>(null)
-
-const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*<>[]{}/'
-
-function scramble(el: HTMLElement, final: string, duration = 700) {
-  const len = final.length
-  let start: number | null = null
-  const step = (ts: number) => {
-    if (!start) start = ts
-    const p = Math.min((ts - start) / duration, 1)
-    const revealed = Math.floor(p * len)
-    let out = ''
-    for (let i = 0; i < len; i++) {
-      out += ([' ', '.', '\''].includes(final[i]) || i < revealed)
-        ? final[i]
-        : CHARS[Math.floor(Math.random() * CHARS.length)]
-    }
-    el.textContent = out
-    if (p < 1) requestAnimationFrame(step)
-    else el.textContent = final
-  }
-  requestAnimationFrame(step)
-}
+const heroGrid = ref<HTMLElement | null>(null)
 
 function onScroll() {
   if (heroGrid.value) {
@@ -63,10 +40,6 @@ onMounted(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
   window.addEventListener('scroll', onScroll, { passive: true })
-
-  setTimeout(() => {
-    if (statusText.value) scramble(statusText.value, 'TRANSMISSION EN COURS')
-  }, 250)
 })
 
 onUnmounted(() => {
@@ -81,11 +54,6 @@ onUnmounted(() => {
       <div ref="heroGrid" class="hero-grid-bg" aria-hidden="true" />
 
       <div class="container hero-inner">
-        <div class="hero-status">
-          <span class="status-dot" aria-hidden="true" />
-          <span ref="statusText" class="font-mono">TRANSMISSION EN COURS</span>
-        </div>
-
         <div class="hero-kicker"><KickerLabel>ZONE ANTI-OBSOLESCENCE</KickerLabel></div>
 
         <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
@@ -218,21 +186,6 @@ onUnmounted(() => {
 }
 .hero-inner { max-width: 800px; position: relative; z-index: 1; }
 
-/* status row — fade up on load */
-.hero-status {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-size: 0.65rem; letter-spacing: 0.15em;
-  color: var(--color-muted); margin-bottom: 2rem;
-  opacity: 0;
-  animation: heroFadeUp 0.5s 0.3s ease both;
-}
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--color-accent);
-  animation: pulse 2s infinite;
-  flex-shrink: 0;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
 /* kicker — small mono label above H1 */
 .hero-kicker {
@@ -374,7 +327,7 @@ onUnmounted(() => {
 
 /* prefers-reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
-  .hero-status, .hero-subtitle, .hero-cta, .hero-kicker, .hero-h1 {
+  .hero-subtitle, .hero-cta, .hero-kicker, .hero-h1 {
     opacity: 1 !important; animation: none !important;
   }
   .title-line-inner { transform: none !important; animation: none !important; }
