@@ -141,18 +141,9 @@ onUnmounted(() => {
     <SectionDivider />
 
     <!-- ── SCANNER TEASER ─────────────────────────── -->
-    <section class="scanner-teaser-section">
-      <div class="container">
-        <h2 class="section-h2">Survivre à l'IA au travail commence par un diagnostic</h2>
-        <ScannerBorder class="scanner-teaser">
-          <span class="font-mono scanner-teaser-label">// DIAGNOSTIC IA</span>
-          <p class="scanner-teaser-text">
-            Scanne ton métier — découvre ton score d'obsolescence en 10 secondes.
-          </p>
-          <GlitchButton label="Lancer le scan (gratuit)" to="/scanner" data-attr="teaser-cta-scanner" @click="onHomeCta('scanner')" />
-        </ScannerBorder>
-      </div>
-    </section>
+    <div class="container">
+      <HomeDiagnosticTeaser @click="onHomeCta('scanner')" />
+    </div>
 
     <SectionDivider />
     <StatsStrip />
@@ -394,27 +385,4 @@ onUnmounted(() => {
   .accent-glitch    { animation: none !important; }
 }
 
-/* ── Scanner teaser ──────────────────────────────── */
-.scanner-teaser-section { padding: 0 0 3rem; }
-.scanner-teaser {
-  padding: 2rem;
-  background: var(--color-surface);
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.scanner-teaser-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
-  flex-shrink: 0;
-}
-.scanner-teaser-text {
-  flex: 1;
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--color-muted);
-  min-width: 200px;
-}
 </style>
