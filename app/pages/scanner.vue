@@ -490,15 +490,30 @@ function showResultImmediate(job: Job) {
   riskState.value    = 'decrypted'
   horizonState.value = 'decrypted'
   statusState.value  = 'decrypted'
-  trajVisible.value  = true
-  trajText.value     = job.dynamic
-  trajState.value    = 'decrypted'
+
+  if (!isUnlocked.value) {
+    // Path gated : metrics en clair, TRAJ/ACTIONS restent locked, gate visible
+    progressPct.value = 88
+    phase.value = 'gated'
+    capture('scanner_gate_shown', {
+      ...jobProps(job, 'url_param'),
+      job_risk: job.risk, job_horizon: job.horizon,
+    })
+    return
+  }
+
+  // Path unlocked : tout en clair (comportement historique)
+  trajVisible.value = true
+  trajText.value    = job.dynamic
+  trajState.value   = 'decrypted'
   const actions = ACTIONS[job.status]
   actionTexts.value  = [actions[0], actions[1], actions[2]]
   actionStates.value = ['decrypted', 'decrypted', 'decrypted']
   const sources = getSourcesByIds(job.sources)
   jobSources.value   = sources
   revealedSources.value = new Array(sources.length).fill(true)
+  phase.value = 'unlocked'
+  progressPct.value = 100
 }
 
 // ── URL param pre-load ───────────────────────────────────
@@ -509,11 +524,14 @@ onMounted(() => {
     const job = findJobBySlug(slug)
     if (job) {
       selectedJob.value = job
-      phase.value = 'unlocked'
+      // showResultImmediate() set lui-même phase à 'gated' ou 'unlocked'
       showResultImmediate(job)
       setDynamicMeta(job)
       capture('scanner_job_selected', jobProps(job, 'url_param'))
-      capture('scanner_scan_completed', jobProps(job, 'url_param'))
+      // scan_completed est émis seulement si on a effectivement révélé tout
+      if (phase.value === 'unlocked') {
+        capture('scanner_scan_completed', jobProps(job, 'url_param'))
+      }
     }
   } else {
     jobInputRef.value?.focus()
