@@ -162,7 +162,6 @@ onMounted(() => {
       <button
         type="submit"
         class="gate-submit"
-        :data-text="status === 'loading' ? 'DÉVERROUILLAGE...' : 'DÉVERROUILLER LE PLAN D\'ACTION'"
         :disabled="!canSubmit"
       >
         {{ status === 'loading' ? 'DÉVERROUILLAGE...' : 'DÉVERROUILLER LE PLAN D\'ACTION' }}
