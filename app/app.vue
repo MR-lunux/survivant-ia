@@ -16,7 +16,7 @@ const orgWebsiteJsonLd = computed(() => JSON.stringify({
       '@id': 'https://survivant-ia.ch/#organization',
       name: 'Survivant-IA',
       url: 'https://survivant-ia.ch',
-      logo: 'https://survivant-ia.ch/favicon.ico',
+      logo: 'https://survivant-ia.ch/icon-512.png',
       description: 'Zone anti-obsolescence : rapports, outils et veille pour se former à l\'IA et développer les compétences que les algorithmes ne remplacent pas.',
       founder: {
         '@type': 'Person',
