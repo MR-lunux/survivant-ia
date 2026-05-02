@@ -880,7 +880,7 @@ function reset() {
               <span class="faq-q-text">Combien de métiers sont couverts ?</span>
               <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
             </summary>
-            <p class="faq-answer">197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0–100&nbsp;%), un horizon d'impact et une dynamique anticipée.</p>
+            <p class="faq-answer">197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0-100&nbsp;%), un horizon d'impact et une dynamique anticipée.</p>
           </details>
           <details class="faq-item">
             <summary class="faq-question">

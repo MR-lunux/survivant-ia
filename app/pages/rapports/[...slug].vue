@@ -170,8 +170,8 @@ onBeforeUnmount(() => {
 
       <div class="article-footer">
         <div class="article-cta">
-          <p class="font-mono" style="font-size: 0.8rem; color: var(--color-muted); margin-bottom: 1.5rem;">
-            // SI CE RAPPORT VOUS A ÉTÉ UTILE, REJOIGNEZ LA FRÉQUENCE
+          <p style="margin-bottom: 1.5rem;">
+            <KickerLabel>SI CE RAPPORT VOUS A ÉTÉ UTILE, REJOIGNEZ LA FRÉQUENCE</KickerLabel>
           </p>
           <NewsletterForm />
         </div>

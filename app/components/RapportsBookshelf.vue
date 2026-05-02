@@ -25,7 +25,7 @@ const CATEGORIES: CategoryConfig[] = [
     slug: 'cas-pratiques',
     vol: 'III', num: '03',
     name: 'Cas Pratiques',
-    desc: 'Des outils testés sur le terrain. Pas des promesses — des workflows qui marchent.',
+    desc: 'Des outils testés sur le terrain. Pas des promesses - des workflows qui marchent.',
   },
 ]
 
