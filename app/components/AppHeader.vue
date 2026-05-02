@@ -117,6 +117,7 @@ const socials = {
     padding-bottom: 0.5rem;
   }
   .nav-link { font-size: 0.65rem; }
-  .social-links { display: none; }
+  .social-links { gap: 0.75rem; }
+  .social-links a svg { width: 16px; height: 16px; }
 }
 </style>
