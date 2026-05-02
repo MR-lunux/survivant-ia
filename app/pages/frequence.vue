@@ -1,12 +1,12 @@
 <!-- app/pages/frequence.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Rejoindre la Fréquence — Newsletter Survivant-IA',
+  title: 'Rejoindre la Fréquence - Newsletter Survivant-IA',
   description: '1 rapport par semaine pour se former à l\'IA et développer les compétences que les algorithmes ne remplacent pas. Gratuit, sans jargon, sans spam.',
-  ogTitle: 'Rejoindre la Fréquence — Newsletter Survivant-IA',
+  ogTitle: 'Rejoindre la Fréquence - Newsletter Survivant-IA',
   ogDescription: '1 rapport par semaine pour ne pas se faire remplacer par l\'IA. Gratuit.',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Rejoindre la Fréquence — Survivant-IA',
+  twitterTitle: 'Rejoindre la Fréquence - Survivant-IA',
   twitterDescription: '1 rapport par semaine pour ne pas se faire remplacer par l\'IA.',
 })
 
@@ -37,7 +37,7 @@ defineOgImage('Default', {
       <h1>Rejoindre la Fréquence</h1>
       <p class="freq-intro">
         Chaque semaine, un rapport de survie dans votre boîte mail. Concret, actionnable, sans jargon.
-        Ce que les algorithmes ne peuvent pas vous apprendre.
+        Un échange d'humain à humain.
       </p>
     </div>
 

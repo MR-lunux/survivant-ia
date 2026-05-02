@@ -6,13 +6,13 @@ import SourcesModal from '~/components/SourcesModal.vue'
 
 // ── SEO ──────────────────────────────────────────────────
 useSeoMeta({
-  title: 'Scanner IA — Tester si mon métier est menacé par l\'IA | Survivant-IA',
-  description: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription à La Fréquence. Données 2026 (Tufts, McKinsey, WEF).',
-  ogTitle: 'Scanner IA — Mon métier est-il menacé par l\'IA ?',
-  ogDescription: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription. Données 2026 (Tufts, McKinsey, WEF). Survivant-IA.',
+  title: 'Scanner IA - Tester si mon métier est menacé par l\'IA | Survivant-IA',
+  description: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription à La Fréquence. Données multiples (Tufts, McKinsey, WEF, etc.).',
+  ogTitle: 'Scanner IA - Mon métier est-il menacé par l\'IA ?',
+  ogDescription: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription. Données multiples (Tufts, McKinsey, WEF, etc.). Survivant-IA.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Mon métier est-il menacé par l\'IA ?',
-  twitterDescription: 'Score gratuit en 10 secondes. Plan d\'action sur inscription. Données 2026 (Tufts, McKinsey, WEF).',
+  twitterDescription: 'Score gratuit en 10 secondes. Plan d\'action sur inscription. Données multiples (Tufts, McKinsey, WEF, etc.).',
 })
 
 useHead({
@@ -26,7 +26,7 @@ useHead({
           '@id': 'https://survivant-ia.ch/scanner#app',
           name: 'Scanner IA — Risque automatisation par métier',
           url: 'https://survivant-ia.ch/scanner',
-          description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur les rapports 2026 (Tufts, McKinsey, WEF).',
+          description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur des rapports (Tufts, McKinsey, WEF, etc.).',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
           inLanguage: 'fr-CH',
@@ -50,7 +50,7 @@ useHead({
               name: 'Comment est calculé le score de risque d\'automatisation IA ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Le score est une estimation éditoriale informée par un ensemble de recherches : études académiques (Tufts University, PayScope), rapports de cabinets (McKinsey, Goldman Sachs), institutions internationales (WEF) et données de plateformes (LinkedIn). Il donne une tendance sectorielle — pas un algorithme mécanique. Les sources complètes sont accessibles depuis chaque résultat.',
+                text: 'Le score est une estimation éditoriale informée par un ensemble de recherches : études académiques (Tufts University, PayScope), rapports de cabinets (McKinsey, Goldman Sachs), institutions internationales (WEF) et données de plateformes (LinkedIn). Il donne une tendance sectorielle - pas un algorithme mécanique. Les sources complètes sont accessibles depuis chaque résultat.',
               },
             },
             {
@@ -66,7 +66,7 @@ useHead({
               name: 'Mes données personnelles sont-elles enregistrées ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Le score, l\'horizon et le statut s\'affichent immédiatement et gratuitement, sans collecte de données. Le plan d\'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — un email et un prénom suffisent, conformément à notre politique de confidentialité.',
+                text: 'Le score, l\'horizon et le statut s\'affichent immédiatement et gratuitement, sans collecte de données. Le plan d\'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence - un email et un prénom suffisent, conformément à notre politique de confidentialité.',
               },
             },
             {
@@ -74,7 +74,7 @@ useHead({
               name: 'Combien de métiers sont couverts par le scanner IA ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: '197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0–100 %), un horizon d\'impact et une dynamique anticipée.',
+                text: '197 métiers sont analysés, répartis en 4 catégories : EN DANGER, EN MUTATION SÉVÈRE, PROTÉGÉ et EN CROISSANCE. Chaque analyse inclut un score de risque (0-100 %), un horizon d\'impact et une dynamique anticipée.',
               },
             },
             {
@@ -82,7 +82,7 @@ useHead({
               name: 'Les résultats du scanner IA sont-ils fiables ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Les scores reflètent l\'état des recherches académiques en 2026. Ils donnent une tendance sectorielle, pas une prédiction individuelle garantie. Chaque résultat inclut ses sources pour que vous puissiez évaluer la solidité des données.',
+                text: 'Les scores reflètent l\'état de recherches académiques. Ils donnent une tendance sectorielle, pas une prédiction individuelle garantie. Chaque résultat inclut ses sources pour que vous puissiez évaluer la solidité des données.',
               },
             },
           ],
@@ -128,22 +128,22 @@ const STATUS_LABELS: Record<Job['status'], string> = {
 
 const ACTIONS: Record<Job['status'], string[]> = {
   danger: [
-    'Identifie les tâches de ton poste qui nécessitent jugement et relation humaine — c\'est ton bouclier.',
+    'Identifie les tâches de ton poste qui nécessitent jugement et relation humaine - c\'est ton bouclier.',
     'Commence à piloter l\'IA plutôt que la subir : automatise ce qui te ralentit, garde le contrôle sur ce qui sort.',
     'Renforce ta valeur relationnelle dans ton équipe et ton secteur. L\'irremplaçabilité se construit dans les liens.',
   ],
   mutation: [
-    'Cartographie ton rôle : distingue ce qui va disparaître de ce qui va évoluer — ce sont deux trajectoires différentes.',
-    'Apprends à superviser l\'IA sur les tâches qui t\'échappent déjà — tu restes maître si tu maîtrises l\'outil.',
+    'Cartographie ton rôle : distingue ce qui va disparaître de ce qui va évoluer - ce sont deux trajectoires différentes.',
+    'Apprends à superviser l\'IA sur les tâches qui t\'échappent déjà - tu restes maître si tu maîtrises l\'outil.',
     'Développe la couche de jugement que l\'IA ne peut pas reproduire : contexte métier, éthique, décision en incertitude.',
   ],
   protege: [
-    'Documente ce qui rend ton travail irremplaçable — c\'est ton capital le plus précieux, rends-le visible.',
+    'Documente ce qui rend ton travail irremplaçable - c\'est ton capital le plus précieux, rends-le visible.',
     'Utilise l\'IA pour déléguer les tâches répétitives et concentre-toi sur ce qui crée de la valeur humaine.',
     'Reste en veille : ta position protégée aujourd\'hui peut basculer dans 5 ans. Anticipe plutôt que réagir.',
   ],
   croissance: [
-    'Capitalise sur la demande actuelle — c\'est le moment de monter en compétence et en visibilité dans ton domaine.',
+    'Capitalise sur la demande actuelle - c\'est le moment de monter en compétence et en visibilité dans ton domaine.',
     'Utilise l\'IA comme multiplicateur de productivité : tu produis plus, pas moins bien.',
     'Anticipe la prochaine vague : les métiers en croissance aujourd\'hui ne sont pas immunisés pour toujours.',
   ],
@@ -286,10 +286,10 @@ const statusColorClass = computed(() => {
 const ctaHook = computed(() => {
   if (!selectedJob.value) return ''
   switch (selectedJob.value.status) {
-    case 'danger':     return 'La Fréquence te montre comment mettre ces 3 axes en pratique — une technique concrète par semaine.'
-    case 'mutation':   return 'La Fréquence t\'accompagne dans cette mutation — une carte de survie par semaine, sans jargon.'
-    case 'protege':    return 'La Fréquence te permet de garder une longueur d\'avance — sans devenir expert en IA.'
-    case 'croissance': return 'La Fréquence te donne les outils pour capitaliser sur ta position — avant que la fenêtre ne se referme.'
+    case 'danger':     return 'La Fréquence te montre comment mettre ces 3 axes en pratique - une technique concrète par semaine.'
+    case 'mutation':   return 'La Fréquence t\'accompagne dans cette mutation - une carte de survie par semaine, sans jargon.'
+    case 'protege':    return 'La Fréquence te permet de garder une longueur d\'avance - sans devenir expert en IA.'
+    case 'croissance': return 'La Fréquence te donne les outils pour capitaliser sur ta position - avant que la fenêtre ne se referme.'
   }
 })
 
@@ -599,14 +599,14 @@ function reset() {
     <div class="container">
 
       <Breadcrumbs :items="[{ label: 'Scanner IA' }]" />
-      <h1 class="scanner-h1">Scanner d'obsolescence IA — Quel est le risque pour ton métier&nbsp;?</h1>
+      <h1 class="scanner-h1">Scanner d'obsolescence IA - Quel est le risque pour ton métier&nbsp;?</h1>
 
       <!-- ── Intro ─────────────────────────────────────── -->
       <div class="scanner-intro">
-        <p class="intro-lead">Ton métier face à l'IA — résultat en 10 secondes.</p>
+        <p class="intro-lead">Ton métier face à l'IA - résultat en 10 secondes.</p>
         <ol class="intro-steps font-mono">
           <li><span class="step-num">01</span> Tape ton métier dans le champ <span class="step-accent">SUJET</span></li>
-          <li><span class="step-num">02</span> Clique sur la correspondance — le rapport se déclassifie</li>
+          <li><span class="step-num">02</span> Clique sur la correspondance - le rapport se déclassifie</li>
           <li><span class="step-num">03</span> Lis ton score, ta trajectoire et ce que tu peux faire</li>
         </ol>
       </div>

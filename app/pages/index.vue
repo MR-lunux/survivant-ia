@@ -3,7 +3,7 @@
 useSeoMeta({
   title: 'Se former à l\'IA, ne pas se faire remplacer | Survivant-IA',
   description: '1 rapport gratuit / semaine pour ne pas te faire remplacer par l\'IA. Compétences, astuces, cas concrets, sans jargon. Bonus : scanner par métier.',
-  ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer — Survivant-IA',
+  ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer - Survivant-IA',
   ogDescription: '1 rapport par semaine pour ne pas te faire remplacer par l\'IA. Gratuit, sans jargon. Et un scanner d\'obsolescence par métier.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Se former à l\'IA pour ne pas se faire remplacer',
@@ -72,7 +72,7 @@ onUnmounted(() => {
 
         <p class="hero-subtitle">
           Tu sens que l'IA arrive sur ton métier. Tu as raison.
-          Voici les compétences à développer pour <strong>prendre le virage</strong> — pas pour le subir.
+          Voici les compétences à développer pour <strong>prendre le virage</strong>, pas pour le subir.
           Soft skills, compréhension de l'IA, cas pratiques concrets, sans jargon.
         </p>
 
