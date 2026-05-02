@@ -132,13 +132,6 @@ onUnmounted(() => {
 
     <SectionDivider />
 
-    <!-- ── E-E-A-T PROOF BAR ──────────────────── -->
-    <div class="container">
-      <HomeProofBar />
-    </div>
-
-    <SectionDivider />
-
     <!-- ── MANIFESTE ──────────────────────────── -->
     <section class="manifeste">
       <div class="container">
