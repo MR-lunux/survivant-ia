@@ -32,7 +32,7 @@ const isHome = computed(() => route.path === '/')
 
 const socials = {
   linkedin: '',
-  instagram: '',
+  instagram: 'https://www.instagram.com/survivant.ia/',
   youtube: '',
 }
 </script>
