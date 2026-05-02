@@ -31,7 +31,7 @@ const route = useRoute()
 const isHome = computed(() => route.path === '/')
 
 const socials = {
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/mathieurerat',
   instagram: 'https://www.instagram.com/survivant.ia/',
   youtube: '',
 }
