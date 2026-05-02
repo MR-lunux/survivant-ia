@@ -82,7 +82,7 @@ function onToggle(openedRow: HTMLDetailsElement) {
       :key="cat.slug"
       ref="rows"
       class="rb-row"
-      :open="i === 0"
+      :open="false"
       :data-attr="`bookshelf-${cat.slug}`"
       @toggle="onToggle($event.target as HTMLDetailsElement)"
     >
