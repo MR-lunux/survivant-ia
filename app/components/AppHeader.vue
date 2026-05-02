@@ -11,12 +11,15 @@
         <NuxtLink to="/identite" class="nav-link" data-attr="header-nav-identite">Identité</NuxtLink>
       </nav>
 
-      <div v-if="socials.linkedin || socials.instagram || socials.youtube" class="social-links">
+      <div v-if="socials.linkedin || socials.instagram || socials.tiktok || socials.youtube" class="social-links">
         <a v-if="socials.linkedin" :href="socials.linkedin" target="_blank" rel="noopener me" aria-label="LinkedIn">
           <IconLinkedIn />
         </a>
         <a v-if="socials.instagram" :href="socials.instagram" target="_blank" rel="noopener me" aria-label="Instagram">
           <IconInstagram />
+        </a>
+        <a v-if="socials.tiktok" :href="socials.tiktok" target="_blank" rel="noopener me" aria-label="TikTok">
+          <IconTiktok />
         </a>
         <a v-if="socials.youtube" :href="socials.youtube" target="_blank" rel="noopener me" aria-label="YouTube">
           <IconYoutube />
@@ -33,6 +36,7 @@ const isHome = computed(() => route.path === '/')
 const socials = {
   linkedin: 'https://www.linkedin.com/in/mathieurerat',
   instagram: 'https://www.instagram.com/survivant.ia/',
+  tiktok: 'https://www.tiktok.com/@survivant_ia',
   youtube: '',
 }
 </script>
