@@ -15,13 +15,6 @@ defineOgImage('Default', {
   kicker: '// ZONE ANTI-OBSOLESCENCE',
 })
 
-const { data: articles } = await useAsyncData('home-articles', () =>
-  queryCollection('rapports')
-    .order('date', 'DESC')
-    .limit(3)
-    .all()
-)
-
 const { capture } = usePosthogEvent()
 
 function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter') {
@@ -160,29 +153,10 @@ onUnmounted(() => {
 
     <SectionDivider />
 
-    <!-- ── DERNIERS RAPPORTS ──────────────────── -->
+    <!-- ── RAPPORTS BOOKSHELF ───────────────────── -->
     <section class="rapports-section">
       <div class="container">
-        <div class="section-header" data-reveal>
-          <h2>Rapports de Survie - la veille hebdo pour prendre le virage de l'IA</h2>
-          <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;" data-attr="home-link-rapports" @click="onHomeCta('rapports')">LIRE LES RAPPORTS ANTI-OBSOLESCENCE →</NuxtLink>
-        </div>
-
-        <div class="articles-grid">
-          <ArticleCard
-            v-for="(article, i) in articles"
-            :key="article.path"
-            :article="article"
-            data-reveal
-            :data-reveal-delay="i * 120"
-          />
-        </div>
-        <p
-          v-if="articles && articles.length < 3"
-          class="font-mono rapports-coming"
-        >
-          // D'AUTRES RAPPORTS EN COURS DE CHIFFREMENT...
-        </p>
+        <RapportsBookshelf />
       </div>
     </section>
 
@@ -499,27 +473,6 @@ onUnmounted(() => {
   max-width: 38ch;
 }
 
-.section-header {
-  display: flex; justify-content: space-between;
-  align-items: baseline; margin-bottom: 2.5rem;
-  gap: 1.5rem; flex-wrap: wrap;
-}
-.section-header h2 { margin: 0; max-width: 38ch; }
-.section-header a { color: var(--color-muted); transition: color 0.15s; }
-.section-header a:hover { color: var(--color-accent); }
-
-.articles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-.rapports-coming {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--color-muted);
-  margin-top: 1.5rem;
-  opacity: 0.6;
-}
 
 /* responsive overrides for the hero cards */
 @media (max-width: 720px) {
