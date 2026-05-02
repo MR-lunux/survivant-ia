@@ -832,6 +832,10 @@ export const JOBS: Job[] = [
   { slug: 'juriste', label: 'Juriste d\'entreprise', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Revue contractuelle, recherche jurisprudentielle et notes de conformité sont les terrains de chasse les plus efficaces des LLM. Tu pivotes vers le conseil stratégique au business, la gestion du risque réglementaire et l\'arbitrage des cas complexes — ou tu te fais commoditiser.',
     sources: [3, 7] },
+
+  { slug: 'greffier', label: 'Greffier(ère)', risk: 58, horizon: 5, status: 'mutation',
+    dynamic: 'Ton métier mute. Transcription d\'audience, indexation de dossiers, rédaction d\'actes types : la quasi-totalité du quotidien est en première ligne des LLM. La foi du greffe et la certification officielle te protègent, mais le poste se contracte — moins de greffiers pour plus de procédures.',
+    sources: [3, 7] },
 ]
 
 // ── Fonctions utilitaires ─────────────────────────────────
