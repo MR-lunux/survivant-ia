@@ -1,7 +1,7 @@
 <!-- app/pages/confidentialite.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Politique de confidentialité — Survivant-IA',
+  title: 'Politique de confidentialité - Survivant-IA',
   description: 'Comment vos données sont collectées et utilisées par Survivant-IA. RGPD + LPD suisse.',
   robots: 'noindex, follow',
 })
@@ -49,7 +49,7 @@ defineOgImage(false)
         <li>Les données collectées (pages visitées, clics, métiers scannés, performances techniques) sont agrégées et ne permettent pas de vous identifier</li>
         <li>Conformément à l'exemption CNIL pour la mesure d'audience, ces données sont conservées 13 mois maximum</li>
       </ul>
-      <p>Vous pouvez vous opposer à cette mesure en activant le mode <em>Do Not Track</em> de votre navigateur — nous le respectons automatiquement.</p>
+      <p>Vous pouvez vous opposer à cette mesure en activant le mode <em>Do Not Track</em> de votre navigateur - nous le respectons automatiquement.</p>
       <p><a href="https://posthog.com/privacy" target="_blank" rel="noopener">Politique de confidentialité PostHog ↗</a></p>
     </section>
 
@@ -60,7 +60,7 @@ defineOgImage(false)
         Lorsque vous déverrouillez le rapport complet du scanner via votre email,
         nous stockons un indicateur technique (<code>hasUnlockedScanner</code>) dans
         le <code>localStorage</code> de votre navigateur. Cet indicateur ne contient
-        aucune donnée personnelle — il sert uniquement à éviter de vous redemander
+        aucune donnée personnelle - il sert uniquement à éviter de vous redemander
         votre email lors de visites ultérieures depuis le même navigateur. Vous
         pouvez le supprimer à tout moment via les paramètres de votre navigateur
         (section "Données du site" ou "Stockage local").

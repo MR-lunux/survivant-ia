@@ -5,7 +5,7 @@ const skills = [
     n: '01', verb: 'formule',
     label: 'PENSÉE CRITIQUE',
     title: 'Formuler le bon problème',
-    body: "L'IA répond mieux que la plupart des humains. Mais elle ne comprend pas. Celui qui sait poser le problème — pas juste demander une solution — garde toujours le contrôle.",
+    body: "L'IA répond mieux que la plupart des humains. Mais elle ne comprend pas. Celui qui sait poser le problème - pas juste demander une solution - garde toujours le contrôle.",
     delayIn: '0s', delayOut: '2.2s',
   },
   {
@@ -19,14 +19,14 @@ const skills = [
     n: '03', verb: 'tranche',
     label: 'JUGEMENT CONTEXTUEL',
     title: 'Décider en zone grise',
-    body: "L'IA optimise. Elle ne raisonne pas en éthique, en contexte politique, en arbitrages d'équipe. Quand le contexte est ambigu, c'est l'humain qui tranche — et c'est lui qu'on paie.",
+    body: "L'IA optimise. Elle ne raisonne pas en éthique, en contexte politique, en arbitrages d'équipe. Quand le contexte est ambigu, c'est l'humain qui tranche - et c'est lui qu'on paie.",
     delayIn: '1s', delayOut: '3.2s',
   },
   {
     n: '04', verb: 'porte',
     label: 'COMMUNICATION',
     title: "Tenir la parole quand ça compte",
-    body: "Une IA rédige. Elle ne défend pas un budget devant un comité, ne porte pas une mauvaise nouvelle à une équipe, ne convainc pas un sceptique en face-à-face. Communiquer engage un corps, un timing, une responsabilité — c'est ça que personne ne délègue à un modèle.",
+    body: "Une IA rédige. Elle ne défend pas un budget devant un comité, ne porte pas une mauvaise nouvelle à une équipe, ne convainc pas un sceptique en face-à-face. Communiquer engage un corps, un timing, une responsabilité - c'est ça que personne ne délègue à un modèle.",
     delayIn: '1.5s', delayOut: '3.7s',
   },
 ]
@@ -38,7 +38,7 @@ const skills = [
       <div class="skills-kicker"><KickerLabel>4 COMPÉTENCES IA-PROOF</KickerLabel></div>
       <h2 id="skills-heading" class="skills-h2">Les compétences à développer face à l'IA</h2>
       <p class="skills-intro">
-        Ce que les modèles de langage ne savent pas faire — et ne sauront pas faire de sitôt.
+        Ce que les modèles de langage ne savent pas faire - et ne sauront pas faire de sitôt.
         Quatre axes pour devenir <strong>indispensable</strong>, pas remplaçable.
       </p>
     </div>
@@ -87,7 +87,7 @@ const skills = [
         <div class="io-node is-output">
           <span class="corner-tag font-mono">// Output</span>
           <p class="io-title font-mono">Une décision que l'IA ne peut pas prendre</p>
-          <p class="io-body">Ce que personne ne va déléguer à un modèle. Ce qui fait que c'est <em>vous</em> qu'on paie — pas votre prompt.</p>
+          <p class="io-body">Ce que personne ne va déléguer à un modèle. Ce qui fait que c'est <em>vous</em> qu'on paie - pas votre prompt.</p>
         </div>
 
       </div>

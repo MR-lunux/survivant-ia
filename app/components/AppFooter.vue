@@ -29,7 +29,7 @@ const socials = {
 
     <div class="container footer-bottom">
       <span class="text-muted font-mono" style="font-size: 0.7rem;">
-        © {{ new Date().getFullYear() }} — TRANSMISSION CHIFFRÉE — /rss.xml disponible
+        © {{ new Date().getFullYear() }} - TRANSMISSION CHIFFRÉE - /rss.xml disponible
       </span>
     </div>
   </footer>

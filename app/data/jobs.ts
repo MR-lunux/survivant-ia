@@ -7,16 +7,16 @@ export interface Job {
   label: string
   risk: number              // 0–100
   horizon: number           // années avant impact majeur : 2 | 5 | 10
-  status: JobStatus         // ÉDITORIAL — ne PAS dériver du risk %
+  status: JobStatus         // ÉDITORIAL - ne PAS dériver du risk %
   dynamic: string           // ≤ 300 chars, voix Survivant-IA (apostrophe + factuel)
   sources: number[]         // ids du catalogue sources.ts ; [] = pas de source spécifique
 }
 
 // Status taxonomy:
-//   danger     — métier dans le viseur (contraction des effectifs, obsolescence en cours)
-//   mutation   — le rôle se transforme radicalement, ne disparaît pas
-//   protege    — peu menacé, valeur humaine non substituable
-//   croissance — demande qui augmente structurellement
+//   danger     - métier dans le viseur (contraction des effectifs, obsolescence en cours)
+//   mutation   - le rôle se transforme radicalement, ne disparaît pas
+//   protege    - peu menacé, valeur humaine non substituable
+//   croissance - demande qui augmente structurellement
 
 export const JOBS: Job[] = [
   // ── EN DANGER ──────────────────────────────────────────
@@ -35,7 +35,7 @@ export const JOBS: Job[] = [
     sources: [3, 9] },
 
   { slug: 'redacteur-web', label: 'Rédacteur web', risk: 76, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Seuls les créateurs d\'opinion à forte marque personnelle survivent — les autres subissent la contraction.',
+    dynamic: 'Tu es dans le viseur. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Seuls les créateurs d\'opinion à forte marque personnelle survivent - les autres subissent la contraction.',
     sources: [1, 15, 17] },
 
   { slug: 'traducteur', label: 'Traducteur', risk: 82, horizon: 2, status: 'danger',
@@ -51,7 +51,7 @@ export const JOBS: Job[] = [
     sources: [3] },
 
   { slug: 'comptable', label: 'Comptable', risk: 72, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier est dans le viseur. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Les premiers qui pivotent vers le conseil stratégique survivent — les autres subissent la contraction.',
+    dynamic: 'Ton métier est dans le viseur. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Les premiers qui pivotent vers le conseil stratégique survivent - les autres subissent la contraction.',
     sources: [1, 7] },
 
   { slug: 'analyste-credit', label: 'Analyste crédit', risk: 70, horizon: 5, status: 'danger',
@@ -138,7 +138,7 @@ export const JOBS: Job[] = [
     sources: [1, 15] },
 
   { slug: 'programmeur', label: 'Programmeur', risk: 74, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute brutalement. L\'IA pisse des lignes de code à vélocité surhumaine. Tu pivotes ou tu disparais : architecture système, audit de code IA, sécurité. Le "vibe code" génère une dette technique massive — sois celui qui sait la lire.',
+    dynamic: 'Ton métier mute brutalement. L\'IA pisse des lignes de code à vélocité surhumaine. Tu pivotes ou tu disparais : architecture système, audit de code IA, sécurité. Le "vibe code" génère une dette technique massive - sois celui qui sait la lire.',
     sources: [3] },
 
   { slug: 'designer-graphique', label: 'Designer graphique', risk: 58, horizon: 5, status: 'mutation',
@@ -150,7 +150,7 @@ export const JOBS: Job[] = [
     sources: [1] },
 
   { slug: 'ux-designer', label: 'UX Designer', risk: 45, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. La recherche utilisateur quantitative, le wireframing et l\'A/B testing sont accélérés par l\'IA. Tu te recentres sur la stratégie produit, l\'ethnographie de terrain et l\'arbitrage business — ou tu deviens un PO-light.',
+    dynamic: 'Ton métier mute. La recherche utilisateur quantitative, le wireframing et l\'A/B testing sont accélérés par l\'IA. Tu te recentres sur la stratégie produit, l\'ethnographie de terrain et l\'arbitrage business - ou tu deviens un PO-light.',
     sources: [1] },
 
   { slug: 'data-scientist', label: 'Data Scientist', risk: 37, horizon: 5, status: 'mutation',
@@ -162,7 +162,7 @@ export const JOBS: Job[] = [
     sources: [3] },
 
   { slug: 'recruteur', label: 'Recruteur', risk: 58, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Sourcing, screening de CV et premier contact sont automatisés. Tu te recentres sur l\'évaluation comportementale, la marque employeur et le closing — l\'humain où l\'humain compte.',
+    dynamic: 'Ton métier mute. Sourcing, screening de CV et premier contact sont automatisés. Tu te recentres sur l\'évaluation comportementale, la marque employeur et le closing - l\'humain où l\'humain compte.',
     sources: [12] },
 
   { slug: 'responsable-rh', label: 'Responsable RH', risk: 50, horizon: 5, status: 'mutation',
@@ -182,15 +182,15 @@ export const JOBS: Job[] = [
     sources: [9] },
 
   { slug: 'expert-comptable', label: 'Expert-comptable', risk: 55, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Tenue de comptes et déclarations standardisées sont automatisées. Tu pivotes vers le conseil fiscal stratégique, l\'optimisation patrimoniale et l\'accompagnement des dirigeants — ou tu te fais commoditiser.',
+    dynamic: 'Ton métier mute. Tenue de comptes et déclarations standardisées sont automatisées. Tu pivotes vers le conseil fiscal stratégique, l\'optimisation patrimoniale et l\'accompagnement des dirigeants - ou tu te fais commoditiser.',
     sources: [7] },
 
   { slug: 'consultant-strategie', label: 'Consultant en stratégie', risk: 42, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Benchmarks, études de marché et synthèses sont produits en heures par l\'IA. Tu vends désormais le jugement, la confrontation au CEO et l\'exécution — pas le slide pack.',
+    dynamic: 'Ton métier mute. Benchmarks, études de marché et synthèses sont produits en heures par l\'IA. Tu vends désormais le jugement, la confrontation au CEO et l\'exécution - pas le slide pack.',
     sources: [4] },
 
   { slug: 'product-manager', label: 'Product Manager', risk: 38, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit — la partie irréductiblement politique du métier.',
+    dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit - la partie irréductiblement politique du métier.',
     sources: [10] },
 
   { slug: 'journaliste-presse', label: 'Journaliste presse écrite', risk: 35, horizon: 5, status: 'mutation',
@@ -198,7 +198,7 @@ export const JOBS: Job[] = [
     sources: [1] },
 
   { slug: 'journaliste-tv', label: 'Journaliste TV / Radio', risk: 40, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Présentation automatisée, voix synthétique, montage IA : la production technique se commoditise. La présence incarnée, le terrain et l\'enquête prolongée restent humains — pour combien de temps.',
+    dynamic: 'Ton métier mute. Présentation automatisée, voix synthétique, montage IA : la production technique se commoditise. La présence incarnée, le terrain et l\'enquête prolongée restent humains - pour combien de temps.',
     sources: [1] },
 
   { slug: 'analyste-renseignement', label: 'Analyste renseignement', risk: 64, horizon: 5, status: 'mutation',
@@ -218,7 +218,7 @@ export const JOBS: Job[] = [
     sources: [6] },
 
   { slug: 'ingenieur-industriel', label: 'Ingénieur industriel', risk: 45, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Optimisation de chaînes, dimensionnement et planification de production sont accélérés par l\'IA. Tu deviens l\'orchestrateur entre systèmes IA et terrain humain — ou tu te fais déclasser.',
+    dynamic: 'Ton métier mute. Optimisation de chaînes, dimensionnement et planification de production sont accélérés par l\'IA. Tu deviens l\'orchestrateur entre systèmes IA et terrain humain - ou tu te fais déclasser.',
     sources: [7] },
 
   { slug: 'architecte-bdd', label: 'Architecte de bases de données', risk: 46, horizon: 5, status: 'mutation',
@@ -230,11 +230,11 @@ export const JOBS: Job[] = [
     sources: [3] },
 
   { slug: 'chef-de-projet-it', label: 'Chef de projet IT', risk: 54, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Suivi de Jira, comptes rendus, planification : automatisés. Tu te concentres sur la gestion humaine des équipes, l\'arbitrage de scope et la communication exécutive — la partie politique du rôle.',
+    dynamic: 'Ton métier mute. Suivi de Jira, comptes rendus, planification : automatisés. Tu te concentres sur la gestion humaine des équipes, l\'arbitrage de scope et la communication exécutive - la partie politique du rôle.',
     sources: [9] },
 
   { slug: 'directeur-marketing', label: 'Directeur marketing', risk: 35, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Campagnes, copies, analytics, segmentation : tout est accéléré 10x par l\'IA. Tu pilotes désormais une équipe réduite suralimentée par des agents — ou tu deviens le bottleneck que tu refusais d\'être.',
+    dynamic: 'Ton métier mute. Campagnes, copies, analytics, segmentation : tout est accéléré 10x par l\'IA. Tu pilotes désormais une équipe réduite suralimentée par des agents - ou tu deviens le bottleneck que tu refusais d\'être.',
     sources: [9] },
 
   { slug: 'pharmacien', label: 'Pharmacien', risk: 42, horizon: 10, status: 'mutation',
@@ -257,19 +257,19 @@ export const JOBS: Job[] = [
   // (peu menacé, valeur humaine non substituable)
 
   { slug: 'cardiologue', label: 'Cardiologue', risk: 1, horizon: 10, status: 'protege',
-    dynamic: 'L\'IA ne te remplace pas — elle a besoin de toi. Elle augmente la précision diagnostique sur imagerie, mais responsabilité légale, empathie face au diagnostic vital et intervention physique de précision te maintiennent au centre du soin.',
+    dynamic: 'L\'IA ne te remplace pas - elle a besoin de toi. Elle augmente la précision diagnostique sur imagerie, mais responsabilité légale, empathie face au diagnostic vital et intervention physique de précision te maintiennent au centre du soin.',
     sources: [6] },
 
   { slug: 'medecin-generaliste', label: 'Médecin généraliste', risk: 8, horizon: 10, status: 'protege',
-    dynamic: 'L\'IA ne te remplace pas — elle augmente ta capacité. Diagnostic différentiel, suivi de patients, écoute, orientation : la combinaison technique + relationnelle reste fondamentalement humaine. La pénurie démographique te rend irremplaçable.',
+    dynamic: 'L\'IA ne te remplace pas - elle augmente ta capacité. Diagnostic différentiel, suivi de patients, écoute, orientation : la combinaison technique + relationnelle reste fondamentalement humaine. La pénurie démographique te rend irremplaçable.',
     sources: [6, 21] },
 
   { slug: 'chirurgien', label: 'Chirurgien', risk: 4, horizon: 10, status: 'protege',
-    dynamic: 'L\'IA ne te remplace pas — elle assiste. La motricité fine, la décision en temps réel face à l\'imprévu chirurgical et la responsabilité vitale immédiate restent hors de portée des systèmes autonomes.',
+    dynamic: 'L\'IA ne te remplace pas - elle assiste. La motricité fine, la décision en temps réel face à l\'imprévu chirurgical et la responsabilité vitale immédiate restent hors de portée des systèmes autonomes.',
     sources: [21] },
 
   { slug: 'psychologue', label: 'Psychologue / Thérapeute', risk: 1, horizon: 10, status: 'protege',
-    dynamic: 'L\'IA ne te remplace pas — elle a besoin de toi. Empathie authentique, signaux non verbaux subtils, transfert psychologique et soutien émotionnel humain résistent à la modélisation. La confiance humaine est l\'essence du service.',
+    dynamic: 'L\'IA ne te remplace pas - elle a besoin de toi. Empathie authentique, signaux non verbaux subtils, transfert psychologique et soutien émotionnel humain résistent à la modélisation. La confiance humaine est l\'essence du service.',
     sources: [6] },
 
   { slug: 'psychiatre', label: 'Psychiatre', risk: 3, horizon: 10, status: 'protege',
@@ -277,7 +277,7 @@ export const JOBS: Job[] = [
     sources: [21] },
 
   { slug: 'enseignant', label: 'Enseignant en sciences sociales', risk: 1, horizon: 10, status: 'protege',
-    dynamic: 'L\'IA ne te remplace pas — elle ouvre l\'accès à l\'information. Mais mentorat, encouragement, modération de débats et rôle de modèle social exigent ta présence. L\'autorité pédagogique se construit en présentiel.',
+    dynamic: 'L\'IA ne te remplace pas - elle ouvre l\'accès à l\'information. Mais mentorat, encouragement, modération de débats et rôle de modèle social exigent ta présence. L\'autorité pédagogique se construit en présentiel.',
     sources: [6] },
 
   { slug: 'professeur-universitaire', label: 'Professeur universitaire', risk: 12, horizon: 10, status: 'protege',
@@ -380,7 +380,7 @@ export const JOBS: Job[] = [
     sources: [21] },
 
   { slug: 'agriculteur', label: 'Ouvrier agricole / Agriculteur', risk: 0, horizon: 5, status: 'croissance',
-    dynamic: 'Tu es dans le bon wagon — peut-être le meilleur. Boostée par la transition écologique, l\'adaptation climatique et la sécurité alimentaire mondiale, la profession connaît la plus forte croissance absolue : +34M emplois projetés d\'ici 2030.',
+    dynamic: 'Tu es dans le bon wagon - peut-être le meilleur. Boostée par la transition écologique, l\'adaptation climatique et la sécurité alimentaire mondiale, la profession connaît la plus forte croissance absolue : +34M emplois projetés d\'ici 2030.',
     sources: [9] },
 
   { slug: 'maraicher', label: 'Maraîcher', risk: 4, horizon: 10, status: 'croissance',
@@ -392,7 +392,7 @@ export const JOBS: Job[] = [
     sources: [9] },
 
   { slug: 'chauffeur-livreur', label: 'Chauffeur-livreur', risk: 10, horizon: 5, status: 'croissance',
-    dynamic: 'Tu es dans le bon wagon. La complexité du dernier kilomètre — bâtiments non cartographiés, remise en main propre, interaction client — retarde indéfiniment l\'automatisation logistique complète.',
+    dynamic: 'Tu es dans le bon wagon. La complexité du dernier kilomètre - bâtiments non cartographiés, remise en main propre, interaction client - retarde indéfiniment l\'automatisation logistique complète.',
     sources: [9] },
 
   { slug: 'chauffeur-poids-lourd', label: 'Chauffeur poids-lourd', risk: 32, horizon: 10, status: 'croissance',
@@ -404,7 +404,7 @@ export const JOBS: Job[] = [
     sources: [11, 14] },
 
   { slug: 'integrateur-ia', label: 'Intégrateur IA', risk: 0, horizon: 10, status: 'croissance',
-    dynamic: 'Tu es dans le bon wagon. Connecter les LLM aux systèmes métier d\'entreprise est la compétence la plus demandée — chaque société veut son IA opérationnelle, peu de gens savent vraiment la déployer en production.',
+    dynamic: 'Tu es dans le bon wagon. Connecter les LLM aux systèmes métier d\'entreprise est la compétence la plus demandée - chaque société veut son IA opérationnelle, peu de gens savent vraiment la déployer en production.',
     sources: [14] },
 
   { slug: 'expert-cybersecurite', label: 'Expert cybersécurité', risk: 12, horizon: 10, status: 'croissance',
@@ -522,7 +522,7 @@ export const JOBS: Job[] = [
     sources: [9] },
 
   { slug: 'gestionnaire-stock', label: 'Gestionnaire de stock', risk: 62, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Prévision de demande, optimisation de réapprovisionnement et inventaires sont automatisés. Tu deviens orchestrateur d\'exceptions et négociateur fournisseurs — ou tu es remplacé.',
+    dynamic: 'Ton métier mute. Prévision de demande, optimisation de réapprovisionnement et inventaires sont automatisés. Tu deviens orchestrateur d\'exceptions et négociateur fournisseurs - ou tu es remplacé.',
     sources: [3] },
 
   { slug: 'logisticien', label: 'Logisticien', risk: 45, horizon: 5, status: 'mutation',
@@ -536,7 +536,7 @@ export const JOBS: Job[] = [
     sources: [1] },
 
   { slug: 'responsable-com', label: 'Responsable communication', risk: 45, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque — la part politique et humaine du rôle.',
+    dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque - la part politique et humaine du rôle.',
     sources: [1] },
 
   { slug: 'social-media-manager', label: 'Social Media Manager', risk: 55, horizon: 5, status: 'mutation',
@@ -548,11 +548,11 @@ export const JOBS: Job[] = [
     sources: [21] },
 
   { slug: 'photographe', label: 'Photographe', risk: 40, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. La génération d\'images IA commoditise la photo de stock et publicitaire. Subsistent le portrait, l\'événementiel intime et le photojournalisme de terrain — la photo "qui a été là".',
+    dynamic: 'Ton métier mute. La génération d\'images IA commoditise la photo de stock et publicitaire. Subsistent le portrait, l\'événementiel intime et le photojournalisme de terrain - la photo "qui a été là".',
     sources: [9] },
 
   { slug: 'videaste', label: 'Vidéaste / Monteur', risk: 50, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Génération vidéo et montage automatique progressent vite. Tu te concentres sur la direction artistique, la captation singulière et la narration — la valeur de l\'œil.',
+    dynamic: 'Ton métier mute. Génération vidéo et montage automatique progressent vite. Tu te concentres sur la direction artistique, la captation singulière et la narration - la valeur de l\'œil.',
     sources: [9] },
 
   // ── ÉDUCATION & FORMATION ──────────────────────────────
@@ -576,7 +576,7 @@ export const JOBS: Job[] = [
     sources: [21] },
 
   { slug: 'conducteur-train', label: 'Conducteur de train', risk: 35, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute lentement. Lignes automatisées (métro, certaines LGV) progressent, mais le réseau classique et le fret nécessitent la présence d\'un conducteur — pour des raisons techniques et syndicales.',
+    dynamic: 'Ton métier mute lentement. Lignes automatisées (métro, certaines LGV) progressent, mais le réseau classique et le fret nécessitent la présence d\'un conducteur - pour des raisons techniques et syndicales.',
     sources: [21] },
 
   { slug: 'chauffeur-taxi-vtc', label: 'Chauffeur taxi / VTC', risk: 28, horizon: 10, status: 'protege',
@@ -668,7 +668,7 @@ export const JOBS: Job[] = [
     sources: [3] },
 
   { slug: 'chef-de-produit', label: 'Chef de produit', risk: 48, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit — la partie irréductiblement politique.',
+    dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit - la partie irréductiblement politique.',
     sources: [10] },
 
   { slug: 'responsable-logistique', label: 'Responsable logistique', risk: 45, horizon: 10, status: 'mutation',
@@ -676,7 +676,7 @@ export const JOBS: Job[] = [
     sources: [3] },
 
   { slug: 'responsable-communication', label: 'Responsable communication', risk: 42, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque — la part politique et humaine du rôle.',
+    dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque - la part politique et humaine du rôle.',
     sources: [1] },
 
   { slug: 'technicien-laboratoire', label: 'Technicien de laboratoire', risk: 38, horizon: 10, status: 'mutation',
@@ -692,7 +692,7 @@ export const JOBS: Job[] = [
     sources: [7] },
 
   { slug: 'administrateur-sys', label: 'Administrateur système', risk: 58, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Provisioning, patches et monitoring sont gérés par des agents IA et des outils IaC. Tu pivotes vers SRE, sécurité opérationnelle et architecture cloud — ou tu es remplacé par un script.',
+    dynamic: 'Ton métier mute. Provisioning, patches et monitoring sont gérés par des agents IA et des outils IaC. Tu pivotes vers SRE, sécurité opérationnelle et architecture cloud - ou tu es remplacé par un script.',
     sources: [3] },
 
   { slug: 'ingenieur-reseau', label: 'Ingénieur réseau', risk: 50, horizon: 5, status: 'mutation',
@@ -700,7 +700,7 @@ export const JOBS: Job[] = [
     sources: [3] },
 
   { slug: 'responsable-si', label: 'Responsable SI / DSI', risk: 45, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. La gouvernance IT classique cède la place à la gouvernance des agents IA, de la donnée et des risques cyber. Tu deviens stratège technologique au service du métier — pas administrateur d\'infrastructure.',
+    dynamic: 'Ton métier mute. La gouvernance IT classique cède la place à la gouvernance des agents IA, de la donnée et des risques cyber. Tu deviens stratège technologique au service du métier - pas administrateur d\'infrastructure.',
     sources: [4] },
 
   { slug: 'acheteur', label: 'Acheteur', risk: 52, horizon: 5, status: 'mutation',
@@ -822,19 +822,19 @@ export const JOBS: Job[] = [
     sources: [4, 7] },
 
   { slug: 'consultant-it', label: 'Consultant IT', risk: 45, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Audits techniques, roadmaps de transformation et benchmarks fournisseurs sont accélérés par l\'IA. La demande explose à l\'inverse pour les consultants spécialisés IA — déploiement, gouvernance, MLOps.',
+    dynamic: 'Ton métier mute. Audits techniques, roadmaps de transformation et benchmarks fournisseurs sont accélérés par l\'IA. La demande explose à l\'inverse pour les consultants spécialisés IA - déploiement, gouvernance, MLOps.',
     sources: [4, 13] },
 
   { slug: 'expert-immobilier', label: 'Expert immobilier', risk: 42, horizon: 10, status: 'mutation',
-    dynamic: 'Ton métier mute. Les AVM (modèles de valorisation automatique) absorbent les biens standards en data-rich markets. Tu te concentres sur les biens atypiques, l\'expertise judiciaire et la responsabilité légale — irréductibles à l\'IA.',
+    dynamic: 'Ton métier mute. Les AVM (modèles de valorisation automatique) absorbent les biens standards en data-rich markets. Tu te concentres sur les biens atypiques, l\'expertise judiciaire et la responsabilité légale - irréductibles à l\'IA.',
     sources: [21] },
 
   { slug: 'juriste', label: 'Juriste d\'entreprise', risk: 55, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Revue contractuelle, recherche jurisprudentielle et notes de conformité sont les terrains de chasse les plus efficaces des LLM. Tu pivotes vers le conseil stratégique au business, la gestion du risque réglementaire et l\'arbitrage des cas complexes — ou tu te fais commoditiser.',
+    dynamic: 'Ton métier mute. Revue contractuelle, recherche jurisprudentielle et notes de conformité sont les terrains de chasse les plus efficaces des LLM. Tu pivotes vers le conseil stratégique au business, la gestion du risque réglementaire et l\'arbitrage des cas complexes - ou tu te fais commoditiser.',
     sources: [3, 7] },
 
   { slug: 'greffier', label: 'Greffier(ère)', risk: 58, horizon: 5, status: 'mutation',
-    dynamic: 'Ton métier mute. Transcription d\'audience, indexation de dossiers, rédaction d\'actes types : la quasi-totalité du quotidien est en première ligne des LLM. La foi du greffe et la certification officielle te protègent, mais le poste se contracte — moins de greffiers pour plus de procédures.',
+    dynamic: 'Ton métier mute. Transcription d\'audience, indexation de dossiers, rédaction d\'actes types : la quasi-totalité du quotidien est en première ligne des LLM. La foi du greffe et la certification officielle te protègent, mais le poste se contracte - moins de greffiers pour plus de procédures.',
     sources: [3, 7] },
 ]
 

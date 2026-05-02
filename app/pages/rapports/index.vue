@@ -1,12 +1,12 @@
 <!-- app/pages/rapports/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Rapports de Survie — Compétences à développer face à l\'IA | Survivant-IA',
+  title: 'Rapports de Survie - Compétences à développer face à l\'IA | Survivant-IA',
   description: 'Tous les rapports anti-obsolescence : soft skills, comprendre l\'IA, cas pratiques. La veille hebdo pour prendre le virage de l\'IA, pas pour le subir.',
-  ogTitle: 'Rapports de Survie — Survivant-IA',
+  ogTitle: 'Rapports de Survie - Survivant-IA',
   ogDescription: 'Soft skills, compréhension de l\'IA, cas pratiques. Anti-obsolescence pour les pros.',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Rapports de Survie — Survivant-IA',
+  twitterTitle: 'Rapports de Survie - Survivant-IA',
   twitterDescription: 'La veille hebdo pour prendre le virage de l\'IA, pas pour le subir.',
 })
 

@@ -164,7 +164,7 @@ onUnmounted(() => {
     <section class="rapports-section">
       <div class="container">
         <div class="section-header" data-reveal>
-          <h2>Rapports de Survie — la veille hebdo pour prendre le virage de l'IA</h2>
+          <h2>Rapports de Survie - la veille hebdo pour prendre le virage de l'IA</h2>
           <NuxtLink to="/rapports" class="font-mono" style="font-size: 0.75rem; letter-spacing: 0.1em;" data-attr="home-link-rapports" @click="onHomeCta('rapports')">LIRE LES RAPPORTS ANTI-OBSOLESCENCE →</NuxtLink>
         </div>
 
@@ -221,14 +221,14 @@ onUnmounted(() => {
 .hero-inner { max-width: 800px; position: relative; z-index: 1; }
 
 
-/* kicker — small mono label above H1 */
+/* kicker - small mono label above H1 */
 .hero-kicker {
   display: block;
   margin-bottom: 0.85rem;
   animation: heroFadeUp 0.5s 0.4s ease both;
 }
 
-/* SEO H1 — semantic, keyword-rich, modest visual */
+/* SEO H1 - semantic, keyword-rich, modest visual */
 .hero-h1 {
   font-size: clamp(1.05rem, 2vw, 1.35rem);
   font-weight: 500;
@@ -241,7 +241,7 @@ onUnmounted(() => {
   animation: heroFadeUp 0.5s 0.45s ease both;
 }
 
-/* tagline (former h1) — visual climax, line-by-line clip reveal */
+/* tagline (former h1) - visual climax, line-by-line clip reveal */
 .hero-tagline {
   font-size: clamp(2.2rem, 6vw, 4rem);
   line-height: 1.1;

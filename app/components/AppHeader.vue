@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="container header-inner">
-      <NuxtLink to="/" class="logo-link" data-attr="header-nav-home" aria-label="Survivant-IA — accueil">
+      <NuxtLink to="/" class="logo-link" data-attr="header-nav-home" aria-label="Survivant-IA - accueil">
         <AppLogo variant="lockup" />
       </NuxtLink>
 

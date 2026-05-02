@@ -24,7 +24,7 @@ useHead({
         {
           '@type': 'WebApplication',
           '@id': 'https://survivant-ia.ch/scanner#app',
-          name: 'Scanner IA — Risque automatisation par métier',
+          name: 'Scanner IA - Risque automatisation par métier',
           url: 'https://survivant-ia.ch/scanner',
           description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur des rapports (Tufts, McKinsey, WEF, etc.).',
           applicationCategory: 'BusinessApplication',
@@ -320,7 +320,7 @@ function selectJob(job: Job) {
 function setDynamicMeta(job: Job) {
   useHead({
     meta: [
-      { property: 'og:title',       content: `Mon risque IA : ${job.risk}% — ${job.label} | Survival Check` },
+      { property: 'og:title',       content: `Mon risque IA : ${job.risk}% - ${job.label} | Survival Check` },
       { property: 'og:description', content: `J'ai scanné mon métier sur survivant-ia.ch. Résultat : ${STATUS_LABELS[job.status]}. Et toi ?` },
     ],
   })
@@ -399,7 +399,7 @@ async function startScan(job: Job) {
   await scrambleTo(trajText, trajState, job.dynamic, rm(700)); if (!ok()) return
   await sleep(rm(180)); if (!ok()) return
 
-  // 5. ACTIONS — scramble en cascade
+  // 5. ACTIONS - scramble en cascade
   progressPct.value = 88
   const actions = ACTIONS[job.status]
   for (let i = 0; i < 3; i++) {
@@ -452,7 +452,7 @@ async function unlockAndReveal(job: Job) {
   await scrambleTo(trajText, trajState, job.dynamic, rm(700)); if (!ok()) return
   await sleep(rm(180)); if (!ok()) return
 
-  // ACTIONS — cascade
+  // ACTIONS - cascade
   progressPct.value = 95
   const actions = ACTIONS[job.status]
   for (let i = 0; i < 3; i++) {
@@ -650,7 +650,7 @@ function reset() {
                 >{{ job.label }}</li>
               </ul>
               <ul v-else-if="query.length >= 2" class="suggestions">
-                <li class="no-result">// Aucun résultat — essaie un autre terme</li>
+                <li class="no-result">// Aucun résultat - essaie un autre terme</li>
               </ul>
             </div>
             <span v-else class="sujet-name font-mono">{{ selectedJob?.label }}</span>
@@ -715,7 +715,7 @@ function reset() {
           class="rep-classified font-mono"
           aria-live="polite"
         >
-          // CLASSIFIÉ — ACCÈS RESTREINT
+          // CLASSIFIÉ - ACCÈS RESTREINT
         </div>
 
         <!-- TRAJECTOIRE -->
@@ -859,7 +859,7 @@ function reset() {
               <span class="faq-q-text">Comment est calculé le score de risque d'automatisation ?</span>
               <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
             </summary>
-            <p class="faq-answer">Le score est une estimation éditoriale informée par un ensemble de recherches : études académiques (Tufts University, PayScope), rapports de cabinets (McKinsey, Goldman Sachs), institutions internationales (WEF) et données de plateformes (LinkedIn). Il donne une tendance sectorielle — pas un algorithme mécanique. Les sources complètes sont accessibles depuis chaque résultat.</p>
+            <p class="faq-answer">Le score est une estimation éditoriale informée par un ensemble de recherches : études académiques (Tufts University, PayScope), rapports de cabinets (McKinsey, Goldman Sachs), institutions internationales (WEF) et données de plateformes (LinkedIn). Il donne une tendance sectorielle - pas un algorithme mécanique. Les sources complètes sont accessibles depuis chaque résultat.</p>
           </details>
           <details class="faq-item">
             <summary class="faq-question">
@@ -873,7 +873,7 @@ function reset() {
               <span class="faq-q-text">Mes données personnelles sont-elles enregistrées ?</span>
               <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
             </summary>
-            <p class="faq-answer">Le score, l'horizon et le statut s'affichent immédiatement et gratuitement, sans collecte de données. Le plan d'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence — un email et un prénom suffisent, conformément à notre <NuxtLink to="/confidentialite">politique de confidentialité</NuxtLink>.</p>
+            <p class="faq-answer">Le score, l'horizon et le statut s'affichent immédiatement et gratuitement, sans collecte de données. Le plan d'action complet (trajectoire et 3 axes pratiques) est réservé aux abonnés de la newsletter La Fréquence - un email et un prénom suffisent, conformément à notre <NuxtLink to="/confidentialite">politique de confidentialité</NuxtLink>.</p>
           </details>
           <details class="faq-item">
             <summary class="faq-question">
