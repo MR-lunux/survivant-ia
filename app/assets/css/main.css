@@ -34,7 +34,7 @@
   --font-mono: 'Space Mono', ui-monospace, monospace;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
-  --font-serif-body: 'Source Serif 4', Georgia, serif;
+  --font-serif-body: Georgia, 'Times New Roman', serif;
 }
 
 /* ── Base ────────────────────────────────────────── */
