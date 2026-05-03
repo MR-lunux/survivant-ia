@@ -144,12 +144,8 @@ onUnmounted(() => {
       <HomeFaq />
     </div>
 
-    <SectionDivider />
-
     <!-- ── NEWSLETTER ─────────────────────────── -->
-    <section id="newsletter" class="newsletter-section">
-      <NewsletterForm data-reveal />
-    </section>
+    <NewsletterForm />
   </div>
 </template>
 
@@ -420,7 +416,6 @@ onUnmounted(() => {
 /* ── Sections ──────────────────────────────────────────── */
 .manifeste        { padding: 2rem 0 3rem; }
 .rapports-section { padding: 1rem 0 3rem; }
-.newsletter-section { padding: 5rem 0; }
 
 /* H2 used for keyword-bearing section headings */
 .section-h2 {
