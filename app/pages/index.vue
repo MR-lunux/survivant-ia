@@ -47,8 +47,6 @@ onUnmounted(() => {
       <div ref="heroGrid" class="hero-grid-bg" aria-hidden="true" />
 
       <div class="container hero-inner">
-        <span class="hero-eyebrow">Zone anti-obsolescence — 2026</span>
-
         <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
 
         <p class="hero-tagline">
@@ -120,9 +118,9 @@ onUnmounted(() => {
     <HomeMasthead num="IV" title="Compétences IA-proof" meta="Ce que les modèles ne savent pas faire" />
 
     <!-- ── 4 COMPÉTENCES IA-PROOF ──────────────── -->
-    <section class="skills-triad-section">
+    <section class="skills-list-section">
       <div class="container">
-        <HomeSkillsTriad />
+        <HomeSkillsList />
       </div>
     </section>
 
@@ -166,26 +164,6 @@ onUnmounted(() => {
   will-change: transform;
 }
 .hero-inner { position: relative; z-index: 1; }
-
-/* Eyebrow editorial - hairline + sage uppercase */
-.hero-eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  animation: heroFadeUp 0.5s 0.4s ease both;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 28px; height: 1px;
-  background: var(--color-accent);
-}
 
 /* SEO H1 - semantic, keyword-rich, modest visual */
 .hero-h1 {
@@ -435,7 +413,7 @@ onUnmounted(() => {
 
 /* prefers-reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
-  .hero-eyebrow, .hero-h1, .hero-tagline, .hero-subtitle, .swiss-cta, .qcards {
+  .hero-h1, .hero-tagline, .hero-subtitle, .swiss-cta, .qcards {
     opacity: 1 !important; animation: none !important;
   }
   .ic-soundwave .ring,

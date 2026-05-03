@@ -38,7 +38,7 @@ const socials = {
 <style scoped>
 .app-footer {
   margin-top: 6rem;
-  border-top: 1px solid rgba(0, 255, 65, 0.15);
+  border-top: 1px solid var(--color-rule);
   padding: 3rem 0 2rem;
   background: var(--color-surface);
 }

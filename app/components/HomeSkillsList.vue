@@ -1,4 +1,4 @@
-<!-- app/components/HomeSkillsTriad.vue -->
+<!-- app/components/HomeSkillsList.vue -->
 <script setup lang="ts">
 const skills = [
   {
