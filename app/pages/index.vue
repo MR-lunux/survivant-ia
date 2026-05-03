@@ -175,10 +175,10 @@ onUnmounted(() => {
   margin: 0 0 1.25rem;
   font-family: var(--font-sans);
   text-transform: none;
-  animation: heroFadeUp 0.5s 0.45s ease forwards;
+  animation: heroFadeUp 0.5s 0.45s ease both;
 }
 
-/* Tagline - Playfair italic visual climax */
+/* Tagline - LCP element : visible immédiatement, slide sans opacité */
 .hero-tagline {
   font-family: var(--font-serif);
   font-variation-settings: "opsz" 144;
@@ -189,7 +189,7 @@ onUnmounted(() => {
   margin: 0 0 1.75rem;
   max-width: 18ch;
   color: var(--color-text);
-  animation: heroFadeUp 0.6s 0.6s ease forwards;
+  animation: heroSlideUp 0.7s 0.3s ease both;
 }
 .hero-tagline .accent {
   font-style: italic;
@@ -203,7 +203,7 @@ onUnmounted(() => {
   color: var(--color-muted);
   max-width: 60ch;
   margin: 0 0 2.5rem;
-  animation: heroFadeUp 0.6s 0.95s ease forwards;
+  animation: heroFadeUp 0.6s 0.95s ease both;
 }
 .hero-subtitle strong {
   color: var(--color-text);
@@ -214,6 +214,10 @@ onUnmounted(() => {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes heroSlideUp {
+  from { transform: translateY(20px); }
+  to   { transform: translateY(0); }
+}
 
 /* ── Swiss CTA wrapper (dark editorial) ────────────────── */
 .swiss-cta {
@@ -223,7 +227,7 @@ onUnmounted(() => {
   position: relative;
   border: 1px solid var(--color-rule);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
-  animation: heroFadeUp 0.6s 1.2s ease forwards;
+  animation: heroFadeUp 0.6s 1.2s ease both;
 }
 .swiss-cta::before {
   content: '';
