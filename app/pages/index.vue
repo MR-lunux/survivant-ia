@@ -126,10 +126,11 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <SectionDivider />
+    <!-- ── MASTHEAD V — RAPPORTS ───────────────── -->
+    <HomeMasthead num="V" :title="'Rapports de Survie'" meta="MAJ hebdomadaire" />
 
     <!-- ── RAPPORTS BOOKSHELF ───────────────────── -->
-    <section class="rapports-section">
+    <section id="rapports" class="rapports-section">
       <div class="container">
         <RapportsBookshelf />
       </div>
@@ -417,7 +418,7 @@ onUnmounted(() => {
 
 /* ── Sections ──────────────────────────────────────────── */
 .manifeste        { padding: 2rem 0 3rem; }
-.rapports-section { padding: 5rem 0; }
+.rapports-section { padding: 1rem 0 3rem; }
 .newsletter-section { padding: 5rem 0; }
 
 /* H2 used for keyword-bearing section headings */

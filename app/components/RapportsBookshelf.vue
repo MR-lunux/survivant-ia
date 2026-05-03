@@ -3,28 +3,31 @@
 interface CategoryConfig {
   slug: string
   vol: string
-  num: string
-  name: string
+  nameAccent: string
+  nameRest: string
   desc: string
 }
 
 const CATEGORIES: CategoryConfig[] = [
   {
     slug: 'soft-skills',
-    vol: 'I', num: '01',
-    name: 'Soft Skills',
+    vol: 'I',
+    nameAccent: 'Soft',
+    nameRest: 'Skills',
     desc: 'Les compétences que l\'IA n\'a pas. Ce qui te rend irremplaçable face aux modèles.',
   },
   {
     slug: 'comprendre-ia',
-    vol: 'II', num: '02',
-    name: 'Comprendre l\'IA',
+    vol: 'II',
+    nameAccent: 'Comprendre',
+    nameRest: 'l\'IA',
     desc: 'Ce qu\'elle fait, comment, et où ça te touche directement dans ton métier.',
   },
   {
     slug: 'cas-pratiques',
-    vol: 'III', num: '03',
-    name: 'Cas Pratiques',
+    vol: 'III',
+    nameAccent: 'Cas',
+    nameRest: 'pratiques',
     desc: 'Des outils testés sur le terrain. Pas des promesses - des workflows qui marchent.',
   },
 ]
@@ -71,198 +74,221 @@ function onToggle(openedRow: HTMLDetailsElement) {
 </script>
 
 <template>
-  <section class="rapports-bookshelf">
-    <div class="rb-masthead">
-      <span class="rb-title">Rapports de Survie · <em>la veille hebdo pour prendre le virage de l'IA</em></span>
-      <span class="rb-meta">3 SECTIONS · {{ totalCount }} ÉDITIONS · MAJ HEBDO</span>
+  <section class="rapports" aria-labelledby="rapports-heading">
+    <div class="rapports-head" data-reveal>
+      <h2 id="rapports-heading" class="rapports-title">
+        La veille hebdo <em>pour prendre le virage de l'IA</em>.
+      </h2>
+      <span class="rapports-meta">3 sections · {{ totalCount }} éditions</span>
     </div>
 
-    <details
-      v-for="(cat, i) in CATEGORIES"
-      :key="cat.slug"
-      ref="rows"
-      class="rb-row"
-      :open="false"
-      :data-attr="`bookshelf-${cat.slug}`"
-      @toggle="onToggle($event.target as HTMLDetailsElement)"
-    >
-      <summary class="rb-summary">
-        <div class="megaNum">{{ cat.num }}</div>
-        <div class="info">
-          <span class="tagline">Vol. {{ cat.vol }} · Bibliothèque de survie</span>
-          <span class="name">{{ cat.name }}</span>
-          <span class="desc">{{ cat.desc }}</span>
-          <span class="count">
-            <b>{{ totals[cat.slug] }}</b> rapports disponibles
-            <span class="chevron">›</span>
-          </span>
-        </div>
-      </summary>
+    <div class="rapports-bookshelf" data-reveal data-reveal-delay="1">
+      <details
+        v-for="cat in CATEGORIES"
+        :key="cat.slug"
+        ref="rows"
+        class="rb-row"
+        :data-attr="`bookshelf-${cat.slug}`"
+        @toggle="onToggle($event.target as HTMLDetailsElement)"
+      >
+        <summary class="rb-summary">
+          <div class="megaNum">{{ cat.vol }}</div>
+          <div class="info">
+            <span class="tagline">Volume · {{ cat.vol }}</span>
+            <span class="name"><em>{{ cat.nameAccent }}</em> {{ cat.nameRest }}</span>
+            <span class="desc">{{ cat.desc }}</span>
+            <span class="count">
+              <b>{{ totals[cat.slug] }}</b> rapports disponibles<span class="chevron">›</span>
+            </span>
+          </div>
+        </summary>
 
-      <ul class="rb-branch">
-        <li
-          v-for="art in articlesByCategory[cat.slug]"
-          :key="art.path"
-          class="rb-branch-item"
-        >
-          <span class="b-date">{{ formatDate(art.date) }}</span>
-          <NuxtLink :to="art.path" class="b-title" :data-attr="`bookshelf-art-${art.path}`">{{ art.title }}</NuxtLink>
-        </li>
-        <li class="rb-branch-item see-all">
-          <NuxtLink :to="`/rapports?cat=${cat.slug}`" class="b-title">
-            ▸ Voir les {{ totals[cat.slug] }} rapports en {{ cat.name.toUpperCase() }} →
-          </NuxtLink>
-        </li>
-      </ul>
-    </details>
+        <ul class="rb-branch">
+          <li
+            v-for="art in articlesByCategory[cat.slug]"
+            :key="art.path"
+            class="rb-branch-item"
+          >
+            <span class="b-date">{{ formatDate(art.date) }}</span>
+            <NuxtLink :to="art.path" class="b-title" :data-attr="`bookshelf-art-${art.path}`">{{ art.title }}</NuxtLink>
+          </li>
+          <li class="rb-branch-item see-all">
+            <NuxtLink :to="`/rapports?cat=${cat.slug}`" class="b-title">
+              Voir les {{ totals[cat.slug] }} rapports en {{ cat.nameAccent }} {{ cat.nameRest }} →
+            </NuxtLink>
+          </li>
+        </ul>
+      </details>
+    </div>
   </section>
 </template>
 
 <style scoped>
-.rapports-bookshelf {
-  border-top: 6px solid var(--color-accent);
-  border-bottom: 6px solid var(--color-accent);
+/* ── Section ──────────────────────────────────── */
+.rapports {
+  padding: 2rem 0 3rem;
 }
 
-.rb-masthead {
+/* ── Head ─────────────────────────────────────── */
+.rapports-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 1.25rem 1.75rem;
-  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+  margin-bottom: 1.75rem;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--color-rule);
+  padding-bottom: 1.25rem;
 }
-.rb-title {
-  font-size: 0.95rem;
-  font-weight: 900;
+.rapports-title {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: -0.005em;
   color: var(--color-text);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  line-height: 1.25;
+  max-width: 32ch;
 }
-.rb-title em {
+.rapports-title em {
   font-style: italic;
-  color: var(--color-accent);
-  font-weight: 700;
+  color: var(--color-muted);
+  font-weight: 400;
 }
-.rb-meta {
+.rapports-meta {
   font-family: var(--font-mono);
   font-size: 0.7rem;
+  color: var(--color-muted);
   letter-spacing: 0.18em;
-  color: var(--color-accent);
   text-transform: uppercase;
 }
 
+/* ── Bookshelf ────────────────────────────────── */
+.rapports-bookshelf {
+  border-top: 1px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-accent);
+}
 .rb-row {
-  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
-  background: var(--color-bg);
-  transition: background 0.18s ease;
+  border-bottom: 1px solid var(--color-rule);
+  transition: background 0.25s ease;
 }
 .rb-row:last-of-type { border-bottom: none; }
-.rb-row:hover { background: rgba(0, 255, 65, 0.03); }
-.rb-row[open] { background: rgba(0, 255, 65, 0.05); }
+.rb-row:hover  { background: rgba(91, 163, 122, 0.03); }
+.rb-row[open]  { background: rgba(91, 163, 122, 0.05); }
 
 .rb-summary {
   list-style: none;
   cursor: pointer;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   align-items: stretch;
-  min-height: 7rem;
+  min-height: 9rem;
 }
 .rb-summary::-webkit-details-marker { display: none; }
 
 .megaNum {
-  font-size: clamp(4rem, 10vw, 7rem);
-  font-weight: 900;
-  line-height: 0.82;
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(5rem, 12vw, 9rem);
+  line-height: 0.85;
   color: var(--color-accent);
-  letter-spacing: -0.08em;
-  padding: 1rem 1.25rem 1rem;
-  text-align: left;
-  transition: color 0.2s ease;
+  letter-spacing: -0.02em;
+  padding: 1.5rem 1.5rem 1.25rem;
   align-self: end;
+  transition: color 0.3s ease;
 }
 .rb-row[open] .megaNum,
 .rb-row:hover .megaNum { color: var(--color-text); }
 
 .info {
-  padding: 1.75rem 2rem 1.5rem 1.5rem;
+  padding: 1.75rem 0 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.6rem;
-  border-left: 1px solid rgba(0, 255, 65, 0.3);
-  transition: border-left-color 0.2s ease;
+  border-left: 1px solid var(--color-rule);
+  transition: border-left-color 0.25s ease;
 }
 .rb-row[open] .info,
 .rb-row:hover .info { border-left-color: var(--color-accent); }
 
 .tagline {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
   color: var(--color-accent);
   text-transform: uppercase;
 }
 .name {
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  font-weight: 900;
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   color: var(--color-text);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.name em {
+  font-style: italic;
+  color: var(--color-accent);
+  font-weight: 400;
 }
 .desc {
-  font-size: 0.92rem;
+  font-family: var(--font-serif-body);
+  font-size: 0.95rem;
   color: var(--color-muted);
-  max-width: 38ch;
-  line-height: 1.4;
+  max-width: 36ch;
+  line-height: 1.5;
   margin-top: 0.25rem;
 }
 .count {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
   color: var(--color-text);
-  text-transform: uppercase;
   margin-top: 0.5rem;
   display: flex;
   align-items: baseline;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 .count b {
   color: var(--color-accent);
-  font-weight: 900;
-  font-size: 1.6rem;
-  line-height: 1;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.35rem;
 }
 .chevron {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
   color: var(--color-accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-left: 0.4rem;
   transition: transform 0.3s ease;
 }
 .rb-row[open] .chevron { transform: rotate(90deg); }
 
-/* Branch reveal */
+/* ── Branch reveal ───────────────────────────── */
 .rb-branch {
   list-style: none;
-  padding: 1.75rem 1.5rem 1.5rem 4.5rem;
+  margin: 0;
+  padding: 1.75rem 1.5rem 1.5rem 4rem;
   position: relative;
-  border-top: 1px solid rgba(0, 255, 65, 0.3);
+  border-top: 1px solid var(--color-rule);
 }
 .rb-branch::before {
   content: '';
   position: absolute;
   top: 0.85rem; bottom: 1.5rem;
-  left: 2.25rem;
-  width: 4px;
+  left: 1.85rem;
+  width: 2px;
   background: var(--color-accent);
   transform-origin: top;
-  animation: branch-line-grow 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  animation: branch-line 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
-@keyframes branch-line-grow {
+@keyframes branch-line {
   from { transform: scaleY(0); }
   to   { transform: scaleY(1); }
 }
@@ -273,26 +299,26 @@ function onToggle(openedRow: HTMLDetailsElement) {
   display: flex;
   align-items: baseline;
   gap: 1rem;
-  border-bottom: 1px solid rgba(0, 255, 65, 0.12);
-  animation: branch-item-appear 0.35s ease-out backwards;
+  border-bottom: 1px dashed var(--color-hairline);
+  animation: item-appear 0.4s ease-out backwards;
 }
 .rb-branch-item:last-child { border-bottom: none; }
 .rb-branch-item::before {
   content: '';
   position: absolute;
   top: 50%;
-  left: -2.25rem;
+  left: -2.15rem;
   width: 1.5rem;
-  height: 4px;
+  height: 2px;
   background: var(--color-accent);
   transform-origin: left;
-  animation: branch-arm-grow 0.3s ease-out backwards;
+  animation: arm-grow 0.3s ease-out backwards;
 }
-@keyframes branch-item-appear {
+@keyframes item-appear {
   from { opacity: 0; transform: translateX(-12px); }
   to   { opacity: 1; transform: translateX(0); }
 }
-@keyframes branch-arm-grow {
+@keyframes arm-grow {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
 }
@@ -309,46 +335,50 @@ function onToggle(openedRow: HTMLDetailsElement) {
 
 .b-date {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
+  font-size: 0.78rem;
+  color: var(--color-muted);
   flex-shrink: 0;
-  width: 5rem;
+  width: 5.5rem;
 }
 .b-title {
-  font-size: 0.98rem;
-  font-weight: 700;
+  font-family: var(--font-serif-body);
+  font-size: 1rem;
   color: var(--color-text);
   text-decoration: none;
   flex: 1;
-  line-height: 1.35;
+  line-height: 1.4;
+  transition: color 0.2s;
 }
 .b-title:hover { color: var(--color-accent); }
 
 .rb-branch-item.see-all {
-  border-top: 4px solid var(--color-accent);
-  border-bottom: none;
   margin-top: 0.85rem;
-  padding-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--color-accent);
+  border-bottom: none;
 }
 .rb-branch-item.see-all .b-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
   color: var(--color-accent);
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
+/* ── Responsive ───────────────────────────────── */
 @media (max-width: 720px) {
-  .rb-summary { grid-template-columns: 1fr; min-height: auto; }
+  .rb-summary {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
   .megaNum {
-    font-size: 3.5rem;
-    padding: 1.25rem 1.25rem 0.5rem;
+    font-size: 4.5rem;
+    padding: 1rem 1rem 0.5rem;
     align-self: start;
   }
   .info {
     border-left: none;
-    border-top: 1px solid rgba(0, 255, 65, 0.3);
-    padding: 1.25rem 1.25rem 1.5rem;
+    border-top: 1px solid var(--color-rule);
+    padding: 1rem 1rem 1.25rem;
   }
   .rb-branch { padding-left: 3.5rem; }
   .rb-branch::before { left: 1.5rem; }
