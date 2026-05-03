@@ -6,7 +6,7 @@
         Tu vois l'IA arriver dans ton job. Tu ne sais pas comment te positionner. Tu n'es pas seul. Ce n'est pas un cours de Python. Ce n'est pas du jargon. C'est une carte de survie pratique, une fois par semaine. <span class="accent">Prépare-toi avant que ça arrive.</span>
       </p>
       <p class="manifeste-byline">
-        — <strong>Mathieu, le Survivant de l'IA</strong> · Fondateur · survivant-ia.ch
+        - <strong>Mathieu, le Survivant de l'IA</strong> · Fondateur · survivant-ia.ch
       </p>
     </div>
 

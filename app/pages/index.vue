@@ -60,7 +60,7 @@ onUnmounted(() => {
         </p>
 
         <div class="swiss-cta">
-          <span class="swiss-cta-eyebrow"><span class="num">— I.</span> Choisis ton entrée</span>
+          <span class="swiss-cta-eyebrow"><span class="num">- I.</span> Choisis ton entrée</span>
           <p class="swiss-cta-prompt">Tu te poses laquelle de ces deux questions&nbsp;?</p>
 
           <div class="qcards">
@@ -75,7 +75,7 @@ onUnmounted(() => {
                 </svg>
               </div>
               <h3 class="qcard-question">Veux-tu <strong>survivre</strong><br>avec l'IA&nbsp;?</h3>
-              <p class="qcard-meta">La Fréquence — un signal hebdomadaire, 5 minutes, pour rester un cran devant.</p>
+              <p class="qcard-meta">La Fréquence - un signal hebdomadaire, 5 minutes, pour rester un cran devant.</p>
               <span class="qcard-arrow">Rejoindre la fréquence</span>
             </NuxtLink>
 
@@ -89,7 +89,7 @@ onUnmounted(() => {
                 </svg>
               </div>
               <h3 class="qcard-question">Veux-tu connaître ton <strong>obsolescence</strong>&nbsp;?</h3>
-              <p class="qcard-meta">Le Scanner — ton score d'obsolescence en 10 secondes. Sans email, sans inscription.</p>
+              <p class="qcard-meta">Le Scanner - ton score d'obsolescence en 10 secondes. Sans email, sans inscription.</p>
               <span class="qcard-arrow">Tester mon métier</span>
             </NuxtLink>
           </div>
