@@ -116,9 +116,10 @@ onUnmounted(() => {
       <HomeDiagnosticTeaser @click="onHomeCta('scanner')" />
     </div>
 
-    <SectionDivider />
+    <!-- ── MASTHEAD IV — COMPÉTENCES ───────────── -->
+    <HomeMasthead num="IV" title="Compétences IA-proof" meta="Ce que les modèles ne savent pas faire" />
 
-    <!-- ── 3 COMPÉTENCES IA-PROOF ──────────────── -->
+    <!-- ── 4 COMPÉTENCES IA-PROOF ──────────────── -->
     <section class="skills-triad-section">
       <div class="container">
         <HomeSkillsTriad />
