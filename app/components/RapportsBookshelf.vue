@@ -168,17 +168,17 @@ function onToggle(openedRow: HTMLDetailsElement) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
-  min-height: 11rem;
+  min-height: 7rem;
 }
 .rb-summary::-webkit-details-marker { display: none; }
 
 .megaNum {
-  font-size: clamp(7rem, 18vw, 13rem);
+  font-size: clamp(4rem, 10vw, 7rem);
   font-weight: 900;
   line-height: 0.82;
   color: var(--color-accent);
   letter-spacing: -0.08em;
-  padding: 1.5rem 1.5rem 1.25rem;
+  padding: 1rem 1.25rem 1rem;
   text-align: left;
   transition: color 0.2s ease;
   align-self: end;
@@ -206,7 +206,7 @@ function onToggle(openedRow: HTMLDetailsElement) {
   text-transform: uppercase;
 }
 .name {
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
   font-weight: 900;
   color: var(--color-text);
   line-height: 0.95;
@@ -341,7 +341,7 @@ function onToggle(openedRow: HTMLDetailsElement) {
 @media (max-width: 720px) {
   .rb-summary { grid-template-columns: 1fr; min-height: auto; }
   .megaNum {
-    font-size: 5.5rem;
+    font-size: 3.5rem;
     padding: 1.25rem 1.25rem 0.5rem;
     align-self: start;
   }
