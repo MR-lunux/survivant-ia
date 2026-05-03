@@ -68,9 +68,9 @@ onUnmounted(() => {
               <span class="qcard-num">01 / Newsletter hebdomadaire</span>
               <div class="qcard-icon">
                 <svg viewBox="0 0 56 56" class="ic-soundwave" aria-hidden="true">
-                  <circle class="ring ring-1" cx="28" cy="28"/>
-                  <circle class="ring ring-2" cx="28" cy="28"/>
-                  <circle class="ring ring-3" cx="28" cy="28"/>
+                  <circle class="ring ring-1" cx="28" cy="28" r="4"/>
+                  <circle class="ring ring-2" cx="28" cy="28" r="4"/>
+                  <circle class="ring ring-3" cx="28" cy="28" r="4"/>
                   <circle class="core" cx="28" cy="28" r="3"/>
                 </svg>
               </div>
@@ -342,16 +342,16 @@ onUnmounted(() => {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
-  transform-origin: center;
-  transform-box: fill-box;
+  vector-effect: non-scaling-stroke;
+  transform-origin: 28px 28px;
   animation: ripple 3.5s ease-out infinite;
 }
 .ic-soundwave .ring-1 { animation-delay: 0s; }
 .ic-soundwave .ring-2 { animation-delay: 1.2s; }
 .ic-soundwave .ring-3 { animation-delay: 2.4s; }
 @keyframes ripple {
-  0%   { r: 4; opacity: 1; stroke-width: 1.8; }
-  100% { r: 26; opacity: 0; stroke-width: 0.4; }
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(6.5); opacity: 0; }
 }
 .ic-soundwave .core { fill: currentColor; }
 
