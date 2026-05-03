@@ -69,16 +69,11 @@ onUnmounted(() => {
             <NuxtLink to="#newsletter" class="qcard" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')">
               <span class="qcard-num">01 / Newsletter hebdomadaire</span>
               <div class="qcard-icon">
-                <svg viewBox="0 0 170 150" class="ic-soundwave" aria-hidden="true">
-                  <rect class="bar" style="--delay: 0s;     --dur: 2.4s" x="10"  y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.4s;   --dur: 3.0s" x="28"  y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.15s;  --dur: 2.0s" x="46"  y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.6s;   --dur: 2.6s" x="64"  y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.25s;  --dur: 1.8s" x="82"  y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.5s;   --dur: 2.8s" x="100" y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.7s;   --dur: 2.4s" x="118" y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.3s;   --dur: 3.2s" x="136" y="20" width="10" height="110"/>
-                  <rect class="bar" style="--delay: 0.55s;  --dur: 2.2s" x="154" y="20" width="10" height="110"/>
+                <svg viewBox="0 0 56 56" class="ic-soundwave" aria-hidden="true">
+                  <circle class="ring ring-1" cx="28" cy="28"/>
+                  <circle class="ring ring-2" cx="28" cy="28"/>
+                  <circle class="ring ring-3" cx="28" cy="28"/>
+                  <circle class="core" cx="28" cy="28" r="3"/>
                 </svg>
               </div>
               <h3 class="qcard-question">Veux-tu <strong>survivre</strong><br>avec l'IA&nbsp;?</h3>
@@ -89,20 +84,10 @@ onUnmounted(() => {
             <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
               <span class="qcard-num">02 / Diagnostic flash</span>
               <div class="qcard-icon">
-                <svg viewBox="0 0 130 150" class="ic-hourglass" aria-hidden="true">
-                  <g class="hourglass-body">
-                    <line class="frame" x1="22" y1="14" x2="108" y2="14"/>
-                    <line class="frame" x1="22" y1="136" x2="108" y2="136"/>
-                    <path class="frame" d="M 28 14 L 28 22 L 60 70 L 60 80 L 28 128 L 28 136"/>
-                    <path class="frame" d="M 102 14 L 102 22 L 70 70 L 70 80 L 102 128 L 102 136"/>
-                    <path class="sand-top" d="M 30 22 L 100 22 L 65 70 Z"/>
-                    <path class="sand-bot" d="M 65 80 L 100 128 L 30 128 Z"/>
-                  </g>
-                  <g class="grains-overlay">
-                    <circle class="grain grain-1" cx="65" cy="75" r="1.5"/>
-                    <circle class="grain grain-2" cx="65" cy="75" r="1.5"/>
-                    <circle class="grain grain-3" cx="65" cy="75" r="1.5"/>
-                  </g>
+                <svg viewBox="0 0 56 56" class="ic-hourglass" aria-hidden="true">
+                  <path class="frame" d="M 14 8 L 42 8 M 14 48 L 42 48 M 16 8 L 16 14 L 28 26 M 40 8 L 40 14 L 28 26 M 28 30 L 16 42 L 16 48 M 28 30 L 40 42 L 40 48"/>
+                  <path class="sand-top" d="M 17 10 L 39 10 L 28 26 Z"/>
+                  <path class="sand-bot" d="M 28 30 L 39 46 L 17 46 Z"/>
                 </svg>
               </div>
               <h3 class="qcard-question">Veux-tu connaître ton <strong>obsolescence</strong>&nbsp;?</h3>
@@ -181,7 +166,7 @@ onUnmounted(() => {
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   will-change: transform;
 }
-.hero-inner { max-width: 800px; position: relative; z-index: 1; }
+.hero-inner { position: relative; z-index: 1; }
 
 /* Eyebrow editorial - hairline + sage uppercase */
 .hero-eyebrow {
@@ -257,7 +242,7 @@ onUnmounted(() => {
 .swiss-cta {
   background: var(--color-surface);
   color: var(--color-text);
-  padding: 2.5rem;
+  padding: 3rem;
   position: relative;
   border: 1px solid var(--color-rule);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
@@ -326,15 +311,12 @@ onUnmounted(() => {
   border-bottom: 1px solid var(--color-rule);
 }
 .qcard-icon {
-  width: 100%;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 56px;
+  height: 56px;
   color: var(--color-accent);
   margin-bottom: 1.5rem;
 }
-.qcard-icon svg { overflow: visible; }
+.qcard-icon svg { width: 100%; height: 100%; overflow: visible; }
 .qcard-question {
   font-family: var(--font-serif);
   font-variation-settings: "opsz" 144;
@@ -377,36 +359,31 @@ onUnmounted(() => {
 .qcard:hover .qcard-arrow { gap: 0.7rem; }
 .qcard:hover .qcard-arrow::after { transform: translateX(4px); }
 
-/* ── Sound wave icon (carte 01) ────────────────────── */
-.ic-soundwave { width: 170px; height: 150px; }
-.ic-soundwave .bar {
-  fill: currentColor;
+/* ── Sound wave icon (carte 01) — ripple simple ────── */
+.ic-soundwave { width: 100%; height: 100%; }
+.ic-soundwave .ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transform-origin: center;
   transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: eq-bounce var(--dur, 2.4s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
+  animation: ripple 3.5s ease-out infinite;
 }
-@keyframes eq-bounce {
-  0%, 100% { transform: scaleY(0.25); }
-  50%      { transform: scaleY(1); }
+.ic-soundwave .ring-1 { animation-delay: 0s; }
+.ic-soundwave .ring-2 { animation-delay: 1.2s; }
+.ic-soundwave .ring-3 { animation-delay: 2.4s; }
+@keyframes ripple {
+  0%   { r: 4; opacity: 1; stroke-width: 1.8; }
+  100% { r: 26; opacity: 0; stroke-width: 0.4; }
 }
+.ic-soundwave .core { fill: currentColor; }
 
-/* ── Hourglass icon (carte 02) ─────────────────────── */
-.ic-hourglass { width: 130px; height: 150px; }
-.hourglass-body {
-  transform-box: view-box;
-  transform-origin: 65px 75px;
-  animation: hourglass-flip 10s ease-in-out infinite;
-}
-@keyframes hourglass-flip {
-  0%, 40%   { transform: rotate(0deg); }
-  50%, 90%  { transform: rotate(180deg); }
-  100%      { transform: rotate(360deg); }
-}
+/* ── Hourglass icon (carte 02) — sablier simple ────── */
+.ic-hourglass { width: 100%; height: 100%; }
 .ic-hourglass .frame {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.5;
+  stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -414,48 +391,27 @@ onUnmounted(() => {
   fill: currentColor;
   transform-box: fill-box;
   transform-origin: center top;
-  animation: sand-top-cycle 10s ease-in-out infinite;
+  animation: sand-deplete 5s linear infinite;
 }
-@keyframes sand-top-cycle {
-  0%   { transform: scaleY(1); }
-  40%  { transform: scaleY(0); }
-  50%  { transform: scaleY(0); }
-  90%  { transform: scaleY(1); }
-  100% { transform: scaleY(1); }
+@keyframes sand-deplete {
+  0%, 5%  { transform: scaleY(1);    opacity: 1; }
+  85%     { transform: scaleY(0.02); opacity: 1; }
+  90%     { transform: scaleY(0);    opacity: 0; }
+  96%     { transform: scaleY(1);    opacity: 0; }
+  100%    { transform: scaleY(1);    opacity: 1; }
 }
 .ic-hourglass .sand-bot {
   fill: currentColor;
   transform-box: fill-box;
   transform-origin: center bottom;
-  animation: sand-bot-cycle 10s ease-in-out infinite;
+  animation: sand-fill 5s linear infinite;
 }
-@keyframes sand-bot-cycle {
-  0%   { transform: scaleY(0); }
-  40%  { transform: scaleY(1); }
-  50%  { transform: scaleY(1); }
-  90%  { transform: scaleY(0); }
-  100% { transform: scaleY(0); }
-}
-.grains-overlay { animation: grains-cycle 10s linear infinite; }
-@keyframes grains-cycle {
-  0%, 38%   { opacity: 1; }
-  41%, 49%  { opacity: 0; }
-  52%, 88%  { opacity: 1; }
-  91%, 100% { opacity: 0; }
-}
-.ic-hourglass .grain {
-  fill: currentColor;
-  filter: drop-shadow(0 0 2px currentColor);
-  animation: grain-fall 1.1s linear infinite;
-}
-.ic-hourglass .grain-1 { animation-delay: 0s; }
-.ic-hourglass .grain-2 { animation-delay: 0.36s; }
-.ic-hourglass .grain-3 { animation-delay: 0.72s; }
-@keyframes grain-fall {
-  0%   { transform: translate(0, -10px); opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translate(0, 10px); opacity: 0; }
+@keyframes sand-fill {
+  0%, 5%  { transform: scaleY(0); opacity: 1; }
+  85%     { transform: scaleY(1); opacity: 1; }
+  90%     { transform: scaleY(1); opacity: 0; }
+  96%     { transform: scaleY(0); opacity: 0; }
+  100%    { transform: scaleY(0); opacity: 1; }
 }
 
 /* ── Sections ──────────────────────────────────────────── */
@@ -474,10 +430,9 @@ onUnmounted(() => {
 
 /* responsive overrides for the hero */
 @media (max-width: 720px) {
-  .swiss-cta { padding: 1.75rem 1.25rem; }
+  .swiss-cta { padding: 2rem 1.5rem; }
   .qcards { grid-template-columns: 1fr; gap: 1rem; }
   .qcard { padding: 1.5rem 1.25rem; }
-  .qcard-icon { height: 130px; }
 }
 
 /* prefers-reduced-motion overrides */
@@ -485,14 +440,9 @@ onUnmounted(() => {
   .hero-eyebrow, .hero-h1, .hero-tagline, .hero-subtitle, .swiss-cta, .qcards {
     opacity: 1 !important; animation: none !important;
   }
-  .ic-soundwave .bar,
-  .hourglass-body,
+  .ic-soundwave .ring,
   .ic-hourglass .sand-top,
-  .ic-hourglass .sand-bot,
-  .grains-overlay,
-  .ic-hourglass .grain { animation: none !important; }
-  .ic-soundwave .bar { transform: scaleY(0.7); transform-origin: center bottom; transform-box: fill-box; }
-  .grains-overlay { opacity: 0; }
+  .ic-hourglass .sand-bot { animation: none !important; }
 }
 
 </style>
