@@ -99,13 +99,13 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <SectionDivider />
+    <!-- ── MASTHEAD II — MANIFESTE ─────────────── -->
+    <HomeMasthead num="II" title="Manifeste" meta="Pour qui écrit la Fréquence" />
 
     <!-- ── MANIFESTE ──────────────────────────── -->
-    <section class="manifeste">
+    <section id="manifeste" class="manifeste">
       <div class="container">
-        <h2 class="section-h2">Se former à l'IA, sans devenir développeur</h2>
-        <ManifestoTerminal />
+        <HomeManifesteEditorial />
       </div>
     </section>
 
@@ -415,7 +415,7 @@ onUnmounted(() => {
 }
 
 /* ── Sections ──────────────────────────────────────────── */
-.manifeste        { padding: 5rem 0; }
+.manifeste        { padding: 2rem 0 3rem; }
 .rapports-section { padding: 5rem 0; }
 .newsletter-section { padding: 5rem 0; }
 
