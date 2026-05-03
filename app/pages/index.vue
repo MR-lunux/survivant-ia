@@ -136,7 +136,8 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <SectionDivider />
+    <!-- ── MASTHEAD VI — FAQ ───────────────────── -->
+    <HomeMasthead num="VI" title="Questions fréquentes" meta="Les réponses avant que tu ne demandes" />
 
     <!-- ── FAQ ─────────────────────────────────── -->
     <div class="container">

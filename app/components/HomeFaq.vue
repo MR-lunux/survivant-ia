@@ -51,88 +51,113 @@ useHead({
 </script>
 
 <template>
-  <section class="faq-section" data-reveal>
-    <div class="faq-label"><KickerLabel>QUESTIONS FRÉQUENTES</KickerLabel></div>
-    <h2 class="section-h2">Questions fréquentes sur le remplacement par l'IA</h2>
+  <section class="faq" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="faq-h2" data-reveal>
+      Questions fréquentes sur le <em>remplacement par l'IA</em>.
+    </h2>
 
-    <div class="faq-list">
+    <div class="faq-list" data-reveal data-reveal-delay="1">
       <details v-for="(item, i) in faqs" :key="i" class="faq-item">
-        <summary class="faq-question">
-          <span class="faq-q-text">{{ item.q }}</span>
-          <span class="faq-q-icon font-mono" aria-hidden="true">+</span>
+        <summary class="faq-q">
+          <span class="q-text">{{ item.q }}</span>
+          <span class="q-mark" aria-hidden="true">+</span>
         </summary>
-        <p class="faq-answer">{{ item.a }}</p>
+        <p class="faq-a">{{ item.a }}</p>
       </details>
     </div>
   </section>
 </template>
 
 <style scoped>
-.faq-section { padding: 5rem 0; }
-
-.faq-label {
-  margin-bottom: 0.75rem;
+/* ── Section ──────────────────────────────────── */
+.faq {
+  padding: 2rem 0 3rem;
 }
 
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-top: 1px solid rgba(0, 255, 65, 0.12);
-}
-
-.faq-item {
-  border-bottom: 1px solid rgba(0, 255, 65, 0.12);
-  background: var(--color-surface);
-  transition: background 0.2s;
-}
-.faq-item:hover { background: var(--color-surface-2); }
-.faq-item[open] { background: var(--color-surface-2); }
-
-.faq-question {
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: 500;
+/* ── Heading ──────────────────────────────────── */
+.faq-h2 {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.75rem;
   color: var(--color-text);
-  user-select: none;
+  max-width: 22ch;
 }
-.faq-question::-webkit-details-marker { display: none; }
-.faq-question:hover .faq-q-icon { color: var(--color-accent); }
-
-.faq-q-text { flex: 1; line-height: 1.45; }
-
-.faq-q-icon {
-  flex-shrink: 0;
-  font-size: 1.4rem;
-  line-height: 1;
-  color: var(--color-muted);
-  transition: transform 0.2s ease, color 0.15s;
-  width: 1.5em;
-  text-align: center;
-}
-.faq-item[open] .faq-q-icon {
-  transform: rotate(45deg);
+.faq-h2 em {
+  font-style: italic;
   color: var(--color-accent);
 }
 
-.faq-answer {
-  padding: 0 1.5rem 1.5rem;
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.75;
-  color: var(--color-muted);
-  max-width: 75ch;
+/* ── Liste ────────────────────────────────────── */
+.faq-list {
+  border-top: 1px solid var(--color-rule);
+}
+.faq-item {
+  border-bottom: 1px solid var(--color-rule);
 }
 
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  transition: padding-left 0.3s ease;
+}
+.faq-q::-webkit-details-marker { display: none; }
+
+.q-text {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  line-height: 1.3;
+  transition: color 0.2s ease;
+}
+.q-mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+.faq-item[open] .q-mark { transform: rotate(45deg); }
+.faq-item:hover .faq-q { padding-left: 0.5rem; }
+.faq-item:hover .q-text { color: var(--color-accent); }
+
+.faq-a {
+  font-family: var(--font-serif-body);
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  padding: 0 0 1.5rem;
+  margin: 0;
+  max-width: 65ch;
+  animation: faq-fade 0.4s ease-out;
+}
+@keyframes faq-fade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ───────────────────────────────── */
 @media (max-width: 640px) {
-  .faq-question { padding: 1rem 1.1rem; font-size: 0.95rem; }
-  .faq-answer   { padding: 0 1.1rem 1.2rem; font-size: 0.9rem; }
+  .faq-q       { padding: 1.1rem 0; gap: 1rem; }
+  .q-text      { font-size: 1.05rem; }
+  .faq-a       { font-size: 0.95rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-q, .faq-item, .q-mark { transition: none !important; }
+  .faq-a { animation: none !important; }
 }
 </style>
