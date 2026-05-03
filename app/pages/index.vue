@@ -47,20 +47,12 @@ onUnmounted(() => {
       <div ref="heroGrid" class="hero-grid-bg" aria-hidden="true" />
 
       <div class="container hero-inner">
-        <div class="hero-kicker"><KickerLabel>ZONE ANTI-OBSOLESCENCE</KickerLabel></div>
+        <span class="hero-eyebrow">Zone anti-obsolescence — 2026</span>
 
         <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
 
         <p class="hero-tagline">
-          <span class="title-line">
-            <span class="title-line-inner">L'IA ARRIVE.</span>
-          </span>
-          <span class="title-line">
-            <span class="title-line-inner">
-              <span class="text-accent accent-glitch">NE SOYEZ PAS<br>UNE VARIABLE SUPPRIMÉE.</span>
-              <span class="typing-cursor" aria-hidden="true" />
-            </span>
-          </span>
+          L'IA arrive. <span class="accent">Ne soyez pas une variable supprimée.</span>
         </p>
 
         <p class="hero-subtitle">
@@ -69,56 +61,55 @@ onUnmounted(() => {
           Soft skills, compréhension de l'IA, cas pratiques concrets, sans jargon.
         </p>
 
-        <p class="hero-prompt">Tu te poses laquelle ?</p>
+        <div class="swiss-cta">
+          <span class="swiss-cta-eyebrow"><span class="num">— I.</span> Choisis ton entrée</span>
+          <p class="swiss-cta-prompt">Tu te poses laquelle de ces deux questions&nbsp;?</p>
 
-        <div class="qcards">
-          <NuxtLink to="#newsletter" class="qcard" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')">
-            <KickerLabel class="qcard-num">01 · ÉMISSION</KickerLabel>
-            <div class="qcard-icon">
-              <svg viewBox="0 0 170 150" class="ic-soundwave" aria-hidden="true">
-                <rect class="bar" style="--delay: 0s;     --dur: 2.4s" x="10"  y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.4s;   --dur: 3.0s" x="28"  y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.15s;  --dur: 2.0s" x="46"  y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.6s;   --dur: 2.6s" x="64"  y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.25s;  --dur: 1.8s" x="82"  y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.5s;   --dur: 2.8s" x="100" y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.7s;   --dur: 2.4s" x="118" y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.3s;   --dur: 3.2s" x="136" y="20" width="10" height="110"/>
-                <rect class="bar" style="--delay: 0.55s;  --dur: 2.2s" x="154" y="20" width="10" height="110"/>
-              </svg>
-            </div>
-            <h3 class="qcard-question">Veux-tu <span class="em">survivre</span><br>avec l'IA ?</h3>
-            <div class="qcard-foot">
-              <span class="qcard-cta">▸ La Fréquence</span>
-              <span class="qcard-meta font-mono">1 rapport gratuit / semaine · 5 min</span>
-            </div>
-          </NuxtLink>
+          <div class="qcards">
+            <NuxtLink to="#newsletter" class="qcard" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')">
+              <span class="qcard-num">01 / Newsletter hebdomadaire</span>
+              <div class="qcard-icon">
+                <svg viewBox="0 0 170 150" class="ic-soundwave" aria-hidden="true">
+                  <rect class="bar" style="--delay: 0s;     --dur: 2.4s" x="10"  y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.4s;   --dur: 3.0s" x="28"  y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.15s;  --dur: 2.0s" x="46"  y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.6s;   --dur: 2.6s" x="64"  y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.25s;  --dur: 1.8s" x="82"  y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.5s;   --dur: 2.8s" x="100" y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.7s;   --dur: 2.4s" x="118" y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.3s;   --dur: 3.2s" x="136" y="20" width="10" height="110"/>
+                  <rect class="bar" style="--delay: 0.55s;  --dur: 2.2s" x="154" y="20" width="10" height="110"/>
+                </svg>
+              </div>
+              <h3 class="qcard-question">Veux-tu <strong>survivre</strong><br>avec l'IA&nbsp;?</h3>
+              <p class="qcard-meta">La Fréquence — un signal hebdomadaire, 5 minutes, pour rester un cran devant.</p>
+              <span class="qcard-arrow">Rejoindre la fréquence</span>
+            </NuxtLink>
 
-          <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
-            <KickerLabel class="qcard-num">02 · ÉCOULEMENT</KickerLabel>
-            <div class="qcard-icon">
-              <svg viewBox="0 0 130 150" class="ic-hourglass" aria-hidden="true">
-                <g class="hourglass-body">
-                  <line class="frame" x1="22" y1="14" x2="108" y2="14"/>
-                  <line class="frame" x1="22" y1="136" x2="108" y2="136"/>
-                  <path class="frame" d="M 28 14 L 28 22 L 60 70 L 60 80 L 28 128 L 28 136"/>
-                  <path class="frame" d="M 102 14 L 102 22 L 70 70 L 70 80 L 102 128 L 102 136"/>
-                  <path class="sand-top" d="M 30 22 L 100 22 L 65 70 Z"/>
-                  <path class="sand-bot" d="M 65 80 L 100 128 L 30 128 Z"/>
-                </g>
-                <g class="grains-overlay">
-                  <circle class="grain grain-1" cx="65" cy="75" r="1.5"/>
-                  <circle class="grain grain-2" cx="65" cy="75" r="1.5"/>
-                  <circle class="grain grain-3" cx="65" cy="75" r="1.5"/>
-                </g>
-              </svg>
-            </div>
-            <h3 class="qcard-question">Veux-tu connaître<br>ton <span class="em">obsolescence</span> ?</h3>
-            <div class="qcard-foot">
-              <span class="qcard-cta">▸ Le Scanner</span>
-              <span class="qcard-meta font-mono">Test gratuit · ton score en 10 secondes</span>
-            </div>
-          </NuxtLink>
+            <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
+              <span class="qcard-num">02 / Diagnostic flash</span>
+              <div class="qcard-icon">
+                <svg viewBox="0 0 130 150" class="ic-hourglass" aria-hidden="true">
+                  <g class="hourglass-body">
+                    <line class="frame" x1="22" y1="14" x2="108" y2="14"/>
+                    <line class="frame" x1="22" y1="136" x2="108" y2="136"/>
+                    <path class="frame" d="M 28 14 L 28 22 L 60 70 L 60 80 L 28 128 L 28 136"/>
+                    <path class="frame" d="M 102 14 L 102 22 L 70 70 L 70 80 L 102 128 L 102 136"/>
+                    <path class="sand-top" d="M 30 22 L 100 22 L 65 70 Z"/>
+                    <path class="sand-bot" d="M 65 80 L 100 128 L 30 128 Z"/>
+                  </g>
+                  <g class="grains-overlay">
+                    <circle class="grain grain-1" cx="65" cy="75" r="1.5"/>
+                    <circle class="grain grain-2" cx="65" cy="75" r="1.5"/>
+                    <circle class="grain grain-3" cx="65" cy="75" r="1.5"/>
+                  </g>
+                </svg>
+              </div>
+              <h3 class="qcard-question">Veux-tu connaître ton <strong>obsolescence</strong>&nbsp;?</h3>
+              <p class="qcard-meta">Le Scanner — ton score d'obsolescence en 10 secondes. Sans email, sans inscription.</p>
+              <span class="qcard-arrow">Tester mon métier</span>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
@@ -178,26 +169,38 @@ onUnmounted(() => {
 /* ── Hero ─────────────────────────────────────────────── */
 .hero {
   position: relative;
-  padding: 7rem 0 6rem;
+  padding: 5rem 0 3rem;
   overflow: hidden;
 }
 .hero-grid-bg {
   position: absolute; inset: 0; z-index: 0;
   background-image:
-    linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(91, 163, 122, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 163, 122, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   will-change: transform;
 }
 .hero-inner { max-width: 800px; position: relative; z-index: 1; }
 
-
-/* kicker - small mono label above H1 */
-.hero-kicker {
-  display: block;
-  margin-bottom: 0.85rem;
+/* Eyebrow editorial - hairline + sage uppercase */
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   animation: heroFadeUp 0.5s 0.4s ease both;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--color-accent);
 }
 
 /* SEO H1 - semantic, keyword-rich, modest visual */
@@ -213,169 +216,166 @@ onUnmounted(() => {
   animation: heroFadeUp 0.5s 0.45s ease both;
 }
 
-/* tagline (former h1) - visual climax, line-by-line clip reveal */
+/* Tagline - Playfair italic visual climax */
 .hero-tagline {
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  line-height: 1.1;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin: 0 0 1.5rem;
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
+  margin: 0 0 1.75rem;
+  max-width: 18ch;
+  color: var(--color-text);
+  animation: heroFadeUp 0.6s 0.6s ease both;
 }
-.title-line { display: block; overflow: hidden; }
-.title-line-inner {
-  display: block;
-  transform: translateY(110%);
-  animation: lineReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-tagline .accent {
+  font-style: italic;
+  color: var(--color-accent);
 }
-.title-line:nth-child(1) .title-line-inner { animation-delay: 0.5s; }
-.title-line:nth-child(2) .title-line-inner { animation-delay: 0.75s; }
-@keyframes lineReveal { to { transform: translateY(0); } }
-
-/* accent glitch loop */
-.accent-glitch {
-  display: inline;
-  animation: accentGlitch 7s 1.8s infinite;
-}
-@keyframes accentGlitch {
-  0%,95%,100% { text-shadow: none; transform: none; color: var(--color-accent); }
-  95.5% {
-    text-shadow: 2px 0 var(--color-danger), -2px 0 #00bfff;
-    transform: translateX(2px); color: #fff;
-  }
-  96% {
-    text-shadow: -2px 0 var(--color-danger), 2px 0 #00bfff;
-    transform: translateX(-2px);
-  }
-  96.5% { text-shadow: none; transform: none; color: var(--color-accent); }
-}
-
-/* typing cursor */
-.typing-cursor {
-  display: inline-block;
-  width: 3px; height: 0.85em;
-  background: var(--color-accent);
-  vertical-align: bottom; margin-left: 4px;
-  opacity: 0;
-  animation: cursorBlink 1s step-end 1.8s infinite;
-}
-@keyframes cursorBlink { 0%{opacity:1} 50%{opacity:0} 100%{opacity:1} }
 
 .hero-subtitle {
-  font-size: 1.1rem; color: var(--color-muted);
-  max-width: 55ch; margin: 0 0 2.5rem; line-height: 1.7;
-  animation: heroFadeUp 0.6s 1.1s ease both;
+  font-family: var(--font-serif-body);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+  max-width: 60ch;
+  margin: 0 0 2.5rem;
+  animation: heroFadeUp 0.6s 0.95s ease both;
+}
+.hero-subtitle strong {
+  color: var(--color-text);
+  font-weight: 600;
+  font-style: italic;
 }
 @keyframes heroFadeUp {
-  from { transform: translateY(16px); }
-  to   { transform: translateY(0); }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Hero question cards ───────────────────────────── */
-.hero-prompt {
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.22em;
+/* ── Swiss CTA wrapper (dark editorial) ────────────────── */
+.swiss-cta {
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 2.5rem;
+  position: relative;
+  border: 1px solid var(--color-rule);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  animation: heroFadeUp 0.6s 1.2s ease both;
+}
+.swiss-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60px; height: 4px;
+  background: var(--color-accent);
+}
+.swiss-cta-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-text);
   text-transform: uppercase;
-  color: var(--color-muted);
-  margin: 0 0 2rem;
-  animation: heroFadeUp 0.5s 1.3s ease both;
+  display: block;
+  margin-bottom: 0.75rem;
 }
-.hero-prompt::before, .hero-prompt::after {
-  content: '—'; color: #555; margin: 0 0.85rem;
+.swiss-cta-eyebrow .num { color: var(--color-accent); margin-right: 0.5rem; }
+.swiss-cta-prompt {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  color: var(--color-text);
+  margin: 0 0 2rem;
+  max-width: 30ch;
+  line-height: 1.2;
 }
 
+/* ── Question cards ───────────────────────────── */
 .qcards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  animation: heroFadeUp 0.5s 1.5s ease both;
+  gap: 1.5rem;
 }
 .qcard {
-  background: var(--color-surface);
-  border: 1px solid rgba(0, 255, 65, 0.25);
-  padding: 2rem 1.75rem 1.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-rule);
+  padding: 2rem;
   text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-}
-.qcard::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 30%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.06), transparent);
-  pointer-events: none;
-  transition: left 0.9s ease;
+  color: var(--color-text);
+  display: block;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 .qcard:hover {
   border-color: var(--color-accent);
-  background: rgba(0, 255, 65, 0.025);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px var(--color-accent-soft);
 }
-.qcard:hover::after { left: 130%; }
-
-.qcard-num { align-self: flex-start; }
-
+.qcard-num {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-rule);
+}
 .qcard-icon {
   width: 100%;
-  height: 200px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
-  margin: 0.5rem 0;
+  margin-bottom: 1.5rem;
 }
-.qcard-icon svg {
-  overflow: visible;
-  filter: drop-shadow(0 0 12px rgba(0, 255, 65, 0.3));
-  transition: filter 0.3s ease;
-}
-.qcard:hover .qcard-icon svg {
-  filter: drop-shadow(0 0 24px rgba(0, 255, 65, 0.6));
-}
-
+.qcard-icon svg { overflow: visible; }
 .qcard-question {
-  font-family: var(--font-mono);
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.15;
   color: var(--color-text);
-  line-height: 1.25;
-  text-align: center;
-  margin: 0.25rem 0 0.5rem;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.01em;
 }
-.qcard-question .em { color: var(--color-accent); }
-
-.qcard-foot {
-  margin-top: auto;
-  padding-top: 1.25rem;
-  border-top: 1px dashed rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-mono);
+.qcard-question strong {
+  font-weight: 800;
+  font-style: normal;
+  color: var(--color-accent);
 }
-.qcard-cta {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-size: 0.85rem; font-weight: 700;
-  letter-spacing: 0.18em; color: var(--color-accent);
-  text-transform: uppercase;
-  transition: letter-spacing 0.3s ease;
-}
-.qcard:hover .qcard-cta { letter-spacing: 0.22em; }
 .qcard-meta {
-  font-size: 0.65rem;
-  letter-spacing: 0.05em;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
   color: var(--color-muted);
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
 }
+.qcard-arrow {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.25s ease;
+}
+.qcard-arrow::after {
+  content: '→';
+  transition: transform 0.25s ease;
+}
+.qcard:hover .qcard-arrow { gap: 0.7rem; }
+.qcard:hover .qcard-arrow::after { transform: translateX(4px); }
 
 /* ── Sound wave icon (carte 01) ────────────────────── */
 .ic-soundwave { width: 170px; height: 150px; }
@@ -472,21 +472,19 @@ onUnmounted(() => {
 }
 
 
-/* responsive overrides for the hero cards */
+/* responsive overrides for the hero */
 @media (max-width: 720px) {
-  .qcards { grid-template-columns: 1fr; gap: 1.5rem; }
-  .qcard { padding: 1.5rem 1.25rem 1.25rem; }
-  .qcard-icon { height: 160px; }
+  .swiss-cta { padding: 1.75rem 1.25rem; }
+  .qcards { grid-template-columns: 1fr; gap: 1rem; }
+  .qcard { padding: 1.5rem 1.25rem; }
+  .qcard-icon { height: 130px; }
 }
 
 /* prefers-reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
-  .hero-subtitle, .hero-prompt, .qcards, .hero-kicker, .hero-h1 {
+  .hero-eyebrow, .hero-h1, .hero-tagline, .hero-subtitle, .swiss-cta, .qcards {
     opacity: 1 !important; animation: none !important;
   }
-  .title-line-inner { transform: none !important; animation: none !important; }
-  .typing-cursor    { opacity: 1 !important; animation: none !important; }
-  .accent-glitch    { animation: none !important; }
   .ic-soundwave .bar,
   .hourglass-body,
   .ic-hourglass .sand-top,
