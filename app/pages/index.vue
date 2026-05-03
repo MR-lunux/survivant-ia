@@ -141,8 +141,6 @@ onUnmounted(() => {
     </div>
 
     <SectionDivider />
-    <StatsStrip />
-    <SectionDivider />
 
     <!-- ── 3 COMPÉTENCES IA-PROOF ──────────────── -->
     <section class="skills-triad-section">
