@@ -24,3 +24,10 @@ logs
 .env
 .env.*
 !.env.example
+
+# Remotion sub-project
+video/node_modules
+video/out
+video/.cache
+video/.remotion
+video/assets/audio/*.wav
