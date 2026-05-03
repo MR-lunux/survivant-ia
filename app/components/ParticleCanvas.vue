@@ -7,7 +7,7 @@
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 
 // ── Tunables (à ajuster sur le rendu réel) ────────
-const ACCENT             = '0,255,65'
+const ACCENT             = '91,163,122'
 const COUNT_DESKTOP      = 45
 const COUNT_MOBILE       = 25
 const MOBILE_BREAK       = 768
@@ -83,7 +83,7 @@ function resize() {
     vignette = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.52)
     vignette.addColorStop(0,   'rgba(0,0,0,0)')
     vignette.addColorStop(0.6, 'rgba(0,0,0,0)')
-    vignette.addColorStop(1,   `rgba(13,13,13,${VIGNETTE_ALPHA})`)
+    vignette.addColorStop(1,   `rgba(15,15,14,${VIGNETTE_ALPHA})`)
   }
 }
 

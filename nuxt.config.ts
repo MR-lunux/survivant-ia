@@ -18,7 +18,9 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: 'Space Mono', provider: 'google', weights: [400, 700], global: true },
-      { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700], global: true },
+      { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700, 800, 900], global: true },
+      { name: 'Playfair Display', provider: 'google', weights: [400, 500, 600, 800], styles: ['normal', 'italic'], global: true },
+      { name: 'Source Serif 4', provider: 'google', weights: [400, 600], styles: ['normal', 'italic'], global: true },
     ],
   },
   ogImage: {
@@ -66,7 +68,7 @@ export default defineNuxtConfig({
         { rel: 'alternate', hreflang: 'x-default', href: 'https://survivant-ia.ch/' },
       ],
       meta: [
-        { name: 'theme-color', content: '#0D0D0D' },
+        { name: 'theme-color', content: '#0F0F0E' },
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'author', content: 'Mathieu Rerat' },
