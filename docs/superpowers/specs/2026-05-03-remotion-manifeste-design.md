@@ -369,3 +369,68 @@ Ces points NE SONT PAS dans la V1 et ne doivent pas être implémentés :
 - Skill `survivant-ia-video` (future work).
 - Workspaces / refactorisation du repo (future work).
 - TTS de la voix-off (la voix de Mathieu est non-négociable pour le persona Survivant).
+
+---
+
+## 10. Adaptation V2 Editorial Dark (ajout 2026-05-03 fin de journée)
+
+Pendant la rédaction de cette spec et du plan, la DA du site est passée de **brutaliste vert néon** à **V2 Editorial Dark** (commits `7e4e12b` refactor(da), `e184c84` hero V2, `c2f765e` fix hero). La vidéo manifeste **doit suivre la nouvelle DA** pour cohérence visuelle site/social.
+
+### Tokens canoniques V2 (à dupliquer dans `video/src/theme.ts`)
+
+| Token | V1 brutaliste | V2 Editorial Dark |
+|-------|---------------|-------------------|
+| `bg` | `#0D0D0D` | `#0F0F0E` (warm dark) |
+| `surface` | `#141414` | `#14140F` |
+| `surface2` | `#1A1A1A` | `#1A1A14` |
+| `text` | `#E0E0E0` | `#E8E5DD` (cream warm) |
+| `textSoft` | — | `#C5C2BB` |
+| `muted` | `#666666` | `#8A8780` |
+| `mutedSoft` | — | `#6E6B65` |
+| `dim` | — | `#5C5A52` |
+| `accent` | `#00FF41` (néon) | `#5BA37A` (sage) |
+| `accentSoft` | — | `rgba(91, 163, 122, 0.18)` |
+| `accentGlow` | dur | `rgba(91, 163, 122, 0.25)` (subtle) |
+| `rule` | — | `rgba(232, 229, 221, 0.12)` |
+| `hairline` | — | `rgba(232, 229, 221, 0.1)` |
+| `hairlineStrong` | — | `rgba(232, 229, 221, 0.25)` |
+| Status (danger / mutation / protege / croissance) | inchangés | inchangés |
+
+### Fonts V2
+
+Aux deux fonts initiales (`Space Mono`, `Inter`) s'ajoutent **deux serifs** :
+
+- **Playfair Display** (italique 400/500/800) — utilisée pour les **phrases signatures** en italique sage. C'est le pattern visuel canonique du hero.
+- **Source Serif 4** (italique 400/600) — disponible pour body éditorial si besoin (probablement pas utilisée dans cette V1).
+
+Inter conserve son rôle pour les déclarations brutes en uppercase 800/900 (titres déclaratifs, listes barrées, gros chiffres).
+
+### Pattern signature hybride (validé candidat B en brainstorming)
+
+Tout traitement visuel d'une "phrase signature" (persona, promesse de marque, brand line) utilise :
+
+```
+LIGNE DÉCLARATIVE en Inter 800 caps cream
+Phrase signature en Playfair Display italic sage (casse normale, plus grande)
+```
+
+**Application aux 5 beats :**
+
+- **Beat 1 (Hook)** : "JE NE SUIS PAS UN ~~COACH IA~~." en Inter caps cream + "JE SUIS" Inter caps soft + "le Survivant." en **Playfair italique sage** (casse normale).
+- **Beat 2 (Constat)** : Big number "40%" en Inter 900 cream/danger (status color preserved). Sub-titre "DES MÉTIERS VONT MUTER" en Inter caps. Pas d'italique Playfair ici — pure data, pure brut.
+- **Beat 3 (Scanner)** : Tech/scanner en Space Mono + Inter (mono pour input, Inter pour verdict). Status colors (danger/mutation) conservés. Pas d'italique Playfair — c'est un beat tech.
+- **Beat 4 (Unique)** : Liste barrée en Inter 800 caps. Card finale "SIGNAL CLAIR. GRATUIT. HEBDO." en Inter caps cream avec bordure sage hairline (plus de border épais 4px).
+- **Beat 5 (CTA)** : URL "SURVIVANT-IA.CH" en Space Mono 700 sage avec hairline sage. "5 MIN / SEMAINE." Inter caps. "**en avance.**" en **Playfair italique sage** (casse normale, plus grande, l'autre "phrase signature" du film qui ferme le cercle ouvert par "le Survivant" du Beat 1).
+
+Cette structure crée une **symétrie italique** : signature persona (Beat 1) ↔ signature promesse (Beat 5), avec les beats centraux en mode "déclaratif/data/tech".
+
+### Adaptations motion language
+
+- **Glow** : passe de hard halo néon à soft glow sage (`accentGlow` token).
+- **Bordures** : remplacer les `border: 4px solid accent` par `border: 1px solid hairlineStrong` ou `border-bottom: 1px solid rule` quand pertinent (pattern hairline du site V2).
+- **Flash blanc** : remplace par flash cream `#E8E5DD` à opacité `0.85` (cohérence palette warm).
+- **Cuts secs, slam-in, type-in, glitch transitions** : conservés tels quels.
+
+### Tailwind v4
+
+Le scaffolding `npx create-video` a installé **Tailwind v4** (et non v3 comme la spec V1 le supposait). Tailwind v4 utilise une config CSS-first via la directive `@theme` plutôt qu'un `tailwind.config.ts`. Le plan adapte cette nuance dans Task 3.

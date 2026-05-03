@@ -4,6 +4,8 @@
 
 **Goal:** Produire une vidéo manifeste de 30 s pour Survivant-IA, format vertical 9:16 + dérivé 4:5 LinkedIn (safe-zone), 100 % motion graphics codée en Remotion, voix-off Mathieu (MV7+), musique générée via strudel-claude. Persona "Le Survivant" — hook : « Je ne suis pas un coach IA. Je suis le Survivant. » CTA : `survivant-ia.ch`.
 
+**⚠️ DA UPDATE (2026-05-03 fin de journée) :** Pendant la rédaction de ce plan, le site est passé de la DA brutaliste à **V2 Editorial Dark** (sage `#5BA37A` + Playfair italic + warm dark `#0F0F0E` + cream text). Le hook utilise le **pattern hybride éditorial validé (candidat B)** : "JE NE SUIS PAS UN COACH IA." en Inter 800 caps + "le Survivant." en Playfair italique sage. Tasks 2, 3, 10, 14 sont entièrement réécrites pour V2. Tasks 4-9, 11-13 héritent automatiquement des tokens V2 via `theme.ts`. Voir spec §10 pour les détails du pattern.
+
 **Architecture:** Sous-projet React/Remotion isolé dans `video/` à la racine du repo Nuxt actuel. Compositions paramétrées par prop `format` ('9:16' | '4:5'), safe-zone partagée 1080×1350 centrée. Cinq beats narratifs implémentés en composants `Beat{1..5}*.tsx` orchestrés via `<Sequence>` dans `Manifeste.tsx`. Audio (voix-off, musique) globalement monté au niveau Manifeste ; SFX co-localisés dans chaque Beat (sync visuel + audio dans le même fichier). Animations frame-driven (`useCurrentFrame()`), jamais CSS — pour render MP4 déterministe.
 
 **Tech Stack:** Remotion 4.x · React 18 · TypeScript strict · TailwindCSS · `@remotion/google-fonts` (Space Mono, Inter) · ffmpeg (encodage MP3) · strudel-claude (generation musicale, repo séparé). Pas de framework de test : validation = preview Remotion Studio + render visuel humain.
@@ -135,21 +137,34 @@ EOF
 **Files:**
 - Create: `video/src/theme.ts`
 
-- [ ] **Step 1 : Créer le fichier theme.ts**
+- [ ] **Step 1 : Créer le fichier theme.ts (tokens V2 Editorial Dark)**
 
 ```ts
 // video/src/theme.ts
-// Tokens dupliqués depuis le site Nuxt (tailwind.config.ts).
-// Voir docs/superpowers/specs/2026-05-03-remotion-manifeste-design.md §2 pour la justification.
+// Tokens dupliqués depuis le site Nuxt (app/assets/css/main.css — V2 Editorial Dark).
+// Voir docs/superpowers/specs/2026-05-03-remotion-manifeste-design.md §2 et §10 pour la justification.
 
 export const colors = {
-  bg: '#0D0D0D',
-  surface: '#141414',
-  surface2: '#1A1A1A',
-  text: '#E0E0E0',
-  muted: '#666666',
-  accent: '#00FF41',
-  accentGlow: 'rgba(0, 255, 65, 0.55)',
+  // Backgrounds (warm dark)
+  bg: '#0F0F0E',
+  surface: '#14140F',
+  surface2: '#1A1A14',
+  // Text (cream warm)
+  text: '#E8E5DD',
+  textSoft: '#C5C2BB',
+  // Muteds
+  muted: '#8A8780',
+  mutedSoft: '#6E6B65',
+  dim: '#5C5A52',
+  // Accent (sage)
+  accent: '#5BA37A',
+  accentSoft: 'rgba(91, 163, 122, 0.18)',
+  accentGlow: 'rgba(91, 163, 122, 0.25)',
+  // Hairlines (V2 signature)
+  rule: 'rgba(232, 229, 221, 0.12)',
+  hairline: 'rgba(232, 229, 221, 0.1)',
+  hairlineStrong: 'rgba(232, 229, 221, 0.25)',
+  // Status colors (unchanged from V1)
   danger: '#FF3E3E',
   mutation: '#FFA630',
   protege: '#5BC0EB',
@@ -157,8 +172,10 @@ export const colors = {
 } as const;
 
 export const fonts = {
-  mono: '"Space Mono", monospace',
-  sans: 'Inter, sans-serif',
+  mono: '"Space Mono", ui-monospace, monospace',
+  sans: 'Inter, system-ui, sans-serif',
+  serif: '"Playfair Display", Georgia, serif',
+  serifBody: '"Source Serif 4", Georgia, serif',
 } as const;
 
 export type Format = '9:16' | '4:5';
@@ -189,11 +206,13 @@ Expected : pas d'erreur. Si erreur, vérifier que `tsconfig.json` n'a pas de `ro
 ```bash
 git add video/src/theme.ts
 git commit -m "$(cat <<'EOF'
-feat(video): add theme tokens (palette, fonts, format dimensions)
+feat(video): add V2 Editorial Dark theme tokens
 
-Palette dupliquée depuis le site (Tailwind config) — pas de partage de
-code Vue/React sur cette V1. Définit aussi le type Format ('9:16' | '4:5')
-et la SAFE_ZONE 1080x1350 utilisée par les deux compositions.
+Tokens dupliqués depuis main.css (V2 Editorial Dark) : palette sage
+(#5BA37A) sur warm dark (#0F0F0E), cream text (#E8E5DD), hairlines,
+4 fonts (Space Mono, Inter, Playfair Display, Source Serif 4). Status
+colors (danger/mutation/protege/croissance) inchangés.
+Définit Format ('9:16' | '4:5') et SAFE_ZONE 1080x1350.
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
@@ -202,12 +221,14 @@ EOF
 
 ---
 
-## Task 3: Configurer fonts Google + Tailwind
+## Task 3: Configurer fonts Google (4 fonts) + Tailwind v4
 
 **Files:**
 - Modify: `video/package.json`
-- Modify: `video/tailwind.config.ts`
+- Modify: `video/src/index.css` (Tailwind v4 CSS-first config)
 - Create: `video/src/fonts.ts`
+
+**Note V2 :** Le scaffolding a installé Tailwind v4 (`@remotion/tailwind-v4` + `tailwindcss: 4.0.0`). Tailwind v4 utilise une config **CSS-first** via `@theme` directement dans le fichier CSS — il n'y a pas de `tailwind.config.ts` à modifier. On définit nos tokens en CSS.
 
 - [ ] **Step 1 : Installer `@remotion/google-fonts`**
 
@@ -217,68 +238,91 @@ cd video && npm install @remotion/google-fonts
 ```
 Expected : ajouté à `dependencies` de `video/package.json`.
 
-- [ ] **Step 2 : Créer le fichier fonts.ts qui pré-charge Space Mono + Inter**
+- [ ] **Step 2 : Créer fonts.ts qui pré-charge les 4 fonts V2**
 
 ```ts
 // video/src/fonts.ts
 import { loadFont as loadSpaceMono } from '@remotion/google-fonts/SpaceMono';
 import { loadFont as loadInter } from '@remotion/google-fonts/Inter';
+import { loadFont as loadPlayfair } from '@remotion/google-fonts/PlayfairDisplay';
+import { loadFont as loadSourceSerif } from '@remotion/google-fonts/SourceSerif4';
 
-// Les fonts doivent être chargées au top-level pour être disponibles dans toute la composition.
+// Les fonts sont chargées au top-level — disponibles partout dans la composition.
+
+// Space Mono : kicker, eyebrows, mono tech
 loadSpaceMono('normal', { weights: ['400', '700'], subsets: ['latin'] });
+
+// Inter : déclarations brutes uppercase, big titles
 loadInter('normal', { weights: ['700', '800', '900'], subsets: ['latin'] });
+
+// Playfair Display : phrases signatures en italique sage (pattern V2 du hero)
+loadPlayfair('italic', { weights: ['400', '500', '800'], subsets: ['latin'] });
+
+// Source Serif 4 : body éditorial (rare en V1, dispo si besoin)
+loadSourceSerif('italic', { weights: ['400'], subsets: ['latin'] });
 ```
 
-- [ ] **Step 3 : Étendre Tailwind avec les couleurs et fonts du theme**
+- [ ] **Step 3 : Étendre `video/src/index.css` avec les tokens V2 (Tailwind v4)**
 
-Remplacer le contenu de `video/tailwind.config.ts` par :
+Lire d'abord le contenu actuel pour préserver les imports Tailwind v4 que le scaffolding a mis. Le fichier ressemble probablement à :
 
-```ts
-// video/tailwind.config.ts
-import type { Config } from 'tailwindcss';
-
-export default {
-  content: ['./src/**/*.{ts,tsx}'],
-  theme: {
-    extend: {
-      colors: {
-        bg: '#0D0D0D',
-        surface: '#141414',
-        'surface-2': '#1A1A1A',
-        text: '#E0E0E0',
-        muted: '#666666',
-        accent: '#00FF41',
-        danger: '#FF3E3E',
-        mutation: '#FFA630',
-        protege: '#5BC0EB',
-        croissance: '#3DDC84',
-      },
-      fontFamily: {
-        mono: ['"Space Mono"', 'monospace'],
-        sans: ['Inter', 'sans-serif'],
-      },
-    },
-  },
-} satisfies Config;
+```css
+@import "tailwindcss";
 ```
+
+Remplacer le contenu par :
+
+```css
+@import "tailwindcss";
+
+/* V2 Editorial Dark — tokens partagés avec le site Survivant-IA */
+@theme {
+  --color-bg: #0F0F0E;
+  --color-surface: #14140F;
+  --color-surface-2: #1A1A14;
+  --color-text: #E8E5DD;
+  --color-text-soft: #C5C2BB;
+  --color-muted: #8A8780;
+  --color-muted-soft: #6E6B65;
+  --color-dim: #5C5A52;
+  --color-accent: #5BA37A;
+  --color-accent-soft: rgba(91, 163, 122, 0.18);
+  --color-accent-glow: rgba(91, 163, 122, 0.25);
+  --color-rule: rgba(232, 229, 221, 0.12);
+  --color-hairline: rgba(232, 229, 221, 0.1);
+  --color-hairline-strong: rgba(232, 229, 221, 0.25);
+  --color-danger: #FF3E3E;
+  --color-mutation: #FFA630;
+  --color-protege: #5BC0EB;
+  --color-croissance: #3DDC84;
+
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-serif-body: 'Source Serif 4', Georgia, serif;
+}
+```
+
+(Les composants utiliseront `theme.ts` pour les valeurs en code TypeScript ; le CSS `@theme` sert à Tailwind si on l'utilise via classes utility. Les deux doivent rester en sync.)
 
 - [ ] **Step 4 : Vérifier que les fonts se chargent dans Studio**
 
 Run : `cd video && npm run dev`
-Ouvrir Studio sur `http://localhost:3000`. Pas de plantage attendu — la composition par défaut tourne toujours, on n'a pas encore branché les fonts dedans.
+Ouvrir Studio sur `http://localhost:3000`. La composition par défaut tourne toujours (on n'a pas encore branché les fonts au visual). Vérifier juste qu'il n'y a pas d'erreur de compilation.
 
 Kill `Ctrl+C` après vérification.
 
 - [ ] **Step 5 : Commit**
 
 ```bash
-git add video/package.json video/package-lock.json video/tailwind.config.ts video/src/fonts.ts
+git add video/package.json video/package-lock.json video/src/fonts.ts video/src/index.css
 git commit -m "$(cat <<'EOF'
-feat(video): configure Google Fonts (Space Mono, Inter) + Tailwind palette
+feat(video): load 4 V2 fonts (Space Mono, Inter, Playfair, Source Serif 4)
 
-Charge Space Mono 400/700 et Inter 700/800/900 via @remotion/google-fonts
-avec preload built-in (pas de FOIT). Étend Tailwind avec les tokens
-du theme.ts pour utility classes cohérentes.
+Charge les 4 fonts V2 Editorial Dark via @remotion/google-fonts —
+Space Mono (mono tech), Inter (déclarations brutes), Playfair Display
+italique (phrases signatures sage), Source Serif 4 (body éditorial).
+Tokens V2 ajoutés à index.css via @theme directive (Tailwind v4 CSS-first).
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
@@ -986,16 +1030,17 @@ EOF
 
 ---
 
-## Task 10: Beat 1 — Hook
+## Task 10: Beat 1 — Hook (V2 hybride éditorial)
 
 **Files:**
 - Replace: `video/src/beats/Beat1Hook.tsx`
 
-Beat 1 (frames 0-90, 0:00→0:03) :
+Beat 1 (frames 0-90, 0:00→0:03) — **pattern signature V2** (Inter caps brut + Playfair italique sage) :
 - KickerLabel "SURVIVANT-IA" slam-in à frame 0.
-- "JE NE SUIS PAS" type-in lettre par lettre, frames 0-30.
-- "UN COACH IA" apparait à frame 30, strike rouge à frame 45.
-- "JE SUIS LE SURVIVANT." slam vert + flash blanc à frame 75.
+- "JE NE SUIS PAS" type-in lettre par lettre Inter caps cream, frames 0-30.
+- "UN COACH IA." Inter caps cream slam à frame 30, strike rouge à frame 45.
+- "JE SUIS" Inter caps **soft** (textSoft, plus petit) slam à frame 60.
+- "le Survivant." **Playfair Display italique sage** (casse normale, plus grand) slam à frame 75 + flash cream 1-frame.
 
 Rappel : à l'intérieur d'une `<Sequence from={N}>`, `useCurrentFrame()` retourne le frame **local** (0 = début du beat). Toutes les valeurs de frame ci-dessous sont locales au beat.
 
@@ -1021,66 +1066,104 @@ export const Beat1Hook: React.FC<Props> = ({ format }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Type-in du début "JE NE SUIS PAS" sur frames 0-30 (1 frame par char).
+  // Type-in "JE NE SUIS PAS" frames 0-30
   const line1 = typeIn({ text: 'JE NE SUIS PAS', frame, startFrame: 0, framesPerChar: 2 });
 
-  // "UN COACH IA" apparait sec à frame 30, slam-in.
+  // "UN COACH IA." slam-in à frame 30
   const line2Slam = slamIn({ frame, fps, delay: 30, durationInFrames: 12 });
   const line2Visible = frame >= 30;
 
-  // "JE SUIS LE SURVIVANT." apparait à frame 60, slam-in.
-  const line3Slam = slamIn({ frame, fps, delay: 60, durationInFrames: 15 });
-  const line3Visible = frame >= 60;
+  // "JE SUIS" slam-in à frame 60 (smaller, soft)
+  const jeSuisSlam = slamIn({ frame, fps, delay: 60, durationInFrames: 12 });
+  const jeSuisVisible = frame >= 60;
 
-  // Flash blanc 1-frame à frame 75.
+  // "le Survivant." slam-in à frame 75 (Playfair italique sage — signature)
+  const survivantSlam = slamIn({ frame, fps, delay: 75, durationInFrames: 18 });
+  const survivantVisible = frame >= 75;
+
+  // Cream flash 1-frame à frame 75 (V2 — pas blanc pur)
   const flash = glitchFlash({ frame, triggerFrame: 75 });
 
-  // Adapter la taille au format (4:5 = un peu plus serré).
-  const titleSize = format === '9:16' ? 140 : 120;
+  // Sizes adaptées au format
+  const decSize = format === '9:16' ? 130 : 110;        // déclarations Inter
+  const jeSuisSize = format === '9:16' ? 90 : 76;       // "JE SUIS" plus petit
+  const signatureSize = format === '9:16' ? 200 : 170;  // "le Survivant." Playfair plus grand
 
   return (
     <BrandFrame format={format} kicker={<KickerLabel>SURVIVANT-IA</KickerLabel>}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          gap: '24px',
-          fontFamily: fonts.sans,
-          fontWeight: 800,
-          fontSize: titleSize,
-          lineHeight: 0.95,
-          textTransform: 'uppercase',
-          color: colors.text,
-        }}
-      >
-        {/* Line 1 — type-in */}
-        <div style={{ minHeight: titleSize * 0.95 }}>{line1}</div>
-
-        {/* Line 2 — "UN COACH IA" barré rouge */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '20px' }}>
+        {/* Line 1 — "JE NE SUIS PAS" type-in Inter caps cream */}
         <div
           style={{
+            fontFamily: fonts.sans,
+            fontWeight: 800,
+            fontSize: decSize,
+            lineHeight: 0.95,
+            textTransform: 'uppercase',
+            color: colors.text,
+            letterSpacing: '-0.01em',
+            minHeight: decSize * 0.95,
+          }}
+        >
+          {line1}
+        </div>
+
+        {/* Line 2 — "UN COACH IA." Inter caps cream + strikethrough red */}
+        <div
+          style={{
+            fontFamily: fonts.sans,
+            fontWeight: 800,
+            fontSize: decSize,
+            lineHeight: 0.95,
+            textTransform: 'uppercase',
+            color: colors.text,
+            letterSpacing: '-0.01em',
             opacity: line2Visible ? line2Slam : 0,
-            transform: `scale(${line2Visible ? 0.9 + 0.1 * line2Slam : 0.9})`,
+            transform: `scale(${line2Visible ? 0.92 + 0.08 * line2Slam : 0.92})`,
           }}
         >
           UN <Strikethrough startFrame={45} fadeText>COACH IA</Strikethrough>.
         </div>
 
-        {/* Line 3 — "JE SUIS LE SURVIVANT." en vert */}
+        {/* "JE SUIS" Inter caps soft (smaller) */}
         <div
           style={{
-            opacity: line3Visible ? line3Slam : 0,
-            transform: `translateY(${line3Visible ? (1 - line3Slam) * 30 : 30}px)`,
+            fontFamily: fonts.sans,
+            fontWeight: 800,
+            fontSize: jeSuisSize,
+            lineHeight: 1,
+            textTransform: 'uppercase',
+            color: colors.textSoft,
+            letterSpacing: '0.01em',
+            marginTop: 24,
+            opacity: jeSuisVisible ? jeSuisSlam : 0,
+            transform: `translateY(${jeSuisVisible ? (1 - jeSuisSlam) * 16 : 16}px)`,
           }}
         >
-          JE SUIS <span style={{ color: colors.accent }}>LE SURVIVANT.</span>
+          JE SUIS
+        </div>
+
+        {/* "le Survivant." Playfair italic sage — phrase signature */}
+        <div
+          style={{
+            fontFamily: fonts.serif,
+            fontStyle: 'italic',
+            fontWeight: 500,
+            fontSize: signatureSize,
+            lineHeight: 0.95,
+            color: colors.accent,
+            letterSpacing: '-0.025em',
+            opacity: survivantVisible ? survivantSlam : 0,
+            transform: `translateY(${survivantVisible ? (1 - survivantSlam) * 30 : 30}px)`,
+          }}
+        >
+          le Survivant.
         </div>
       </div>
 
-      {/* Flash blanc plein écran 1 frame */}
+      {/* Cream flash 1-frame (V2 — pas blanc pur) */}
       {flash > 0 && (
-        <AbsoluteFill style={{ background: 'white', opacity: flash, pointerEvents: 'none' }} />
+        <AbsoluteFill style={{ background: colors.text, opacity: flash * 0.85, pointerEvents: 'none' }} />
       )}
     </BrandFrame>
   );
@@ -1091,11 +1174,13 @@ export const Beat1Hook: React.FC<Props> = ({ format }) => {
 
 Run : `cd video && npm run dev`
 Sélectionner `Manifeste-9-16`, scrubber 0 à 90 :
-- Frame 0-30 : "JE NE SUIS PAS" se tape lettre par lettre
-- Frame 30 : "UN COACH IA." apparait avec un slam
-- Frame 45 : barre rouge traverse "COACH IA"
-- Frame 60 : "JE SUIS LE SURVIVANT." apparait avec un slam vers le haut
-- Frame 75 : flash blanc 1 frame
+- Frame 0-30 : "JE NE SUIS PAS" se tape lettre par lettre, Inter caps cream
+- Frame 30 : "UN COACH IA." slam-in Inter caps cream
+- Frame 45 : barre rouge traverse "COACH IA" (strikethrough)
+- Frame 60 : "JE SUIS" slam-in Inter caps soft (plus petit, cream-soft)
+- Frame 75 : "le Survivant." slam-in Playfair italique sage (casse normale, plus grand) + cream flash 1-frame
+
+Vérifier que Playfair Display italique se charge bien (pas de fallback Georgia visible).
 
 Kill avec `Ctrl+C`.
 
@@ -1104,12 +1189,13 @@ Kill avec `Ctrl+C`.
 ```bash
 git add video/src/beats/Beat1Hook.tsx
 git commit -m "$(cat <<'EOF'
-feat(video): implement Beat 1 — Hook
+feat(video): implement Beat 1 — Hook (V2 hybride éditorial)
 
-KickerLabel SURVIVANT-IA persistant. Type-in "JE NE SUIS PAS" sur
-les 30 premiers frames, slam-in "UN COACH IA." à frame 30 avec
-strikethrough rouge à frame 45, "JE SUIS LE SURVIVANT." à frame 60
-avec accent green sur LE SURVIVANT, flash blanc 1-frame à 75.
+Pattern signature V2 : Inter 800 caps cream pour les déclarations
+brutes ("JE NE SUIS PAS UN COACH IA."), Inter caps soft pour "JE SUIS",
+Playfair Display italique sage pour la phrase signature "le Survivant."
+(casse normale, plus grand). Strikethrough rouge sur "COACH IA",
+cream flash 1-frame (pas blanc pur) à frame 75.
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
@@ -1583,16 +1669,16 @@ export const Beat4Unique: React.FC<Props> = ({ format }) => {
           );
         })}
 
-        {/* SIGNAL CLAIR. GRATUIT. HEBDO. — encadré en accent green */}
+        {/* SIGNAL CLAIR. GRATUIT. HEBDO. — V2 : cream text, sage hairline border */}
         <div
           style={{
             marginTop: 40,
             padding: '32px 40px',
-            border: `4px solid ${colors.accent}`,
-            background: 'rgba(0, 255, 65, 0.06)',
+            border: `1px solid ${colors.accent}`,
+            background: colors.accentSoft,
             opacity: finalVisible ? finalSlam : 0,
             transform: `scale(${finalVisible ? 0.92 + 0.08 * finalSlam : 0.92})`,
-            boxShadow: `0 0 30px rgba(0, 255, 65, 0.2)`,
+            boxShadow: `0 0 24px ${colors.accentGlow}`,
           }}
         >
           <div
@@ -1600,7 +1686,7 @@ export const Beat4Unique: React.FC<Props> = ({ format }) => {
               fontSize: finalSize,
               fontWeight: 900,
               textTransform: 'uppercase',
-              color: colors.accent,
+              color: colors.text,
               lineHeight: 1,
               letterSpacing: '-0.01em',
             }}
@@ -1650,24 +1736,25 @@ EOF
 
 ---
 
-## Task 14: Beat 5 — CTA
+## Task 14: Beat 5 — CTA (V2 signature italique sage)
 
 **Files:**
 - Replace: `video/src/beats/Beat5CTA.tsx`
 
-Beat 5 (frames 750-900 global → 0-150 local, 0:25→0:30) :
+Beat 5 (frames 750-900 global → 0-150 local, 0:25→0:30) — **deuxième signature Playfair italique sage** (symétrie avec Beat 1) :
 - KickerLabel "PRENDS LE VIRAGE".
-- URL "SURVIVANT-IA.CH" centrée en accent green, cadre qui pulse (glow breathing).
-- "5 MIN / SEMAINE" type-in mot par mot.
-- "POUR RESTER EN AVANCE." avec "EN AVANCE" en green slam au dernier mot.
-- Fond gradient vert qui respire.
+- URL "SURVIVANT-IA.CH" centrée en sage Space Mono, cadre 2px sage avec soft glow breathing.
+- "5 MIN / SEMAINE." Inter caps cream type-in mot par mot.
+- "POUR RESTER" Inter caps soft (smaller).
+- "**en avance.**" en **Playfair Display italique sage** (casse normale, plus grand) — clôture du film, miroir de "le Survivant." du Beat 1.
+- Fond gradient sage subtle qui respire.
 
 - [ ] **Step 1 : Remplacer Beat5CTA.tsx**
 
 ```tsx
 // video/src/beats/Beat5CTA.tsx
 import React from 'react';
-import { useCurrentFrame, useVideoConfig, interpolate, Easing } from 'remotion';
+import { useCurrentFrame, useVideoConfig } from 'remotion';
 import { BrandFrame } from '../components/BrandFrame';
 import { KickerLabel } from '../components/KickerLabel';
 import { slamIn } from '../animations/slamIn';
@@ -1682,15 +1769,15 @@ export const Beat5CTA: React.FC<Props> = ({ format }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // URL slam-in à frame 0 local (= 750 global).
+  // URL slam-in à frame 0 local
   const urlSlam = slamIn({ frame, fps, delay: 0, durationInFrames: 18 });
 
-  // Pulse breathing du cadre — sinusoïdal, période 1.5s = 45 frames.
+  // Pulse breathing — V2 soft glow
   const breathPeriod = 1.5 * fps;
   const breath = Math.sin((frame / breathPeriod) * Math.PI * 2);
-  const glow = 30 + 15 * breath; // entre 15 et 45
+  const glow = 25 + 12 * breath; // softer que V1
 
-  // "5 MIN / SEMAINE" type-in mot par mot à partir de frame 30.
+  // "5 MIN / SEMAINE." type-in mot par mot à frame 30
   const promesseLine1 = typeIn({
     text: '5 MIN / SEMAINE.',
     frame,
@@ -1699,79 +1786,99 @@ export const Beat5CTA: React.FC<Props> = ({ format }) => {
     byWord: true,
   });
 
-  // "POUR RESTER EN AVANCE." — apparait à 60, "EN AVANCE" claque à 90.
+  // "POUR RESTER" à frame 60 (Inter caps soft)
   const restonsVisible = frame >= 60;
   const restonsSlam = slamIn({ frame, fps, delay: 60, durationInFrames: 12 });
-  const enAvanceSlam = slamIn({ frame, fps, delay: 90, durationInFrames: 14 });
 
-  // Fond gradient vert qui respire.
-  const gradientAlpha = 0.18 + 0.08 * breath;
-  const background = `radial-gradient(circle at 50% 60%, rgba(0, 255, 65, ${gradientAlpha}) 0%, ${colors.bg} 65%)`;
+  // "en avance." Playfair italique sage — signature, à frame 90
+  const enAvanceVisible = frame >= 90;
+  const enAvanceSlam = slamIn({ frame, fps, delay: 90, durationInFrames: 16 });
+
+  // Fond gradient sage subtle qui respire (V2)
+  const gradientAlpha = 0.10 + 0.06 * breath;
+  const background = `radial-gradient(circle at 50% 60%, rgba(91, 163, 122, ${gradientAlpha}) 0%, ${colors.bg} 70%)`;
 
   // Sizes
-  const urlSize = format === '9:16' ? 96 : 80;
+  const urlSize = format === '9:16' ? 90 : 76;
   const promesseSize = format === '9:16' ? 56 : 48;
+  const restonsSize = format === '9:16' ? 40 : 34;
+  const signatureSize = format === '9:16' ? 130 : 110; // "en avance." Playfair
 
   return (
     <BrandFrame format={format} kicker={<KickerLabel>PRENDS LE VIRAGE</KickerLabel>} background={background}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 48, fontFamily: fonts.mono }}>
-        {/* URL — cadre qui pulse */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40 }}>
+        {/* URL — V2 cadre 2px sage + soft glow */}
         <div
           style={{
-            border: `4px solid ${colors.accent}`,
-            padding: '32px 48px',
-            background: 'rgba(0, 255, 65, 0.06)',
+            border: `2px solid ${colors.accent}`,
+            padding: '28px 44px',
+            background: 'rgba(91, 163, 122, 0.04)',
             opacity: urlSlam,
-            transform: `scale(${0.85 + 0.15 * urlSlam})`,
-            boxShadow: `0 0 ${glow}px rgba(0, 255, 65, 0.5)`,
+            transform: `scale(${0.88 + 0.12 * urlSlam})`,
+            boxShadow: `0 0 ${glow}px ${colors.accentGlow}`,
           }}
         >
           <div
             style={{
+              fontFamily: fonts.mono,
               fontSize: urlSize,
               fontWeight: 700,
               color: colors.accent,
               letterSpacing: '0.05em',
               lineHeight: 1,
-              fontFamily: fonts.mono,
             }}
           >
             SURVIVANT-IA.CH
           </div>
         </div>
 
-        {/* Promesse */}
+        {/* "5 MIN / SEMAINE." Inter caps cream */}
         <div
           style={{
             fontFamily: fonts.sans,
-            fontWeight: 700,
+            fontWeight: 800,
             fontSize: promesseSize,
             color: colors.text,
             textTransform: 'uppercase',
             textAlign: 'center',
             lineHeight: 1.1,
+            letterSpacing: '-0.01em',
+            minHeight: promesseSize * 1.2,
           }}
         >
-          <div style={{ minHeight: promesseSize * 1.2 }}>{promesseLine1}</div>
+          {promesseLine1}
+        </div>
+
+        {/* "POUR RESTER" Inter caps soft + "en avance." Playfair italique sage */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
           <div
             style={{
-              minHeight: promesseSize * 1.2,
+              fontFamily: fonts.sans,
+              fontWeight: 800,
+              fontSize: restonsSize,
+              color: colors.textSoft,
+              textTransform: 'uppercase',
+              letterSpacing: '0.02em',
               opacity: restonsVisible ? restonsSlam : 0,
-              transform: `translateY(${restonsVisible ? (1 - restonsSlam) * 20 : 20}px)`,
-              marginTop: 8,
+              transform: `translateY(${restonsVisible ? (1 - restonsSlam) * 16 : 16}px)`,
             }}
           >
-            POUR RESTER{' '}
-            <span
-              style={{
-                color: colors.accent,
-                display: 'inline-block',
-                opacity: enAvanceSlam,
-                transform: `scale(${0.7 + 0.3 * enAvanceSlam})`,
-              }}
-            >
-              EN AVANCE.
-            </span>
+            POUR RESTER
+          </div>
+          <div
+            style={{
+              fontFamily: fonts.serif,
+              fontStyle: 'italic',
+              fontWeight: 500,
+              fontSize: signatureSize,
+              color: colors.accent,
+              lineHeight: 1,
+              letterSpacing: '-0.025em',
+              opacity: enAvanceVisible ? enAvanceSlam : 0,
+              transform: `translateY(${enAvanceVisible ? (1 - enAvanceSlam) * 24 : 24}px)`,
+            }}
+          >
+            en avance.
           </div>
         </div>
       </div>
@@ -1783,12 +1890,14 @@ export const Beat5CTA: React.FC<Props> = ({ format }) => {
 - [ ] **Step 2 : Tester dans Studio**
 
 Scrubber Manifeste-9-16 frames 750-900 :
-- 750 : URL "SURVIVANT-IA.CH" slam-in dans cadre vert
-- 750-900 : cadre vert pulse en glow breathing
-- 780-810 : "5 MIN / SEMAINE." type-in mot par mot
-- 810-840 : "POUR RESTER" apparait
-- 840-870 : "EN AVANCE." claque en vert
-- 880-900 : tient sur l'URL pulse, cut sec à 900
+- 750 : URL "SURVIVANT-IA.CH" slam-in dans cadre 2px sage
+- 750-900 : cadre sage pulse en soft glow breathing (V2)
+- 780-810 : "5 MIN / SEMAINE." Inter caps cream type-in mot par mot
+- 810-840 : "POUR RESTER" Inter caps soft slam-in
+- 840-870 : "en avance." Playfair italique sage slam-in (casse normale, plus grand)
+- 880-900 : tient sur la signature, cut sec à 900
+
+Vérifier la symétrie italique : Beat 1 finit avec "le Survivant." Playfair sage, Beat 5 finit avec "en avance." Playfair sage. Cohérence brand.
 
 Kill `Ctrl+C`.
 
@@ -1797,12 +1906,13 @@ Kill `Ctrl+C`.
 ```bash
 git add video/src/beats/Beat5CTA.tsx
 git commit -m "$(cat <<'EOF'
-feat(video): implement Beat 5 — CTA
+feat(video): implement Beat 5 — CTA (V2 signature italique sage)
 
-URL SURVIVANT-IA.CH dans cadre vert qui pulse en breathing 1.5s.
-"5 MIN / SEMAINE." type-in mot par mot à frame 30 local, "POUR RESTER"
-à 60, "EN AVANCE." claque en accent green à 90. Fond gradient vert
-qui respire. URL = logo final, pas de générique.
+URL SURVIVANT-IA.CH en Space Mono sage dans cadre 2px sage avec soft
+glow breathing (V2). "5 MIN / SEMAINE." type-in Inter caps cream.
+"POUR RESTER" Inter caps soft. "en avance." en Playfair Display
+italique sage — symétrie avec "le Survivant." du Beat 1, signature
+qui ferme le film.
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
