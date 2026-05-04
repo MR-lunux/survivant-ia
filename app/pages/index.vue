@@ -1,18 +1,18 @@
 <!-- app/pages/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Se former à l\'IA, ne pas se faire remplacer | Survivant-IA',
-  description: '1 rapport gratuit / semaine pour ne pas te faire remplacer par l\'IA. Compétences, astuces, cas concrets, sans jargon. Bonus : scanner par métier.',
-  ogTitle: 'Se former à l\'IA pour ne pas se faire remplacer - Survivant-IA',
-  ogDescription: '1 rapport par semaine pour ne pas te faire remplacer par l\'IA. Gratuit, sans jargon. Et un scanner d\'obsolescence par métier.',
+  title: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter | Survivant-IA',
+  description: 'Le repère des salariés qui veulent maîtriser l\'IA pour en sortir gagnants. Un nouvel article chaque semaine, sans jargon. Bonus : diagnostic IA par métier.',
+  ogTitle: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter',
+  ogDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans ton métier. Gratuit, sans jargon. Et un diagnostic IA par métier.',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Se former à l\'IA pour ne pas se faire remplacer',
-  twitterDescription: '1 rapport par semaine pour prendre le virage de l\'IA. Gratuit, sans jargon. Survivant-IA.',
+  twitterTitle: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter',
+  twitterDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans ton métier. Gratuit, sans jargon. Survivant-IA.',
 })
 
 defineOgImage('Default', {
-  title: 'Comment ne pas se faire remplacer par l\'IA',
-  kicker: '// ZONE ANTI-OBSOLESCENCE',
+  title: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter',
+  kicker: '// ZONE DE PILOTAGE',
 })
 
 const { capture } = usePosthogEvent()
@@ -47,21 +47,21 @@ onUnmounted(() => {
       <div ref="heroGrid" class="hero-grid-bg" aria-hidden="true" />
 
       <div class="container hero-inner">
-        <h1 class="hero-h1">Comment ne pas se faire remplacer par l'IA</h1>
+        <h1 class="hero-h1">Survivre à l'IA au travail, c'est apprendre à la piloter</h1>
 
         <p class="hero-tagline">
-          L'IA arrive. <span class="accent">Ne soyez pas une variable supprimée.</span>
+          Le repère des salariés qui veulent maîtriser l'IA <span class="accent">pour en sortir gagnants.</span>
         </p>
 
         <p class="hero-subtitle">
-          Tu sens que l'IA arrive sur ton métier. Tu as raison.
-          Voici les compétences à développer pour <strong>prendre le virage</strong>, pas pour le subir.
-          Soft skills, compréhension de l'IA, cas pratiques concrets, sans jargon.
+          Tu sens que l'IA arrive sur ton métier. Tu as raison, et c'est ta meilleure opportunité depuis dix ans.
+          Voici <strong>les leviers</strong> pour devenir le salarié qui maîtrise l'IA mieux que les autres dans son équipe.
+          Sans jargon, sans coder, sans formation de six mois.
         </p>
 
         <div class="swiss-cta">
           <span class="swiss-cta-eyebrow"><span class="num">- I.</span> Choisis ton entrée</span>
-          <p class="swiss-cta-prompt">Tu te poses laquelle de ces deux questions&nbsp;?</p>
+          <p class="swiss-cta-prompt">Par où veux-tu commencer&nbsp;?</p>
 
           <div class="qcards">
             <NuxtLink to="#newsletter" class="qcard" data-attr="hero-cta-newsletter" @click="onHomeCta('newsletter')">
@@ -74,9 +74,9 @@ onUnmounted(() => {
                   <circle class="core" cx="28" cy="28" r="3"/>
                 </svg>
               </div>
-              <h3 class="qcard-question">Veux-tu <strong>survivre</strong><br>avec l'IA&nbsp;?</h3>
-              <p class="qcard-meta">La Fréquence - un signal hebdomadaire, 5 minutes, pour rester un cran devant.</p>
-              <span class="qcard-arrow">Rejoindre la fréquence</span>
+              <h3 class="qcard-question">Veux-tu prendre <strong>une longueur d'avance</strong>&nbsp;?</h3>
+              <p class="qcard-meta">La Fréquence : un nouvel article chaque semaine, 5 minutes de lecture, dans ta boîte.</p>
+              <span class="qcard-arrow">Rejoindre la Fréquence (gratuit)</span>
             </NuxtLink>
 
             <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
@@ -88,8 +88,8 @@ onUnmounted(() => {
                   <path class="sand-bot" d="M 28 30 L 39 46 L 17 46 Z"/>
                 </svg>
               </div>
-              <h3 class="qcard-question">Veux-tu connaître ton <strong>obsolescence</strong>&nbsp;?</h3>
-              <p class="qcard-meta">Le Scanner - ton score d'obsolescence en 10 secondes. Sans email, sans inscription.</p>
+              <h3 class="qcard-question">Veux-tu cartographier <strong>l'IA dans ton métier</strong>&nbsp;?</h3>
+              <p class="qcard-meta">Le Scanner : diagnostic IA en 10 secondes. Gratuit.</p>
               <span class="qcard-arrow">Tester mon métier</span>
             </NuxtLink>
           </div>
