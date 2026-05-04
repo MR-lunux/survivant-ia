@@ -6,11 +6,11 @@
         <span class="newsletter-eyebrow" data-reveal>La Fréquence</span>
         <h2 id="newsletter-heading" class="newsletter-h2" data-reveal data-reveal-delay="1">
           Reste un <em>cran devant</em>.<br>
-          <strong>Une lettre par semaine.</strong>
+          <strong>Un nouvel article chaque semaine.</strong>
         </h2>
         <p class="newsletter-lead" data-reveal data-reveal-delay="2">
-          Cinq minutes de lecture, le mardi. Sans hype, sans funnel, sans sponsor.
-          Que des outils que j'utilise vraiment.
+          Cinq minutes de lecture, sans hype, sans funnel, sans sponsor.
+          Que des outils et signaux que j'utilise vraiment. Formations approfondies pour ceux qui veulent aller plus loin (bientôt).
         </p>
 
         <form
