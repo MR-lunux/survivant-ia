@@ -79,7 +79,7 @@ function onToggle(openedRow: HTMLDetailsElement) {
       <h2 id="rapports-heading" class="rapports-title">
         La veille hebdo <em>pour passer de subir l'IA à la piloter</em>.
       </h2>
-      <span class="rapports-meta">3 sections · {{ totalCount }} éditions</span>
+      <span v-if="totalCount >= 3" class="rapports-meta">3 sections · {{ totalCount }} éditions</span>
     </div>
 
     <div class="rapports-bookshelf" data-reveal data-reveal-delay="1">
@@ -98,7 +98,8 @@ function onToggle(openedRow: HTMLDetailsElement) {
             <span class="name"><em>{{ cat.nameAccent }}</em> {{ cat.nameRest }}</span>
             <span class="desc">{{ cat.desc }}</span>
             <span class="count">
-              <b>{{ totals[cat.slug] }}</b> rapports disponibles<span class="chevron">›</span>
+              <template v-if="totals[cat.slug] > 0"><b>{{ totals[cat.slug] }}</b> rapports disponibles</template>
+              <span class="chevron">›</span>
             </span>
           </div>
         </summary>
@@ -112,7 +113,7 @@ function onToggle(openedRow: HTMLDetailsElement) {
             <span class="b-date">{{ formatDate(art.date) }}</span>
             <NuxtLink :to="art.path" class="b-title" :data-attr="`bookshelf-art-${art.path}`">{{ art.title }}</NuxtLink>
           </li>
-          <li class="rb-branch-item see-all">
+          <li v-if="totals[cat.slug] > 0" class="rb-branch-item see-all">
             <NuxtLink :to="`/rapports?cat=${cat.slug}`" class="b-title">
               Voir les {{ totals[cat.slug] }} rapports en {{ cat.nameAccent }} {{ cat.nameRest }} →
             </NuxtLink>
