@@ -1,13 +1,13 @@
 <!-- app/pages/identite.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Mathieu Rérat : Qui est derrière Survivant-IA',
-  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et la PropTech. Le parcours de Mathieu Rérat et l\'esprit anti-obsolescence derrière Survivant-IA.',
-  ogTitle: 'Mathieu Rérat - Identité du Survivant-IA',
+  title: 'Mathieu Rerat : Qui pilote Survivant-IA',
+  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et l\'immobilier. Le parcours de Mathieu Rerat et l\'esprit derrière Survivant-IA : aider les salariés à piloter l\'IA dans leur métier.',
+  ogTitle: 'Mathieu Rerat : Identité du Survivant-IA',
   ogDescription: 'Le parcours et l\'esprit derrière Survivant-IA. Concret, sans théorie.',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Mathieu Rérat - Identité du Survivant-IA',
-  twitterDescription: 'Le parcours derrière Survivant-IA - anti-obsolescence pour les pros.',
+  twitterTitle: 'Mathieu Rerat : Identité du Survivant-IA',
+  twitterDescription: 'Le parcours derrière Survivant-IA : piloter l\'IA dans son métier.',
 })
 
 useHead({
@@ -23,7 +23,7 @@ useHead({
           alternateName: 'Mathieu le Survivant de l\'IA',
           url: 'https://survivant-ia.ch/identite',
           jobTitle: 'Deputy Head of IT',
-          description: 'Fondateur de Survivant-IA. Ex-PwC, Nestlé, Immopac. Aide les professionnels à se former à l\'IA pour ne pas se faire remplacer.',
+          description: 'Fondateur de Survivant-IA. Ex-PwC, Nestlé, Immopac. Aide les salariés à piloter l\'IA dans leur métier.',
           worksFor: { '@id': 'https://survivant-ia.ch/#organization' },
         },
         {
@@ -67,53 +67,13 @@ defineOgImage('Default', {
             <h2 style="margin: 0 0 0.35rem; font-size: 1.25rem; line-height: 1.3;">
               Mathieu <span class="text-accent">le Survivant de l'IA</span>
             </h2>
-            <span class="font-mono" style="font-size: 0.65rem; color: var(--color-muted); letter-spacing: 0.1em;">DEPUTY HEAD OF IT · SURVIVANT EN COURS</span>
+            <span class="font-mono" style="font-size: 0.65rem; color: var(--color-muted); letter-spacing: 0.1em;">DEPUTY HEAD OF IT · HEC LAUSANNE · 9 ANS EN TRANSFORMATION DIGITALE</span>
           </div>
         </div>
       </div>
     </ScannerBorder>
 
-    <div class="identity-text">
-      <p>
-        Mon parcours n'a rien d'un parcours tech pur : économie, master en systèmes d'information (HEC Lausanne),
-        puis PwC en audit IT, Nestlé comme Business Analyst, immopac où je suis passé de consultant
-        à Head of Office Romandie, et aujourd'hui Deputy Head of IT chez Solutions&nbsp;&amp;&nbsp;Funds.
-        Des environnements différents, un fil rouge : être l'interface entre les gens, les process,
-        et les outils.
-      </p>
-
-      <p>
-        Quand l'IA s'est invitée dans mon quotidien, j'ai plongé. Claude, ChatGPT, automatisations,
-        code... Je lis les articles, j'écoute les podcasts, je teste. Pendant un moment, j'ai cru
-        que plus j'en utilisais, mieux je travaillais.
-      </p>
-
-      <p>
-        Jusqu'au jour où j'ai réalisé que je n'avais plus la notion de l'effort. Je produisais vite,
-        beaucoup - mais je ne construisais plus rien. L'IA faisait, je validais. Ce signal ne m'a
-        pas rendu anti-IA. Il m'a rendu <strong class="text-accent">lucide</strong>.
-      </p>
-
-      <p>
-        Ce site existe pour les professionnels qui voient l'IA arriver sans savoir comment se
-        positionner. Pas pour en faire des experts. Pour leur donner les cartes que j'aurais
-        aimé avoir et éviter les erreurs que j'ai faites.
-      </p>
-
-      <ScannerBorder class="mission-block">
-        <p style="margin-bottom: 0.75rem;"><KickerLabel>MISSION</KickerLabel></p>
-        <p style="margin: 0; font-size: 1rem;">
-          Aider les gens à se préparer <em>avant</em> que l'IA ne prenne leur job - pas à pleurer <em>après</em>.
-        </p>
-      </ScannerBorder>
-
-      <p>
-        Je ne suis pas l'expert IA ultime. Je suis quelqu'un qui traverse la même zone que vous,
-        avec quelques cartes en main - et les cicatrices pour prouver que j'y suis déjà passé.
-      </p>
-    </div><!-- end .identity-text -->
-
-    <!-- ── PARCOURS ─────────────────────────────────────── -->
+    <!-- ── PARCOURS (moved up) ─────────────────────────── -->
     <div class="parcours-section">
       <p class="parcours-label"><KickerLabel>PARCOURS</KickerLabel></p>
       <div class="parcours-grid">
@@ -143,6 +103,46 @@ defineOgImage('Default', {
 
       </div>
     </div>
+
+    <div class="identity-text">
+      <p>
+        Master en systèmes d'information à HEC Lausanne. PwC en audit IT, puis Nestlé comme Business Analyst.
+        9 ans chez Immopac à piloter la transformation digitale d'un secteur traditionnel, l'immobilier,
+        en passant de consultant à Head of Office Romandie. Aujourd'hui Deputy Head of IT chez
+        Solutions&nbsp;&amp;&nbsp;Funds. J'ai vu de l'intérieur ce qui marche et ce qui plante dans les rollouts
+        d'outils, dans des organisations qui n'ont rien de tech.
+      </p>
+
+      <p>
+        Quand l'IA s'est invitée dans mon quotidien, j'ai plongé. Claude, ChatGPT, automatisations,
+        code... Je lis les articles, j'écoute les podcasts, je teste. Pendant un moment, j'ai cru
+        que plus j'en utilisais, mieux je travaillais.
+      </p>
+
+      <p>
+        Jusqu'au jour où j'ai réalisé que je n'avais plus la notion de l'effort. Je produisais vite,
+        beaucoup, mais je ne construisais plus rien. L'IA faisait, je validais. Ce signal ne m'a
+        pas rendu anti-IA. Il m'a rendu <strong class="text-accent">lucide</strong>.
+      </p>
+
+      <p>
+        Ce site existe pour les salariés qui voient l'IA arriver sans savoir comment se
+        positionner. Pas pour en faire des experts. Pour leur donner les cartes que j'aurais
+        aimé avoir et éviter les erreurs que j'ai faites.
+      </p>
+
+      <ScannerBorder class="mission-block">
+        <p style="margin-bottom: 0.75rem;"><KickerLabel>MISSION</KickerLabel></p>
+        <p style="margin: 0; font-size: 1rem;">
+          Aider les salariés à piloter l'IA dans leur métier <em>avant</em> de la subir.
+        </p>
+      </ScannerBorder>
+
+      <p>
+        Je ne suis pas l'expert IA ultime. Je suis quelqu'un qui traverse la même zone que vous,
+        avec quelques cartes en main, et les cicatrices pour prouver que j'y suis déjà passé.
+      </p>
+    </div><!-- end .identity-text -->
 
     <!-- ── CTA ──────────────────────────────────────────── -->
     <div class="identite-cta">
