@@ -8,8 +8,8 @@ const emit = defineEmits<{ click: [] }>()
 
     <div class="diag-header">
       <div class="diag-kicker"><KickerLabel>DIAGNOSTIC IA</KickerLabel></div>
-      <h2 id="diag-heading" class="diag-h2">Survivre à l'IA au travail commence par un diagnostic</h2>
-      <p class="diag-lead">Scanne ton métier - découvre ton score d'obsolescence en 10 secondes.</p>
+      <h2 id="diag-heading" class="diag-h2">Maîtriser l'IA au travail commence par un diagnostic</h2>
+      <p class="diag-lead">Scanne ton métier : diagnostic IA en 10 secondes.</p>
     </div>
 
     <article class="report" aria-label="Aperçu du rapport d'obsolescence (verrouillé)">
@@ -46,7 +46,7 @@ const emit = defineEmits<{ click: [] }>()
           @click="emit('click')"
         >
           <span class="cta-icon" aria-hidden="true">▶</span>
-          <span>Tester son obsolescence</span>
+          <span>Lancer le diagnostic</span>
         </NuxtLink>
       </div>
 
