@@ -17,7 +17,7 @@ const orgWebsiteJsonLd = computed(() => JSON.stringify({
       name: 'Survivant-IA',
       url: 'https://survivant-ia.ch',
       logo: 'https://survivant-ia.ch/icon-512.png',
-      description: 'Zone anti-obsolescence : rapports, outils et veille pour se former à l\'IA et développer les compétences que les algorithmes ne remplacent pas.',
+      description: 'Le repère des salariés qui veulent piloter l\'IA dans leur métier. Articles hebdomadaires, diagnostic IA par métier, et formations approfondies (bientôt) pour en sortir gagnants.',
       founder: {
         '@type': 'Person',
         '@id': 'https://survivant-ia.ch/identite#mathieu',
@@ -31,7 +31,7 @@ const orgWebsiteJsonLd = computed(() => JSON.stringify({
       '@id': 'https://survivant-ia.ch/#website',
       name: 'Survivant-IA',
       url: 'https://survivant-ia.ch',
-      description: 'Se former à l\'IA pour ne pas se faire remplacer. Soft skills, comprendre l\'IA, cas pratiques.',
+      description: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter. Un nouvel article chaque semaine pour les salariés non-tech, un diagnostic IA par métier.',
       inLanguage: 'fr-CH',
       publisher: { '@id': 'https://survivant-ia.ch/#organization' },
     },
