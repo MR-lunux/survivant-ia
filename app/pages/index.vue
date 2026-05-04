@@ -97,6 +97,9 @@ onUnmounted(() => {
       </div>
     </section>
 
+    <!-- ── BANDEAU DE TRAJECTOIRE ──────────────── -->
+    <HomeMastheadTrajectoire />
+
     <!-- ── MASTHEAD II — MANIFESTE ─────────────── -->
     <HomeMasthead num="II" title="Manifeste" meta="Pour qui écrit la Fréquence" />
 
@@ -114,8 +117,8 @@ onUnmounted(() => {
       <HomeDiagnosticTeaser @click="onHomeCta('scanner')" />
     </div>
 
-    <!-- ── MASTHEAD IV — COMPÉTENCES ───────────── -->
-    <HomeMasthead num="IV" title="Compétences IA-proof" meta="Ce que les modèles ne savent pas faire" />
+    <!-- ── MASTHEAD III — COMPÉTENCES ───────────── -->
+    <HomeMasthead num="III" title="Compétences IA-proof" meta="Ce que les modèles ne savent pas faire" />
 
     <!-- ── 4 COMPÉTENCES IA-PROOF ──────────────── -->
     <section class="skills-list-section">
@@ -124,8 +127,8 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <!-- ── MASTHEAD V — RAPPORTS ───────────────── -->
-    <HomeMasthead num="V" :title="'Rapports de Survie'" meta="MAJ hebdomadaire" />
+    <!-- ── MASTHEAD IV — RAPPORTS ───────────────── -->
+    <HomeMasthead num="IV" :title="'Rapports de Survie'" meta="MAJ hebdomadaire" />
 
     <!-- ── RAPPORTS BOOKSHELF ───────────────────── -->
     <section id="rapports" class="rapports-section">
@@ -134,8 +137,8 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <!-- ── MASTHEAD VI — FAQ ───────────────────── -->
-    <HomeMasthead num="VI" title="Questions fréquentes" meta="Les réponses avant que tu ne demandes" />
+    <!-- ── MASTHEAD V — FAQ ───────────────────── -->
+    <HomeMasthead num="V" title="Questions fréquentes" meta="Les réponses avant que tu ne demandes" />
 
     <!-- ── FAQ ─────────────────────────────────── -->
     <div class="container">
