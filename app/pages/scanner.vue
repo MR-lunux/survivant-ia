@@ -6,13 +6,13 @@ import SourcesModal from '~/components/SourcesModal.vue'
 
 // ── SEO ──────────────────────────────────────────────────
 useSeoMeta({
-  title: 'Scanner IA - Tester si mon métier est menacé par l\'IA | Survivant-IA',
-  description: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription à La Fréquence. Données multiples (Tufts, McKinsey, WEF, etc.).',
-  ogTitle: 'Scanner IA - Mon métier est-il menacé par l\'IA ?',
-  ogDescription: 'Score gratuit en 10 secondes. Plan d\'action complet sur inscription. Données multiples (Tufts, McKinsey, WEF, etc.). Survivant-IA.',
+  title: 'Scanner IA : mon métier est-il menacé par l\'IA ? | Survivant-IA',
+  description: 'Diagnostic IA gratuit en 10 secondes : sache où ton métier en est et comment piloter l\'IA pour en sortir gagnant. Données multiples (Tufts, McKinsey, WEF).',
+  ogTitle: 'Scanner IA : mon métier est-il menacé par l\'IA ?',
+  ogDescription: 'Diagnostic IA gratuit en 10 secondes pour les salariés non-tech. Comment piloter l\'IA dans ton métier au lieu de la subir. Données Tufts, McKinsey, WEF.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Mon métier est-il menacé par l\'IA ?',
-  twitterDescription: 'Score gratuit en 10 secondes. Plan d\'action sur inscription. Données multiples (Tufts, McKinsey, WEF, etc.).',
+  twitterDescription: 'Diagnostic IA gratuit en 10 secondes. Comment piloter l\'IA dans ton métier au lieu de la subir.',
 })
 
 useHead({
@@ -24,9 +24,9 @@ useHead({
         {
           '@type': 'WebApplication',
           '@id': 'https://survivant-ia.ch/scanner#app',
-          name: 'Scanner IA - Risque automatisation par métier',
+          name: 'Scanner IA : diagnostic métier en 10 secondes',
           url: 'https://survivant-ia.ch/scanner',
-          description: 'Teste en 10 secondes si ton métier est menacé par l\'IA. Score d\'obsolescence basé sur des rapports (Tufts, McKinsey, WEF, etc.).',
+          description: 'Diagnostic IA par métier en 10 secondes : sache où ton métier en est face à l\'IA et comment la piloter au lieu de la subir. Basé sur Tufts, McKinsey, WEF.',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
           inLanguage: 'fr-CH',

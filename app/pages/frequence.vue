@@ -1,13 +1,13 @@
 <!-- app/pages/frequence.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Rejoindre la Fréquence - Newsletter Survivant-IA',
-  description: '1 rapport par semaine pour se former à l\'IA et développer les compétences que les algorithmes ne remplacent pas. Gratuit, sans jargon, sans spam.',
+  title: 'Rejoindre la Fréquence : newsletter pour piloter l\'IA dans son métier | Survivant-IA',
+  description: 'Un nouvel article chaque semaine pour les salariés qui veulent maîtriser l\'IA dans leur métier. Gratuit, sans jargon, sans spam. 5 minutes de lecture.',
   ogTitle: 'Rejoindre la Fréquence - Newsletter Survivant-IA',
-  ogDescription: '1 rapport par semaine pour ne pas se faire remplacer par l\'IA. Gratuit.',
+  ogDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans son métier. Gratuit.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Rejoindre la Fréquence - Survivant-IA',
-  twitterDescription: '1 rapport par semaine pour ne pas se faire remplacer par l\'IA.',
+  twitterDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans son métier.',
 })
 
 useHead({
@@ -26,7 +26,7 @@ useHead({
 
 defineOgImage('Default', {
   title: 'Rejoindre la Fréquence',
-  kicker: '// 1 RAPPORT / SEMAINE · GRATUIT',
+  kicker: '// 1 ARTICLE / SEMAINE · GRATUIT',
 })
 </script>
 

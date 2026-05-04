@@ -1,13 +1,13 @@
 <!-- app/pages/rapports/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Rapports de Survie - Compétences à développer face à l\'IA | Survivant-IA',
-  description: 'Tous les rapports anti-obsolescence : soft skills, comprendre l\'IA, cas pratiques. La veille hebdo pour prendre le virage de l\'IA, pas pour le subir.',
+  title: 'Rapports de Survie : compétences pour piloter l\'IA dans son métier | Survivant-IA',
+  description: 'La veille hebdo des salariés qui veulent piloter l\'IA dans leur métier : soft skills, comprendre l\'IA, cas pratiques. Sans jargon, sans coder.',
   ogTitle: 'Rapports de Survie - Survivant-IA',
-  ogDescription: 'Soft skills, compréhension de l\'IA, cas pratiques. Anti-obsolescence pour les pros.',
+  ogDescription: 'Soft skills, comprendre l\'IA, cas pratiques. La veille hebdo pour piloter l\'IA dans son métier.',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Rapports de Survie - Survivant-IA',
-  twitterDescription: 'La veille hebdo pour prendre le virage de l\'IA, pas pour le subir.',
+  twitterDescription: 'La veille hebdo pour passer de subir l\'IA à la piloter.',
 })
 
 useHead({
@@ -20,7 +20,7 @@ useHead({
           '@type': 'CollectionPage',
           '@id': 'https://survivant-ia.ch/rapports#page',
           name: 'Rapports de Survie',
-          description: 'Tous les rapports anti-obsolescence : soft skills, comprendre l\'IA, cas pratiques.',
+          description: 'La veille hebdo pour piloter l\'IA dans son métier : soft skills, comprendre l\'IA, cas pratiques.',
           inLanguage: 'fr-CH',
           isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
         },
@@ -38,7 +38,7 @@ useHead({
 
 defineOgImage('Default', {
   title: 'Rapports de Survie',
-  kicker: '// COMPÉTENCES ANTI-OBSOLESCENCE',
+  kicker: '// COMPÉTENCES POUR PILOTER L\'IA',
 })
 
 const activeCategory = ref<string | null>(null)
