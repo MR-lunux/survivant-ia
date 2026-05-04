@@ -77,7 +77,7 @@ function onToggle(openedRow: HTMLDetailsElement) {
   <section class="rapports" aria-labelledby="rapports-heading">
     <div class="rapports-head" data-reveal>
       <h2 id="rapports-heading" class="rapports-title">
-        La veille hebdo <em>pour prendre le virage de l'IA</em>.
+        La veille hebdo <em>pour passer de subir l'IA à la piloter</em>.
       </h2>
       <span class="rapports-meta">3 sections · {{ totalCount }} éditions</span>
     </div>
