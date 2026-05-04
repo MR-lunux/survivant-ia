@@ -3,10 +3,10 @@
   <div class="manifeste-grid">
     <div class="manifeste-content" data-reveal>
       <p class="manifeste-quote">
-        Tu vois l'IA arriver dans ton job. Tu ne sais pas comment te positionner. Tu n'es pas seul. Ce n'est pas un cours de Python. Ce n'est pas du jargon. C'est une carte de survie pratique, une fois par semaine. <span class="accent">Prépare-toi avant que ça arrive.</span>
+        Tu vois l'IA arriver dans ton job. Tu ne sais pas comment te positionner. Tu n'es pas seul. Ce n'est pas un cours de Python. Ce n'est pas du jargon. C'est un signal pratique pour t'en servir avant les autres, une fois par semaine. <span class="accent">Pose ton avantage maintenant, pendant que c'est encore ouvert.</span>
       </p>
       <p class="manifeste-byline">
-        - <strong>Mathieu, le Survivant de l'IA</strong> · Fondateur · survivant-ia.ch
+        - <strong>Mathieu, Deputy Head of IT</strong> · 9 ans en transformation digitale · Fondateur de Survivant-IA
       </p>
     </div>
 
