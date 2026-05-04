@@ -11,7 +11,7 @@ const socials = {
     <div class="container footer-inner">
       <div class="footer-brand">
         <AppLogo variant="lockup" />
-        <p class="footer-tagline">L'IA ARRIVE. NE SOYEZ PAS UNE VARIABLE SUPPRIMÉE.</p>
+        <p class="footer-tagline">L'IA ARRIVE. APPRENDS À LA PILOTER.</p>
       </div>
 
       <div class="footer-links">
