@@ -3,7 +3,7 @@
 const faqs = [
   {
     q: "Comment ne pas se faire remplacer par l'IA dans son métier ?",
-    a: "Trois leviers concrets : (1) maîtriser ce que l'IA fait mal - la précision du langage, le contexte humain, le jugement contextuel ; (2) utiliser l'IA comme outil au lieu de la subir, en automatisant ce qui te ralentit ; (3) renforcer les compétences relationnelles, la stratégie et le jugement éthique - c'est là que la valeur humaine devient irremplaçable.",
+    a: "Trois leviers concrets : (1) maîtriser ce que l'IA fait mal, la précision du langage, le contexte humain, le jugement ; (2) utiliser l'IA comme un copilote pour automatiser ce qui te ralentit ; (3) renforcer ton relationnel, ta stratégie et ton jugement éthique, c'est là que ta valeur devient irremplaçable. Bref : tu ne luttes pas contre l'IA, tu apprends à t'en servir mieux que les autres.",
   },
   {
     q: "Quelles sont les compétences à développer face à l'IA ?",
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "Comment survivre à l'IA au travail quand on n'a pas de compétences techniques ?",
-    a: "En devenant indispensable sur ce que l'IA ne fait pas : décider en contexte ambigu, motiver une équipe, négocier, comprendre ce que veut vraiment un client. La technique se rattrape - la posture humaine non. Survivant-IA t'aide à structurer cette posture.",
+    a: "En devenant indispensable sur ce que l'IA ne fait pas : décider en contexte ambigu, motiver une équipe, négocier, comprendre ce que veut vraiment un client. La technique se rattrape, la posture humaine non. Survivant-IA t'aide à structurer cette posture, à intégrer l'IA dans ton workflow, et à devenir le salarié qui sait.",
   },
   {
     q: "C'est quoi « prendre le virage de l'IA » concrètement ?",
@@ -23,15 +23,15 @@ const faqs = [
   },
   {
     q: "Mon métier va-t-il vraiment être remplacé par l'IA ?",
-    a: "Probablement pas en entier - mais certaines tâches le seront. Lance le diagnostic Survivant-IA : il croise les rapports 2026 (Tufts, McKinsey, WEF) pour estimer ton score d'obsolescence en 10 secondes. Tu sauras quelles tâches sont à risque, et lesquelles deviennent au contraire plus précieuses.",
+    a: "Probablement pas en entier. Mais certaines tâches le seront, et certaines deviendront au contraire beaucoup plus précieuses (celles où tu pilotes l'IA au lieu de la subir). Lance le diagnostic Survivant-IA : il croise les rapports 2026 (Tufts, McKinsey, WEF) pour estimer l'impact de l'IA sur ton métier en 10 secondes.",
   },
   {
     q: "Combien de temps me reste-t-il avant que l'IA remplace mon métier ?",
-    a: "Variable selon le métier : 2-3 ans pour les tâches répétitives et déjà numérisées (saisie, traduction basique, rédaction standard) ; 5-10 ans pour les tâches d'analyse et de coordination ; quasi jamais pour les tâches qui combinent jugement humain, relation et contexte. Le diagnostic te donne une estimation par métier.",
+    a: "Variable selon le métier : 2-3 ans pour les tâches répétitives et déjà numérisées (saisie, traduction basique, rédaction standard) ; 5-10 ans pour les tâches d'analyse et de coordination ; quasi jamais pour les tâches qui combinent jugement humain, relation et contexte. Le diagnostic te donne une estimation par métier. Plus tu prends le virage tôt, plus tu deviens celui qui pilote l'IA dans ton équipe, au lieu de la subir.",
   },
   {
     q: "C'est quoi la Fréquence Survivant-IA ?",
-    a: "Une newsletter hebdomadaire gratuite : 1 rapport de survie par semaine, 5 minutes de lecture, sans jargon. Concret, terrain, pas de théorie. Tu apprends à utiliser l'IA pour devenir indispensable plutôt que remplaçable.",
+    a: "Une newsletter hebdomadaire gratuite : un nouvel article par semaine, 5 minutes de lecture, sans jargon. Concret, terrain, pas de théorie. Et bientôt : des formations approfondies pour ceux qui veulent aller plus loin.",
   },
 ]
 
@@ -53,7 +53,7 @@ useHead({
 <template>
   <section class="faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="faq-h2" data-reveal>
-      Questions fréquentes sur le <em>remplacement par l'IA</em>.
+      Questions fréquentes sur <em>l'IA au travail</em>.
     </h2>
 
     <div class="faq-list" data-reveal data-reveal-delay="1">
