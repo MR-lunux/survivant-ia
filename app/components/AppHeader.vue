@@ -106,14 +106,17 @@ const socials = {
 
 @media (max-width: 640px) {
   .app-header {
-    /* Sur mobile : position fixed (au lieu de sticky) pour éviter
-       que la URL bar Safari iOS qui se rétracte ne crée un gap où
-       le contenu de la page apparaît au-dessus du header. Le main
-       compense via padding-top dans le default layout. */
+    /* Sur mobile : position fixed + padding-top safe-area-inset-top
+       pour que le background du header couvre la zone du notch / status
+       bar et empêche le contenu de la page de transparaître au-dessus.
+       Avec viewport-fit=cover dans le meta viewport, la page rend dans
+       la safe-area, et env(safe-area-inset-top) vaut ~44px sur iPhone
+       à notch (0 sur les autres appareils). */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    padding-top: env(safe-area-inset-top, 0);
     background: var(--color-bg);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
