@@ -106,8 +106,14 @@ const socials = {
 
 @media (max-width: 640px) {
   .app-header {
-    /* Sur mobile : fond opaque, pas de blur — fixe le problème de scroll
-       qui laissait apparaître le contenu de la page sous le header */
+    /* Sur mobile : position fixed (au lieu de sticky) pour éviter
+       que la URL bar Safari iOS qui se rétracte ne crée un gap où
+       le contenu de la page apparaît au-dessus du header. Le main
+       compense via padding-top dans le default layout. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background: var(--color-bg);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;

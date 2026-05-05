@@ -13,4 +13,12 @@
 <style scoped>
 .layout { min-height: 100vh; display: flex; flex-direction: column; }
 .main-content { flex: 1; }
+
+/* Sur mobile : le header passe en position: fixed pour éviter le gap
+   de la URL bar iOS Safari. On compense la hauteur ici. */
+@media (max-width: 640px) {
+  .main-content {
+    padding-top: 96px;
+  }
+}
 </style>
