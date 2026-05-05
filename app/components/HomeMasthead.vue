@@ -23,7 +23,7 @@ defineProps<{
   border-top: 1px solid var(--color-rule);
   border-bottom: 1px solid var(--color-rule);
   margin: 3.5rem 0 2rem;
-  background: linear-gradient(180deg, transparent, rgba(91, 163, 122, 0.025), transparent);
+  background: linear-gradient(180deg, transparent, rgba(108, 227, 181, 0.025), transparent);
 }
 
 .masthead-inner {

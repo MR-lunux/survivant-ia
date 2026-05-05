@@ -151,7 +151,7 @@ async function submit() {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(91, 163, 122, 0.08), transparent 50%);
+  background: radial-gradient(ellipse at 30% 50%, rgba(108, 227, 181, 0.08), transparent 50%);
   pointer-events: none;
 }
 

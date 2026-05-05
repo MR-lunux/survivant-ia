@@ -7,7 +7,7 @@
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 
 // ── Tunables (à ajuster sur le rendu réel) ────────
-const ACCENT             = '91,163,122'
+const ACCENT             = '108,227,181'
 const COUNT_DESKTOP      = 45
 const COUNT_MOBILE       = 25
 const MOBILE_BREAK       = 768

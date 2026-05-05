@@ -160,8 +160,8 @@ onUnmounted(() => {
 .hero-grid-bg {
   position: absolute; inset: 0; z-index: 0;
   background-image:
-    linear-gradient(rgba(91, 163, 122, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(91, 163, 122, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(108, 227, 181, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 227, 181, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   will-change: transform;

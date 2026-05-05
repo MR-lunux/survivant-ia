@@ -175,8 +175,8 @@ function onToggle(openedRow: HTMLDetailsElement) {
   transition: background 0.25s ease;
 }
 .rb-row:last-of-type { border-bottom: none; }
-.rb-row:hover  { background: rgba(91, 163, 122, 0.03); }
-.rb-row[open]  { background: rgba(91, 163, 122, 0.05); }
+.rb-row:hover  { background: rgba(108, 227, 181, 0.03); }
+.rb-row[open]  { background: rgba(108, 227, 181, 0.05); }
 
 .rb-summary {
   list-style: none;
