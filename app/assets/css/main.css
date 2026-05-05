@@ -31,7 +31,7 @@
   --color-croissance: #3DDC84;
 
   /* Fonts */
-  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, monospace;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-serif-body: Georgia, 'Times New Roman', serif;

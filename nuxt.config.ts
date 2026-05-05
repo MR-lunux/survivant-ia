@@ -18,7 +18,6 @@ export default defineNuxtConfig({
   fonts: {
     defaults: { display: 'swap' },
     families: [
-      { name: 'Space Mono', provider: 'google', weights: [400, 700], global: true },
       { name: 'Inter', provider: 'google', weights: [400, 700, 900], global: true },
       { name: 'Playfair Display', provider: 'google', weights: [400, 500, 800], styles: ['normal', 'italic'], global: true },
     ],
