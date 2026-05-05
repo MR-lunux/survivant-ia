@@ -29,7 +29,7 @@ export default defineNuxtConfig({
       width: 1200,
       height: 630,
     },
-    fonts: ['Space+Mono:400', 'Space+Mono:700', 'Inter:400', 'Inter:700'],
+    fonts: ['Space+Mono:400', 'Space+Mono:700', 'Inter:400', 'Inter:700', 'Playfair+Display:ital,wght@1,400'],
   },
   sitemap: {
     autoLastmod: true,

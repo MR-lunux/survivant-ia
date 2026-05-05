@@ -11,8 +11,8 @@ useSeoMeta({
 })
 
 defineOgImage('Default', {
-  title: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter',
-  kicker: '// ZONE DE PILOTAGE',
+  title: 'Le repère des salariés qui veulent maîtriser l\'IA',
+  titleAccent: 'pour en sortir gagnants.',
 })
 
 const { capture } = usePosthogEvent()
