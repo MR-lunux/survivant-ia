@@ -46,9 +46,10 @@ const socials = {
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(0, 255, 65, 0.15);
-  background: rgba(13, 13, 13, 0.9);
-  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-rule);
+  background: rgba(15, 15, 14, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   animation: headerSlideDown 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @keyframes headerSlideDown {
@@ -104,6 +105,13 @@ const socials = {
 .social-links a:hover { color: var(--color-accent); }
 
 @media (max-width: 640px) {
+  .app-header {
+    /* Sur mobile : fond opaque, pas de blur — fixe le problème de scroll
+       qui laissait apparaître le contenu de la page sous le header */
+    background: var(--color-bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
   .header-inner {
     flex-wrap: wrap;
     height: auto;
