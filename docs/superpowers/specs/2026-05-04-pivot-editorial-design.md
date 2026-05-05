@@ -1,8 +1,11 @@
-# Pivot éditorial Survivant-IA — design (sous-projet 1)
+# Pivot éditorial Survivant-IA — design (sous-projet 1) + addendum brand system
 
-**Date** : 2026-05-04
-**Statut** : design validé, prêt pour `writing-plans`
-**Scope** : sous-projet 1 sur 3 du repositionnement global (cf. section "Hors scope")
+**Date initiale** : 2026-05-04
+**Dernière mise à jour** : 2026-05-05
+**Statut** : sous-projet 1 livré et déployé, addendum brand system documenté
+**Scope** : sous-projet 1 du repositionnement éditorial **+ extensions livrées le 2026-05-05** (SEO étendu, typographie réduite, couleur accent menthe, régénération logo)
+
+> **Note de lecture** : ce document est un hybride. Les sections 1 à 9 décrivent le **spec d'origine** du sous-projet 1 (snapshot du 2026-05-04, livré tel quel). La section 10 (Addendum brand system) documente les décisions et livraisons postérieures qui ne faisaient pas partie du spec initial mais qui complètent le brand system du site.
 
 ---
 
@@ -326,3 +329,190 @@ Le sous-projet 1 sera considéré comme livré quand :
 - [ ] La section PARCOURS de la page Identité est positionnée avant le texte narratif
 - [ ] La signature manifeste mentionne `Deputy Head of IT`
 - [ ] Aucune régression visuelle (screenshots avant/après cohérents sur le DA Editorial Dark sage)
+
+---
+
+# 10. Addendum — brand system étendu (2026-05-05)
+
+> Cette section documente toutes les décisions prises et livrées **après** le spec initial. Elle vit comme une référence brand system : à consulter et mettre à jour quand un nouveau choix structurant est pris.
+
+## 10.1 Hygiène — compteurs Rapports vides (sous-projet 3 partiel)
+
+**Décision** : masquer les compteurs tant qu'ils ne sont pas crédibles. Réactivation automatique dès que la production éditoriale remplit les catégories.
+
+**Implémentation** dans `app/components/RapportsBookshelf.vue` :
+
+- Compteur global `3 sections · X éditions` → `v-if="totalCount >= 3"`
+- Compteur par catégorie `<b>X</b> rapports disponibles` → `v-if="totals[cat.slug] > 0"` (le chevron `›` reste, l'affordance d'expand est préservée)
+- Lien `Voir les X rapports en Y →` → `v-if="totals[cat.slug] > 0"`
+
+**Reste hors scope** (sous-projet 3 complet) : aucun élément résiduel identifié au 2026-05-05.
+
+**Commit** : `e8cefd9` — `feat(rapports): cacher compteurs vides (global < 3 et catégories à 0)`
+
+## 10.2 SEO étendu — pivot global au-delà de la home
+
+Le spec initial ne couvrait que la home et la page Identité côté SEO meta. Quatre fichiers supplémentaires ont été pivotés pour cohérence brand globale.
+
+### 10.2.1 JSON-LD global (Organization + WebSite)
+
+`app/app.vue` contient un JSON-LD `@graph` avec `Organization` et `WebSite`. Les deux `description` étaient restées en registre défensif.
+
+| Schema | Avant | Après |
+|---|---|---|
+| `Organization.description` | `Zone anti-obsolescence : rapports, outils et veille pour se former à l'IA et développer les compétences que les algorithmes ne remplacent pas.` | `Le repère des salariés qui veulent piloter l'IA dans leur métier. Articles hebdomadaires, diagnostic IA par métier, et formations approfondies (bientôt) pour en sortir gagnants.` |
+| `WebSite.description` | `Se former à l'IA pour ne pas se faire remplacer. Soft skills, comprendre l'IA, cas pratiques.` | `Survivre à l'IA au travail, c'est apprendre à la piloter. Un nouvel article chaque semaine pour les salariés non-tech, un diagnostic IA par métier.` |
+
+**Commit** : `890a68a` — `fix(seo): pivoter les descriptions JSON-LD Organization + WebSite`
+
+### 10.2.2 Pages Scanner / Rapports / Fréquence
+
+**Décision stratégique : pivot pragmatique SEO-aware** (option B retenue) — on garde les **mots-clés défensifs à fort volume Google dans les `<title>` / `og:title` / `twitter:title`**, on pivote tout le reste (descriptions, JSON-LD, kickers OG image).
+
+Logique : aligne la même règle que la FAQ section 9 — *garder le mot-clé défensif dans la question pour le SEO, pivoter dans la réponse*.
+
+**`app/pages/scanner.vue`** :
+- Conservé : title, ogTitle, twitterTitle, defineOgImage.title (formulations « mon métier menacé par l'IA » = grosse requête)
+- Pivoté : description, ogDescription, twitterDescription, `WebApplication.name` + `description` du JSON-LD
+
+**`app/pages/rapports/index.vue`** : pivot complet
+- title, descriptions, `CollectionPage.description`, kicker OG image (`// COMPÉTENCES ANTI-OBSOLESCENCE` → `// COMPÉTENCES POUR PILOTER L'IA`)
+- Aucun mot-clé défensif fort à préserver sur cette page
+
+**`app/pages/frequence.vue`** : pivot complet
+- title, descriptions, kicker OG image (`// 1 RAPPORT / SEMAINE · GRATUIT` → `// 1 ARTICLE / SEMAINE · GRATUIT`, cohérent avec la décision « article hebdo » prise sur la home)
+
+**Commit** : `768d2f4` — `fix(seo): pivoter les meta des pages scanner / rapports / frequence`
+
+### 10.2.3 Pages SEO non touchées (et pourquoi)
+
+| Page | Statut | Raison |
+|---|---|---|
+| `pages/confidentialite.vue` | inchangé | Page légale, hors marketing |
+| `pages/rapports/[...slug].vue` | inchangé | Meta dynamiques générées depuis le contenu Markdown de chaque article |
+| `nuxt.config.ts` (head global) | inchangé | Robots, viewport, hreflang fr-CH/fr/x-default — déjà optimaux |
+| `public/robots.txt` | inchangé | `User-agent: * Allow: / Sitemap: ...` correct |
+| `public/site.webmanifest` | inchangé | Brand name + icons + colors, pas de copy |
+
+## 10.3 Typographie — réduction 3 → 2 polices
+
+**Décision** : retirer **Space Mono** du chargement front-end. Le visiteur ne télécharge plus que **Inter** + **Playfair Display**. La pile mono système prend le relais sur les blocs `var(--font-mono)`.
+
+**Justification** : trois polices c'était trop. Inter (workhorse body) et Playfair italic (signature brand sage validée le 2026-05-03 dans la mémoire DA) sont intouchables. Space Mono était le candidat naturel à la suppression.
+
+### 10.3.1 Pile mono résultante
+
+```css
+--font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, monospace;
+```
+
+| OS | Rendu | Caractère |
+|---|---|---|
+| macOS / iOS | SF Mono | Très propre, pro |
+| Windows 11 | Cascadia Mono | Lisible, légèrement humaniste |
+| Android | Roboto Mono | Géométrique, neutre |
+| Linux | Variable | Fallback générique sur `monospace` |
+
+### 10.3.2 Conservé pour la génération OG image (server-side)
+
+Space Mono reste embarqué côté `nuxt.config.ts → ogImage.fonts: ['Space+Mono:400', 'Space+Mono:700', 'Inter:400', 'Inter:700']` pour que **satori** continue de rendre les images de partage social (`Default.satori.vue`) avec leur look terminal Space Mono. Aucun impact perf pour le visiteur (rendu une seule fois côté serveur lors du build).
+
+### 10.3.3 Impact visuel attendu
+
+Les blocs qui basculent sur la pile mono système :
+- Cartes hero `qcard-num` (« 01 / Newsletter hebdomadaire »)
+- Carte Diagnostic IA (champs SUJET / RISQUE / HORIZON / STATUT)
+- Signature manifeste
+- Mentions footer + breadcrumbs
+- Tous les `<KickerLabel>` et classes `.font-mono`
+
+**Commit** : `2428fa6` — `perf(fonts): retirer Space Mono du chargement front-end (3 → 2 polices)`
+
+## 10.4 Couleur — accent sage olive → menthe atmosphérique
+
+**Décision** : pivoter l'accent brand de `#5BA37A` (sage olive) à **`#6CE3B5`** (menthe atmosphérique) pour gagner en luminosité sur warm dark. Décision prise après revue d'un mockup HTML standalone (`proposal-greens.html`, 5 candidats).
+
+### 10.4.1 Tokens CSS finaux (`app/assets/css/main.css`)
+
+```css
+--color-accent: #6CE3B5;
+--color-accent-soft: rgba(108, 227, 181, 0.18);
+--color-accent-glow: rgba(108, 227, 181, 0.25);
+```
+
+HSL : 156° 67% 66% — pastel lumineux, ambiance lecture longue.
+
+### 10.4.2 Hardcodés rgba mis à jour
+
+Les composants suivants avaient des `rgba(91, 163, 122, ...)` hardcodés (gradients, hover states, hero grid background) — tous remplacés par `rgba(108, 227, 181, ...)` :
+
+- `app/components/HomeMasthead.vue` — gradient masthead
+- `app/components/NewsletterForm.vue` — radial gradient lead
+- `app/components/RapportsBookshelf.vue` — hover + open background
+- `app/components/ParticleCanvas.vue` — constante `ACCENT`
+- `app/pages/index.vue` — hero grid background
+
+### 10.4.3 Régénération du logo / favicon
+
+Le logo on-page (`AppLogo.vue`) utilise `fill="currentColor"` + `color: var(--color-accent)` — il s'adapte automatiquement au nouveau token CSS, pas de modif nécessaire.
+
+Les **assets statiques** ont été régénérés depuis la source vectorielle :
+
+1. Sources mises à jour avec `fill="#6CE3B5"` (ou équivalent `color="#6CE3B5"` pour les SVG `currentColor`) :
+   - `logo/favicon-source.svg`
+   - `logo/logo-raw.svg`
+   - `logo/logo.svg`
+2. Génération automatique via `scripts/generate-favicons.sh` (ImageMagick requis) :
+   - `public/favicon.svg` (copie de la source)
+   - `public/favicon.ico` (multi-resolution 16/32/48)
+   - `public/apple-touch-icon.png` (180×180)
+   - `public/icon-192.png` (PWA Android)
+   - `public/icon-512.png` (PWA Android)
+
+### 10.4.4 Couleur **non** modifiée (volontaire)
+
+| Couleur | Code | Usage | Pourquoi conservée |
+|---|---|---|---|
+| Terminal phosphor green | `#00FF41` (et rgba(0,255,65,...)) | Scanner card, OG images, redact bars | Esthétique « transmission chiffrée » dédiée, séparée de l'accent brand. Identité visuelle distincte du scanner et du partage social. |
+
+**Commit** : `bd4d678` — `feat(brand): pivot accent sage → menthe atmosphérique #6CE3B5`
+
+## 10.5 Mémoire DA à mettre à jour
+
+La mémoire `~/.claude/projects/-Users-mathieu-Documents-survivor/memory/project_da_v2_editorial_dark.md` mentionnait :
+
+> « depuis 2026-05-03 : sage #5BA37A + Playfair italic + warm dark ; pattern signature Inter caps + Playfair italic sage »
+
+À actualiser pour refléter la **menthe atmosphérique #6CE3B5** comme couleur d'accent depuis le 2026-05-05.
+
+## 10.6 Changelog complet (2026-05-04 + 2026-05-05)
+
+```
+bd4d678  feat(brand): pivot accent sage → menthe atmosphérique #6CE3B5
+2428fa6  perf(fonts): retirer Space Mono du chargement front-end (3 → 2 polices)
+768d2f4  fix(seo): pivoter les meta des pages scanner / rapports / frequence
+890a68a  fix(seo): pivoter les descriptions JSON-LD Organization + WebSite
+e8cefd9  feat(rapports): cacher compteurs vides (global < 3 et catégories à 0)
+570a5b0  feat(identite): rééquilibrage autorité (PARCOURS remonté, paragraphes pivot, mission piloter)
+8e1410d  feat(footer): baseline pivot piloter
+27355e2  feat(newsletter): article hebdo (sans mardi) + mention formations (bientôt)
+6c1ed20  feat(faq): pivot 5 réponses + H2 (Q1, Q4, Q6, Q7, Q8 réécrites)
+b885c2e  feat(rapports): pivot titre veille (subir → piloter)
+a1c934d  feat(diagnostic): pivot maîtriser + CTA Lancer le diagnostic (A3 neutre)
+a629dd5  feat(manifeste): pivot signal pratique + signature Deputy Head of IT
+14fd6d7  feat(home): insertion bandeau trajectoire + renumérotation Mastheads
+c68d402  feat(home): pivot hero (H1 piloter, baseline gagnants, cartes Choisis ton entrée)
+ec71570  feat(home): nouveau composant HomeMastheadTrajectoire (bandeau de contrat éditorial)
+0d4eb58  docs(plan): pivot éditorial Survivant-IA — implementation plan (sous-projet 1)
+9bf85b9  docs(spec): pivot éditorial Survivant-IA (sous-projet 1)
+```
+
+## 10.7 Ce qui reste en backlog
+
+- **Sous-projet 2 — Scanner v2** (toujours hors scope, à brainstormer séparément)
+  - Algorithme `potential` (0-100) à ajouter aux 30+ jobs
+  - Matrice 4 statuts gradués combinant `risk × potential`
+  - Refonte écran de résultat (constat → plan d'action 3 étapes)
+  - Articles à linker depuis l'écran de résultat (dépend de la production de Rapports)
+- **Production éditoriale** — augmenter la production de Rapports pour réactiver naturellement les compteurs masqués (10.1)
+- **Dépendance future** : si La Fréquence (Brevo) bascule formellement vers le format « teaser d'article hebdo », réviser le wording de la home `qcard-newsletter` et du `NewsletterForm` pour clarifier que l'email pousse vers un article sur le site (déjà partiellement fait, mais peut être renforcé visuellement avec un mock d'email-teaser)
