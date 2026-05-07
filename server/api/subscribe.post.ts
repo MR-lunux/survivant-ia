@@ -27,7 +27,12 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event)
-  const { prenom, email, consent, source, job_slug, job_status, website } = body ?? {}
+  const {
+    prenom, email, consent, source, website,
+    job_slug, job_status,                                    // legacy v1, conservé
+    job_quadrant, job_risk, job_potential,                  // nouveau v2
+    formations_interest,                                     // nouveau v2
+  } = body ?? {}
 
   // Honeypot anti-bot : silencieux, pas d'appel Brevo, pas de rate-limit incrémenté
   if (website) {
@@ -73,11 +78,28 @@ export default defineEventHandler(async (event) => {
         PRENOM: stripHtml(prenom.trim()),
         CONSENT: true,
         SOURCE: safeSource,
+        // ── legacy v1 (conservé pour backward compat) ─────────
         ...(typeof job_slug === 'string' && job_slug
           ? { JOB_SLUG: stripHtml(job_slug.slice(0, 80)) }
           : {}),
         ...(typeof job_status === 'string' && job_status
           ? { JOB_STATUS: stripHtml(job_status.slice(0, 30)) }
+          : {}),
+        // ── v2 (scanner v2) ────────────────────────────────────
+        ...(typeof job_slug === 'string' && job_slug
+          ? { SCANNER_JOB: stripHtml(job_slug.slice(0, 80)) }
+          : {}),
+        ...(typeof job_quadrant === 'string' && ['tiens', 'pilotes', 'pivotes', 'mutes'].includes(job_quadrant)
+          ? { SCANNER_QUADRANT: job_quadrant }
+          : {}),
+        ...(typeof job_risk === 'number' && job_risk >= 0 && job_risk <= 100
+          ? { SCANNER_RISK: Math.round(job_risk) }
+          : {}),
+        ...(typeof job_potential === 'number' && job_potential >= 0 && job_potential <= 100
+          ? { SCANNER_LEVIER: Math.round(job_potential) }
+          : {}),
+        ...(formations_interest === true
+          ? { FORMATIONS_INTEREST: true }
           : {}),
       },
       updateEnabled: false,
