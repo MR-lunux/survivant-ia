@@ -47,6 +47,8 @@ onMounted(() => {
   capture('kit_list_viewed')
 })
 
+// PostHog event property is named `id` per spec §8.1 (analytics consistency).
+// Internally the kit field is `code` (Nuxt Content reserves `id` for auto-path).
 function onCardClick(payload: { code: string; position: number }) {
   capture('kit_list_card_clicked', { id: payload.code, position: payload.position })
 }
@@ -77,10 +79,10 @@ const kitCount = computed(() => kits.value?.length ?? 0)
 
     <div class="filters">
       <button class="filter active" type="button">TOUS</button>
-      <button class="filter disabled" type="button" disabled>QUIZ</button>
-      <button class="filter disabled" type="button" disabled>CHEATSHEET</button>
-      <button class="filter disabled" type="button" disabled>FICHE</button>
-      <button class="filter disabled" type="button" disabled>VIDÉO</button>
+      <button class="filter disabled" type="button" disabled title="Bientôt">QUIZ</button>
+      <button class="filter disabled" type="button" disabled title="Bientôt">CHEATSHEET</button>
+      <button class="filter disabled" type="button" disabled title="Bientôt">FICHE</button>
+      <button class="filter disabled" type="button" disabled title="Bientôt">VIDÉO</button>
     </div>
 
     <div class="kits-grid">
