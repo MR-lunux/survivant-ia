@@ -30,67 +30,131 @@ export const JOBS: Job[] = [
 
   { slug: 'teleconseiller', label: 'Téléconseiller', risk: 78, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. La réception d\'appels et la résolution des plaintes courantes sont gérées par des agents conversationnels à voix naturelle. Bascule vite vers superviseur IA ou rôle qualité — c\'est là que les centres de contact recrutent.',
-    sources: [3], quadrant: 'pivotes', potential: 20, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 20, leviers: [
+      'Bascule vers superviseur d\'agents IA — Apprends à monitorer et corriger les agents Zendesk AI ou Intercom AI. Les centres de contact recrutent ces profils maintenant, pas dans deux ans.',
+      'Capitalise ton expertise escalade — Documente les typologies de cas que l\'IA rate : ambiguïté, détresse client, litige complexe. Ce catalogue fait de toi le référent qualité indispensable.',
+      'Forme-toi au CX augmenté par IA — Suis le parcours Customer Experience sur LinkedIn Learning ou le cours gratuit d\'Anthropic Academy. Ajoute « supervision d\'agents IA » à ton profil avant la prochaine vague de suppressions.',
+    ] },
 
   { slug: 'televendeur', label: 'Télévendeur', risk: 92, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte fort. La prospection à froid et la qualification de leads sont déléguées à des agents IA capables de mener des conversations vocales complètes. Anticipe le pivot vers ventes complexes B2B ou management d\'agents IA commerciaux.',
-    sources: [3], quadrant: 'pivotes', potential: 15, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 15, leviers: [
+      'Bascule vers superviseur d\'agents IA — Les centres de contact recrutent des superviseurs qui arbitrent les escalades complexes. Ton expertise relationnelle reste précieuse, pas ton script.',
+      'Apprends le prompt engineering en 10h — Cours gratuits sur DeepLearning.AI ou Anthropic Academy. Compétence portable et valorisable dans ton secteur ou ailleurs.',
+      'Identifie le métier adjacent qui croît — Customer success, formation interne, animation communauté : ces rôles recrutent et utilisent ton ADN relationnel sans dépendre du télémarketing.',
+    ] },
 
   { slug: 'saisie-de-donnees', label: 'Agent de saisie de données', risk: 90, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte fort. La lecture de documents non structurés et leur saisie systémique sont résolues par l\'OCR cognitif et les LLM. Le WEF projette la suppression de 26 millions de ces postes — anticipe le pivot vers un rôle de supervision ou un secteur adjacent.',
-    sources: [3, 9], quadrant: 'pivotes', potential: 10, leviers: [] },
+    sources: [3, 9], quadrant: 'pivotes', potential: 10, leviers: [
+      'Pilote un outil d\'automatisation de saisie cette semaine — Teste Docsumo ou Nanonets sur tes propres documents. Comprendre l\'outil que tu vas superviser est ton ticket d\'entrée vers le rôle suivant.',
+      'Repositionne-toi sur le contrôle qualité des flux IA — Les erreurs OCR et les champs mal extraits exigent une validation humaine. C\'est le poste qui résiste : superviseur de pipeline de données.',
+      'Pivote vers un secteur qui recrute — Vise la gestion administrative en santé, en juridique ou en finance : ces secteurs cherchent des profils rigoureux capables de superviser des flux automatisés. OpenClassrooms propose des formations courtes financées CPF.',
+    ] },
 
   { slug: 'redacteur-web', label: 'Rédacteur web', risk: 76, horizon: 2, status: 'danger',
     dynamic: 'Ton métier mute. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Bascule vers la direction éditoriale, le personal branding ou le pilotage d\'agents IA — c\'est là que la valeur se reconstruit.',
-    sources: [1, 15, 17], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [1, 15, 17], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre Claude ou ChatGPT dans ton workflow cette semaine — Utilise-les pour les premiers brouillons, toi tu interviens sur la voix, l\'angle et la structure. Documente ton gain de temps pour le négocier avec tes clients.',
+      'Repositionne-toi en directeur éditorial — Tu ne produis plus du texte, tu valides, tu signes, tu définis la ligne. La supervision de contenu IA est le rôle qui monte dans toutes les rédactions.',
+      'Construis une expertise niche documentée — Deviens la référence IA sur un secteur (finance, santé, droit). Suis le cours « AI for Content Creators » sur DeepLearning.AI et publie tes apprentissages sur LinkedIn.',
+    ] },
 
   { slug: 'traducteur', label: 'Traducteur', risk: 82, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. La traduction généraliste est absorbée par les LLM à fidélité quasi-humaine. Le marché se replie sur la traduction littéraire nuancée, la post-édition IA et la localisation à haute sensibilité culturelle.',
-    sources: [1], quadrant: 'pivotes', potential: 30, leviers: [] },
+    sources: [1], quadrant: 'pivotes', potential: 30, leviers: [
+      'Bascule vers la post-édition IA — DeepL ou Claude font 80% du boulot. Facture ta valeur sur la correction des erreurs culturelles, idiomatiques et de registre que l\'IA rate systématiquement.',
+      'Spécialise-toi sur un domaine réglementé — Traduction juridique, médicale ou financière : les erreurs coûtent cher, la responsabilité reste humaine. Ce segment résiste mieux à la commoditisation.',
+      'Forme-toi à la localisation UX — Interfaces, microcopy, chatbots multilingues : les entreprises tech cherchent des traducteurs qui comprennent le produit. Suis un cours UX writing ou localisation sur LinkedIn Learning.',
+    ] },
 
   { slug: 'correcteur', label: 'Correcteur / Relecteur', risk: 85, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. Correction orthographique, grammaticale, formatage stylistique : l\'IA exécute avec une constance supérieure. Les postes de relecture traditionnels se raréfient — pivote vers l\'édition éditoriale ou la révision de contenu généré par IA.',
-    sources: [1], quadrant: 'pivotes', potential: 20, leviers: [] },
+    sources: [1], quadrant: 'pivotes', potential: 20, leviers: [
+      'Deviens réviseur de contenus IA — Utilise Hemingway Editor + Claude pour comparer sorties brutes et corrections humaines. Le marché de la validation de contenu IA est en train de naître.',
+      'Pivote vers l\'édition de fond — Restructuration narrative, cohérence argumentaire, style de marque : ce que l\'IA ne sait pas encore faire. Repositionne ton offre sur la valeur éditoriale, pas la correction technique.',
+      'Certifie-toi sur un domaine à enjeux — Relecture de contenus médicaux, juridiques ou financiers : des organismes comme le Syndicat national de l\'édition proposent des formations. La responsabilité sectorielle valorise ton expertise.',
+    ] },
 
   { slug: 'transcripteur', label: 'Transcripteur', risk: 88, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte fort. La transcription audio→texte et la synthèse de réunions sont des fonctionnalités natives gratuites des outils bureautiques. Le marché indépendant est quasi inexistant — bascule vers un secteur adjacent sans attendre.',
-    sources: [3], quadrant: 'pivotes', potential: 10, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 10, leviers: [
+      'Bascule vers la post-édition de transcriptions IA — Whisper et Otter font 90% du travail. Le marché qui reste : la correction de précision sur audio difficile (réunions techniques, accents, jargon sectoriel).',
+      'Pivote vers l\'analyse qualitative — Synthèse de focus groups, entretiens de recherche, codage thématique. L\'IA fait le brouillon, tu apportes le sens et la rigueur méthodologique.',
+      'Forme-toi à l\'évaluation de modèles IA — Rôle de QA pour les outils de transcription : tester, signaler les hallucinations, améliorer les prompts. Compétence rare, formations disponibles sur Anthropic Academy.',
+    ] },
 
   { slug: 'comptable', label: 'Comptable', risk: 72, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Tu pivotes vers le conseil stratégique et l\'audit IA — c\'est là que ton expertise comptable devient irremplaçable.',
-    sources: [1, 7], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [1, 7], quadrant: 'mutes', potential: 75, leviers: [
+      'Automatise tes rapprochements bancaires avec un agent — Connecte Pennylane ou Dext à Claude pour catégoriser les transactions et flagguer les anomalies. Gain : 4 à 6 heures par semaine.',
+      'Repositionne-toi sur l\'audit, pas la production — L\'IA produit les comptes, toi tu valides, tu signes, tu portes la responsabilité ordinale. C\'est là que ton expertise devient irremplaçable.',
+      'Forme-toi à la finance augmentée par IA — Suis les modules dédiés sur Anthropic Academy ou DeepLearning.AI. Ajoute « Prompt engineering pour la finance » à ton CV avant les autres.',
+    ] },
 
   { slug: 'analyste-credit', label: 'Analyste crédit', risk: 70, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute. Le scoring crédit, l\'analyse des bilans et l\'évaluation du risque de défaut sont automatisés. Tu te repositionnes sur les dossiers complexes, la relation corporate et le conseil en structuration — là où le jugement humain prime.',
-    sources: [7], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 60, leviers: [
+      'Utilise Claude pour synthétiser tes dossiers complexes — Colle les bilans et rapports dans Claude, génère une synthèse de risque en 2 minutes. Libère ton temps pour les analyses à forte valeur.',
+      'Deviens l\'expert des dossiers que l\'IA refuse — Restructurations, crédits syndiqués, contreparties atypiques : ton jugement humain et ta connaissance sectorielle sont irremplaçables sur ces cas.',
+      'Certifie-toi en analyse de risque IA — Suis une spécialisation « AI in Finance » sur Coursera ou DeepLearning.AI. La maîtrise des modèles de scoring IA est la compétence qui monte dans les équipes crédit.',
+    ] },
 
   { slug: 'analyste-marketing', label: 'Analyste études de marché', risk: 65, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute. Les LLM excellent à digérer des téraoctets de données qualitatives et à rédiger des rapports stratégiques. Tu pilotes les agents, questionnes les hypothèses et transformes l\'analyse en décision — c\'est ça ton levier.',
-    sources: [1], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 70, leviers: [
+      'Pilote Perplexity + Claude pour tes études de marché — Utilise Perplexity pour le desk research, Claude pour synthétiser et structurer. Divise par 3 ton temps de production, triple ton impact stratégique.',
+      'Deviens l\'interprète critique, pas le producteur — Les rapports IA se ressemblent tous. Ta valeur : les hypothèses que personne n\'a posées, les biais des données, la décision actionnable. Recentre ton offre sur ça.',
+      'Maîtrise les outils d\'analyse IA en marketing — Suis « AI for Market Research » sur LinkedIn Learning ou DeepLearning.AI. Documente et partage tes cas d\'usage : c\'est ton portfolio visible.',
+    ] },
 
   { slug: 'assistant-juridique', label: 'Assistant juridique', risk: 72, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute vite. La revue contractuelle, la recherche jurisprudentielle et les notes de premier niveau sont automatisées. Mute maintenant vers le conseil stratégique et la supervision des outils IA juridiques — avant que la fenêtre se ferme.',
-    sources: [7], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 55, leviers: [
+      'Intègre Claude pour la revue contractuelle dès cette semaine — Utilise Claude pour une première passe sur les contrats, toi tu valides et annotas les risques. Gagne 2 à 3 heures par dossier.',
+      'Repositionne-toi sur la supervision IA juridique — Lexbase et Doctrine sont tes outils de vérification. Ta valeur n\'est plus dans la recherche, elle est dans la validation critique et la stratégie d\'argumentation.',
+      'Forme-toi au droit augmenté par IA — Suis les modules « Legal Tech » sur LinkedIn Learning ou les formations EDHEC online. La maîtrise des outils LegalTech devient un critère de recrutement dans les cabinets.',
+    ] },
 
   { slug: 'secretaire-juridique', label: 'Secrétaire juridique', risk: 77, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. La préparation de dossiers, les calendriers procéduraux et les courriers types sont absorbés par les outils intégrés des cabinets. Bascule vers un rôle de coordination ou une spécialisation à plus forte valeur.',
-    sources: [7], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [7], quadrant: 'pivotes', potential: 25, leviers: [
+      'Prends en main les outils LegalTech de ton cabinet — Que ce soit Clio, Secib ou un SIRJ, deviens la référente sur l\'outil. Ceux qui maîtrisent le logiciel sont les derniers à partir.',
+      'Pivote vers coordinatrice de dossiers complexes — Organisation des expertises, suivi des délais procéduraux multi-parties, interface avec les huissiers : c\'est le noyau dur qui résiste à l\'automatisation.',
+      'Vise une spécialisation juridique valorisée — Formation courte en droit immobilier, droit social ou droit des affaires sur OpenClassrooms ou via le CNB. La spécialisation te sort du lot face aux outils généralistes.',
+    ] },
 
   { slug: 'assistant-administratif', label: 'Assistant administratif', risk: 73, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Gestion d\'agendas, priorisation des courriels, préparation de réunions : confiés à des agents virtuels. Le WEF anticipe 19 millions de postes administratifs en moins — anticipe le pivot avant que ça te rattrape.',
-    sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [
+      'Automatise tes tâches récurrentes avec Notion AI ou ChatGPT — Délègue-leur la rédaction de comptes-rendus, résumés de mails et ordres du jour. Montre que tu gères plus avec moins de temps.',
+      'Pivote vers office manager ou coordinateur projet — Ces rôles intègrent la gestion opérationnelle, la relation fournisseurs et l\'organisation d\'événements : ils résistent mieux et recrutent.',
+      'Identifie ton secteur cible et forme-toi vite — Assistanat RH, assistanat juridique, coordination marketing : chaque spécialisation ajoute une barrière à l\'automatisation. OpenClassrooms et LinkedIn Learning ont des parcours courts financés CPF.',
+    ] },
 
   { slug: 'receptionniste', label: 'Réceptionniste', risk: 80, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. Filtrage d\'appels, prise de rendez-vous et accueil informationnel sont gérés par des agents 24/7. Le marché qui reste est l\'accueil physique haut de gamme — c\'est là que tu te repositionnes.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Prends en main le CRM ou le logiciel de gestion de ton structure — Deviens la référente sur l\'outil de planification. Ceux qui maîtrisent le back-office résistent mieux que ceux qui n\'accueillent qu\'en face à face.',
+      'Repositionne-toi sur l\'accueil expérientiel haut de gamme — Hôtellerie 4-5 étoiles, cliniques privées, sièges de grands groupes : ces secteurs paient pour la présence humaine différenciante, pas pour la gestion d\'appels.',
+      'Pivote vers un rôle adjacent en croissance — Coordinatrice médicale, hôtesse de gestion d\'événements, office manager : des formations courtes sur LinkedIn Learning ou OpenClassrooms t\'y amènent en quelques mois.',
+    ] },
 
   { slug: 'standardiste', label: 'Standardiste', risk: 83, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte fort. La gestion d\'appels entrants et leur routage sont des fonctions natives des PBX cloud modernes. Le poste humain a quasiment disparu des grandes structures — bascule vers un secteur adjacent sans attendre.',
-    sources: [3], quadrant: 'pivotes', potential: 15, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 15, leviers: [
+      'Documente tes connaissances de l\'entreprise avant de partir — Procédures, contacts clés, cas fréquents : transforme ce savoir tacite en base documentaire avec Notion. C\'est ton capital pour négocier ton évolution interne.',
+      'Pivote vers un rôle administratif ou coordination — Assistanat polyvalent, gestion de planning, back-office client : ces postes recrutent ton profil relationnel et organisationnel. Vise une spécialisation sectorielle.',
+      'Lance-toi sur une formation courte financée CPF — Assistanat de direction, gestion administrative ou secrétariat médical sur OpenClassrooms. Trois mois pour transformer ton profil et ouvrir de nouvelles portes.',
+    ] },
 
   { slug: 'agent-assurance', label: 'Agent d\'assurance', risk: 74, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Souscription standardisée, calcul de primes, traitement de sinistres simples : automatisés. Concentre-toi sur les contrats complexes et la relation patrimoniale — c\'est le terrain qui reste humain.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Utilise Claude pour préparer tes entretiens client — Synthèse du dossier, points de vigilance réglementaires, comparatif contrats : 15 minutes de prep IA remplacent 2 heures de travail manuel. Consacre ce temps à la relation.',
+      'Pivote vers les risques complexes et la prévoyance patrimoniale — Assurances professionnelles, risques spéciaux, prévoyance chef d\'entreprise : des segments que les comparateurs en ligne ne savent pas vendre.',
+      'Vise une certification spécialisée — Courtage en assurances de personnes ou IARD complexe via le CFPB ou l\'ICS. La spécialisation sur des risques haut de gamme te sort de la compétition avec les bots.',
+    ] },
 
   { slug: 'analyste-financier', label: 'Analyste financier', risk: 57, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. L\'analyse exhaustive des bilans et flux d\'actualités est exécutée instantanément par l\'IA. Tu te concentres sur la gestion psychologique et relationnelle des clients, plus sur la production des chiffres.',
@@ -98,43 +162,83 @@ export const JOBS: Job[] = [
 
   { slug: 'operateur-saisie', label: 'Opérateur de saisie', risk: 91, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte fort. L\'OCR cognitif et les LLM résolvent la lecture de documents et leur saisie avec une précision supérieure. Anticipe le pivot vers la supervision de flux automatisés ou un secteur adjacent qui recrute.',
-    sources: [3], quadrant: 'pivotes', potential: 10, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 10, leviers: [
+      'Teste un outil d\'automatisation documentaire cette semaine — Docsumo, Nanonets ou Adobe Acrobat IA : comprendre le fonctionnement de ce qui te remplace, c\'est la première étape pour le superviser.',
+      'Pivote vers la validation de flux automatisés — Les erreurs d\'OCR et les exceptions de traitement exigent une vérification humaine. Ce rôle de contrôle qualité des pipelines IA existe et recrutent.',
+      'Forme-toi sur un secteur adjacent avec CPF — Assistanat administratif, facturation, gestion de stocks : des métiers proches qui recrutent encore. OpenClassrooms propose des formations courtes et reconnues.',
+    ] },
 
   { slug: 'secretaire', label: 'Secrétaire', risk: 62, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Gestion d\'agendas, courriels, préparation de réunions : confiés à des agents virtuels. Bascule vers une spécialisation (office manager, coordinateur projet) avant que le poste généraliste ne se vide.',
-    sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [
+      'Utilise Notion AI pour documenter les processus de ton équipe — Transforme ton savoir tacite en base de connaissance structurée. Ce travail de capitalisation est visible, valorisable et t\'ouvre la porte de l\'office management.',
+      'Prends en main un outil de gestion de projet — Asana, Monday, Notion : ceux qui pilotent les outils de coordination ont un avenir. Tu passes de secrétaire à coordinatrice opérationnelle.',
+      'Spécialise-toi dans un secteur à valeur ajoutée — Secrétariat médical, juridique ou comptable : la spécialisation ajoute une barrière à l\'automatisation. Des formations CPF existent sur OpenClassrooms et Pôle emploi.',
+    ] },
 
   { slug: 'caissier', label: 'Caissier', risk: 78, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Bornes self-checkout, paiement mobile, scan-and-go : la grande distribution réduit massivement ses effectifs caissiers. Bascule vers des rôles à valeur relationnelle — conseil rayon, gestion stocks, accueil client.',
-    sources: [9], quadrant: 'pivotes', potential: 20, leviers: [] },
+    sources: [9], quadrant: 'pivotes', potential: 20, leviers: [
+      'Demande à monter en compétence sur la gestion des stocks ou le rayon — Ces rôles sont moins menacés et permettent un glissement naturel depuis la caisse. L\'initiative interne est ta meilleure carte.',
+      'Pivote vers un rôle client à plus forte valeur — Conseiller de vente, hôte/hôtesse de service client, animateur rayon : ces postes recrutent ton profil relationnel dans la distribution spécialisée et le commerce indépendant.',
+      'Cible une reconversion dans la logistique ou la préparation de commandes — Le e-commerce structure une demande croissante. Des certifications courtes (titre pro logisticien) sont accessibles via Pôle emploi ou votre OPCO.',
+    ] },
 
   { slug: 'agent-recouvrement', label: 'Agent de recouvrement', risk: 80, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. La relance multicanale automatisée et le scoring IA rendent le travail d\'appel humain non rentable. Pivote vers la négociation à l\'amiable sur dossiers complexes — c\'est le seul segment qui résiste.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Utilise Claude pour préparer tes dossiers de négociation — Synthèse du profil débiteur, historique de paiements, simulation de plans d\'étalement. 10 minutes de prep IA pour une conversation plus efficace.',
+      'Repositionne-toi sur les dossiers complexes et les plans amiables — Restructurations de dettes, négociation avec débiteurs pro, médiation : l\'IA ne négocie pas. C\'est ton terrain de résistance.',
+      'Pivote vers le conseil en gestion budgétaire ou le droit de la consommation — Des formations courtes via l\'AFPA ou les OPCO existent. Le rôle de conseiller en redressement financier recrute et valorise ton expertise.',
+    ] },
 
   { slug: 'employe-banque', label: 'Employé de banque / Guichetier', risk: 65, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. La digitalisation et les conseillers virtuels suppriment le guichet physique. Les agences ferment — bascule vers un rôle relationnel senior ou vers la gestion de patrimoine avant que le poste standard disparaisse.',
-    sources: [20], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [20], quadrant: 'pivotes', potential: 25, leviers: [
+      'Prends l\'initiative de maîtriser les outils digitaux de ta banque — Simulateurs, plateformes de conseil en ligne, espaces clients : être la référente interne sur ces outils te positionne pour un glissement vers conseillère.',
+      'Pivote vers conseiller de clientèle particuliers ou professionnels — Le guichet ferme, le conseil senior reste. Parle à ton manager de ta progression interne avant que la décision soit prise pour toi.',
+      'Prépare une certification AMF ou une spécialisation patrimoine — L\'habilitation AMF et les certifications en gestion de patrimoine (IAB, diplôme CGPC) sont les passeports vers les postes qui recrutent encore. Des formations existent via ton OPCO bancaire.',
+    ] },
 
   { slug: 'specialiste-rp', label: 'Spécialiste relations publiques', risk: 37, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Communiqués de presse, ciblage médiatique, veille réputationnelle : délégués à l\'IA. Les effectifs juniors en agence fondent — pivote vers la stratégie relationnelle et la gestion de crise, là où l\'IA ne décide pas.',
-    sources: [1], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [1], quadrant: 'pivotes', potential: 25, leviers: [
+      'Utilise Perplexity et Claude pour ta veille réputationnelle — Automatise le monitoring et la synthèse des mentions presse. Libère 3 à 4 heures par semaine pour la relation journaliste et la stratégie.',
+      'Repositionne-toi sur la gestion de crise et le conseil senior — La communication de crise, la réputation de dirigeant et les relations institutionnelles complexes exigent un jugement humain. C\'est là que la valeur reste.',
+      'Développe ton réseau en public — Publie tes analyses sur LinkedIn, prends la parole en événements sectoriels. En RP, ta visibilité personnelle est ton meilleur argument commercial. Construis ton personal branding maintenant.',
+    ] },
 
   { slug: 'editeur-reviseur', label: 'Éditeur / Réviseur', risk: 54, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Correction, formatage stylistique et synthèse linguistique sont exécutés par l\'IA. Les postes de révision standards reculent — bascule vers l\'édition de fond, la direction littéraire ou la révision de contenu IA.',
-    sources: [1], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [1], quadrant: 'pivotes', potential: 25, leviers: [
+      'Bascule vers la révision de contenus générés par IA — Les entreprises produisent massivement avec Claude ou ChatGPT et cherchent des éditeurs humains pour la validation finale. Propose ce service avant que le marché soit saturé.',
+      'Pivote vers la direction éditoriale — Ligne éditoriale, sélection des sujets, cohérence de la voix de marque : l\'IA ne décide pas de la stratégie éditoriale. C\'est le poste qui monte dans les rédactions numériques.',
+      'Spécialise-toi sur un secteur réglementé — Édition scientifique, médicale ou juridique : la rigueur factuelle et la responsabilité sectorielle maintiennent une valeur humaine forte. Des formations spécialisées existent via les syndicats professionnels.',
+    ] },
 
   { slug: 'redacteur-technique', label: 'Rédacteur technique', risk: 42, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Documentation de code et manuels d\'utilisation sont extraits automatiquement par l\'IA depuis les dépôts source. Pivote vers la documentation stratégique, l\'UX writing ou la formation — là où le contexte humain compte.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Intègre GitHub Copilot dans ton workflow de documentation — Génère les premières ébauches depuis le code source, toi tu restructures, contextualises et adaptes au lecteur. Gagne du temps, déplace ta valeur vers l\'architecture de l\'information.',
+      'Pivote vers l\'UX writing et la documentation produit — Microcopy, messages d\'erreur, onboarding utilisateur : ces rôles sont en croissance dans les équipes produit et recrutent des profils tech + écrit.',
+      'Repositionne-toi sur la formation technique interne — Concevoir des parcours d\'apprentissage pour des équipes qui adoptent de nouveaux outils IA : ta double compétence technique + pédagogie a une valeur réelle. Des certifications instructional design existent sur LinkedIn Learning.',
+    ] },
 
   { slug: 'specialiste-dossiers-medicaux', label: 'Spécialiste dossiers médicaux', risk: 67, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. Compilation, codage administratif des données patients et facturation assurance sont pris en charge par des IA médicales spécialisées. Bascule vers le contrôle qualité ou la conformité réglementaire des flux IA.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Prends en main les logiciels de gestion documentaire médicale — DxCare, Easily, ou le SIH de ton établissement : les référents outils sont les derniers touchés par les suppressions de postes.',
+      'Pivote vers la conformité RGPD et réglementaire des données de santé — Le contrôle des flux IA en santé exige une expertise humaine sur la protection des données patients. C\'est le noyau dur qui résiste.',
+      'Forme-toi au DMP et aux systèmes d\'information de santé — Des formations via le CNEH (Centre National de l\'Expertise Hospitalière) ou le CHRU proposent des parcours en informatique médicale. La spécialisation sur les données de santé ouvre des postes stables.',
+    ] },
 
   { slug: 'testeur-qa', label: 'Testeur QA logiciel', risk: 52, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte. Correction de bugs et tests automatisés figurent parmi les tâches les plus exécutées par l\'IA en entreprise. Pivote vers la qualité stratégique, le test d\'expérience et l\'audit de sortie des agents IA.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Bascule vers le test des sorties d\'agents IA — Les LLM hallucinent, produisent des incohérences et ratent les edge cases. Le rôle de testeur spécialisé sur les outputs IA est nouveau, peu formé et recherché.',
+      'Pivote vers la qualité UX et les tests exploratoires — Tests d\'expérience utilisateur, accessibilité, tests de régression sur interfaces complexes : ces types de tests restent difficiles à automatiser entièrement.',
+      'Monte en compétence sur l\'automatisation de tests IA — Selenium, Playwright, et les outils de test LLM comme PromptFoo : suis des formations sur LinkedIn Learning ou Udemy. Comprendre l\'outil qui te remplace pour le superviser est ton meilleur levier.',
+    ] },
 
   // ── EN MUTATION SÉVÈRE ────────────────────────────────
   // (le rôle se transforme radicalement, ne disparaît pas)
@@ -189,7 +293,11 @@ export const JOBS: Job[] = [
 
   { slug: 'expert-comptable', label: 'Expert-comptable', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Tenue de comptes et déclarations standardisées sont automatisées. Tu pivotes vers le conseil fiscal stratégique, l\'optimisation patrimoniale et l\'accompagnement des dirigeants - ou tu te fais commoditiser.',
-    sources: [7], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 70, leviers: [
+      'Déploie Pennylane ou Dext dans ta pratique — Automatise la saisie et les rapprochements pour tous tes dossiers standardisés. Libère 30% de ton temps, réoriente-le vers le conseil à haute valeur.',
+      'Deviens l\'expert-conseil IA de tes clients — Tes clients dirigeants ne comprennent pas ce que l\'IA change à leur gestion. Toi tu sais. Organise une demi-journée de conseil IA par client : c\'est une nouvelle ligne de facturation.',
+      'Intègre le DU Fiscalité numérique ou une certification en finance augmentée — Des modules courts existent via le CSOEC (Conseil supérieur de l\'ordre) ou Sciences Po Executive. L\'IA fiscale (Taxdome, Sage IA) devient une compétence différenciante.',
+    ] },
 
   { slug: 'consultant-strategie', label: 'Consultant en stratégie', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Benchmarks, études de marché et synthèses sont produits en heures par l\'IA. Tu vends désormais le jugement, la confrontation au CEO et l\'exécution - pas le slide pack.',
@@ -497,23 +605,43 @@ export const JOBS: Job[] = [
 
   { slug: 'controller-gestion', label: 'Contrôleur de gestion', risk: 60, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Reporting standardisé, écarts budgétaires et tableaux de bord sont automatisés. Tu te concentres sur le partenariat business, l\'arbitrage de scenarii stratégiques et la lecture critique des données.',
-    sources: [7], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 75, leviers: [
+      'Automatise ton reporting avec Power BI + Claude — Connecte tes sources de données, génère les tableaux de bord automatiquement, laisse Claude rédiger le commentaire de gestion. Tu passes de producteur à interprète stratégique.',
+      'Deviens le partenaire business de ta direction — Réunions de pilotage, scénarios stratégiques, aide à la décision : c\'est là que tu construis une valeur irremplaçable. Propose un rituel mensuel de revue stratégique avec le CODIR.',
+      'Certifie-toi en finance augmentée par IA — Le CIMA (Chartered Institute of Management Accountants) propose des modules de finance digitale. LinkedIn Learning a des parcours « Data-Driven Finance ». Documente tes cas d\'usage.',
+    ] },
 
   { slug: 'auditeur', label: 'Auditeur financier', risk: 65, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute. Tests de procédures, échantillonnage et revue documentaire : automatisés à 80%. Les Big 4 réduisent leurs effectifs juniors. Mute vers le jugement professionnel, l\'audit IA et la relation client senior — c\'est là que tu tiens.',
-    sources: [7], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Claude dans tes revues documentaires — Colle les contrats, procès-verbaux et annexes dans Claude pour une première passe de risques. Tu concentres ton jugement sur les points d\'attention identifiés, pas sur la lecture exhaustive.',
+      'Repositionne-toi sur l\'audit des systèmes IA — Les entreprises déploient des IA de gestion sans protocole de contrôle. L\'auditeur capable de challenger les modèles IA et leurs biais est une compétence rare et très demandée dans les Big 4.',
+      'Vise la certification en audit des systèmes d\'information — CISA (Certified Information Systems Auditor) ou les modules IFACI sur le risque IA : ces certifications distinguent les auditeurs qui survivent à la vague des juniors automatisés.',
+    ] },
 
   { slug: 'chargee-clientele', label: 'Chargé(e) de clientèle', risk: 60, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute. Conseil transactionnel basique, ouverture de compte et mise à jour de dossiers sont automatisés. Pivote vers le conseil patrimonial et la gestion de relation client complexe — là où la banque de détail investit encore.',
-    sources: [3], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 55, leviers: [
+      'Utilise Claude pour préparer chaque entretien client en 5 minutes — Synthèse du portefeuille, alertes sur les contrats arrivant à terme, opportunités de conseil : l\'IA fait le diagnostic, toi tu fais la relation.',
+      'Monte vers le conseil patrimonial — Épargne, retraite, transmission : ces sujets exigent écoute, adaptation et confiance. Demande à ton manager un portefeuille de clients premium et les outils qui vont avec.',
+      'Prépare l\'habilitation AMF ou une certification patrimoniale — L\'habilitation AMF et le DU gestion de patrimoine (disponibles en formation continue) sont les passeports vers les postes qui recrutent dans les banques privées et les CGP.',
+    ] },
 
   { slug: 'gestionnaire-paie', label: 'Gestionnaire de paie', risk: 68, horizon: 5, status: 'danger',
     dynamic: 'Ton métier mute. La paie standardisée est entièrement automatisée par les SIRH modernes. Tu te repositionnes sur la conformité multi-conventions, les cas d\'expatriation et la gouvernance des outils de paie IA.',
-    sources: [3], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 50, leviers: [
+      'Maîtrise le SIRH de ton entreprise de bout en bout — ADP, Silae, Sage Paie : ceux qui configurent, paramètrent et déboguent l\'outil sont les derniers à partir. Deviens la référente technique interne.',
+      'Repositionne-toi sur les conventions collectives complexes et la conformité — Paie des expatriés, gestion des multi-contrats, conventions atypiques : l\'IA rate ces cas, toi tu les maîtrises. C\'est ton territoire de valeur.',
+      'Vise la certification CPFH ou le titre de responsable paie — La formation continue en droit social et paie complexe (via GERESO ou EFB) te distingue du gestionnaire de paie standardisée que le SIRH remplace.',
+    ] },
 
   { slug: 'documentaliste', label: 'Documentaliste', risk: 70, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Indexation, classement et recherche documentaire sont des fonctions natives des LLM. Le marché se resserre sur les contextes spécialisés — droit, médecine, archives — bascule vers ces niches sans attendre.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Pilote un outil de RAG (recherche augmentée) sur ta base documentaire — Teste Notion AI ou un outil de knowledge management interne pour créer un assistant documentaire. Être celui qui a construit le système te met à l\'abri.',
+      'Pivote vers la gouvernance et la qualité de l\'information — Taxonomie, métadonnées, politique d\'archivage, conformité réglementaire : ces fonctions de pilotage stratégique de l\'information résistent à l\'automatisation.',
+      'Spécialise-toi dans un domaine à haute exigence — Documentation juridique, médicale ou technique industrielle : la responsabilité sectorielle justifie encore un humain expert. Des formations via l\'ADBS (Association des professionnels de l\'information) existent.',
+    ] },
 
   { slug: 'archiviste', label: 'Archiviste', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La numérisation et l\'OCR cognitif transforment le métier de manipulation physique en métier de gouvernance numérique des fonds. La conservation patrimoniale reste humaine.',
@@ -539,7 +667,11 @@ export const JOBS: Job[] = [
 
   { slug: 'redacteur-publicitaire', label: 'Rédacteur publicitaire / Copywriter', risk: 70, horizon: 2, status: 'danger',
     dynamic: 'Ton métier mute. La production de copies, slogans et A/B variants est devenue triviale pour les LLM. Tu pilotes les agents, tu crées la stratégie et la signature — ou tu becomes le prestataire le moins cher. Le choix est maintenant.',
-    sources: [1], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 60, leviers: [
+      'Construis ton workflow IA de production de copies — Claude pour les variants, toi pour la voix, l\'angle et le brief stratégique. Documente ton process et propose-le à tes clients comme une offre de volume augmenté.',
+      'Repositionne-toi sur la stratégie de message et la direction créative — Le brief créatif, l\'architecture de marque, la hiérarchie des messages : l\'IA exécute, toi tu décides quoi dire et pourquoi. C\'est là que la valeur se reconstruit.',
+      'Développe ta signature publique — Portfolio de cas, publication de tes analyses de campagne sur LinkedIn, conférences sectorielles : dans un monde où les copies se commoditisent, ta réputation est ton seul différenciateur durable.',
+    ] },
 
   { slug: 'responsable-com', label: 'Responsable communication', risk: 45, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque - la part politique et humaine du rôle.',
@@ -667,7 +799,11 @@ export const JOBS: Job[] = [
 
   { slug: 'controleur-gestion', label: 'Contrôleur de gestion', risk: 60, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Reporting standardisé, écarts budgétaires et tableaux de bord sont automatisés. Tu te concentres sur le partenariat business, l\'arbitrage de scenarii stratégiques et la lecture critique des données.',
-    sources: [7], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 75, leviers: [
+      'Automatise ton reporting avec Power BI + Claude — Connecte tes sources de données, génère les tableaux de bord automatiquement, laisse Claude rédiger le commentaire de gestion. Tu passes de producteur à interprète stratégique.',
+      'Deviens le partenaire business de ta direction — Réunions de pilotage, scénarios stratégiques, aide à la décision : c\'est là que tu construis une valeur irremplaçable. Propose un rituel mensuel de revue stratégique avec le CODIR.',
+      'Certifie-toi en finance augmentée par IA — Le CIMA (Chartered Institute of Management Accountants) propose des modules de finance digitale. LinkedIn Learning a des parcours « Data-Driven Finance ». Documente tes cas d\'usage.',
+    ] },
 
   { slug: 'assistant-direction', label: 'Assistant de direction', risk: 62, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Bascule vers les postes proches du pouvoir exécutif où la confiance et la discrétion priment — c\'est le seul terrain solide.',
@@ -837,11 +973,19 @@ export const JOBS: Job[] = [
 
   { slug: 'juriste', label: 'Juriste d\'entreprise', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Revue contractuelle, recherche jurisprudentielle et notes de conformité sont les terrains de chasse les plus efficaces des LLM. Tu pivotes vers le conseil stratégique au business, la gestion du risque réglementaire et l\'arbitrage des cas complexes - ou tu te fais commoditiser.',
-    sources: [3, 7], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3, 7], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre Claude dans tes revues contractuelles — Une première passe IA sur un contrat identifie les clauses à risque en 3 minutes. Tu interviens sur la stratégie de négociation, pas sur la lecture exhaustive. Gagne 2 heures par dossier.',
+      'Repositionne-toi sur le conseil stratégique au business — Risques réglementaires, fusions-acquisitions, conformité RGPD et IA Act : c\'est là que la valeur juridique se reconstruit. L\'IA ne conseille pas le CODIR, toi oui.',
+      'Pilote un outil LegalTech et deviens la référente interne — ContractPodAi, Ironclad ou Leeway pour la gestion contractuelle : maîtriser ces outils te positionne en partenaire stratégique de la direction juridique, pas en exécutante.',
+    ] },
 
   { slug: 'greffier', label: 'Greffier(ère)', risk: 58, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Transcription d\'audience, indexation de dossiers, rédaction d\'actes types : la quasi-totalité du quotidien est en première ligne des LLM. La foi du greffe et la certification officielle te protègent, mais le poste se contracte - moins de greffiers pour plus de procédures.',
-    sources: [3, 7], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [3, 7], quadrant: 'mutes', potential: 50, leviers: [
+      'Maîtrise les outils numériques de ton greffe — Portail Tribunaux.fr, e-Barreau, logiciels de gestion de dossiers : être la référente sur les outils numériques est la meilleure protection dans un greffe en voie de rationalisation.',
+      'Repositionne-toi sur la certification et la foi du greffe — La valeur légale de l\'acte authentifié, la responsabilité du greffier-certificateur et la gestion des dossiers sensibles : c\'est le coeur irréductible de ta mission que l\'IA ne peut pas assumer.',
+      'Développe une expertise sur un contentieux spécialisé — Procédures collectives, tribunal de commerce, conseils de prud\'hommes : la spécialisation sur un type de contentieux complexe renforce ta valeur. Les formations ENM (École nationale de la magistrature) proposent des modules continus.',
+    ] },
 ]
 
 // ── Fonctions utilitaires ─────────────────────────────────
