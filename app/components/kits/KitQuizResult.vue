@@ -57,7 +57,7 @@ const newsletterVariant = computed(() => {
     <div class="result-card">
       <div class="result-id">{{ kitId }}</div>
       <div class="result-meta">
-        <span>DIAGNOSTIC TERMINÉ</span> · <span class="timer">CALCUL: 1.2s</span>
+        <span>TEST TERMINÉ</span> · <span class="timer">CALCUL: 1.2s</span>
       </div>
 
       <div class="score-block">
