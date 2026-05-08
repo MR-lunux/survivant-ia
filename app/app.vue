@@ -39,7 +39,13 @@ const orgWebsiteJsonLd = computed(() => JSON.stringify({
 }))
 
 useHead({
-  link: [{ rel: 'canonical', href: canonicalUrl }],
+  link: [
+    { rel: 'canonical', href: canonicalUrl },
+    // hreflang autoréférentiels (pointent vers la page courante, pas la home)
+    { rel: 'alternate', hreflang: 'fr-CH', href: canonicalUrl },
+    { rel: 'alternate', hreflang: 'fr', href: canonicalUrl },
+    { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
+  ],
   meta: [{ property: 'og:url', content: canonicalUrl }],
   script: [{
     type: 'application/ld+json',
