@@ -102,7 +102,7 @@ useHead({
 
 defineOgImage('Default', {
   title: 'Mon métier est-il menacé par l\'IA ?',
-  kicker: '// SCANNER · 10 SECONDES',
+  kicker: 'SCANNER · 10 SECONDES',
 })
 
 // ── Popular jobs ─────────────────────────────────────────
