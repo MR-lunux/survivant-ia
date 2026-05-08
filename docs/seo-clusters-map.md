@@ -18,7 +18,8 @@ Référence pour la décision « à quel cluster rattacher cet article ? » lors
 - comment piloter l'IA dans son métier
 - comment maîtriser l'IA au travail
 
-**Articles qui servent ce cluster** : aucun pour l'instant (à venir).
+**Articles qui servent ce cluster** :
+- [L'IA ne supprime pas des postes : elle supprime l'inefficience](/rapports/2026-05-08-ia-supprime-inefficience) — 2026-05-08
 
 ---
 
@@ -67,3 +68,4 @@ Référence pour la décision « à quel cluster rattacher cet article ? » lors
 | Date | Action |
 |---|---|
 | 2026-05-07 | Création — cluster 2 + cluster Autonomie cognitive ouvert par l'article démence numérique |
+| 2026-05-08 | Cluster 2 — premier article servant la colonne vertébrale ("L'IA ne supprime pas des postes : elle supprime l'inefficience") |
