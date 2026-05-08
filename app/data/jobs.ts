@@ -544,19 +544,35 @@ export const JOBS: Job[] = [
 
   { slug: 'avocat', label: 'Avocat', risk: 22, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste : revue contractuelle, recherche jurisprudentielle, premiers brouillons. Mais la plaidoirie, la stratégie procédurale, la responsabilité ordinale et la confiance client te maintiennent indispensable.',
-    sources: [21], quadrant: 'pilotes', potential: 70, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 70, leviers: [
+      'Intègre Doctrine et Predictice à ta recherche — Jurisprudence pertinente en minutes, anticipation des décisions sur ton fond. Tu signes des conclusions plus rapidement et plus solidement.',
+      'Repositionne-toi sur la stratégie procédurale et la plaidoirie — L\'IA produit la revue documentaire, toi tu construis l\'angle, tu plaides, tu portes la responsabilité ordinale. C\'est ton talent de cabinet qui paie.',
+      'Forme-toi via le CNB modules IA juridique — Différenciateur fort sur LinkedIn et auprès des clients. Le cabinet 2026 cherche les associés qui pilotent ces outils.',
+    ] },
 
   { slug: 'juge', label: 'Juge / Magistrat', risk: 5, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. La décision de justice ne peut, par construction démocratique, être déléguée à un algorithme. L\'autorité de la chose jugée demeure humaine.',
-    sources: [21], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 30, leviers: [
+      'Utilise Doctrine ou Lexbase pour ta recherche jurisprudentielle — Accès instantané aux décisions pertinentes, alertes sur les évolutions de ta chambre. Tu rédiges tes jugements sur des fondements mieux documentés.',
+      'Délègue la première rédaction des attendus à Claude ou ChatGPT — Soumets les éléments de faits, récupère une structure argumentée à corriger. Le fond reste le tien ; l\'IA t\'économise les heures de mise en forme.',
+      'Forme-toi via les modules IA de l\'ENM — Compétence reconnue par les pairs et indispensable pour comprendre les systèmes d\'aide à la décision qui entrent dans les juridictions. Signal fort pour une évolution de poste.',
+    ] },
 
   { slug: 'notaire', label: 'Notaire', risk: 32, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la rédaction d\'actes types. Mais l\'authentification, la responsabilité officielle et la médiation des intérêts entre parties te maintiennent au centre des transactions patrimoniales.',
-    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [
+      'Utilise ContractPodAi ou Leeway pour la revue automatisée de tes actes — Détection des clauses à risque, cohérence des références légales, rédaction des annexes standards. Tu te concentres sur la négociation et l\'authentification.',
+      'Repositionne-toi comme conseil patrimonial global — L\'IA rédige l\'acte ; toi tu orchestres la stratégie successorale, la protection du conjoint, l\'optimisation fiscale. C\'est ce conseil à haute valeur que tes clients ne trouvent pas ailleurs.',
+      'Forme-toi via le CNB modules IA notariaux — Signal de modernité auprès des clients et des offices recruteurs. Le notaire augmenté traite plus de dossiers sans augmenter ses coûts fixes.',
+    ] },
 
   { slug: 'artificier', label: 'Artificier / Manipulateur d\'explosifs', risk: 0, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Environnement létal, totalement imprévisible, exigeant une motricité fine instantanée : exclu des robots autonomes dans un avenir prévisible. Le coût de l\'échec rend ta présence indispensable.',
-    sources: [6], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes rapports d\'intervention et comptes rendus réglementaires — Décris oralement ce que tu as fait, récupère un document structuré conforme aux exigences. Tu gagnes une heure de paperasse après chaque opération.',
+      'Intègre les simulateurs IA de formation continue — Les nouveaux simulateurs haute-fidélité réduisent l\'exposition aux risques réels pendant l\'entraînement. Adopter les plus récents te positionne comme référent technique dans ton unité.',
+      'Documente tes interventions complexes pour construire une expertise reconnue — Retours d\'expérience partagés en interne via Notion AI. L\'expertise capitalisée te donne un avantage naturel pour les missions de formation et de commandement.',
+    ] },
 
   { slug: 'macon', label: 'Maçon / Bâtiment', risk: 0, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Manipulation de matériaux lourds dans des chantiers non structurés défie la robotique actuelle. La transition énergétique et les besoins en logement garantissent l\'emploi à long terme.',
@@ -632,19 +648,35 @@ export const JOBS: Job[] = [
 
   { slug: 'operateur-crematorium', label: 'Opérateur de crématorium', risk: 17, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Manipulation physique en environnement potentiellement dangereux + respect strict de protocoles culturels et moraux liés au deuil : profondément humain.',
-    sources: [6], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger les communications aux familles — Lettres de condoléances, confirmations de cérémonies, informations pratiques. Tu personnalises le ton, l\'IA structure le texte. Moins de charge mentale, plus de soin dans la relation.',
+      'Capitalise sur ta maîtrise des protocoles multi-cultuels — Rédige avec l\'aide de Notion AI une base de connaissances interne (rites juifs, musulmans, bouddhistes, laïques). Tu deviens la référence dans ton établissement.',
+      'Forme-toi aux logiciels métiers funéraires augmentés — Les plateformes de gestion de funérarium intègrent progressivement l\'IA. Maîtriser ces outils tôt te place en position de référent technique et ouvre des postes de coordination.',
+    ] },
 
   { slug: 'pompier', label: 'Pompier', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Intervention en environnement chaotique, jugement vital sous stress et coopération équipe-terrain restent fondamentalement humains. La technologie augmente, ne remplace pas.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes rapports d\'intervention et bilans de garde — Dicte les faits, l\'IA structure le compte rendu administratif. Tu sors du véhicule sans avoir à passer 30 minutes sur le clavier.',
+      'Intègre les simulateurs IA de formation incendie et secours — Les nouveaux outils de simulation haute-fidélité (réalité virtuelle + analyse comportementale IA) accélèrent la montée en compétences sans exposer l\'équipe au risque.',
+      'Développe une compétence en prévention des risques augmentée — Les outils de modélisation des propagations d\'incendie et des plans d\'évacuation avec IA deviennent standard dans les SDIS. Maîtriser ces outils ouvre les postes de préventionniste.',
+    ] },
 
   { slug: 'policier', label: 'Policier', risk: 9, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la reconnaissance et l\'analyse de données, mais l\'usage légitime de la force, le jugement de proportionnalité et l\'intervention humaine restent encadrés par la présence physique.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes procès-verbaux et rapports de service — Dicte les éléments de l\'intervention, récupère un PV structuré à relire et signer. Tu consacres moins de temps à la rédaction, plus au terrain.',
+      'Développe ta maîtrise des outils d\'analyse de données criminelles — Les logiciels de cartographie des infractions et de prédiction des points chauds (i2, Palantir pour les grandes unités) deviennent courants. L\'officier qui les pilote monte plus vite.',
+      'Forme-toi aux enjeux IA-éthique dans la sécurité publique — Compétence rare et très attendue dans les états-majors et les services de contrôle interne. Différenciateur fort pour accéder aux postes de commandement ou aux missions DGPN.',
+    ] },
 
   { slug: 'militaire', label: 'Militaire', risk: 11, horizon: 10, status: 'protege',
     dynamic: 'L\'IA augmente massivement les capacités (drones, renseignement, logistique). Mais la décision d\'engagement, la responsabilité de commandement et le combat en environnement complexe restent humains.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes ordres d\'opérations, comptes rendus et rapports SITREP — Gagne du temps sur l\'administratif opérationnel. Le fond reste le tien, l\'IA structure la forme selon les standards militaires.',
+      'Intègre les outils de simulation augmentée dans ta préparation opérationnelle — Les simulateurs IA de guerre urbaine, de drone et de renseignement image transforment l\'entraînement. Maîtriser ces outils te positionne comme référent dans ton unité.',
+      'Développe une double compétence cyber ou drones autonomes — La DGA et les états-majors cherchent des officiers capables de comprendre les systèmes IA en opération. Compétence rare, très demandée, ouvre les postes d\'état-major et de coopération internationale.',
+    ] },
 
   // ── EN CROISSANCE ──────────────────────────────────────
   // (demande qui augmente structurellement)
@@ -779,7 +811,11 @@ export const JOBS: Job[] = [
 
   { slug: 'specialiste-energies-renouvelables', label: 'Spécialiste énergies renouvelables', risk: 4, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La transition énergétique structure une demande massive : conception, installation, maintenance d\'infrastructures solaires/éoliennes/hydrogène. Le marché embauche plus vite qu\'il forme.',
-    sources: [9], quadrant: 'pilotes', potential: 65, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 65, leviers: [
+      'Utilise Helioscope ou PVsyst pour dimensionner et simuler tes projets — Modélisation solaire en quelques minutes avec données météo locales intégrées. Tes études de faisabilité sont plus précises et plus rapides à produire.',
+      'Automatise ta veille réglementaire avec ChatGPT — Colle les textes RE2020, loi Énergie-Climat et directives européennes, pose tes questions en langage courant. Tu restes à jour sans y passer des heures chaque semaine.',
+      'Développe une expertise en maintenance prédictive IA — Uptake AI et SparkCognition transforment les opérations de parc solaire et éolien. Profil hybride technique + IA = la pénurie des 5 prochaines années dans le secteur.',
+    ] },
 
   { slug: 'technicien-eolien', label: 'Technicien éolien', risk: 3, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Maintenance en hauteur, diagnostic mécanique-électrique sur sites isolés et coordination terrain : irréductibles à l\'automatisation à court terme. Demande structurelle forte.',
@@ -799,7 +835,11 @@ export const JOBS: Job[] = [
 
   { slug: 'specialiste-batiment-durable', label: 'Spécialiste bâtiment durable', risk: 5, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Rénovation énergétique, isolation thermique et matériaux biosourcés : la réglementation européenne crée une demande massive. Les entreprises peinent à recruter.',
-    sources: [9], quadrant: 'pilotes', potential: 55, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 55, leviers: [
+      'Utilise le BIM augmenté (Autodesk Revit + IA) pour tes projets de rénovation énergétique — Simulation thermique intégrée, détection des ponts thermiques, optimisation des matériaux. Tu produis des études plus solides en moins de temps.',
+      'Automatise ta veille RE2020 et DPEF avec ChatGPT — Colle les textes réglementaires, pose tes questions en langage courant. Tu restes au niveau des exigences sans passer des heures à déchiffrer les décrets.',
+      'Monte en compétence sur les outils de calcul carbone — Ecodesign et Climate Resolve AI intègrent les données de cycle de vie des matériaux. Profil spécialiste décarbonation = le différenciateur demandé par les maîtres d\'ouvrage publics en 2026.',
+    ] },
 
   { slug: 'coach-professionnel', label: 'Coach professionnel', risk: 22, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Face au déclassement cognitif induit par l\'IA, la demande de coaching de carrière, de reconversion et de gestion de stress explose. La présence humaine fait la différence.',
@@ -1139,31 +1179,59 @@ export const JOBS: Job[] = [
 
   { slug: 'directeur-general', label: 'Directeur général / CEO', risk: 15, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Vision, arbitrage stratégique, leadership et responsabilité ultime restent humains par construction. L\'IA t\'assiste sur l\'analyse, mais pas sur la décision.',
-    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [
+      'Construis ton dashboard de pilotage augmenté — Notion AI ou Claude Projects branché sur tes KPIs business + benchmarks marché. Tu arbitres sur des données fraîches, pas des slides obsolètes.',
+      'Repositionne-toi sur la vision et l\'orchestration humaine — L\'IA fait l\'analyse ; toi tu décides, tu motives, tu arbitres les conflits internes. Ton leadership devient le différenciateur ultime.',
+      'Forme-toi à l\'AI Strategy — HEC AI Business ou Reforge AI Strategy. Compétence de board attendue dès 2026. Documente publiquement comment tu intègres l\'IA dans la boîte.',
+    ] },
 
   { slug: 'directeur-financier', label: 'Directeur financier (CFO)', risk: 30, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Reporting et consolidation accélérés par l\'IA. Tu deviens partenaire stratégique du CEO, gestionnaire de la communication financière et arbitre des arbitrages capital-allocation.',
-    sources: [7], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 65, leviers: [
+      'Déploie Anaplan ou Workday Adaptive avec IA pour tes cycles de planification financière — Scénarios en temps réel, consolidation automatisée, alertes sur les écarts budgétaires. Tu passes de la production de chiffres à l\'interprétation stratégique.',
+      'Repositionne-toi comme partenaire business du CEO — L\'IA produit le reporting ; toi tu arbitres les allocations de capital, tu gères les relations investisseurs, tu portes la vision financière de long terme. Ce rôle de conseil ne se délègue pas.',
+      'Forme-toi via Bloomberg Terminal AI et les modules AI for Finance de HEC ou Wharton Online — Compétence attendue par les boards dès 2026. Le CFO qui pilote ses outils IA est plus crédible face aux actionnaires et aux analystes.',
+    ] },
 
   { slug: 'comedien', label: 'Comédien / Acteur', risk: 28, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'imite (deepfake, voix synthétique). Mais la présence scénique, la prise de risque corporel et la connexion incarnée avec un public restent humaines. Le secteur se polarise vers les noms et l\'authenticité.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Utilise ChatGPT pour préparer tes auditions et analyser tes personnages — Génère des questions que le réalisateur pourrait poser, explore la psychologie du rôle, construis ton backstory. Tu arrives plus préparé que les autres candidats.',
+      'Documente ton processus créatif sur les réseaux sociaux avec Canva AI — Coulisses de répétitions, réflexions sur les rôles, extraits de performances. Ta signature artistique se construit publiquement ; c\'est elle qui génère les opportunités.',
+      'Forme-toi à l\'éthique IA et aux contrats deepfake avec la BBC Academy ou les syndicats d\'acteurs — Savoir négocier les clauses de droits à l\'image face aux studios est devenu une compétence vitale. L\'acteur informé protège son patrimoine artistique.',
+    ] },
 
   { slug: 'musicien', label: 'Musicien / Compositeur', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. La musique générative IA inonde le streaming. Tu te concentres sur la performance live, la signature artistique forte et la création d\'œuvres incarnées.',
-    sources: [21], quadrant: 'mutes', potential: 45, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 45, leviers: [
+      'Utilise Suno ou ElevenLabs pour générer des maquettes et explorer des directions musicales — L\'IA produit les brouillons sonores, toi tu sélectionnes, tu raffines, tu signes. Tu passes moins de temps sur les démos, plus sur la composition qui compte.',
+      'Construis ta marque artistique via les réseaux avec ChatGPT pour le texte et Canva AI pour les visuels — La musique IA générique ne remplace pas la narrativité d\'un artiste avec une histoire. Ta signature est ton meilleur rempart.',
+      'Forme-toi aux droits d\'auteur à l\'ère IA via Berklee Online ou la SACEM — Les contrats d\'exploitation et les clauses IA évoluent vite. L\'artiste qui comprend ses droits négocie mieux avec les labels et les plateformes.',
+    ] },
 
   { slug: 'artiste-plasticien', label: 'Artiste plasticien', risk: 30, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. La génération d\'images IA bouleverse le marché. La valeur se déplace vers la pratique incarnée, la signature et le récit conceptuel. Le marché de l\'art récompense le geste irréductible.',
-    sources: [21], quadrant: 'mutes', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 40, leviers: [
+      'Intègre Midjourney ou Adobe Firefly dans ta phase d\'exploration créative — Génère des centaines de variations conceptuelles en quelques heures. Tu affines ta direction artistique plus vite, tu gardes les mains libres pour l\'œuvre finale.',
+      'Renforce ton récit conceptuel et ta présence en ligne — ChatGPT pour rédiger tes notes d\'intention, Canva AI pour tes dossiers de candidature. Les galeries et les collectionneurs achètent une démarche autant qu\'une œuvre.',
+      'Explore les résidences et prix "art & IA" — Ce territoire est jeune et peu encombré. L\'artiste plasticien qui intègre l\'IA comme médium (pas comme substitut) crée une niche propre et attire une attention éditoriale forte.',
+    ] },
 
   { slug: 'sportif-pro', label: 'Sportif professionnel', risk: 0, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. La performance physique et l\'incarnation du jeu restent humaines par essence. Le secteur monétise même l\'IA pour optimiser l\'entraînement et l\'analyse vidéo.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Optimise ta préparation avec Hudl ou Catapult AI — Analyse vidéo de tes performances, détection des points d\'amélioration. Tu progresses plus vite sans changer ton volume d\'entraînement.',
+      'Capitalise sur ton image et ton récit — Documente ton parcours sur les réseaux avec Canva AI + ChatGPT. Ta valeur d\'athlète passe aussi par ta narration personnelle.',
+      'Prépare l\'après-carrière maintenant — Coach mental, content creator, consultant tactique. Forme-toi à l\'IA générique (DeepLearning.AI gratuit) pour avoir des cordes hors-stade.',
+    ] },
 
   { slug: 'guide-touristique', label: 'Guide touristique', risk: 35, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste mais ne te remplace pas. Le récit incarné sur le lieu, l\'adaptation au groupe et l\'authenticité restent demandés. Le tourisme expérientiel soutient la profession.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Prépare tes visites avec ChatGPT adapté à chaque groupe — Profil de groupe (familles, experts, étrangers), anecdotes ciblées, FAQ anticipées. Tu arrives avec un récit sur mesure sans y passer des heures de recherche.',
+      'Construis une présence sur GetYourGuide ou Airbnb Expériences avec des avis optimisés — ChatGPT pour répondre aux commentaires et rédiger ta fiche. Les plateformes te trouvent des clients ; ta réputation fait le reste.',
+      'Développe des visites thématiques de niche — Architecture, gastronomie, histoire sociale, etc. L\'IA t\'aide à documenter les thèmes, toi tu incarnes l\'expérience. Les circuits de niche se vendent plus cher et fidélisent mieux.',
+    ] },
 
   // ── MÉTIERS RESTAURÉS (legacy slugs préservés depuis le scanner v0.7) ──
   // Ces entrées maintiennent les URLs `/scanner?job=<slug>` historiques pour ne pas casser
@@ -1479,7 +1547,11 @@ export const JOBS: Job[] = [
 
   { slug: 'pompiste', label: 'Technicien de surface', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Le nettoyage en environnements complexes, l\'adaptation aux salissures et la responsabilité hygiène en milieu sensible restent fondamentalement humains.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes fiches de poste et plannings d\'équipe — Décris les tâches en langage courant, récupère des documents structurés. Tu gagnes du temps sur l\'administratif et tu communiques mieux avec ta hiérarchie.',
+      'Documente tes protocoles de nettoyage avec Notion AI — Fiches techniques par type de surface, milieu sensible (médical, agroalimentaire, transport). Une base documentée te démarque dans les appels d\'offres de propreté.',
+      'Monte en compétence sur les certifications hygiène renforcée — HACCP, normes ISO 22000 pour les milieux sensibles. Les entreprises de propreté paient davantage les techniciens certifiés. Utilise l\'IA pour préparer les examens plus efficacement.',
+    ] },
 
   // ── AJOUTS COMMUNAUTÉ (métiers signalés par les utilisateurs) ──
 
