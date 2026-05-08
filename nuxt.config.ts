@@ -43,6 +43,8 @@ export default defineNuxtConfig({
     '/scanner': { sitemap: { priority: 0.9, changefreq: 'monthly' } },
     '/rapports': { sitemap: { priority: 0.9, changefreq: 'weekly' } },
     '/rapports/**': { sitemap: { priority: 0.7, changefreq: 'monthly' } },
+    '/outils': { sitemap: { priority: 0.8, changefreq: 'weekly' } },
+    '/outils/**': { sitemap: { priority: 0.7, changefreq: 'monthly' } },
     '/frequence': { sitemap: { priority: 0.8, changefreq: 'monthly' } },
     '/identite': { sitemap: { priority: 0.6, changefreq: 'yearly' } },
     '/_ph/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
@@ -84,7 +86,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/rss.xml', '/scanner', '/rapports', '/frequence', '/identite', '/confidentialite'],
+      routes: ['/', '/rss.xml', '/scanner', '/rapports', '/outils', '/frequence', '/identite', '/confidentialite'],
     },
   },
   vite: {
