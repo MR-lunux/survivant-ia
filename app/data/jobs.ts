@@ -405,11 +405,19 @@ export const JOBS: Job[] = [
 
   { slug: 'ingenieur-automobile', label: 'Ingénieur automobile', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Conception itérative de pièces, optimisation aérodynamique, simulations de résistance : accélérées par le design génératif. Tu te concentres sur l\'intégration systémique et l\'innovation conceptuelle.',
-    sources: [6], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [6], quadrant: 'mutes', potential: 65, leviers: [
+      'Pilote Catia AI ou Autodesk Generative Design sur tes cycles d\'optimisation de pièces — Topologie, aérodynamique, résistance aux chocs : l\'IA génère les variants, tu valides la conformité réglementaire et l\'industrialisation.',
+      'Repositionne-toi sur l\'architecture des systèmes embarqués et la validation ADAS — Software-defined vehicle, ADAS niveau 3-4, homologation : c\'est le terrain où ta signature d\'ingénieur est irremplaçable par les algorithmes.',
+      'Forme-toi aux jumeaux numériques + Industrial AI — Coursera Industrial AI MIT ou Siemens Digital Industries Academy. Le profil ingé auto x IA est sous-représenté chez Stellantis, Renault et les équipementiers Tier 1.',
+    ] },
 
   { slug: 'ingenieur-industriel', label: 'Ingénieur industriel', risk: 45, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Optimisation de chaînes, dimensionnement et planification de production sont accélérés par l\'IA. Tu deviens l\'orchestrateur entre systèmes IA et terrain humain - ou tu te fais déclasser.',
-    sources: [7], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 65, leviers: [
+      'Intègre AspenTech AI ou Palantir Foundry dans l\'optimisation de ta ligne de production — Scheduling, OEE, détection d\'anomalies : l\'IA couvre le monitoring continu, toi tu arbitres les décisions de capacité et de capex.',
+      'Repositionne-toi sur la transformation lean x IA — Les projets d\'automatisation industrielle ont besoin d\'ingénieurs capables de traduire les données machines en décisions opérationnelles. C\'est le pivot le plus rentable de ta carrière.',
+      'Certifie-toi AspenTech University ou AWS for Industrial ML — Ces certifications sectorielles sont rares et très valorisées dans l\'industrie manufacturière et la pétrochimie. Ajoute un cas d\'usage chiffré sur LinkedIn.',
+    ] },
 
   { slug: 'architecte-bdd', label: 'Architecte de bases de données', risk: 46, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Structuration, optimisation et migration des données sont gérées de manière autonome par des algorithmes apprenants. Le métier s\'oriente vers la gouvernance éthique et la sécurité des données massives.',
@@ -797,11 +805,19 @@ export const JOBS: Job[] = [
 
   { slug: 'gestionnaire-stock', label: 'Gestionnaire de stock', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Prévision de demande, optimisation de réapprovisionnement et inventaires sont automatisés. Tu deviens orchestrateur d\'exceptions et négociateur fournisseurs - ou tu es remplacé.',
-    sources: [3], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 60, leviers: [
+      'Déploie SAP IBP AI ou Manhattan Associates AI sur ton réapprovisionnement — Prévision de demande, alertes de rupture, optimisation des niveaux de stock : l\'IA tourne en continu, toi tu gères les exceptions et les fournisseurs critiques.',
+      'Repositionne-toi sur la gestion des risques de rupture et la relation fournisseurs — Pénuries, délais, substitutions : c\'est l\'arbitrage humain dans l\'urgence que l\'IA ne fait pas. C\'est là que ta valeur est visible pour le management.',
+      'Certifie-toi APICS CPIM ou vise une formation WMS + IA — Les certifications APICS couplées à la maîtrise d\'un WMS intelligent (SAP EWM, Manhattan) sont les signaux qui font la différence sur le marché de la supply chain.',
+    ] },
 
   { slug: 'logisticien', label: 'Logisticien', risk: 45, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Planification, routage et optimisation sont accélérés 10x par l\'IA. Tu te concentres sur la gestion des aléas, les relations transporteurs et l\'arbitrage stratégique multi-sites.',
-    sources: [3], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 60, leviers: [
+      'Pilote OptimoRoute AI ou Project44 AI sur ta planification de tournées et ton suivi transport — Optimisation dynamique des routes, alertes temps réel, reporting automatisé : tu passes du pilotage réactif au pilotage prédictif.',
+      'Repositionne-toi sur la gestion des aléas et la négociation transporteurs — Grèves, intempéries, pics de volume imprévus : c\'est l\'arbitrage logistique dans l\'urgence qui reste humain. Documente tes cas de crise, c\'est ta preuve de valeur.',
+      'Forme-toi à la supply chain digitale — Coursera Supply Chain Analytics ou certification SAP TM + IA. Le profil logisticien capable de configurer et d\'interpréter les outils IA est rare et très demandé en 3PL et grande distribution.',
+    ] },
 
   // ── COMMUNICATION & MARKETING ──────────────────────────
 
@@ -885,27 +901,51 @@ export const JOBS: Job[] = [
 
   { slug: 'biologiste', label: 'Biologiste / Chercheur en biologie', risk: 28, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. L\'IA accélère drastiquement le criblage moléculaire, la génomique et la rédaction d\'articles. La paillasse expérimentale et la conception d\'hypothèses restent humaines.',
-    sources: [21], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre AlphaFold + Benchling AI dans ta paillasse — Prédictions de structures protéiques en heures, suivi d\'expériences automatisé. Tu te concentres sur l\'hypothèse et la validation.',
+      'Repositionne-toi sur la conception d\'expériences et la critique des résultats IA — Causaly et BenchSci accélèrent la revue de littérature, mais le sense-making biologique reste humain.',
+      'Forme-toi au ML appliqué à la bio — Coursera AlphaFold 2 ou DeepLearning.AI Specialization. Compétence ultra-recherchée en biotech et pharma 2026.',
+    ] },
 
   { slug: 'chimiste', label: 'Chimiste', risk: 32, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Le design de molécules par IA et la simulation de réactions accélèrent la R&D. Tu te concentres sur la formulation, la validation expérimentale et l\'industrialisation.',
-    sources: [21], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 70, leviers: [
+      'Pilote ChemAI ou Reaxys AI pour accélérer ta veille de synthèse et ton design moléculaire — Des milliers de routes de synthèse analysées en minutes. Tu arbitres la faisabilité expérimentale, l\'IA génère les candidats.',
+      'Repositionne-toi sur la formulation avancée et la validation réglementaire — REACH, GHS, dossiers d\'homologation : la responsabilité chimiste sur la conformité et l\'industrialisation est inaliénable. C\'est là que ta valeur est verrouillée.',
+      'Forme-toi au ML moléculaire — DeepLearning.AI AI for Drug Discovery ou Wolfram U pour la chimie computationnelle. Profil chimiste x IA : rare, très demandé en pharma et chimie spécialisée.',
+    ] },
 
   { slug: 'physicien', label: 'Physicien / Chercheur en physique', risk: 25, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. L\'IA accélère le traitement de données expérimentales massives (collisionneurs, télescopes). La théorie, l\'hypothèse et l\'expérimentation conceptuelle restent humaines.',
-    sources: [21], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 65, leviers: [
+      'Automatise l\'analyse de tes jeux de données avec TensorFlow/PyTorch + Jupyter AI — Traitement de signaux, réduction dimensionnelle, détection d\'anomalies : tu libères du temps pour la modélisation théorique.',
+      'Repositionne-toi sur la physique computationnelle et les simulations à grande échelle — COMSOL + IA ou Wolfram Mathematica : la capacité à coupler simulation numérique et hypothèse physique est ton avantage durable.',
+      'Capitalise sur ta rigueur expérimentale pour piloter des projets IA industriels — Quantique, photonique, capteurs : les industriels (Thales, CEA, Airbus) recrutent des physiciens capables de valider des modèles IA. C\'est le pivot le plus rentable.',
+    ] },
 
   { slug: 'ingenieur-civil', label: 'Ingénieur civil / BTP', risk: 28, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la modélisation et le calcul de structures. Mais la responsabilité d\'ouvrage, la coordination chantier et l\'adaptation au réel restent humaines. La transition énergétique soutient la demande.',
-    sources: [21], quadrant: 'tiens', potential: 45, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 45, leviers: [
+      'Maîtrise le BIM augmenté IA avec Revit AI ou Bentley OpenBuildings — Détection de conflits, optimisation structurelle et suivi chantier via drones + photogrammétrie : tu gagnes en visibilité terrain sans y passer tes journées.',
+      'Capitalise ta responsabilité d\'ouvrage comme avantage concurrentiel — Calculs de structures, conformité Eurocodes, certification CE : c\'est la signature légale que l\'IA ne peut pas assumer. Positionne-toi là.',
+      'Forme-toi à Autodesk Forma ou Spacemaker pour la conception durable — Ces outils IA analysent ensoleillement, ventilation et bilan carbone en amont. Compétence clé pour les marchés rénovation énergétique et construction bas-carbone.',
+    ] },
 
   { slug: 'architecte', label: 'Architecte', risk: 38, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. La génération de plans et de rendus par IA commoditise une partie de la production. Tu te concentres sur la signature artistique, le dialogue client et la maîtrise réglementaire.',
-    sources: [21], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre Spacemaker (Autodesk Forma) ou Finch3D dans ta conception — Analyse d\'ensoleillement, densité, simulation thermique en temps réel. Tu explores 10x plus de partis architecturaux avant même de présenter au client.',
+      'Repositionne-toi sur la maîtrise d\'œuvre et la responsabilité décennale — Permis de construire, conformité PLU/RT2020, coordination MOE : c\'est la responsabilité légale de l\'architecte signataire que l\'IA ne peut pas assumer.',
+      'Forme-toi au BIM manageur IA — Revit AI + certification BIM Level 2 ou 3. Les maîtres d\'ouvrage publics et privés exigent le BIM ; maîtriser la couche IA te place en architecte coordinateur plutôt qu\'exécutant.',
+    ] },
 
   { slug: 'urbaniste', label: 'Urbaniste', risk: 32, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Modélisation urbaine et études d\'impact sont accélérées par l\'IA. Tu te concentres sur la concertation publique, l\'arbitrage politique et la vision territoriale long-terme.',
-    sources: [21], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 55, leviers: [
+      'Pilote Spacemaker AI ou TestFit pour tes études de capacité urbaine — Simulation de scénarios d\'aménagement, impact carbone, densité : tu produis 5x plus de variantes en phase d\'études préalables.',
+      'Repositionne-toi sur la gouvernance territoriale et la concertation — SCoT, PLU bioclimatique, ZAN : les arbitrages entre parties prenantes et la responsabilité réglementaire restent irréductiblement humains. C\'est ton cœur de valeur.',
+      'Maîtrise les outils de données urbaines ouvertes + IA — QGIS + Python + données INSEE / OpenStreetMap : l\'urbaniste qui produit ses propres analyses spatiales augmentées est rare et très demandé dans les agences d\'urbanisme et collectivités.',
+    ] },
 
   // ── DIVERS ─────────────────────────────────────────────
 
@@ -959,7 +999,11 @@ export const JOBS: Job[] = [
 
   { slug: 'responsable-qualite', label: 'Responsable qualité', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Contrôle conformité, reporting ISO et détection d\'anomalies sont accélérés par l\'IA. Tu te recentres sur la culture qualité, la gouvernance et l\'audit stratégique des risques.',
-    sources: [3], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 55, leviers: [
+      'Déploie ETQ Reliance AI ou MasterControl AI sur ton système de gestion qualité — Non-conformités, CAPA, audits : automatise le suivi et la traçabilité. Tu libères du temps pour l\'animation de la culture qualité terrain.',
+      'Repositionne-toi sur la gouvernance qualité et l\'audit stratégique — Revue de direction, analyse de risques produit, interface avec les clients grands comptes : c\'est la responsabilité qualité de haut niveau que l\'IA n\'assume pas.',
+      'Maîtrise le contrôle qualité par vision IA — Cognex ou Keyence + IA pour le contrôle non-destructif. Couple avec une veille réglementaire augmentée via Thomson Reuters Regulatory Intelligence. Signal fort pour les industriels.',
+    ] },
 
   { slug: 'controleur-gestion', label: 'Contrôleur de gestion', risk: 60, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Reporting standardisé, écarts budgétaires et tableaux de bord sont automatisés. Tu te concentres sur le partenariat business, l\'arbitrage de scenarii stratégiques et la lecture critique des données.',
@@ -983,7 +1027,11 @@ export const JOBS: Job[] = [
 
   { slug: 'responsable-logistique', label: 'Responsable logistique', risk: 45, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Planification, optimisation de routes et prévision de demande sont accélérées par l\'IA. Tu deviens orchestrateur d\'exceptions, négociateur transporteurs et arbitre stratégique multi-sites.',
-    sources: [3], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 60, leviers: [
+      'Déploie Blue Yonder AI ou o9 Solutions sur ta planification — Prévision de demande, optimisation de routes, alertes de rupture : 50% du pilotage opérationnel passe par l\'IA.',
+      'Repositionne-toi sur la gestion d\'aléas et la stratégie multi-sites — Crises géopolitiques, ruptures fournisseurs, réorganisation du sourcing : c\'est l\'arbitrage humain qui paie, pas le tableau Excel.',
+      'Forme-toi à la supply chain digitale — Anthropic Academy + AWS for Industrial ML + certification SAP IBP. Marché ultra-tendu sur les profils hybrides supply x IA.',
+    ] },
 
   { slug: 'responsable-communication', label: 'Responsable communication', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque - la part politique et humaine du rôle.',
@@ -995,7 +1043,11 @@ export const JOBS: Job[] = [
 
   { slug: 'technicien-laboratoire', label: 'Technicien de laboratoire', risk: 38, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Robotique de laboratoire et IA d\'interprétation des résultats accélèrent les analyses. Tu te concentres sur la mise au point de protocoles, l\'assurance qualité et l\'expertise sur cas atypiques.',
-    sources: [21], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 50, leviers: [
+      'Pilote Benchling AI ou Labguru AI pour gérer tes protocoles et résultats — Traçabilité automatisée, interprétation des données brutes, alertes d\'anomalies : tu libères du temps pour la mise au point et les cas complexes.',
+      'Repositionne-toi sur le contrôle qualité et la validation des résultats IA — Les analyses IA génèrent des faux positifs que seul un technicien expérimenté détecte. Ton expertise sensorielle et méthodologique reste le filtre critique.',
+      'Maîtrise l\'analyse d\'images automatisée — CellProfiler ou ilastik pour la microscopie, Opentrons pour la robotique de labo. Ce savoir-faire augmenté est rare et recherché en pharma, biotech et contrôle qualité industriel.',
+    ] },
 
   { slug: 'infographiste', label: 'Infographiste', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La génération d\'images, retouches et déclinaisons de gabarits sont commoditisées par l\'IA. La direction artistique et la signature visuelle survivent ; l\'exécution se vend de moins en moins seule.',
@@ -1039,19 +1091,35 @@ export const JOBS: Job[] = [
 
   { slug: 'acheteur', label: 'Acheteur', risk: 52, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Sourcing fournisseurs, RFP et benchmark prix sont accélérés par l\'IA. Tu te concentres sur la négociation stratégique, la résilience de la supply chain et la RSE des fournisseurs.',
-    sources: [3], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 60, leviers: [
+      'Pilote Coupa AI ou SAP Ariba AI pour ton sourcing et ton analyse des dépenses — Identification de fournisseurs alternatifs, benchmark prix en temps réel, scoring RSE automatisé : tu passes de l\'exécution à la stratégie d\'achat.',
+      'Repositionne-toi sur la négociation et la gestion des risques fournisseurs — Géopolitique, défaillances, concentration de sourcing : l\'arbitrage sur la résilience de la chaîne est humain. C\'est là que tu construis ta valeur long terme.',
+      'Certifie-toi CIPS (Chartered Institute of Procurement & Supply) et maîtrise Beroe AI ou Mintec — Ce binôme certification x intelligence marchés IA t\'impose comme acheteur stratégique face aux directions qui sous-estiment encore le sujet.',
+    ] },
 
   { slug: 'responsable-achats', label: 'Directeur des achats', risk: 40, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Le pilotage analytique des dépenses et la veille fournisseurs sont assistés par IA. La valeur reste dans la stratégie make-or-buy, la gestion des risques géopolitiques et la négociation top-niveau.',
-    sources: [9], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 55, leviers: [
+      'Déploie Sievo ou Spendkey AI pour ton analyse de dépenses en temps réel — Segmentation automatique, détection d\'opportunités d\'économies, reporting CODIR : tu passes du tableau de bord à la décision stratégique.',
+      'Repositionne-toi sur la stratégie make-or-buy et la résilience géopolitique — Diversification du sourcing Asie-Europe, dual sourcing, gestion de la criticité des composants : c\'est le niveau de valeur que les outils d\'analyse n\'atteignent pas.',
+      'Capitalise avec Jaggaer AI et une certification CPO Leadership — Pilote un projet de digitalisation achats dans ton entreprise et documente le ROI. C\'est le signal le plus fort pour une direction générale ou un board.',
+    ] },
 
   { slug: 'geometre', label: 'Géomètre', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Drones, LiDAR et IA de traitement nuage de points accélèrent les relevés. Tu te concentres sur l\'expertise foncière, la responsabilité légale et les missions complexes.',
-    sources: [21], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 50, leviers: [
+      'Intègre Pix4D AI ou DroneDeploy AI dans tes relevés terrain — Nuage de points, orthophotos, modèles 3D en quelques heures au lieu de jours. Tu te recentres sur l\'interprétation et la validation foncière.',
+      'Repositionne-toi sur l\'expertise bornage et la responsabilité légale — Acte authentique, bornage contradictoire, expertise judiciaire : c\'est la mission de géomètre-expert que l\'IA ne peut pas signer. C\'est ton verrou légal.',
+      'Certifie-toi Trimble University sur les outils IA de relevé — Trimble RealWorks + IA et la maîtrise des workflows drone avancés te différencient des cabinets qui n\'ont pas encore basculé. Avantage compétitif fort en 2026.',
+    ] },
 
   { slug: 'ingenieur-automatisme', label: 'Ingénieur automatisme', risk: 40, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. La programmation d\'automates et la mise au point de cycles sont accélérées par l\'IA générative et les jumeaux numériques. Tu pivotes vers l\'intégration cyber-physique et la robotique collaborative.',
-    sources: [9], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 55, leviers: [
+      'Intègre Siemens MindSphere ou AVEVA AI dans ta supervision de lignes — Détection d\'anomalies prédictives, jumeaux numériques de tes équipements : tu pilotes la ligne depuis les données, pas depuis le terrain.',
+      'Repositionne-toi sur la robotique collaborative et l\'intégration OT/IT — Cobot + ROS + cybersécurité industrielle : c\'est la convergence que peu d\'automaticiens maîtrisent. Ce croisement vaut deux fois plus sur le marché.',
+      'Certifie-toi Rockwell Plex AI ou Siemens Automation Specialist — Couple avec un module cybersécurité ICS (SANS ICS515 ou ISA/IEC 62443). Profil rare, très demandé dans l\'automobile et l\'agroalimentaire.',
+    ] },
 
   { slug: 'formateur', label: 'Formateur professionnel', risk: 35, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Le WEF projette que 39% des compétences devront être réapprises d\'ici 2030. La requalification massive crée un appel d\'air pour les formateurs en présentiel, surtout sur les soft skills.',
@@ -1063,7 +1131,11 @@ export const JOBS: Job[] = [
 
   { slug: 'responsable-hse', label: 'Responsable HSE', risk: 32, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la veille réglementaire et l\'analyse de risques. Mais l\'audit terrain, la culture sécurité et la responsabilité juridique restent humaines. La pression réglementaire soutient durablement la demande.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Automatise ta veille réglementaire avec LexisNexis Risk ou Thomson Reuters Regulatory Intelligence — Nouvelles directives ICPE, mises à jour REACH, évolutions code du travail : l\'IA surveille, toi tu évalues l\'impact terrain et tu décides.',
+      'Capitalise ta responsabilité terrain comme avantage irremplaçable — Document unique, analyse ATEX, enquête accident : l\'engagement juridique du responsable HSE signataire est ce que l\'IA ne peut pas assumer. C\'est ton ancre.',
+      'Maîtrise ChatGPT pour la production de synthèses ISO 45001 / ISO 14001 — Rédaction de procédures, préparation des revues de direction, plans de formation sécurité : tu gagnes 30% de temps administratif à réinvestir en présence terrain.',
+    ] },
 
   { slug: 'agent-de-voyage', label: 'Agent de voyage', risk: 65, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. La réservation autonome, les agents IA et les comparateurs ont absorbé le métier généraliste. Bascule vers le voyage de niche — luxe, affaires complexes, aventure — c\'est là que la valeur humaine reste.',
@@ -1075,11 +1147,19 @@ export const JOBS: Job[] = [
 
   { slug: 'ingenieur-mecanique', label: 'Ingénieur mécanique', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Le design génératif, la simulation et l\'optimisation topologique sont accélérés par l\'IA. Tu te concentres sur l\'intégration systémique, la responsabilité produit et l\'innovation conceptuelle.',
-    sources: [6], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [6], quadrant: 'mutes', potential: 60, leviers: [
+      'Bascule sur le design génératif avec Autodesk Generative ou nTopology — Topologie optimisée, simulations CFD/FEA en heures au lieu de semaines. Tu valides l\'output, l\'IA explore l\'espace de design.',
+      'Repositionne-toi sur l\'intégration systémique et la responsabilité produit — L\'IA produit des pièces, toi tu garantis la conformité, la sécurité, l\'industrialisation. C\'est ta signature qui paie.',
+      'Forme-toi aux jumeaux numériques + AI — Siemens Digital Industries Academy ou Coursera Industrial AI MIT. Différenciateur fort dans l\'auto et l\'aérospatial 2026.',
+    ] },
 
   { slug: 'technicien-son', label: 'Technicien son / image', risk: 38, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Mixage automatique, étalonnage IA et upscaling vidéo commoditisent une partie du travail. Tu te concentres sur les captations live, la direction artistique sonore et les productions premium.',
-    sources: [21], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 50, leviers: [
+      'Intègre iZotope Neutron AI et Auphonic dans ta chaîne de post-production — Nettoyage audio, mastering automatisé, balance spectrale : les tâches répétitives disparaissent, tu te concentres sur le rendu artistique.',
+      'Repositionne-toi sur la captation live et la direction technique premium — Concert, broadcast, cinéma : la gestion acoustique en temps réel dans un environnement vivant reste hors de portée de l\'IA. C\'est ton terrain irremplaçable.',
+      'Maîtrise Topaz Video AI et DaVinci Resolve AI pour les productions haut de gamme — Upscaling 4K/8K, restauration d\'archives, étalonnage IA : ces compétences augmentées ouvrent les portes des productions qui paient bien.',
+    ] },
 
   { slug: 'carreleur', label: 'Carreleur', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Lecture du support, ajustement aux contraintes du chantier et précision millimétrique restent hors de portée des robots. La rénovation immobilière soutient durablement la demande.',
