@@ -43,6 +43,69 @@ const colorVarSoft = computed(() => {
 const newsletterVariant = computed(() => {
   return props.newsletterVariants[props.tier.slug as keyof NewsletterVariants] ?? props.newsletterVariants.dependance
 })
+
+// Animated tier name (scramble effect)
+const displayedTier = ref('')
+const displayedScore = ref(0)
+const reducedMotion = computed(() => {
+  if (!import.meta.client) return false
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+})
+
+const SCRAMBLE_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>/?ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+function scrambleTo(target: string, durationMs: number, onUpdate: (s: string) => void): void {
+  if (reducedMotion.value) {
+    onUpdate(target)
+    return
+  }
+  const startTime = performance.now()
+  const len = target.length
+  function frame(now: number) {
+    const elapsed = now - startTime
+    const progress = Math.min(1, elapsed / durationMs)
+    // Reveal chars left to right based on progress
+    const revealedCount = Math.floor(progress * len)
+    let out = ''
+    for (let i = 0; i < len; i++) {
+      if (i < revealedCount) {
+        out += target[i]
+      } else if (target[i] === ' ') {
+        out += ' '
+      } else {
+        out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]
+      }
+    }
+    onUpdate(out)
+    if (progress < 1) requestAnimationFrame(frame)
+    else onUpdate(target)
+  }
+  requestAnimationFrame(frame)
+}
+
+function countTo(target: number, durationMs: number, onUpdate: (n: number) => void): void {
+  if (reducedMotion.value) {
+    onUpdate(target)
+    return
+  }
+  const startTime = performance.now()
+  function frame(now: number) {
+    const elapsed = now - startTime
+    const progress = Math.min(1, elapsed / durationMs)
+    // Ease-out cubic
+    const eased = 1 - Math.pow(1 - progress, 3)
+    onUpdate(Math.floor(eased * target))
+    if (progress < 1) requestAnimationFrame(frame)
+    else onUpdate(target)
+  }
+  requestAnimationFrame(frame)
+}
+
+onMounted(() => {
+  if (!import.meta.client) return
+  scrambleTo(props.tier.label, 1100, v => { displayedTier.value = v })
+  countTo(props.score, 800, v => { displayedScore.value = v })
+})
 </script>
 
 <template>
@@ -61,10 +124,10 @@ const newsletterVariant = computed(() => {
       </div>
 
       <div class="score-block">
-        <div class="score-num">{{ score }}<small>/{{ total }}</small></div>
+        <div class="score-num">{{ displayedScore }}<small>/{{ total }}</small></div>
         <div class="score-info">
           <div class="score-label">// STATUT</div>
-          <div class="score-tier">{{ tier.label }}</div>
+          <div class="score-tier">{{ displayedTier || ' ' }}</div>
         </div>
       </div>
 
