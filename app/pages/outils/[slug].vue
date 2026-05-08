@@ -12,6 +12,13 @@ const { data: kit } = await useAsyncData(`kit-${slug}`, () =>
 if (!kit.value) {
   throw createError({ statusCode: 404, statusMessage: 'Kit introuvable' })
 }
+
+const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async () => {
+  if (!kit.value?.parentArticleSlug) return null
+  return await queryCollection('rapports')
+    .path(`/rapports/${kit.value.parentArticleSlug}`)
+    .first()
+})
 </script>
 
 <template>
@@ -35,9 +42,36 @@ if (!kit.value) {
         </div>
       </header>
 
+      <NuxtLink
+        v-if="parentArticle"
+        :to="parentArticle.path"
+        class="parent-card"
+      >
+        <div class="parent-info">
+          <div class="parent-label">▶ À LIRE D'ABORD</div>
+          <div class="parent-title">{{ parentArticle.title }}</div>
+        </div>
+        <div class="parent-arrow" aria-hidden="true">→</div>
+      </NuxtLink>
+
       <div class="kit-body prose">
         <ContentRenderer :value="kit" />
       </div>
+
+      <footer class="kit-footer">
+        <NuxtLink
+          v-if="parentArticle"
+          :to="parentArticle.path"
+          class="return-card"
+        >
+          <div class="return-label">// POUR EN SAVOIR PLUS</div>
+          <div class="return-title">{{ parentArticle.title }}</div>
+          <p class="return-teaser">{{ parentArticle.description }}</p>
+          <span class="return-link">▶ LIRE L'ARTICLE COMPLET</span>
+        </NuxtLink>
+
+        <NewsletterForm />
+      </footer>
     </article>
   </div>
 </template>
@@ -64,4 +98,66 @@ if (!kit.value) {
 }
 .kit-specs .dot { color: var(--color-dim); }
 .kit-body { font-size: 1.02rem; line-height: 1.75; color: var(--color-text-soft); }
+
+.parent-card {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--color-rule);
+  background: var(--color-surface);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 3rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease;
+}
+.parent-card:hover { border-color: var(--color-accent); }
+.parent-info { flex: 1; }
+.parent-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.4rem;
+}
+.parent-title { font-size: 0.95rem; color: var(--color-text-soft); }
+.parent-arrow { color: var(--color-accent); font-family: var(--font-mono); font-size: 1.1rem; }
+
+.kit-footer {
+  margin-top: 5rem;
+  border-top: 1px solid var(--color-rule);
+  padding-top: 3rem;
+}
+.return-card {
+  display: block;
+  border: 1px solid var(--color-rule);
+  background: var(--color-surface);
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease;
+}
+.return-card:hover { border-color: var(--color-accent); }
+.return-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+.return-title {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+.return-teaser { font-size: 0.92rem; color: var(--color-muted); margin: 0 0 0.75rem; }
+.return-link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+}
 </style>
