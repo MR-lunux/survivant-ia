@@ -20,6 +20,71 @@ const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async ()
     .first()
 })
 
+useSeoMeta({
+  title: () => kit.value ? `${kit.value.title} (${kit.value.code}) | Survivant-IA` : 'Kit | Survivant-IA',
+  description: () => kit.value?.description ?? '',
+  ogTitle: () => kit.value ? `${kit.value.title} (${kit.value.code})` : '',
+  ogDescription: () => kit.value?.description ?? '',
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => kit.value?.title ?? '',
+  twitterDescription: () => kit.value?.description ?? '',
+})
+
+const kitJsonLd = computed(() => {
+  if (!kit.value) return ''
+  const baseUrl = `https://survivant-ia.ch/outils/${slug}`
+  const graph: Record<string, unknown>[] = [
+    {
+      '@type': 'WebApplication',
+      '@id': `${baseUrl}#app`,
+      name: `${kit.value.title} (${kit.value.code})`,
+      url: baseUrl,
+      description: kit.value.description,
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'fr-CH',
+      isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Boîte à Outils', item: 'https://survivant-ia.ch/outils' },
+        { '@type': 'ListItem', position: 3, name: kit.value.code },
+      ],
+    },
+  ]
+
+  // Quiz schema (only for kind: quiz)
+  if (kit.value.kind === 'quiz' && kit.value.data?.questions) {
+    graph.push({
+      '@type': 'Quiz',
+      '@id': `${baseUrl}#quiz`,
+      name: kit.value.title,
+      about: kit.value.subtitle,
+      educationalLevel: 'Beginner',
+      learningResourceType: 'Self-assessment',
+      hasPart: kit.value.data.questions.map((q: { id: number; prompt: string; choices: { text: string }[] }) => ({
+        '@type': 'Question',
+        name: q.prompt,
+        suggestedAnswer: q.choices.map((c) => ({ '@type': 'Answer', text: c.text })),
+      })),
+    })
+  }
+
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
+})
+
+useHead({
+  script: [{ type: 'application/ld+json', innerHTML: kitJsonLd }],
+})
+
+defineOgImage('Default', {
+  title: () => kit.value?.title ?? '',
+  kicker: () => `// ${kit.value?.kicker ?? ''}`,
+})
+
 const { capture } = usePosthogEvent()
 const router = useRouter()
 
