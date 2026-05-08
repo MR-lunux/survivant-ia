@@ -387,6 +387,16 @@ function selectJob(job: Job) {
 }
 
 // ── Dynamic meta ─────────────────────────────────────────
+function applyDynamicOgImage(job: Job) {
+  defineOgImage('Scanner', {
+    label: job.label,
+    verdict: QUADRANT_VERDICT_ITALIC[job.quadrant],
+    quadrant: job.quadrant,
+    risk: job.risk,
+    potential: job.potential,
+  })
+}
+
 function setDynamicMeta(job: Job) {
   useHead({
     meta: [
@@ -394,6 +404,7 @@ function setDynamicMeta(job: Job) {
       { property: 'og:description', content: `J'ai scanné mon métier sur survivant-ia.ch. Résultat : ${STATUS_LABELS[job.status]}. Et toi ?` },
     ],
   })
+  applyDynamicOgImage(job)
 }
 
 // ── Scan ─────────────────────────────────────────────────
