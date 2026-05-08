@@ -64,7 +64,7 @@ const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async ()
           :to="parentArticle.path"
           class="return-card"
         >
-          <div class="return-label">// POUR EN SAVOIR PLUS</div>
+          <KickerLabel class="return-label">POUR EN SAVOIR PLUS</KickerLabel>
           <div class="return-title">{{ parentArticle.title }}</div>
           <p class="return-teaser">{{ parentArticle.description }}</p>
           <span class="return-link">▶ LIRE L'ARTICLE COMPLET</span>
@@ -140,12 +140,7 @@ const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async ()
 }
 .return-card:hover { border-color: var(--color-accent); }
 .return-label {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 .return-title {
   font-family: var(--font-serif); font-style: italic;
