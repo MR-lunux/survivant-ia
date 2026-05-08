@@ -15,6 +15,16 @@ if (!article.value) {
   throw createError({ statusCode: 404, statusMessage: 'Rapport introuvable' })
 }
 
+const { data: relatedKit } = await useAsyncData(
+  `related-kit-${slug}`,
+  async () => {
+    if (!article.value?.relatedKit) return null
+    return await queryCollection('outils')
+      .path(`/outils/${article.value.relatedKit}`)
+      .first()
+  }
+)
+
 useSeoMeta({
   title: () => `${article.value?.title} | Survivant-IA`,
   description: () => article.value?.description ?? '',
@@ -169,6 +179,19 @@ onBeforeUnmount(() => {
       </ScannerBorder>
 
       <div class="article-footer">
+        <KitCallout
+          v-if="relatedKit"
+          :kit="{
+            code: relatedKit.code,
+            kind: relatedKit.kind,
+            title: relatedKit.title,
+            specs: relatedKit.specs,
+            path: relatedKit.path,
+            calloutPitch: relatedKit.calloutPitch,
+            description: relatedKit.description,
+          }"
+          :from-article-slug="slug as string"
+        />
         <div class="article-cta">
           <p style="margin-bottom: 1.5rem;">
             <KickerLabel>SI CE RAPPORT VOUS A ÉTÉ UTILE, REJOIGNEZ LA FRÉQUENCE</KickerLabel>
