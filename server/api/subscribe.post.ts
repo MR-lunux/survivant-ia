@@ -65,6 +65,11 @@ export default defineEventHandler(async (event) => {
     ? source
     : 'website'
 
+  // Normalisation des champs scanner — calculés une fois, dispatchés en attributs legacy + v2
+  const safeJobSlug = typeof job_slug === 'string' && job_slug
+    ? stripHtml(job_slug.slice(0, 80))
+    : null
+
   const res = await fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
     headers: {
@@ -79,22 +84,19 @@ export default defineEventHandler(async (event) => {
         CONSENT: true,
         SOURCE: safeSource,
         // ── legacy v1 (conservé pour backward compat) ─────────
-        ...(typeof job_slug === 'string' && job_slug
-          ? { JOB_SLUG: stripHtml(job_slug.slice(0, 80)) }
-          : {}),
+        ...(safeJobSlug ? { JOB_SLUG: safeJobSlug } : {}),
         ...(typeof job_status === 'string' && job_status
           ? { JOB_STATUS: stripHtml(job_status.slice(0, 30)) }
           : {}),
         // ── v2 (scanner v2) ────────────────────────────────────
-        ...(typeof job_slug === 'string' && job_slug
-          ? { SCANNER_JOB: stripHtml(job_slug.slice(0, 80)) }
-          : {}),
+        ...(safeJobSlug ? { SCANNER_JOB: safeJobSlug } : {}),
         ...(typeof job_quadrant === 'string' && ['tiens', 'pilotes', 'pivotes', 'mutes'].includes(job_quadrant)
           ? { SCANNER_QUADRANT: job_quadrant }
           : {}),
         ...(typeof job_risk === 'number' && job_risk >= 0 && job_risk <= 100
           ? { SCANNER_RISK: Math.round(job_risk) }
           : {}),
+        // SCANNER_LEVIER stocke le score `potential` (0-100), pas du texte de levier — voir spec §4.4
         ...(typeof job_potential === 'number' && job_potential >= 0 && job_potential <= 100
           ? { SCANNER_LEVIER: Math.round(job_potential) }
           : {}),
