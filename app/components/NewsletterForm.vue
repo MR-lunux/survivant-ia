@@ -3,12 +3,20 @@
   <section id="newsletter" class="newsletter" aria-labelledby="newsletter-heading">
     <div class="container">
       <div class="newsletter-inner">
-        <span class="newsletter-eyebrow" data-reveal>La Fréquence</span>
-        <h2 id="newsletter-heading" class="newsletter-h2" data-reveal data-reveal-delay="1">
+        <span class="newsletter-eyebrow" data-reveal>{{ props.kicker }}</span>
+
+        <h2 v-if="props.h3" id="newsletter-heading" class="newsletter-h2" data-reveal data-reveal-delay="1">
+          <em>{{ effectiveH3 }}</em>
+        </h2>
+        <h2 v-else id="newsletter-heading" class="newsletter-h2" data-reveal data-reveal-delay="1">
           Reste un <em>cran devant</em>.<br>
           <strong>Un nouvel article chaque semaine.</strong>
         </h2>
-        <p class="newsletter-lead" data-reveal data-reveal-delay="2">
+
+        <p v-if="props.body" class="newsletter-lead" data-reveal data-reveal-delay="2">
+          {{ effectiveBody }}
+        </p>
+        <p v-else class="newsletter-lead" data-reveal data-reveal-delay="2">
           Cinq minutes de lecture, sans hype, sans funnel, sans sponsor.
           Que des outils et signaux que j'utilise vraiment. Formations approfondies pour ceux qui veulent aller plus loin (bientôt).
         </p>
@@ -86,6 +94,26 @@
 </template>
 
 <script setup lang="ts">
+const props = withDefaults(defineProps<{
+  kicker?: string
+  h3?: string
+  body?: string
+  context?: string
+  kitId?: string
+  tier?: string
+}>(), {
+  kicker: 'La Fréquence',
+  h3: '',
+  body: '',
+  context: 'standalone',
+  kitId: '',
+  tier: '',
+})
+
+// Default H3 and body keep current behavior if not overridden
+const effectiveH3 = computed(() => props.h3 || 'Reste un cran devant. Un nouvel article chaque semaine.')
+const effectiveBody = computed(() => props.body || 'Cinq minutes de lecture, sans hype, sans funnel, sans sponsor. Que des outils et signaux que j\'utilise vraiment. Formations approfondies pour ceux qui veulent aller plus loin (bientôt).')
+
 const { capture } = usePosthogEvent()
 const route = useRoute()
 const sourcePage = computed(() => route.path)
@@ -94,7 +122,12 @@ const focusedOnce = ref(false)
 function onEmailFocus() {
   if (focusedOnce.value) return
   focusedOnce.value = true
-  capture('newsletter_form_focused', { source_page: sourcePage.value })
+  capture('newsletter_form_focused', {
+    source_page: sourcePage.value,
+    context: props.context,
+    kit_id: props.kitId || null,
+    tier: props.tier || null,
+  })
 }
 
 const prenom  = ref('')
@@ -115,7 +148,12 @@ async function submit() {
   status.value = 'loading'
   errorMsg.value = ''
 
-  capture('newsletter_signup_submitted', { source_page: sourcePage.value })
+  capture('newsletter_signup_submitted', {
+    source_page: sourcePage.value,
+    context: props.context,
+    kit_id: props.kitId || null,
+    tier: props.tier || null,
+  })
 
   try {
     await $fetch('/api/subscribe', {
@@ -123,7 +161,12 @@ async function submit() {
       body: { prenom: prenom.value.trim(), email: email.value, consent: consent.value },
     })
     status.value = 'success'
-    capture('newsletter_signup_succeeded', { source_page: sourcePage.value })
+    capture('newsletter_signup_succeeded', {
+      source_page: sourcePage.value,
+      context: props.context,
+      kit_id: props.kitId || null,
+      tier: props.tier || null,
+    })
   } catch (err: any) {
     status.value = 'error'
     errorMsg.value = err?.data?.message ?? 'Erreur technique, réessayez.'
@@ -133,6 +176,9 @@ async function submit() {
       : 'network'
     capture('newsletter_signup_failed', {
       source_page: sourcePage.value,
+      context: props.context,
+      kit_id: props.kitId || null,
+      tier: props.tier || null,
       reason,
       error_message: err?.data?.message ?? err?.message ?? 'unknown',
     })
