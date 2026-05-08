@@ -29,67 +29,67 @@ export const JOBS: Job[] = [
   // (risque élevé, contraction réelle des effectifs)
 
   { slug: 'teleconseiller', label: 'Téléconseiller', risk: 78, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La réception d\'appels et la résolution des plaintes courantes sont gérées par des agents conversationnels multimodaux à voix naturelle. Les centres de contact réduisent drastiquement leurs effectifs.',
+    dynamic: 'Ton métier se contracte. La réception d\'appels et la résolution des plaintes courantes sont gérées par des agents conversationnels à voix naturelle. Bascule vite vers superviseur IA ou rôle qualité — c\'est là que les centres de contact recrutent.',
     sources: [3], quadrant: 'pivotes', potential: 20, leviers: [] },
 
   { slug: 'televendeur', label: 'Télévendeur', risk: 92, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La prospection à froid et la qualification de leads sont déléguées à des agents IA capables de mener des conversations vocales complètes. Le métier humain ne survit que sur les ventes complexes B2B.',
+    dynamic: 'Ton métier se contracte fort. La prospection à froid et la qualification de leads sont déléguées à des agents IA capables de mener des conversations vocales complètes. Anticipe le pivot vers ventes complexes B2B ou management d\'agents IA commerciaux.',
     sources: [3], quadrant: 'pivotes', potential: 15, leviers: [] },
 
   { slug: 'saisie-de-donnees', label: 'Agent de saisie de données', risk: 90, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier est en obsolescence active. La lecture de documents non structurés et leur saisie systémique sont résolues par l\'OCR cognitif et les LLM. Le WEF projette la disparition de 26 millions de ces postes.',
+    dynamic: 'Ton métier se contracte fort. La lecture de documents non structurés et leur saisie systémique sont résolues par l\'OCR cognitif et les LLM. Le WEF projette la suppression de 26 millions de ces postes — anticipe le pivot vers un rôle de supervision ou un secteur adjacent.',
     sources: [3, 9], quadrant: 'pivotes', potential: 10, leviers: [] },
 
   { slug: 'redacteur-web', label: 'Rédacteur web', risk: 76, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Seuls les créateurs d\'opinion à forte marque personnelle survivent - les autres subissent la contraction.',
+    dynamic: 'Ton métier mute. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Bascule vers la direction éditoriale, le personal branding ou le pilotage d\'agents IA — c\'est là que la valeur se reconstruit.',
     sources: [1, 15, 17], quadrant: 'mutes', potential: 60, leviers: [] },
 
   { slug: 'traducteur', label: 'Traducteur', risk: 82, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La traduction temps réel atteint une fidélité quasi-humaine. La profession humaine se cantonne à la traduction littéraire nuancée et à la diplomatie sensible de haut niveau.',
+    dynamic: 'Ton métier se contracte. La traduction généraliste est absorbée par les LLM à fidélité quasi-humaine. Le marché se replie sur la traduction littéraire nuancée, la post-édition IA et la localisation à haute sensibilité culturelle.',
     sources: [1], quadrant: 'pivotes', potential: 30, leviers: [] },
 
   { slug: 'correcteur', label: 'Correcteur / Relecteur', risk: 85, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Correction orthographique, grammaticale, formatage stylistique : l\'IA exécute avec une constance supérieure et fait disparaître les postes de relecture traditionnels.',
+    dynamic: 'Ton métier se contracte. Correction orthographique, grammaticale, formatage stylistique : l\'IA exécute avec une constance supérieure. Les postes de relecture traditionnels se raréfient — pivote vers l\'édition éditoriale ou la révision de contenu généré par IA.',
     sources: [1], quadrant: 'pivotes', potential: 20, leviers: [] },
 
   { slug: 'transcripteur', label: 'Transcripteur', risk: 88, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La transcription audio→texte et la synthèse de réunions sont devenues des fonctionnalités natives gratuites des outils bureautiques. Le métier indépendant n\'a quasiment plus de marché.',
+    dynamic: 'Ton métier se contracte fort. La transcription audio→texte et la synthèse de réunions sont des fonctionnalités natives gratuites des outils bureautiques. Le marché indépendant est quasi inexistant — bascule vers un secteur adjacent sans attendre.',
     sources: [3], quadrant: 'pivotes', potential: 10, leviers: [] },
 
   { slug: 'comptable', label: 'Comptable', risk: 72, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier est dans le viseur. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Les premiers qui pivotent vers le conseil stratégique survivent - les autres subissent la contraction.',
+    dynamic: 'Ton métier mute. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Tu pivotes vers le conseil stratégique et l\'audit IA — c\'est là que ton expertise comptable devient irremplaçable.',
     sources: [1, 7], quadrant: 'mutes', potential: 75, leviers: [] },
 
   { slug: 'analyste-credit', label: 'Analyste crédit', risk: 70, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Le scoring crédit, l\'analyse des bilans et l\'évaluation du risque de défaut sont exécutés instantanément par des modèles entraînés sur des millions de dossiers. Le rôle humain se réduit aux exceptions.',
+    dynamic: 'Ton métier mute. Le scoring crédit, l\'analyse des bilans et l\'évaluation du risque de défaut sont automatisés. Tu te repositionnes sur les dossiers complexes, la relation corporate et le conseil en structuration — là où le jugement humain prime.',
     sources: [7], quadrant: 'mutes', potential: 60, leviers: [] },
 
   { slug: 'analyste-marketing', label: 'Analyste études de marché', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La digestion de téraoctets de données qualitatives et la rédaction de rapports stratégiques synthétiques sont des domaines où les LLM excellent, rendant les rôles d\'analyse intermédiaires redondants.',
+    dynamic: 'Ton métier mute. Les LLM excellent à digérer des téraoctets de données qualitatives et à rédiger des rapports stratégiques. Tu pilotes les agents, questionnes les hypothèses et transformes l\'analyse en décision — c\'est ça ton levier.',
     sources: [1], quadrant: 'mutes', potential: 70, leviers: [] },
 
   { slug: 'assistant-juridique', label: 'Assistant juridique', risk: 72, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La revue contractuelle, la recherche jurisprudentielle et la production de notes juridiques de premier niveau sont automatisées. Le rôle humain disparaît avant de pouvoir muter.',
+    dynamic: 'Ton métier mute vite. La revue contractuelle, la recherche jurisprudentielle et les notes de premier niveau sont automatisées. Mute maintenant vers le conseil stratégique et la supervision des outils IA juridiques — avant que la fenêtre se ferme.',
     sources: [7], quadrant: 'mutes', potential: 55, leviers: [] },
 
   { slug: 'secretaire-juridique', label: 'Secrétaire juridique', risk: 77, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La préparation de dossiers, la gestion de calendriers procéduraux et la rédaction de courriers types sont absorbées par les outils intégrés des cabinets. Le poste devient redondant.',
+    dynamic: 'Ton métier se contracte. La préparation de dossiers, les calendriers procéduraux et les courriers types sont absorbés par les outils intégrés des cabinets. Bascule vers un rôle de coordination ou une spécialisation à plus forte valeur.',
     sources: [7], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'assistant-administratif', label: 'Assistant administratif', risk: 73, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Gestion d\'agendas, priorisation des courriels, préparation de réunions : confiés à des agents virtuels. Le WEF anticipe une perte nette de 19 millions de postes administratifs.',
+    dynamic: 'Ton métier se contracte. Gestion d\'agendas, priorisation des courriels, préparation de réunions : confiés à des agents virtuels. Le WEF anticipe 19 millions de postes administratifs en moins — anticipe le pivot avant que ça te rattrape.',
     sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'receptionniste', label: 'Réceptionniste', risk: 80, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Filtrage d\'appels, prise de rendez-vous et accueil informationnel sont gérés par des agents conversationnels disponibles 24/7. Seul l\'accueil physique haut de gamme résiste.',
+    dynamic: 'Ton métier se contracte. Filtrage d\'appels, prise de rendez-vous et accueil informationnel sont gérés par des agents 24/7. Le marché qui reste est l\'accueil physique haut de gamme — c\'est là que tu te repositionnes.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'standardiste', label: 'Standardiste', risk: 83, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier est en obsolescence active. La gestion d\'appels entrants et leur routage sont des fonctions natives des PBX cloud modernes. Le poste humain a quasiment disparu des grandes structures.',
+    dynamic: 'Ton métier se contracte fort. La gestion d\'appels entrants et leur routage sont des fonctions natives des PBX cloud modernes. Le poste humain a quasiment disparu des grandes structures — bascule vers un secteur adjacent sans attendre.',
     sources: [3], quadrant: 'pivotes', potential: 15, leviers: [] },
 
   { slug: 'agent-assurance', label: 'Agent d\'assurance', risk: 74, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Souscription standardisée, calcul de primes, traitement de sinistres simples : automatisés. Le conseiller humain subsiste sur les contrats complexes et la relation patrimoniale.',
+    dynamic: 'Ton métier se contracte. Souscription standardisée, calcul de primes, traitement de sinistres simples : automatisés. Concentre-toi sur les contrats complexes et la relation patrimoniale — c\'est le terrain qui reste humain.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'analyste-financier', label: 'Analyste financier', risk: 57, horizon: 5, status: 'mutation',
@@ -97,43 +97,43 @@ export const JOBS: Job[] = [
     sources: [3], quadrant: 'mutes', potential: 70, leviers: [] },
 
   { slug: 'operateur-saisie', label: 'Opérateur de saisie', risk: 91, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier est en obsolescence active. L\'OCR cognitif et les LLM résolvent la lecture de documents sources et leur saisie systémique avec une précision supérieure à la main humaine.',
+    dynamic: 'Ton métier se contracte fort. L\'OCR cognitif et les LLM résolvent la lecture de documents et leur saisie avec une précision supérieure. Anticipe le pivot vers la supervision de flux automatisés ou un secteur adjacent qui recrute.',
     sources: [3], quadrant: 'pivotes', potential: 10, leviers: [] },
 
   { slug: 'secretaire', label: 'Secrétaire', risk: 62, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Gestion d\'agendas, priorisation des courriels, préparation de réunions : confiés à des secrétaires virtuels. Le WEF anticipe une perte nette de 19 millions de postes administratifs.',
+    dynamic: 'Ton métier se contracte. Gestion d\'agendas, courriels, préparation de réunions : confiés à des agents virtuels. Bascule vers une spécialisation (office manager, coordinateur projet) avant que le poste généraliste ne se vide.',
     sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'caissier', label: 'Caissier', risk: 78, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Bornes self-checkout, paiement mobile, scan-and-go : la combinaison hardware + IA réduit massivement le besoin de caissiers humains dans la grande distribution.',
+    dynamic: 'Ton métier se contracte. Bornes self-checkout, paiement mobile, scan-and-go : la grande distribution réduit massivement ses effectifs caissiers. Bascule vers des rôles à valeur relationnelle — conseil rayon, gestion stocks, accueil client.',
     sources: [9], quadrant: 'pivotes', potential: 20, leviers: [] },
 
   { slug: 'agent-recouvrement', label: 'Agent de recouvrement', risk: 80, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La relance automatisée multicanale (SMS, email, voix synthétique) et la priorisation des dossiers par scoring IA rendent le travail d\'appel humain non rentable.',
+    dynamic: 'Ton métier se contracte. La relance multicanale automatisée et le scoring IA rendent le travail d\'appel humain non rentable. Pivote vers la négociation à l\'amiable sur dossiers complexes — c\'est le seul segment qui résiste.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'employe-banque', label: 'Employé de banque / Guichetier', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La digitalisation des services financiers et les conseillers virtuels suppriment la nécessité d\'interactions physiques. Les agences ferment en cascade.',
+    dynamic: 'Ton métier se contracte. La digitalisation et les conseillers virtuels suppriment le guichet physique. Les agences ferment — bascule vers un rôle relationnel senior ou vers la gestion de patrimoine avant que le poste standard disparaisse.',
     sources: [20], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'specialiste-rp', label: 'Spécialiste relations publiques', risk: 37, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Communiqués de presse, identification de cibles médiatiques, veille réputationnelle : délégués à l\'IA, entraînant une réduction drastique des effectifs juniors en agence.',
+    dynamic: 'Ton métier se contracte. Communiqués de presse, ciblage médiatique, veille réputationnelle : délégués à l\'IA. Les effectifs juniors en agence fondent — pivote vers la stratégie relationnelle et la gestion de crise, là où l\'IA ne décide pas.',
     sources: [1], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'editeur-reviseur', label: 'Éditeur / Réviseur', risk: 54, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Correction, formatage stylistique et synthèse linguistique sont exécutés par l\'IA avec constance. Les postes de révision traditionnels disparaissent dans l\'édition standardisée.',
+    dynamic: 'Ton métier se contracte. Correction, formatage stylistique et synthèse linguistique sont exécutés par l\'IA. Les postes de révision standards reculent — bascule vers l\'édition de fond, la direction littéraire ou la révision de contenu IA.',
     sources: [1], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'redacteur-technique', label: 'Rédacteur technique', risk: 42, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Documentation de code et rédaction de manuels d\'utilisation sont extraites automatiquement par l\'IA depuis les dépôts de code source, supprimant le besoin d\'intermédiaires humains.',
+    dynamic: 'Ton métier se contracte. Documentation de code et manuels d\'utilisation sont extraits automatiquement par l\'IA depuis les dépôts source. Pivote vers la documentation stratégique, l\'UX writing ou la formation — là où le contexte humain compte.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'specialiste-dossiers-medicaux', label: 'Spécialiste dossiers médicaux', risk: 67, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Compilation, abstraction sémantique et codage administratif des données patients pour facturation/assurance sont pris en charge par des IA médicales spécialisées.',
+    dynamic: 'Ton métier se contracte. Compilation, codage administratif des données patients et facturation assurance sont pris en charge par des IA médicales spécialisées. Bascule vers le contrôle qualité ou la conformité réglementaire des flux IA.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'testeur-qa', label: 'Testeur QA logiciel', risk: 52, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Modification logicielle pour corriger des erreurs et exécution de scénarios de tests automatisés figurent parmi les tâches les plus exécutées par l\'IA en entreprise.',
+    dynamic: 'Ton métier se contracte. Correction de bugs et tests automatisés figurent parmi les tâches les plus exécutées par l\'IA en entreprise. Pivote vers la qualité stratégique, le test d\'expérience et l\'audit de sortie des agents IA.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   // ── EN MUTATION SÉVÈRE ────────────────────────────────
@@ -500,19 +500,19 @@ export const JOBS: Job[] = [
     sources: [7], quadrant: 'mutes', potential: 75, leviers: [] },
 
   { slug: 'auditeur', label: 'Auditeur financier', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Tests de procédures, échantillonnage et revue documentaire : automatisés à 80%. Les Big 4 réduisent silencieusement leurs effectifs juniors. Survivent ceux qui montent en jugement professionnel.',
+    dynamic: 'Ton métier mute. Tests de procédures, échantillonnage et revue documentaire : automatisés à 80%. Les Big 4 réduisent leurs effectifs juniors. Mute vers le jugement professionnel, l\'audit IA et la relation client senior — c\'est là que tu tiens.',
     sources: [7], quadrant: 'mutes', potential: 70, leviers: [] },
 
   { slug: 'chargee-clientele', label: 'Chargé(e) de clientèle', risk: 60, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Conseil transactionnel basique, ouverture de compte et mise à jour de dossiers sont automatisés. Le poste se contracte massivement dans la banque de détail.',
+    dynamic: 'Ton métier mute. Conseil transactionnel basique, ouverture de compte et mise à jour de dossiers sont automatisés. Pivote vers le conseil patrimonial et la gestion de relation client complexe — là où la banque de détail investit encore.',
     sources: [3], quadrant: 'mutes', potential: 55, leviers: [] },
 
   { slug: 'gestionnaire-paie', label: 'Gestionnaire de paie', risk: 68, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La paie standardisée est entièrement automatisée par les SIRH modernes. Le rôle subsiste sur la conformité multi-conventions et les cas d\'expatriation.',
+    dynamic: 'Ton métier mute. La paie standardisée est entièrement automatisée par les SIRH modernes. Tu te repositionnes sur la conformité multi-conventions, les cas d\'expatriation et la gouvernance des outils de paie IA.',
     sources: [3], quadrant: 'mutes', potential: 50, leviers: [] },
 
   { slug: 'documentaliste', label: 'Documentaliste', risk: 70, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Indexation, classement et recherche documentaire sont des fonctions natives des LLM. Le métier subsiste uniquement dans des contextes spécialisés (droit, médecine, archives historiques).',
+    dynamic: 'Ton métier se contracte. Indexation, classement et recherche documentaire sont des fonctions natives des LLM. Le marché se resserre sur les contextes spécialisés — droit, médecine, archives — bascule vers ces niches sans attendre.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'archiviste', label: 'Archiviste', risk: 50, horizon: 5, status: 'mutation',
@@ -538,7 +538,7 @@ export const JOBS: Job[] = [
   // ── COMMUNICATION & MARKETING ──────────────────────────
 
   { slug: 'redacteur-publicitaire', label: 'Rédacteur publicitaire / Copywriter', risk: 70, horizon: 2, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La production de copies, slogans et A/B variants est devenue triviale pour les LLM. Subsistent les directeurs de création à forte signature et le copywriting stratégique haut de gamme.',
+    dynamic: 'Ton métier mute. La production de copies, slogans et A/B variants est devenue triviale pour les LLM. Tu pilotes les agents, tu crées la stratégie et la signature — ou tu becomes le prestataire le moins cher. Le choix est maintenant.',
     sources: [1], quadrant: 'mutes', potential: 60, leviers: [] },
 
   { slug: 'responsable-com', label: 'Responsable communication', risk: 45, horizon: 5, status: 'mutation',
@@ -670,7 +670,7 @@ export const JOBS: Job[] = [
     sources: [7], quadrant: 'mutes', potential: 75, leviers: [] },
 
   { slug: 'assistant-direction', label: 'Assistant de direction', risk: 62, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Subsistent les rares postes proches du pouvoir où la confiance et la discrétion priment.',
+    dynamic: 'Ton métier se contracte. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Bascule vers les postes proches du pouvoir exécutif où la confiance et la discrétion priment — c\'est le seul terrain solide.',
     sources: [3], quadrant: 'pivotes', potential: 30, leviers: [] },
 
   { slug: 'chef-de-produit', label: 'Chef de produit', risk: 48, horizon: 5, status: 'mutation',
@@ -734,7 +734,7 @@ export const JOBS: Job[] = [
     sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
 
   { slug: 'agent-de-voyage', label: 'Agent de voyage', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Tu es dans le viseur. La réservation autonome, les agents IA conversationnels et les comparateurs ont massivement absorbé le métier. Subsistent uniquement les agences de niche (luxe, voyages d\'affaires complexes).',
+    dynamic: 'Ton métier se contracte. La réservation autonome, les agents IA et les comparateurs ont absorbé le métier généraliste. Bascule vers le voyage de niche — luxe, affaires complexes, aventure — c\'est là que la valeur humaine reste.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
 
   { slug: 'chef-de-chantier', label: 'Chef de chantier', risk: 32, horizon: 10, status: 'protege',
