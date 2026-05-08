@@ -1,5 +1,5 @@
 ---
-id: TRC-01
+code: TRC-01
 kind: quiz
 title: Test de Résilience Cognitive
 subtitle: 5 questions pour mesurer ta dépendance à l'IA

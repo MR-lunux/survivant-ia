@@ -2,7 +2,7 @@
 <script setup lang="ts">
 const { data: kits } = await useAsyncData('all-kits', () =>
   queryCollection('outils')
-    .order('id', 'ASC')
+    .order('code', 'ASC')
     .all()
 )
 
@@ -29,7 +29,7 @@ const kitCount = computed(() => kits.value?.length ?? 0)
         v-for="(kit, i) in kits ?? []"
         :key="kit.id"
         :kit="{
-          id: kit.id,
+          code: kit.code,
           kind: kit.kind,
           title: kit.title,
           description: kit.description,

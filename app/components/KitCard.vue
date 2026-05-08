@@ -1,7 +1,7 @@
 <!-- app/components/KitCard.vue -->
 <script setup lang="ts">
 type KitProp = {
-  id: string
+  code: string
   kind: string
   title: string
   description: string
@@ -18,7 +18,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'card-click': [{ id: string; position: number }]
+  'card-click': [{ code: string; position: number }]
 }>()
 
 const isComing = computed(() => props.variant === 'coming')
@@ -31,7 +31,7 @@ const target = computed(() => {
 function onClick() {
   if (isComing.value) return
   if (!props.kit) return
-  emit('card-click', { id: props.kit.id, position: props.position ?? 0 })
+  emit('card-click', { code: props.kit.code, position: props.position ?? 0 })
 }
 </script>
 
@@ -40,11 +40,11 @@ function onClick() {
     v-if="!isComing && target"
     :to="target"
     class="kit-card"
-    :data-attr="`kit-card-${kit?.id?.toLowerCase()}`"
+    :data-attr="`kit-card-${kit?.code?.toLowerCase()}`"
     @click="onClick"
   >
     <div class="card-meta">
-      <span class="card-id">{{ kit?.id }}</span>
+      <span class="card-id">{{ kit?.code }}</span>
       <span class="card-kind">{{ kit?.kind?.toUpperCase() }}</span>
     </div>
     <h3 class="card-title">{{ kit?.title }}</h3>

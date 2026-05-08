@@ -18,7 +18,7 @@ export default defineContentConfig({
       type: 'page',
       source: 'outils/*.md',
       schema: z.object({
-        id: z.string(),
+        code: z.string(),
         kind: z.enum(['quiz', 'cheatsheet', 'video', 'fiche', 'calculator']),
         title: z.string(),
         subtitle: z.string(),
