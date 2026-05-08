@@ -25,8 +25,26 @@ const kitCount = computed(() => kits.value?.length ?? 0)
     </div>
 
     <div class="kits-grid">
-      <pre v-for="kit in kits" :key="kit.id" style="color: var(--color-muted); font-family: var(--font-mono); font-size: 0.8rem;">{{ kit.id }} — {{ kit.title }} → {{ kit.path }}</pre>
+      <KitCard
+        v-for="(kit, i) in kits ?? []"
+        :key="kit.id"
+        :kit="{
+          id: kit.id,
+          kind: kit.kind,
+          title: kit.title,
+          description: kit.description,
+          specs: kit.specs,
+          path: kit.path,
+        }"
+        :position="i + 1"
+      />
+      <KitCard variant="coming" />
     </div>
+
+    <p class="bottom-note">
+      UN OUTIL EN TÊTE QUE TU AIMERAIS TROUVER ICI ?
+      <a href="mailto:mathieu@survivant-ia.ch?subject=Idée%20d'outil%20pour%20la%20Boîte">ÉCRIS-MOI →</a>
+    </p>
   </div>
 </template>
 
@@ -65,4 +83,14 @@ const kitCount = computed(() => kits.value?.length ?? 0)
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
   gap: 1.5rem;
 }
+.bottom-note {
+  margin-top: 5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.bottom-note a { color: var(--color-accent); text-decoration: none; }
 </style>
