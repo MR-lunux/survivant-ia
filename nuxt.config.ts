@@ -15,6 +15,9 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     'nuxt-og-image',
   ],
+  components: [
+    { path: '~/components', pathPrefix: false },
+  ],
   fonts: {
     defaults: { display: 'swap' },
     families: [

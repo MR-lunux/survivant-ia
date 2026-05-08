@@ -12,6 +12,32 @@ specs:
   - "TEST INTERACTIF"
   - "RÉSULTAT IMMÉDIAT"
 calloutPitch: "Le test qui prolonge l'article : où en es-tu, vraiment, sur l'offloading cognitif ? Score immédiat, sans inscription, résultat privé."
+intro: |
+  Tu utilises l'IA tous les jours. Pour rédiger, pour résumer, pour décider. Mais à quel point ton cerveau est-il devenu dépendant ? Le test suivant te donne, en cinq questions, une mesure simple de ta résilience cognitive face à l'IA.
+
+  Aucune réponse n'est jugée. Aucune donnée n'est stockée. Le résultat s'affiche à l'écran et n'est partagé qu'avec toi.
+
+  L'enjeu est concret : un salarié non-tech qui laisse l'IA piloter ses décisions sans s'en apercevoir perd en autonomie, en crédibilité et en profondeur métier. Ce n'est pas une question de compétence technique. C'est une question de posture. Le test mesure exactement ça : où en est ton cerveau dans la boucle de décision ? Est-ce encore toi qui penses, ou est-ce que tu valides ce que l'IA a pensé à ta place ?
+outro: |
+  ## Comment lire ton score
+
+  Le TRC-01 mesure ta dépendance cognitive sur cinq dimensions : réflexe initial, validation critique, résilience technique, résolution d'erreur, capitalisation. Un score élevé n'est pas un échec. C'est un signal.
+
+  Chacun des trois paliers décrit une posture, pas une fatalité. Le palier *DÉPENDANCE EN COURS* est le plus fréquent : il signifie que tu commences à transférer ton effort cognitif à l'IA, mais tu peux encore reprendre le pilote facilement. Le palier *ATROPHIE CRITIQUE* est plus rare et appelle une rééducation : couper l'IA quelques heures par jour, reprendre des notes manuelles, refaire des choses « sans l'aide ».
+
+  Les seuils sont indicatifs et calibrés pour un usage personnel. Le test n'est ni clinique ni standardisé. Il sert de signal, pas de verdict.
+
+  Les cinq dimensions ne sont pas choisies au hasard. Le *réflexe initial* révèle si ton premier geste de résolution passe déjà par l'IA. La *validation critique* teste si tu lis vraiment ce qu'elle produit. La *résilience technique* mesure ce qu'il reste de ton expertise quand l'outil disparaît. La *résolution d'erreur* montre si tu cherches à comprendre ou à déléguer. La *capitalisation* évalue si tu accumules de l'expérience ou si tu repars de zéro à chaque fois. Ensemble, ces cinq angles couvrent le cycle complet de l'offloading cognitif au quotidien.
+
+  ## Quand refaire le test
+
+  Refais le TRC-01 tous les trois mois, ou dès qu'un changement important touche tes outils ou ta façon de travailler : adoption d'un nouvel outil IA, changement de poste, nouveau projet avec des livrables différents. La dépendance cognitive s'installe progressivement et se repère surtout en comparant des mesures dans le temps, pas en regardant un score isolé.
+
+  ## Sources
+
+  Ce test est inspiré des travaux de recherche sur l'**offloading cognitif** (Risko & Gilbert, 2016, *Trends in Cognitive Sciences*) et plus récemment sur l'**over-reliance** des utilisateurs face aux modèles génératifs (Bhatti et al., 2024). Les questions ont été adaptées au contexte du salarié en poste, sans formation tech.
+
+  Pour aller plus loin, lis l'article-parent qui explique le mécanisme cognitif derrière ce test, et abonne-toi à La Fréquence pour recevoir chaque semaine un article concret sur le pilotage de l'IA dans ton métier.
 data:
   questions:
     - id: 1
@@ -77,32 +103,3 @@ data:
       h3: "Le test est sévère. La rééducation commence ici."
       body: "Chaque semaine, un article concret pour rééduquer ton esprit critique et reprendre le pilote face à l'IA. Pas de théorie, pas de jargon, juste la sortie."
 ---
-
-Tu utilises l'IA tous les jours. Pour rédiger, pour résumer, pour décider. Mais à quel point ton cerveau est-il devenu dépendant ? Le test suivant te donne, en cinq questions, une mesure simple de ta résilience cognitive face à l'IA.
-
-Aucune réponse n'est jugée. Aucune donnée n'est stockée. Le résultat s'affiche à l'écran et n'est partagé qu'avec toi.
-
-L'enjeu est concret : un salarié non-tech qui laisse l'IA piloter ses décisions sans s'en apercevoir perd en autonomie, en crédibilité et en profondeur métier. Ce n'est pas une question de compétence technique. C'est une question de posture. Le test mesure exactement ça : où en est ton cerveau dans la boucle de décision ? Est-ce encore toi qui penses, ou est-ce que tu valides ce que l'IA a pensé à ta place ?
-
-::kit-quiz-slot
-::
-
-## Comment lire ton score
-
-Le TRC-01 mesure ta dépendance cognitive sur cinq dimensions : réflexe initial, validation critique, résilience technique, résolution d'erreur, capitalisation. Un score élevé n'est pas un échec. C'est un signal.
-
-Chacun des trois paliers décrit une posture, pas une fatalité. Le palier *DÉPENDANCE EN COURS* est le plus fréquent : il signifie que tu commences à transférer ton effort cognitif à l'IA, mais tu peux encore reprendre le pilote facilement. Le palier *ATROPHIE CRITIQUE* est plus rare et appelle une rééducation : couper l'IA quelques heures par jour, reprendre des notes manuelles, refaire des choses « sans l'aide ».
-
-Les seuils sont indicatifs et calibrés pour un usage personnel. Le test n'est ni clinique ni standardisé. Il sert de signal, pas de verdict.
-
-Les cinq dimensions ne sont pas choisies au hasard. Le *réflexe initial* révèle si ton premier geste de résolution passe déjà par l'IA. La *validation critique* teste si tu lis vraiment ce qu'elle produit. La *résilience technique* mesure ce qu'il reste de ton expertise quand l'outil disparaît. La *résolution d'erreur* montre si tu cherches à comprendre ou à déléguer. La *capitalisation* évalue si tu accumules de l'expérience ou si tu repars de zéro à chaque fois. Ensemble, ces cinq angles couvrent le cycle complet de l'offloading cognitif au quotidien.
-
-## Quand refaire le test
-
-Refais le TRC-01 tous les trois mois, ou dès qu'un changement important touche tes outils ou ta façon de travailler : adoption d'un nouvel outil IA, changement de poste, nouveau projet avec des livrables différents. La dépendance cognitive s'installe progressivement et se repère surtout en comparant des mesures dans le temps, pas en regardant un score isolé.
-
-## Sources
-
-Ce test est inspiré des travaux de recherche sur l'**offloading cognitif** (Risko & Gilbert, 2016, *Trends in Cognitive Sciences*) et plus récemment sur l'**over-reliance** des utilisateurs face aux modèles génératifs (Bhatti et al., 2024). Les questions ont été adaptées au contexte du salarié en poste, sans formation tech.
-
-Pour aller plus loin, lis l'article-parent qui explique le mécanisme cognitif derrière ce test, et abonne-toi à La Fréquence pour recevoir chaque semaine un article concret sur le pilotage de l'IA dans ton métier.

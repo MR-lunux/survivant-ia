@@ -55,7 +55,15 @@ const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async ()
       </NuxtLink>
 
       <div class="kit-body prose">
-        <ContentRenderer :value="kit" />
+        <MDC v-if="kit.intro" :value="kit.intro" tag="div" />
+
+        <KitQuiz
+          v-if="kit.kind === 'quiz' && kit.data"
+          :kit-id="kit.code"
+          :data="kit.data"
+        />
+
+        <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
       </div>
 
       <footer class="kit-footer">
