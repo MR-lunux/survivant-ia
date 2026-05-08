@@ -19,6 +19,28 @@ const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async ()
     .path(`/rapports/${kit.value.parentArticleSlug}`)
     .first()
 })
+
+const { capture } = usePosthogEvent()
+const router = useRouter()
+
+onMounted(() => {
+  if (!kit.value) return
+
+  const fromQuery = route.query.from
+  let from: 'direct' | 'article' | 'list' = 'direct'
+  if (fromQuery === 'article' || fromQuery === 'list') from = fromQuery
+
+  capture('kit_viewed', {
+    id: kit.value.code,
+    kind: kit.value.kind,
+    from,
+  })
+
+  // Clean the query param from the URL silently (no navigation, no scroll)
+  if (fromQuery) {
+    router.replace({ path: route.path, query: {} })
+  }
+})
 </script>
 
 <template>
