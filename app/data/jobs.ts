@@ -453,11 +453,19 @@ export const JOBS: Job[] = [
 
   { slug: 'pharmacien', label: 'Pharmacien', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Vérification d\'ordonnances et conseil basique sont assistés par IA en officine. Le rôle pivote vers l\'éducation thérapeutique, le suivi de patients chroniques et la pharmacovigilance.',
-    sources: [21], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre ChatGPT ou Claude pour les interactions médicamenteuses complexes — Vérifie les polymédications des patients chroniques en secondes, génère des fiches patient claires. Tu libères du temps pour le conseil à haute valeur.',
+      'Repositionne-toi sur l\'éducation thérapeutique et la pharmacovigilance — Les outils IA (Vigibase, FAERS augmenté, Pyxima AI) gèrent le routinier. Toi tu accompagnes le patient chronique, tu détectes les signaux de pharmacovigilance terrain que l\'algorithme rate.',
+      'Forme-toi aux outils officine IA et signale ta montée en compétence — Modules DPC IA santé + Pharmagest IA : documente tes cas d\'usage, prends la parole dans ton réseau groupement. Premier pharmacien référent IA = avantage concurrentiel durable.',
+    ] },
 
   { slug: 'radiologue', label: 'Radiologue', risk: 48, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. L\'IA détecte des anomalies sur imagerie médicale avec une sensibilité comparable ou supérieure à l\'humain. Tu deviens validateur expert, garant éthique des décisions et référent en cas complexes.',
-    sources: [21], quadrant: 'mutes', potential: 80, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 80, leviers: [
+      'Intègre Aidoc ou Gleamer dans ton workflow quotidien — Triage IA des urgences (AVC, embolie, fractures), détection automatique des anomalies prioritaires. Tu valides et signes ; ta charge cognitive se concentre sur les cas complexes.',
+      'Repositionne-toi comme référent radio-IA dans ton établissement — Sélectionne, audite et valide les solutions IA déployées (Lunit mammographie, Subtle Medical IRM). Le médecin qui comprend les limites des algorithmes devient irremplaçable.',
+      'Publie ta pratique IA dans une revue ou une conférence SFR — Retour d\'expérience sur un outil, analyse de faux-positifs IA sur ta spécialité. Signal externe fort qui construit ton autorité avant que la compétence soit banalisée.',
+    ] },
 
   { slug: 'politologue', label: 'Politologue / Chercheur social', risk: 40, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Revue de littérature, traitement de sondages à grande échelle et analyse sémantique des discours sont effectués en secondes par l\'IA. Les équipes de recherche se réduisent drastiquement.',
@@ -480,31 +488,59 @@ export const JOBS: Job[] = [
 
   { slug: 'cardiologue', label: 'Cardiologue', risk: 1, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas - elle a besoin de toi. Elle augmente la précision diagnostique sur imagerie, mais responsabilité légale, empathie face au diagnostic vital et intervention physique de précision te maintiennent au centre du soin.',
-    sources: [6], quadrant: 'pilotes', potential: 80, leviers: [] },
+    sources: [6], quadrant: 'pilotes', potential: 80, leviers: [
+      'Intègre Aidoc ou Heuro à ta lecture d\'imagerie — Détection assistée d\'AVC et embolies pulmonaires en secondes. Tu valides, tu signes ; le triage devient instantané.',
+      'Construis ton agent perso de revue de cas — Claude Projects avec tes protocoles + ESC guidelines. Tu prépares les RCP en quart du temps habituel.',
+      'Documente publiquement ton workflow IA — Article ou conférence SFC sur l\'intégration sécurisée. Ton rayonnement de référent IA-cardio monte avant les autres spécialistes.',
+    ] },
 
   { slug: 'medecin-generaliste', label: 'Médecin généraliste', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas - elle augmente ta capacité. Diagnostic différentiel, suivi de patients, écoute, orientation : la combinaison technique + relationnelle reste fondamentalement humaine. La pénurie démographique te rend irremplaçable.',
-    sources: [6, 21], quadrant: 'pilotes', potential: 75, leviers: [] },
+    sources: [6, 21], quadrant: 'pilotes', potential: 75, leviers: [
+      'Active DAX Copilot ou Abridge pour tes comptes rendus dictés — 30% de temps admin récupéré sur la dictée et la saisie. Tu le réinvestis en consultation, pas devant l\'écran.',
+      'Utilise Glass.health ou Open Evidence pour le diagnostic différentiel difficile — Requête clinique complexe en secondes, littérature récente intégrée. Tu restes le décideur, l\'IA structure les hypothèses.',
+      'Prends la parole sur l\'IA en médecine de ville — Blog, podcast santé ou DPC IA : médecin généraliste qui explique comment utiliser l\'IA avec éthique devient référent. Rare, visible, recherché par les institutions.',
+    ] },
 
   { slug: 'chirurgien', label: 'Chirurgien', risk: 4, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas - elle assiste. La motricité fine, la décision en temps réel face à l\'imprévu chirurgical et la responsabilité vitale immédiate restent hors de portée des systèmes autonomes.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Explore les systèmes d\'assistance robotique (Da Vinci, Mako) comme levier de précision — Formation constructeur + retour d\'expérience clinique documenté. Tu deviens l\'expert du combo chirurgie-IA dans ton établissement.',
+      'Utilise Claude ou ChatGPT pour préparer tes présentations de cas et synthèses — Revue bibliographique, préparation de RCP, rédaction de protocoles : économise 2h par semaine sur l\'admin, réinvestis en bloc.',
+      'Publie des retours d\'expérience sur l\'assistance robotique — Congrès spécialisés (SFCD, SOFCOT selon spé). Le chirurgien qui documente les limites des robots est celui qui oriente les protocoles de demain.',
+    ] },
 
   { slug: 'psychologue', label: 'Psychologue / Thérapeute', risk: 1, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas - elle a besoin de toi. Empathie authentique, signaux non verbaux subtils, transfert psychologique et soutien émotionnel humain résistent à la modélisation. La confiance humaine est l\'essence du service.',
-    sources: [6], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 30, leviers: [
+      'Utilise ChatGPT pour tes notes de séance et synthèses (avec consentement patient) — Rédige un compte rendu structuré en 2 minutes post-séance. Tu passes plus de temps en présence, moins en paperasse.',
+      'Recommande des apps de suivi inter-séances adaptées — Daylio, Reflectly ou journaux guidés IA pour maintenir l\'alliance thérapeutique entre rendez-vous. Tu restes l\'ancrage humain, l\'outil comble les trous.',
+      'Prends position publique sur les limites des chatbots thérapeutiques — Article, podcast psy ou intervention en formation. Le psychologue qui explique pourquoi Woebot ne remplace pas la thérapie devient voix de référence institutionnelle.',
+    ] },
 
   { slug: 'psychiatre', label: 'Psychiatre', risk: 3, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Le jugement clinique sur l\'urgence suicidaire, la responsabilité de prescription et la relation thérapeutique restent humains. L\'IA t\'assiste sur l\'historique et la pharmacovigilance.',
-    sources: [21], quadrant: 'pilotes', potential: 65, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 65, leviers: [
+      'Intègre Claude pour tes synthèses cliniques et revues de dossier — Résumé de l\'historique patient avant consultation, extraction des interactions médicamenteuses, recherche DSM-5 augmentée. Tu concentres ta présence sur ce qui compte.',
+      'Utilise les apps de suivi IA (Wysa, Woebot) comme outils tiers entre tes séances — Propose-les à des patients stables pour maintenir l\'engagement et remonter des signaux. Toi tu prends les décisions cliniques, l\'outil détecte les tendances.',
+      'Publie sur l\'éthique de l\'IA en psychiatrie — Congrès AEP ou article AFP : quel rôle pour les chatbots en santé mentale ? Le psychiatre qui cadre le débat éthique devient référent incontournable pour les institutions et les médias.',
+    ] },
 
   { slug: 'enseignant', label: 'Enseignant en sciences sociales', risk: 1, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas - elle ouvre l\'accès à l\'information. Mais mentorat, encouragement, modération de débats et rôle de modèle social exigent ta présence. L\'autorité pédagogique se construit en présentiel.',
-    sources: [6], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [6], quadrant: 'pilotes', potential: 60, leviers: [
+      'Utilise ChatGPT ou Magic School AI pour préparer tes séquences et documents — Génère des études de cas, scénarios de débat, fiches de synthèse en 10 minutes. Tu consacres ton énergie à l\'animation en classe, pas à la production de supports.',
+      'Repositionne-toi sur l\'éducation à l\'IA et l\'esprit critique — Les élèves utilisent déjà l\'IA. Apprends-leur à vérifier les sources, détecter les biais algorithmiques, comprendre les enjeux sociaux de l\'automatisation. C\'est ta valeur ajoutée unique.',
+      'Forme-toi via INSPÉ ou les ressources Eduscol IA — DeepLearning.AI Generative AI for Educators + ressources nationales. Premier prof de ta matière à documenter des pratiques IA pédagogiques = profil recherché pour les formations et les postes de référent.',
+    ] },
 
   { slug: 'professeur-universitaire', label: 'Professeur universitaire', risk: 12, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la production de matériel pédagogique et la correction. Mais le jury, la direction de thèse, le mentorat doctoral et la production de savoir original restent fondamentalement humains.',
-    sources: [21], quadrant: 'pilotes', potential: 70, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 70, leviers: [
+      'Intègre Elicit ou Consensus dans ta veille bibliographique — Synthèse de 100 articles en 20 minutes, extraction de contradictions entre études. Tu passes ton temps sur l\'interprétation et les hypothèses nouvelles, pas la collecte.',
+      'Utilise Claude Projects pour structurer tes cours et diriger tes doctorants — Base de connaissances de ta discipline, feedback automatique sur les premières versions de thèse. Ta charge mentale baisse, ta disponibilité intellectuelle monte.',
+      'Publie sur les enjeux de l\'IA en recherche et en pédagogie universitaire — Revue de l\'enseignement supérieur ou conférence AIPU. Le prof universitaire qui cadre l\'éthique IA dans l\'académique est cité, invité, financé.',
+    ] },
 
   { slug: 'avocat', label: 'Avocat', risk: 22, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste : revue contractuelle, recherche jurisprudentielle, premiers brouillons. Mais la plaidoirie, la stratégie procédurale, la responsabilité ordinale et la confiance client te maintiennent indispensable.',
@@ -552,11 +588,19 @@ export const JOBS: Job[] = [
 
   { slug: 'masseur', label: 'Masseur-Kinésithérapeute', risk: 12, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Retour haptique, chaleur humaine, adaptation instantanée à la douleur du patient et manipulation anatomique précise constituent l\'essence même de la valeur thérapeutique.',
-    sources: [6], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour générer des fiches d\'exercices personnalisées — Programme de rééducation adapté au diagnostic du patient en 5 minutes. Tu passes plus de temps en séance, moins à rédiger.',
+      'Intègre une app de suivi patient inter-séances — Kaia Health ou Sword Health pour maintenir l\'observance entre tes séances. Tu restes l\'ancrage du suivi, l\'outil tient le lien quotidien.',
+      'Documente ton approche sur les réseaux pros (Kiné Network, LinkedIn) — Partage des cas de rééducation complexes résolus. Signal d\'expertise qui attire les cas difficiles et les prescripteurs médecins.',
+    ] },
 
   { slug: 'osteopathe', label: 'Ostéopathe', risk: 10, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Palpation, lecture corporelle et ajustement manuel précis dépendent d\'une expertise sensorielle et d\'une relation thérapeutique non modélisables. La demande reste forte.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes comptes rendus et bilans patients — Dictée ou notes brutes en entrée, CR structuré en sortie. Tu économises 15 min par consultation, tu les rends au suivi.',
+      'Intègre une analyse posturale vidéo-assistée dans ton bilan — Applications d\'analyse de mouvement avec IA (Kinovea, PhysiTrack) pour objectiver le diagnostic. Crédibilise ta démarche auprès des prescripteurs médecins.',
+      'Construis ta présence en ligne sur ta spécialité — Blog ou posts LinkedIn sur des cas cliniques traités. Premier ostéopathe visible dans ta spécialité (sport, pédiatrique, crânien) = liste d\'attente.',
+    ] },
 
   { slug: 'operateur-crematorium', label: 'Opérateur de crématorium', risk: 17, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Manipulation physique en environnement potentiellement dangereux + respect strict de protocoles culturels et moraux liés au deuil : profondément humain.',
@@ -579,27 +623,51 @@ export const JOBS: Job[] = [
 
   { slug: 'travailleur-social', label: 'Travailleur social', risk: 5, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Gestion de crises intrafamiliales, protection de l\'enfance et réparation du tissu social exigent un jugement moral et une compassion que l\'IA ne peut pas et ne doit pas assumer.',
-    sources: [9], quadrant: 'pilotes', potential: 50, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 50, leviers: [
+      'Utilise ChatGPT pour rédiger tes bilans sociaux et rapports — Synthèse de situation à partir de tes notes en 5 minutes. Tu libères du temps pour le terrain et la relation, pas la paperasse.',
+      'Repositionne-toi sur la coordination de parcours complexes — L\'IA gère les tâches répétitives, toi tu orchestres le filet de sécurité autour de familles en crise multi-problèmes. C\'est ce que les MDPH et CCAS cherchent de plus en plus.',
+      'Forme-toi via le CNFPT modules IA secteur social — Documente tes cas d\'usage et partage-les en réseau interne. Premier travailleur social référent IA dans ta structure = profil stratégique pour les postes de coordination.',
+    ] },
 
   { slug: 'infirmier', label: 'Infirmier', risk: 18, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Soin physique corporel, hygiène, manipulation de patients fragiles et communication avec familles en détresse exigent une présence humaine irremplaçable. Le vieillissement démographique fait exploser la demande.',
-    sources: [6], quadrant: 'pilotes', potential: 55, leviers: [] },
+    sources: [6], quadrant: 'pilotes', potential: 55, leviers: [
+      'Bascule sur les notes dictées DAX Copilot ou Suki AI — 30% de ton temps libéré sur la documentation. Tu le rends au patient, pas à l\'écran.',
+      'Repositionne-toi sur le triage et la coordination de soins — L\'IA fait les CRH, toi tu pilotes l\'urgence relative, l\'éducation thérapeutique, la coordination ville-hôpital.',
+      'Forme-toi à l\'IA en santé — DPC modules IA santé + DU Intelligence Artificielle en Santé Lille. Compétence rare et stratégique pour évoluer en cadre ou IPA.',
+    ] },
 
   { slug: 'aide-soignant', label: 'Aide-soignant', risk: 18, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La proximité physique, l\'aide à la toilette et l\'accompagnement des personnes dépendantes exigent ta présence. Le vieillissement démographique structure une demande explosive.',
-    sources: [6], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise les outils de planning EHPAD avec IA (NetSoins, Titan) — Transmissions automatisées, alertes de changement d\'état patient. Tu passes moins de temps en saisie, plus auprès des résidents.',
+      'Repositionne-toi sur la surveillance et la détection précoce — Les capteurs IA détectent les chutes, les anomalies de rythme. Toi tu interprètes, tu declenches l\'alerte humaine, tu gères la crise. C\'est irréductible.',
+      'Passe le DEAS renforcé ou vise l\'AES — Accompagnant éducatif et social avec compétences numériques santé : profil recherché dans les EHPAD qui se digitalisent. Formation continue CNFPT ou Croix-Rouge.',
+    ] },
 
   { slug: 'auxiliaire-vie', label: 'Auxiliaire de vie', risk: 5, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Maintien à domicile des personnes âgées et dépendantes : la demande explose avec le vieillissement. L\'IA ne remplace ni la présence physique ni la chaleur humaine.',
-    sources: [9], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 30, leviers: [
+      'Utilise les assistants vocaux et domotique IA pour augmenter l\'autonomie des personnes aidées — Alexa Care, Google Nest avec alertes : l\'IA surveille, toi tu interviens. Tu passes moins de temps en veille passive, plus en présence utile.',
+      'Repositionne-toi comme coordinateur de l\'environnement domotique du bénéficiaire — Capteurs de chute, piluliers connectés, interfaces vocales : l\'auxiliaire qui comprend ces outils devient référent dans sa structure et auprès des familles.',
+      'Vise le titre ADVF avec module numérique — Assistant de Vie aux Familles + compétences domotique santé : profil rare et demandé. AFPA et Croix-Rouge proposent des formations qui intègrent ces compétences.',
+    ] },
 
   { slug: 'sage-femme', label: 'Sage-femme', risk: 6, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Accouchement, suivi prénatal, accompagnement post-partum : la combinaison technique-relationnelle est irréductible. La demande structurelle reste forte malgré la baisse de natalité.',
-    sources: [21], quadrant: 'pilotes', potential: 50, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 50, leviers: [
+      'Intègre DAX Copilot pour tes comptes rendus de consultation — Dictée structurée en temps réel, CR signé en 2 minutes. Tu récupères du temps pour l\'accompagnement prénatal et le soutien post-partum.',
+      'Explore les outils d\'aide à l\'interprétation du monitoring fœtal — Systèmes d\'alerte IA (Monica AN24, systèmes CTG augmentés) : tu restes décideur, l\'IA détecte les signaux précoces qui passent sous le radar en charge.',
+      'Construis une présence en maïeutique numérique — Blog ou compte Instagram/LinkedIn sur le suivi de grossesse augmenté. Sage-femme référente IA en périnatalité = profil recherché par les maternités et les coopératives libérales.',
+    ] },
 
   { slug: 'orthophoniste', label: 'Orthophoniste', risk: 11, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Rééducation du langage, suivi des troubles cognitifs et accompagnement des familles : la demande dépasse l\'offre dans la plupart des bassins.',
-    sources: [21], quadrant: 'pilotes', potential: 55, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 55, leviers: [
+      'Intègre des apps de rééducation augmentées comme Speeko AI ou Cleft 21 pour tes exercices inter-séances — Le patient s\'entraîne entre tes rendez-vous, tu ajustes le protocole. La progression accélère sans alourdir ton planning.',
+      'Utilise ChatGPT pour générer du matériel pédagogique adapté — Textes calibrés par niveau, exercices de discrimination auditive, fiches parents : 10 minutes de génération pour 2 heures de matériel. Tu te concentres sur l\'observation clinique.',
+      'Prends position publique sur l\'orthophonie et l\'IA — Les parents et médecins prescripteurs cherchent à comprendre ce que les applis remplacent ou non. Ton blog ou ta présence LinkedIn sur ce sujet te positionne en référente nationale.',
+    ] },
 
   { slug: 'agriculteur', label: 'Ouvrier agricole / Agriculteur', risk: 0, horizon: 5, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon - peut-être le meilleur. Boostée par la transition écologique, l\'adaptation climatique et la sécurité alimentaire mondiale, la profession connaît la plus forte croissance absolue : +34M emplois projetés d\'ici 2030.',
@@ -727,15 +795,27 @@ export const JOBS: Job[] = [
 
   { slug: 'dentiste', label: 'Dentiste', risk: 14, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur le diagnostic radiologique. Mais l\'intervention en bouche, la sensation tactile sur tissu vivant et la responsabilité chirurgicale restent humaines.',
-    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [
+      'Intègre Pearl AI ou Overjet dans ta lecture de radios dentaires — Détection assistée des caries, pertes osseuses et lésions sur panoramiques. Tu valides en quelques secondes, tu expliques au patient avec les visuels annotés.',
+      'Utilise ChatGPT pour tes devis, comptes rendus et fiches patient post-acte — Rédaction structurée en 2 minutes. Tu réinvestis ce temps en explications cliniques : l\'expérience patient monte, le taux d\'acceptation des plans de traitement aussi.',
+      'Documente tes cas d\'IA radiologique sur les réseaux dentaires (ADF, Linked-Dentist) — Retour d\'expérience concret + résultats : premier dentiste visible sur l\'IA dans ta région = flux de patients et de stagiaires.',
+    ] },
 
   { slug: 'kinesitherapeute', label: 'Kinésithérapeute', risk: 10, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Manipulation thérapeutique, adaptation à la douleur du patient et accompagnement de la rééducation exigent ta présence. La demande croît avec le vieillissement.',
-    sources: [21], quadrant: 'pilotes', potential: 55, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 55, leviers: [
+      'Utilise ChatGPT pour générer les programmes d\'exercices personnalisés — Protocole rééducation par diagnostic, fiche patient avec illustrations exportables. Tu passes plus de temps à manipuler et observer, moins à rédiger.',
+      'Intègre une app de suivi patient inter-séances — Kaia Health ou Sword Health pour maintenir l\'observance. Le patient suit ses exercices entre les séances, tu ajustes au rendez-vous suivant sur la base des données réelles.',
+      'Forme-toi à l\'analyse de mouvement vidéo-assistée — PhysiTrack ou Kinovea avec IA pour objectiver le bilan postural. Argument fort auprès des médecins prescripteurs et différenciateur dans les structures de rééducation avancées.',
+    ] },
 
   { slug: 'veterinaire', label: 'Vétérinaire', risk: 12, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur le diagnostic. Mais la manipulation d\'un animal vivant, la chirurgie et la communication avec les propriétaires restent humaines. La demande explose avec la place des animaux de compagnie.',
-    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [
+      'Intègre IDEXX VetLab avec IA pour l\'interprétation des bilans biologiques — Alertes automatiques sur les résultats hors norme, corrélations cliniques suggérées. Tu valides et tu expliques au propriétaire avec un discours clair.',
+      'Utilise ChatGPT pour tes fiches client et comptes rendus post-consultation — Rédige la synthèse de la consultation et les recommandations en 2 minutes. Propriétaire mieux informé = meilleure observance du traitement.',
+      'Construis une présence en ligne sur ta spécialité — Blog ou compte Instagram sur la santé animale augmentée par la technologie. Vétérinaire visible dans ta niche (chats, exotiques, chevaux) = liste d\'attente et recommandations bouche à oreille.',
+    ] },
 
   // ── MÉTIERS DE BUREAU SECONDAIRES ──────────────────────
 
@@ -873,11 +953,19 @@ export const JOBS: Job[] = [
 
   { slug: 'enseignant-college', label: 'Enseignant collège / lycée', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Autorité pédagogique, médiation des conflits, transmission de la culture commune et présence physique sont au cœur de la mission éducative.',
-    sources: [6], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [6], quadrant: 'pilotes', potential: 60, leviers: [
+      'Utilise Khanmigo ou Magic School AI pour personnaliser tes exercices — Différenciation par élève en quelques minutes. Tu te concentres sur le présentiel et le suivi humain.',
+      'Repositionne-toi sur la médiation et l\'éducation à l\'IA — Tes élèves vont l\'utiliser quoi qu\'il arrive. Apprends-leur à l\'utiliser bien : sources, esprit critique, biais.',
+      'Forme-toi via INSPÉ ou DPC IA pédagogie — DeepLearning.AI Generative AI for Educators + ressources Eduscol. Différenciateur fort pour les postes en pilotage pédagogique.',
+    ] },
 
   { slug: 'enseignant-primaire', label: 'Enseignant primaire', risk: 6, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Apprentissage des fondamentaux, socialisation et structure affective ne peuvent être délégués à une machine. La demande structurelle est forte.',
-    sources: [6], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise Magic School AI ou Canva AI pour préparer tes supports de cours — Fiches illustrées, exercices différenciés par niveau, évaluations formatrices en 10 minutes. Tu passes ton énergie sur la classe, pas sur la photocopieuse.',
+      'Repositionne-toi sur la détection précoce et l\'accompagnement individualisé — Les outils IA traitent le groupe. Toi tu repères l\'enfant qui décroche, qui présente un trouble non diagnostiqué. C\'est ce que les parents et les directions apprécient et paient.',
+      'Intègre les ressources Eduscol IA primaire dans ta pratique — Quizlet AI, outils de lecture assistée : montre à tes collègues et parents d\'élèves comment utiliser l\'IA intelligemment. Référent numérique dans ton école = évolution professionnelle.',
+    ] },
 
   // ── TRANSPORT & MOBILITÉ ───────────────────────────────
 
@@ -1167,7 +1255,11 @@ export const JOBS: Job[] = [
 
   { slug: 'professeur-lycee', label: 'Professeur (lycée)', risk: 18, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Autorité pédagogique, médiation des conflits, transmission de la culture commune et présence physique sont au cœur de la mission éducative. La demande structurelle est forte.',
-    sources: [6], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [6], quadrant: 'pilotes', potential: 60, leviers: [
+      'Utilise ChatGPT ou Khanmigo pour préparer tes cours, sujets de bac blancs et corrigés types — Gagne 3h par semaine sur la production de ressources. Tu te concentres sur le cours vivant, la relation, la préparation des oraux.',
+      'Repositionne-toi sur l\'éducation à l\'IA et la culture numérique critique — Les lycéens utilisent déjà l\'IA pour leurs devoirs. Transforme ça en cours sur les biais algorithmiques, la désinformation IA, les enjeux du marché du travail. Personne d\'autre ne le fait mieux que toi.',
+      'Forme-toi via INSPÉ IA pédagogie + DeepLearning.AI Generative AI for Educators — Référent numérique dans ton lycée : tu accompagnes la charte IA, tu formes les collègues. Signal fort pour les mutations sur postes à responsabilité.',
+    ] },
 
   { slug: 'chef-cuisinier', label: 'Chef cuisinier', risk: 15, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Créativité culinaire, leadership en cuisine sous pression et signature gastronomique sont fondamentalement humaines. La gastronomie expérientielle continue de croître.',
@@ -1183,15 +1275,27 @@ export const JOBS: Job[] = [
 
   { slug: 'ambulancier', label: 'Ambulancier', risk: 12, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Soins d\'urgence, transport médicalisé et accompagnement psychologique du patient restent humains. Le vieillissement démographique fait croître structurellement la demande.',
-    sources: [21], quadrant: 'pilotes', potential: 50, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 50, leviers: [
+      'Utilise Whisper ou un outil de transcription IA pour tes bilans de régulation — Dictée du bilan patient en route, transmis automatiquement aux urgences. Gain de temps, meilleure qualité d\'information à l\'arrivée.',
+      'Repositionne-toi sur la coordination et le pré-triage — Les essais NHS England montrent l\'IA utile en aide au tri d\'appels. Toi tu évalues sur le terrain, tu décides du vecteur et du niveau d\'urgence. L\'IA prépare, tu tranches.',
+      'Évolue vers les fonctions d\'ambulancier paramédical ou de formateur — AFGSU niveau 2, modules de simulation IA en médecine d\'urgence : profil rare pour les SMUR et centres de formation professionnelle.',
+    ] },
 
   { slug: 'ergotherapeute', label: 'Ergothérapeute', risk: 14, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Réadaptation fonctionnelle, adaptation du domicile et accompagnement post-AVC sont irréductibles à l\'IA. Le vieillissement et la complexité des handicaps soutiennent la demande.',
-    sources: [21], quadrant: 'pilotes', potential: 55, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 55, leviers: [
+      'Utilise ChatGPT pour rédiger tes plans de réadaptation et bilans ergothérapiques — Synthèse structurée des évaluations ADL en 5 minutes. Tu réinvestis ce temps en séances et en visite à domicile.',
+      'Intègre les solutions domotique IA dans tes préconisations d\'aménagement — Loona, Google Nest, capteurs de chute connectés : l\'ergothérapeute qui prescrit un environnement IA-augmenté offre une valeur que les familles comprennent et financent.',
+      'Développe une expertise en réadaptation cognitive augmentée — Apps IA de rééducation post-AVC (Constant Therapy, BrainHQ) : propose-les en complément de tes séances. Signal d\'expertise fort pour les MDPH et les services de MPR.',
+    ] },
 
   { slug: 'educateur-specialise', label: 'Éducateur spécialisé', risk: 12, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Accompagnement de personnes en situation de handicap, médiation familiale et insertion sociale exigent un jugement moral et une présence que l\'IA ne peut pas offrir.',
-    sources: [22], quadrant: 'pilotes', potential: 50, leviers: [] },
+    sources: [22], quadrant: 'pilotes', potential: 50, leviers: [
+      'Utilise ChatGPT pour rédiger tes synthèses de bilans éducatifs et rapports MDPH — Première rédaction structurée à partir de tes notes en 10 minutes. Tu libères du temps pour la relation éducative, pas la paperasse institutionnelle.',
+      'Intègre les outils CRM social (Sigma+ AI, outils de suivi de parcours) — Suivi des étapes d\'insertion, alertes de rupture de parcours, coordination des partenaires. Toi tu animes le réseau, l\'outil suit la traçabilité.',
+      'Forme-toi via le CNFPT ou l\'EHESP modules IA et handicap — Premier éducateur spécialisé de ton équipe à documenter des pratiques IA = profil de référent pour les postes de coordinateur de parcours ou de chef de service.',
+    ] },
 
   { slug: 'peintre-batiment', label: 'Peintre en bâtiment', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Préparation des supports, ajustement aux configurations et finition à l\'œil restent humaines. Robots peintres existent en industrie, jamais sur chantier résidentiel.',
@@ -1207,7 +1311,11 @@ export const JOBS: Job[] = [
 
   { slug: 'dieteticien', label: 'Diététicien', risk: 20, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Apps de tracking nutritionnel proposent des plans automatisés, mais l\'accompagnement personnalisé sur troubles alimentaires et pathologies chroniques exige l\'humain. La demande explose.',
-    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [
+      'Utilise ChatGPT pour générer des plans nutritionnels personnalisés sur base des bilans biologiques — Premier jet en 5 minutes, tu ajustes selon le contexte clinique et les préférences alimentaires. Tu passes plus de temps en consultation, moins en Excel.',
+      'Intègre MyFitnessPal AI ou Cronometer dans ton suivi patient — Le patient saisit ses repas, tu analyses les tendances à distance, tu ajustes avant la prochaine séance. Suivi continu sans multiplication des rendez-vous.',
+      'Construis une présence en nutrition clinique augmentée — Compte Instagram ou LinkedIn sur les troubles alimentaires et l\'IA : ce qui fonctionne, ce qui ne fonctionne pas. Diététicien clinique visible = flux patients prescrit par les médecins endocrinologues et généralistes.',
+    ] },
 
   { slug: 'technicien-cvc', label: 'Technicien CVC (chauffage)', risk: 10, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Pompes à chaleur, climatisation et rénovation énergétique : la transition écologique structure une demande massive. Les entreprises peinent à recruter assez vite.',
