@@ -303,13 +303,6 @@ const revealedSources = ref<boolean[]>([])
 
 const sourcesModalOpen = ref(false)
 
-// ── Newsletter inline form (result-v2) ───────────────────
-const emailInput       = ref('')
-const formationsInterest = ref(false)
-const submitting       = ref(false)
-const submitError      = ref(false)
-const submitMessage    = ref('')
-
 let copyTimer:     ReturnType<typeof setTimeout> | null = null
 let noResultsTimer: ReturnType<typeof setTimeout> | null = null
 let currentScanId = 0
@@ -320,21 +313,36 @@ const statusColorClass = computed(() => {
   return `color-${selectedJob.value.status}`
 })
 
-const ctaHook = computed(() => {
-  if (!selectedJob.value) return ''
-  switch (selectedJob.value.status) {
-    case 'danger':     return 'La Fréquence te montre comment mettre ces 3 axes en pratique - une technique concrète par semaine.'
-    case 'mutation':   return 'La Fréquence t\'accompagne dans cette mutation - une carte de survie par semaine, sans jargon.'
-    case 'protege':    return 'La Fréquence te permet de garder une longueur d\'avance - sans devenir expert en IA.'
-    case 'croissance': return 'La Fréquence te donne les outils pour capitaliser sur ta position - avant que la fenêtre ne se referme.'
+const displayRisk = ref(0)
+let riskAnimTimer: ReturnType<typeof setInterval> | null = null
+
+function animateRisk(target: number) {
+  if (riskAnimTimer) { clearInterval(riskAnimTimer); riskAnimTimer = null }
+  if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    displayRisk.value = target
+    return
+  }
+  displayRisk.value = 0
+  const steps    = 40
+  const interval = 800 / steps
+  let current    = 0
+  riskAnimTimer  = setInterval(() => {
+    current += target / steps
+    if (current >= target) {
+      displayRisk.value = target
+      clearInterval(riskAnimTimer!)
+      riskAnimTimer = null
+    } else {
+      displayRisk.value = Math.round(current)
+    }
+  }, interval)
+}
+
+watch(() => phase.value, (newPhase) => {
+  if (newPhase === 'unlocked' && selectedJob.value) {
+    animateRisk(selectedJob.value.risk)
   }
 })
-
-const ctaButton = computed(() =>
-  selectedJob.value?.status === 'danger' ? 'Rejoindre La Fréquence' : "S'inscrire"
-)
-
-const displayRisk = computed(() => selectedJob.value?.risk ?? 0)
 
 const leviersToShow = computed<string[]>(() => {
   if (!selectedJob.value) return []
@@ -605,6 +613,7 @@ onBeforeUnmount(() => {
   currentScanId++
   if (copyTimer)      clearTimeout(copyTimer)
   if (noResultsTimer) clearTimeout(noResultsTimer)
+  if (riskAnimTimer)  clearInterval(riskAnimTimer)
 })
 
 // ── Share ─────────────────────────────────────────────────
@@ -620,15 +629,6 @@ function copyLink() {
   copied.value = true
   if (copyTimer) clearTimeout(copyTimer)
   copyTimer = setTimeout(() => { copied.value = false }, 1500)
-}
-
-function onCtaClick() {
-  if (!selectedJob.value) return
-  capture('scanner_cta_clicked', {
-    job_slug:   selectedJob.value.slug,
-    job_status: selectedJob.value.status,
-    cta_label:  ctaButton.value,
-  })
 }
 
 // ── Reset ─────────────────────────────────────────────────
@@ -652,47 +652,6 @@ function reset() {
   phase.value       = 'idle'
   router.replace({ query: {} })
   nextTick(() => jobInputRef.value?.focus())
-}
-
-// ── Result v2 actions ────────────────────────────────────
-async function onSubscribe() {
-  if (!selectedJob.value) return
-  submitting.value = true
-  submitError.value = false
-  submitMessage.value = ''
-
-  try {
-    const res = await $fetch<{ ok: boolean }>('/api/subscribe', {
-      method: 'POST',
-      body: {
-        prenom: 'Survivant',
-        email: emailInput.value,
-        consent: true,
-        source: 'scanner_gate',
-        job_slug: selectedJob.value.slug,
-        job_status: selectedJob.value.status,
-        job_quadrant: selectedJob.value.quadrant,
-        job_risk: selectedJob.value.risk,
-        job_potential: selectedJob.value.potential,
-        formations_interest: formationsInterest.value,
-      },
-    })
-    if (res.ok) {
-      submitMessage.value = 'C\'est bon. Premier article dans 7 jours max.'
-      emailInput.value = ''
-      formationsInterest.value = false
-      capture('newsletter_subscribed_from_scanner', {
-        job_slug: selectedJob.value.slug,
-        job_quadrant: selectedJob.value.quadrant,
-        formations_interest: formationsInterest.value,
-      })
-    }
-  } catch (e: any) {
-    submitError.value = true
-    submitMessage.value = e?.data?.message ?? 'Erreur technique, réessayez.'
-  } finally {
-    submitting.value = false
-  }
 }
 
 function resetScan() {
@@ -1033,32 +992,23 @@ function resetScan() {
           <h2 class="suite-headline">Reste un cran devant.</h2>
 
           <p class="suite-lead">
-            Un nouvel article chaque semaine pour piloter l'IA dans ton métier.
-            Cinq minutes de lecture, sans hype, sans funnel. Concret, terrain.
+            Tu es inscrit à La Fréquence. Premier article dans 7 jours max — concret, terrain, sans hype.
+            En attendant, voici ce que tu peux faire dès maintenant.
           </p>
 
-          <form class="suite-form" @submit.prevent="onSubscribe">
-            <div class="suite-form-row">
-              <input
-                v-model="emailInput"
-                type="email"
-                class="suite-input"
-                placeholder="ton@email.pro"
-                required
-                autocomplete="email"
-              />
-              <button type="submit" class="suite-button font-mono" :disabled="submitting">
-                {{ submitting ? '...' : 'Rejoindre →' }}
-              </button>
-            </div>
+          <div class="suite-actions">
+            <NuxtLink to="/rapports" class="suite-action">
+              <span class="suite-action-icon">→</span>
+              <span class="suite-action-text">
+                <span class="suite-action-title">Lis les rapports déjà publiés</span>
+                <span class="suite-action-meta">Tactiques, outils et signaux pour piloter l'IA dans ton métier.</span>
+              </span>
+            </NuxtLink>
+          </div>
 
-            <label class="suite-checkbox">
-              <input v-model="formationsInterest" type="checkbox" />
-              <span>Préviens-moi en avance des formations approfondies (bientôt). Accès en avant-première et tarif lancement.</span>
-            </label>
-
-            <p v-if="submitMessage" class="suite-message" :class="{ 'is-error': submitError }">{{ submitMessage }}</p>
-          </form>
+          <p class="suite-coming">
+            <strong>Bientôt :</strong> formations approfondies pour aller plus loin. La newsletter te préviendra.
+          </p>
         </section>
 
         <div class="sage-rule sage-rule--fade" aria-hidden="true"></div>
@@ -2047,49 +1997,61 @@ function resetScan() {
   max-width: 560px;
   margin: 0 0 28px;
 }
-.suite-form {
+.suite-actions {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
+  margin: 0 0 28px;
   max-width: 560px;
 }
-.suite-form-row { display: flex; gap: 8px; }
-.suite-input {
-  flex: 1;
-  padding: 14px 16px;
+.suite-action {
+  display: flex;
+  gap: 16px;
+  padding: 18px 20px;
   background: transparent;
   border: 1px solid #2A2A2A;
+  text-decoration: none;
   color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: 15px;
-  outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
-.suite-input:focus { border-color: var(--color-accent); }
-.suite-button {
-  padding: 14px 22px;
-  background: var(--color-accent);
-  border: none;
-  color: var(--color-bg);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
+.suite-action:hover {
+  border-color: var(--color-accent);
+  background: rgba(108, 227, 181, 0.04);
 }
-.suite-button:disabled { opacity: 0.5; cursor: wait; }
-.suite-checkbox {
+.suite-action-icon {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.suite-action-text {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.suite-action-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.suite-action-meta {
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--color-muted);
-  line-height: 1.55;
+  line-height: 1.5;
 }
-.suite-checkbox input { margin-top: 3px; flex-shrink: 0; accent-color: var(--color-accent); }
-.suite-message { font-size: 13px; margin: 0; color: var(--color-accent); }
-.suite-message.is-error { color: var(--color-danger); }
+.suite-coming {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-muted);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0;
+}
+.suite-coming strong { color: var(--color-text); font-weight: 600; }
 
 .result-actions-v2 {
   display: flex;

@@ -12,6 +12,7 @@ const { markUnlocked } = useScannerUnlock()
 const prenom   = ref('')
 const email    = ref('')
 const consent  = ref(false)
+const formationsInterest = ref(false)
 const website  = ref('')  // honeypot
 const status   = ref<'idle' | 'loading' | 'error'>('idle')
 const errorMsg = ref('')
@@ -26,7 +27,11 @@ const canSubmit = computed(() =>
 )
 
 function jobBaseProps() {
-  return { job_slug: props.job.slug, job_status: props.job.status }
+  return {
+    job_slug: props.job.slug,
+    job_status: props.job.status,
+    job_quadrant: props.job.quadrant,
+  }
 }
 
 function onEmailFocus() {
@@ -59,6 +64,10 @@ async function submit() {
         source: 'scanner_gate',
         job_slug: props.job.slug,
         job_status: props.job.status,
+        job_quadrant: props.job.quadrant,
+        job_risk: props.job.risk,
+        job_potential: props.job.potential,
+        formations_interest: formationsInterest.value,
       },
     })
     capture('scanner_gate_succeeded', jobBaseProps())
@@ -139,6 +148,17 @@ onMounted(() => {
         <span>
           J'accepte de recevoir la newsletter hebdomadaire et j'ai pris connaissance de la
           <NuxtLink to="/confidentialite" target="_blank">politique de confidentialité</NuxtLink>.
+        </span>
+      </label>
+
+      <label class="gate-consent">
+        <input
+          v-model="formationsInterest"
+          type="checkbox"
+          :disabled="status === 'loading'"
+        />
+        <span>
+          Préviens-moi en avance des formations approfondies (bientôt). Accès en avant-première et tarif lancement.
         </span>
       </label>
 
