@@ -15,6 +15,9 @@ const props = defineProps<{
   data: QuizData
 }>()
 
+const { capture } = usePosthogEvent()
+const startedFired = ref(false)
+
 type State = 'question' | 'decrypting' | 'result'
 
 const state = ref<State>('question')
@@ -35,11 +38,30 @@ const tier = computed(() => {
 })
 
 function onAnswered(payload: { questionId: number; choice: Choice }) {
+  // Fire kit_quiz_started on the very first answer
+  if (!startedFired.value) {
+    capture('kit_quiz_started', { id: props.kitId })
+    startedFired.value = true
+  }
+
+  capture('kit_quiz_question_answered', {
+    id: props.kitId,
+    question: payload.questionId,
+    choice: payload.choice.key,
+    points: payload.choice.points,
+  })
+
   answers.value.set(payload.questionId, payload.choice)
+
   if (currentIndex.value < total.value - 1) {
     currentIndex.value += 1
   } else {
     state.value = 'decrypting'
+    capture('kit_quiz_completed', {
+      id: props.kitId,
+      score: score.value,
+      tier: tier.value.slug,
+    })
     // Decrypting animation duration = 1200ms (Task 13 will refine, here we just transition)
     setTimeout(() => { state.value = 'result' }, 1200)
   }
@@ -50,12 +72,36 @@ function goBack() {
 }
 
 function restart() {
+  capture('kit_quiz_restarted', { id: props.kitId })
   answers.value.clear()
   currentIndex.value = 0
+  startedFired.value = false
   state.value = 'question'
 }
 
 defineExpose({ restart })
+
+function maybeFireAbandoned() {
+  if (startedFired.value && state.value === 'question') {
+    capture('kit_quiz_abandoned', {
+      id: props.kitId,
+      last_question: currentIndex.value + 1,
+    })
+  }
+}
+
+onMounted(() => {
+  if (import.meta.client) {
+    window.addEventListener('beforeunload', maybeFireAbandoned)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (import.meta.client) {
+    window.removeEventListener('beforeunload', maybeFireAbandoned)
+  }
+  maybeFireAbandoned()
+})
 </script>
 
 <template>
