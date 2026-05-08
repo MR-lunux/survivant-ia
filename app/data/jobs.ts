@@ -245,27 +245,51 @@ export const JOBS: Job[] = [
 
   { slug: 'developpeur-logiciel', label: 'Développeur logiciel', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier ne disparaît pas. Il devient méconnaissable. L\'IA génère, teste et maintient le code de base. La demande s\'effondre pour les juniors exécutants ; le rôle pivote vers l\'architecture et l\'audit du code généré.',
-    sources: [1, 15], quadrant: 'mutes', potential: 85, leviers: [] },
+    sources: [1, 15], quadrant: 'mutes', potential: 85, leviers: [
+      'Intègre Cursor ou Claude Code dans ton flux quotidien — Boilerplate, refactoring, génération de tests : 50% de ton output passe par l\'IA. Documente ton gain de vélocité au sprint planning.',
+      'Repositionne ta valeur sur la review et l\'architecture — L\'IA produit le code, toi tu fais l\'audit : sécurité, perf, lisibilité, dette technique. C\'est là que se concentre la valeur d\'un dev senior 2026.',
+      'Forme-toi aux agents IA et au prompt engineering — Anthropic Academy + DeepLearning.AI Building Systems with ChatGPT API. Ces specs sont déjà sur les job descriptions LinkedIn.',
+    ] },
 
   { slug: 'programmeur', label: 'Programmeur', risk: 74, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute brutalement. L\'IA pisse des lignes de code à vélocité surhumaine. Tu pivotes ou tu disparais : architecture système, audit de code IA, sécurité. Le "vibe code" génère une dette technique massive - sois celui qui sait la lire.',
-    sources: [3], quadrant: 'mutes', potential: 82, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 82, leviers: [
+      'Adopte Aider ou Continue.dev dans ton éditeur cette semaine — Génère le code répétitif, les tests unitaires et la doc. Mesure et montre tes gains : tu deviens le dev le plus productif de l\'équipe.',
+      'Spécialise-toi sur la dette technique du code IA — Le vibe coding inonde les codebases de bugs silencieux. Deviens celui qui audite, relit et sécurise ce que l\'IA a généré : c\'est la valeur rare en 2026.',
+      'Forme-toi à la sécurité applicative via GitHub Advanced Security — Snyk et GHAS détectent ce que l\'IA ne voit pas. Une certification OWASP ou Snyk Expert te repositionne sur un axe à forte demande.',
+    ] },
 
   { slug: 'designer-graphique', label: 'Designer graphique', risk: 58, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La génération multimodale réduit le besoin d\'équipes complètes à un directeur artistique assisté de plusieurs agents autonomes. La direction créative survit ; l\'exécution de production se commoditise.',
-    sources: [1], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 65, leviers: [
+      'Intègre Adobe Firefly et Midjourney dans ta production cette semaine — Utilise-les pour les déclinaisons, variantes et mockups rapides. Capitalise le temps gagné sur la direction artistique et la créa stratégique.',
+      'Repositionne-toi comme directeur artistique IA — Tu ne crées plus chaque pixel, tu pilotes des agents génératifs. Construis un portfolio montrant ta capacité à briefer, itérer et valider des créations IA.',
+      'Forme-toi à la direction créative avec Recraft et Magicpattern — Adobe Firefly Certification + tutoriels Recraft. Le marché cherche des designers qui savent tirer parti des outils génératifs, pas les fuir.',
+    ] },
 
   { slug: 'designer-web', label: 'Designer web / UI', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Génération instantanée d\'interfaces par modèles multimodaux : un seul directeur artistique pilote des agents qui produisent les variantes. La maquette à la main n\'est plus monnayable seule.',
-    sources: [1], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 65, leviers: [
+      'Utilise Figma AI et v0 by Vercel pour tes maquettes cette semaine — Génère des variantes d\'UI en quelques prompts, itère avec le client en temps réel. Tu passes de dessinateur à arbitre de solutions.',
+      'Maîtrise le pont design-code via Figma Make — Les clients veulent des composants prêts à intégrer, pas des Figma statiques. Apprends à livrer du code UI propre depuis tes maquettes : valeur multipliée.',
+      'Certifie-toi sur le design system et l\'accessibilité — Les certifications UXQB ou Google UX Design sur Coursera te positionnent sur la rigueur systémique que l\'IA ne peut pas garantir seule.',
+    ] },
 
   { slug: 'ux-designer', label: 'UX Designer', risk: 45, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La recherche utilisateur quantitative, le wireframing et l\'A/B testing sont accélérés par l\'IA. Tu te recentres sur la stratégie produit, l\'ethnographie de terrain et l\'arbitrage business - ou tu deviens un PO-light.',
-    sources: [1], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Uizard ou Galileo AI dans ton process de prototypage — Transforme des croquis en wireframes interactifs en minutes. Présente 3 concepts là où tu en présentais un : le client choisit, tu arbitres.',
+      'Repositionne-toi sur la recherche qualitative et l\'éthique UX — L\'IA produit des interfaces, pas de l\'empathie terrain. Tes entretiens utilisateurs, analyses comportementales et tests d\'accessibilité sont irremplaçables.',
+      'Complète la Google UX Design Professional Certificate ou Nielsen Norman UX — Ces certifications sont reconnues internationalement. Couple-les avec un post LinkedIn sur un cas concret : ça construit ta réputation publique.',
+    ] },
 
   { slug: 'data-scientist', label: 'Data Scientist', risk: 37, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Paradoxalement, les créateurs des modèles voient le nettoyage des données, la sélection de variables et l\'optimisation hyperparamètres s\'automatiser (AutoML). Le rôle glisse vers l\'ingénierie MLOps et l\'alignement éthique.',
-    sources: [3], quadrant: 'mutes', potential: 80, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 80, leviers: [
+      'Bascule vers du Python augmenté Cursor + Claude — Notebooks Hex AI ou DataIku, génération de pipelines SQL automatisée, AutoML pour le baseline. Tu te concentres sur le sense-making.',
+      'Repositionne-toi sur l\'évaluation et l\'éthique des modèles — Le marché ne paie plus le notebook, il paie celui qui sait quand et pourquoi un modèle hallucine. Audits éthiques, fairness, biais.',
+      'Forme-toi aux LLM et MLOps — DeepLearning.AI MLOps Specialization + Anthropic Academy. Le data scientist 2026 sait industrialiser, pas juste explorer.',
+    ] },
 
   { slug: 'commercial', label: 'Commercial B2B', risk: 63, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Prospection à froid, e-mails personnalisés et démonstrations préliminaires sont délégués à des agents IA. Tu deviens négociateur final de contrats complexes et gardien de la relation senior.',
@@ -285,7 +309,11 @@ export const JOBS: Job[] = [
 
   { slug: 'architecte-logiciel', label: 'Architecte logiciel', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute en valeur. L\'IA produit du code à vélocité industrielle, mais elle hallucine, casse des dépendances et introduit des failles. Toi qui sais lire et auditer l\'architecture, tu deviens hautement valorisable.',
-    sources: [16], quadrant: 'mutes', potential: 80, leviers: [] },
+    sources: [16], quadrant: 'mutes', potential: 80, leviers: [
+      'Utilise Claude Code pour auditer l\'architecture des codebases générés par IA — Analyse la cohérence des dépendances, détecte les anti-patterns, produis un rapport de dette technique actionnable en une session.',
+      'Capitalise ta valeur sur la gouvernance du code IA — Pose les standards de review : quelles décisions architecturales l\'IA ne peut pas prendre seule. Deviens la référence que les équipes consultent avant de merger.',
+      'Documente et publie tes patterns d\'architecture agentic — Blog technique ou GitHub public : LangChain, LlamaIndex, patterns RAG que tu as mis en prod. Ta visibilité externe monte avant les autres.',
+    ] },
 
   { slug: 'community-manager', label: 'Community Manager', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Création de posts, programmation, modération basique et reporting : délégués à l\'IA. Tu te concentres sur la stratégie éditoriale, la gestion de crise et l\'animation authentique de communauté.',
@@ -325,7 +353,11 @@ export const JOBS: Job[] = [
 
   { slug: 'analyste-securite', label: 'Analyste sécurité informatique', risk: 63, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Audits de code de base, vulnérabilités connues, tests d\'intrusion standards : automatisés. L\'expertise humaine reste vitale pour anticiper l\'ingénierie sociale et les attaques générées par des IA adverses.',
-    sources: [3], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 75, leviers: [
+      'Intègre Snyk et GitHub Advanced Security dans tes workflows d\'audit — Automatise la détection de CVE connues, libère du temps pour les vecteurs d\'attaque IA adverses que les outils ne voient pas encore.',
+      'Repositionne-toi sur la threat intelligence IA — Les attaques LLM (prompt injection, jailbreak en prod, data poisoning) sont ton nouveau terrain. Construis une veille et partage-la en interne : tu deviens la référence.',
+      'Certifie-toi CEH ou OSCP et monte en compétences sur Wiz ou Lacework — Ces certifications + outils cloud security IA sont les signaux les plus forts sur le marché. Le combo est rare et très recherché.',
+    ] },
 
   { slug: 'ingenieur-automobile', label: 'Ingénieur automobile', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Conception itérative de pièces, optimisation aérodynamique, simulations de résistance : accélérées par le design génératif. Tu te concentres sur l\'intégration systémique et l\'innovation conceptuelle.',
@@ -337,15 +369,27 @@ export const JOBS: Job[] = [
 
   { slug: 'architecte-bdd', label: 'Architecte de bases de données', risk: 46, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Structuration, optimisation et migration des données sont gérées de manière autonome par des algorithmes apprenants. Le métier s\'oriente vers la gouvernance éthique et la sécurité des données massives.',
-    sources: [6], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [6], quadrant: 'mutes', potential: 65, leviers: [
+      'Utilise Cursor ou Claude pour générer et optimiser tes requêtes SQL complexes — Génération de migrations, index, requêtes analytiques : tu passes de rédacteur à validateur. Libère du temps pour la gouvernance.',
+      'Repositionne-toi sur la gouvernance des données et le data mesh — RGPD, lineage, qualité des données d\'entraînement IA : c\'est là que se concentre la responsabilité que les algorithmes ne peuvent pas assumer.',
+      'Intègre dbt + AI dans ton stack et vise une certification Snowflake ou Databricks — Ces outils et certifications sont les nouveaux standards du marché data. Un post technique LinkedIn sur ton architecture suffit à construire ta réputation.',
+    ] },
 
   { slug: 'support-informatique', label: 'Support informatique (Helpdesk)', risk: 47, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Le dépannage de niveau 1 et 2 est pris en charge par des agents internes capables de lire les logs, diagnostiquer les pannes et guider les utilisateurs interactivement. Tu remontes en complexité ou tu disparais.',
-    sources: [3], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 60, leviers: [
+      'Deviens l\'expert qui configure et pilote les agents de support IA — Datadog AI ou PagerDuty AI Ops traitent le niveau 1. Toi tu les paramètres, tu gères les exceptions et les cas que l\'agent ne sait pas résoudre.',
+      'Capitalise le savoir tacite de l\'équipe dans une base de connaissance IA — Documente les résolutions complexes, crée des playbooks. Tu deviens irremplaçable parce que tu as construit la mémoire de l\'équipe.',
+      'Prépare une certification ITIL 4 ou CompTIA A+ Cloud — Ces certifications + expérience pratique des outils IA te repositionnent vers un rôle SRE ou admin système, hors de portée de l\'automatisation à court terme.',
+    ] },
 
   { slug: 'chef-de-projet-it', label: 'Chef de projet IT', risk: 54, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Suivi de Jira, comptes rendus, planification : automatisés. Tu te concentres sur la gestion humaine des équipes, l\'arbitrage de scope et la communication exécutive - la partie politique du rôle.',
-    sources: [9], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 70, leviers: [
+      'Automatise le reporting projet avec Claude + Jira API — Génère les comptes rendus, status reports et synthèses de sprint automatiquement. Tu libères 30% de ton temps pour la gestion humaine et l\'arbitrage.',
+      'Repositionne-toi comme chef de projet des déploiements IA — Chaque entreprise déploie des outils IA et cherche quelqu\'un pour piloter ces projets spécifiques. Tu as l\'expérience IT, il te manque juste le vocabulaire IA.',
+      'Prépare la certification PMP ou AgilePM complétée d\'un module IA — PMP reste la référence. Combine avec le cours DeepLearning.AI ChatGPT Prompt Engineering for Developers pour te différencier sur les projets tech IA.',
+    ] },
 
   { slug: 'directeur-marketing', label: 'Directeur marketing', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Campagnes, copies, analytics, segmentation : tout est accéléré 10x par l\'IA. Tu pilotes désormais une équipe réduite suralimentée par des agents - ou tu deviens le bottleneck que tu refusais d\'être.',
@@ -365,7 +409,11 @@ export const JOBS: Job[] = [
 
   { slug: 'statisticien', label: 'Statisticien', risk: 65, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Analyse standardisée, modèles de régression et extrapolations sont absorbées par des agents nativement intégrés aux plateformes d\'entreprise. Tu pivotes vers la modélisation causale fine et la rigueur scientifique.',
-    sources: [6], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [6], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Posit Cloud (RStudio) avec GitHub Copilot pour tes analyses — Génère le code R ou Python des modèles standards, recentre ton énergie sur l\'interprétation causale et la validité des hypothèses.',
+      'Repositionne-toi sur l\'inférence causale et l\'évaluation des modèles IA — La régression, tout le monde la fait. L\'analyse d\'erreur systématique, le biais de sélection et la causalité : c\'est ta valeur différenciante face aux AutoML.',
+      'Publie tes analyses sur Posit Connect ou un blog public — Une analyse mensuelle bien documentée te positionne comme référence. Complète avec la Hugging Face Learn statistics for ML track pour signaler la montée en compétence.',
+    ] },
 
   // ── PROTÉGÉ ────────────────────────────────────────────
   // (peu menacé, valeur humaine non substituable)
@@ -515,23 +563,43 @@ export const JOBS: Job[] = [
 
   { slug: 'ingenieur-ia', label: 'Ingénieur IA / Architecte MLOps', risk: 0, horizon: 10, status: 'croissance',
     dynamic: 'Tu es au sommet de la vague. Création de modèles de fondation, intégration cloud sécurisée, optimisation des flux d\'inférence : demande massive, salaires premium. LinkedIn recense 1,3M nouveaux postes IA.',
-    sources: [11, 14], quadrant: 'pilotes', potential: 90, leviers: [] },
+    sources: [11, 14], quadrant: 'pilotes', potential: 90, leviers: [
+      'Construis ton playbook MLOps personnel — Templates Weights & Biases ou MLflow, pipelines réutilisables, evaluations standardisées. Capitalise sur chaque projet pour le suivant.',
+      'Documente publiquement ce que tu fais — Blog post mensuel sur tes architectures agentic, retours d\'expérience LangChain ou LlamaIndex. Ta valeur de référent monte avant les autres.',
+      'Vise une certification cloud ML — AWS ML Specialty, Azure AI Engineer, ou GCP ML Engineer. Différenciateur fort sur le marché et signal aux recruteurs que tu sais industrialiser.',
+    ] },
 
   { slug: 'integrateur-ia', label: 'Intégrateur IA', risk: 0, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Connecter les LLM aux systèmes métier d\'entreprise est la compétence la plus demandée - chaque société veut son IA opérationnelle, peu de gens savent vraiment la déployer en production.',
-    sources: [14], quadrant: 'pilotes', potential: 85, leviers: [] },
+    sources: [14], quadrant: 'pilotes', potential: 85, leviers: [
+      'Construis un agent de démo opérationnel avec LangChain ou LlamaIndex — Un agent qui répond sur les données internes d\'une entreprise type. C\'est ton portfolio vivant, plus convaincant que n\'importe quel CV.',
+      'Documente tes intégrations sur GitHub avec exemples concrets — Chaque déploiement en prod est un cas d\'usage documentable. Anthropic Academy + retours terrain : ta réputation d\'intégrateur fiable se construit en public.',
+      'Vise la certification Anthropic Academy ou DeepLearning.AI LangChain for LLM Application Development — Ces certifications ciblées signalent ta spécialisation aux DSI qui recrutent. Couple avec une présence LinkedIn active.',
+    ] },
 
   { slug: 'expert-cybersecurite', label: 'Expert cybersécurité', risk: 12, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. L\'IA générative arme les attaquants : phishing personnalisé, génération de malware, ingénierie sociale automatisée. La demande d\'experts capables de contrer ces vagues explose.',
-    sources: [9], quadrant: 'pilotes', potential: 80, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 80, leviers: [
+      'Maîtrise Wiz ou Lacework pour la sécurité cloud IA cette semaine — Piloter ces plateformes de détection des risques cloud IA te place au niveau où peu d\'experts ont encore migré. L\'avance se creuse maintenant.',
+      'Capitalise sur la menace LLM en entreprise — Construis un framework d\'audit des déploiements IA internes : prompt injection, exfiltration de données, hallucinations en prod. Propose-le en atelier à ta direction.',
+      'Vise la certification CISSP ou la GIAC GAISC — Le marché cyber IA est si tendu que les certifications avancées te donnent un accès direct aux rôles RSSI et aux missions de conseil indépendant.',
+    ] },
 
   { slug: 'specialiste-big-data', label: 'Spécialiste Big Data', risk: 18, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. L\'inflation du volume de données générées par l\'IA elle-même crée une demande structurelle pour ceux qui savent les architecturer, gouverner et exploiter de manière utile.',
-    sources: [9], quadrant: 'pilotes', potential: 80, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 80, leviers: [
+      'Intègre dbt + AI et Hex AI Notebooks dans tes pipelines — Génère les transformations de données, automatise les tests de qualité. Tu te libères du code répétitif pour te concentrer sur l\'architecture et la gouvernance.',
+      'Capitalise sur la data governance des systèmes IA — Les entreprises déploient des LLM sur leurs données et paniquent sur la conformité RGPD et la qualité des données d\'entraînement. C\'est ton terrain d\'expertise naturel.',
+      'Vise la certification Databricks Data Engineer ou Google Cloud Professional Data Engineer — Ces certifications cloud data sont les plus demandées. Couple avec une veille publique sur LinkedIn sur les architectures data IA.',
+    ] },
 
   { slug: 'ingenieur-fintech', label: 'Ingénieur fintech', risk: 22, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La fusion finance-IA-régulation crée une niche premium. Les banques transforment leurs systèmes legacy avec l\'IA et cherchent des profils hybrides finance + tech.',
-    sources: [9], quadrant: 'pilotes', potential: 75, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 75, leviers: [
+      'Pilote l\'intégration de modèles JAX ou Modal Labs dans tes pipelines quantitatifs — Les architectures de calcul financier IA sont le nouveau terrain de jeu. Construis un prototype de scoring ou de prédiction de risque augmenté.',
+      'Capitalise sur la compliance IA dans la finance — DORA, MiCA, Bâle IV : les régulateurs exigent de l\'explicabilité sur les modèles IA décisionnels. Tu es le profil rare qui comprend les deux langages.',
+      'Vise une certification AWS Fintech ou Azure AI Engineer — Couple avec des contributions open source sur des libs comme Numerai ou JAX. Le recrutement fintech IA est mondial, ta visibilité GitHub compte.',
+    ] },
 
   { slug: 'specialiste-energies-renouvelables', label: 'Spécialiste énergies renouvelables', risk: 4, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La transition énergétique structure une demande massive : conception, installation, maintenance d\'infrastructures solaires/éoliennes/hydrogène. Le marché embauche plus vite qu\'il forme.',
@@ -791,7 +859,11 @@ export const JOBS: Job[] = [
 
   { slug: 'gestionnaire-projet', label: 'Gestionnaire de projet', risk: 52, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Suivi de tâches, comptes rendus et coordination basique sont automatisés. Tu te concentres sur la gestion humaine d\'équipe, l\'arbitrage de scope et la communication exécutive.',
-    sources: [9], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 60, leviers: [
+      'Automatise tes rapports de projet avec Claude + Notion AI — Génère les comptes rendus, tableaux de bord et synthèses de réunion automatiquement. Consacre ce temps à la coordination humaine et à la gestion des risques.',
+      'Repositionne-toi comme pilote de projets de transformation IA — Chaque entreprise déploie de l\'IA et cherche quelqu\'un pour gérer ces projets spécifiques. Propose-toi volontaire sur le prochain projet IA de ton équipe.',
+      'Certifie-toi PMP ou PSM et ajoute un module sur l\'IA en gestion de projet — PMI propose désormais des contenus IA. Ce signal combiné à une expérience terrain te distingue des gestionnaires de projet classiques.',
+    ] },
 
   { slug: 'responsable-qualite', label: 'Responsable qualité', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Contrôle conformité, reporting ISO et détection d\'anomalies sont accélérés par l\'IA. Tu te recentres sur la culture qualité, la gouvernance et l\'audit stratégique des risques.',
@@ -827,23 +899,43 @@ export const JOBS: Job[] = [
 
   { slug: 'infographiste', label: 'Infographiste', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La génération d\'images, retouches et déclinaisons de gabarits sont commoditisées par l\'IA. La direction artistique et la signature visuelle survivent ; l\'exécution se vend de moins en moins seule.',
-    sources: [1], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre Adobe Firefly ou Midjourney dans ta chaîne de production — Déclinaisons, variantes de formats, retouches rapides : confie l\'exécution à l\'IA. Tu libères ton temps pour la direction créative et la relation client.',
+      'Construis un portfolio de direction artistique IA — Montre que tu pilotes les outils génératifs avec un brief clair et un oeil exigeant. C\'est la preuve que tu restes le cerveau derrière la création, pas juste les mains.',
+      'Forme-toi à Recraft et Magicpattern pour la création de systèmes visuels — Ces outils permettent de créer des identités visuelles cohérentes augmentées par IA. Couple avec un module en branding sur O\'Reilly Live Trainings.',
+    ] },
 
   { slug: 'actuaire', label: 'Actuaire', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Modélisation tarifaire, calcul de provisions et stress tests sont accélérés par l\'IA. Tu te concentres sur l\'innovation produit, la conformité Solvency et la gouvernance des modèles.',
-    sources: [7], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 65, leviers: [
+      'Automatise tes modèles de tarification avec Python + Claude et H2O.ai AutoML — Génère le code des modèles standards, libère du temps pour l\'interprétation métier et la validation réglementaire Solvency.',
+      'Repositionne-toi sur la gouvernance des modèles IA en assurance — L\'ACPR et l\'EIOPA exigent de l\'explicabilité sur les modèles IA décisionnels en assurance. Construis l\'expertise en gouvernance de modèle : c\'est la niche rare.',
+      'Vise une certification Institute and Faculty of Actuaries (IFoA) Data Science ou CAS Predictive Analytics — Ces certifications actuarielles spécialisées IA sont rares et très valorisées par les grandes compagnies d\'assurance.',
+    ] },
 
   { slug: 'administrateur-sys', label: 'Administrateur système', risk: 58, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Provisioning, patches et monitoring sont gérés par des agents IA et des outils IaC. Tu pivotes vers SRE, sécurité opérationnelle et architecture cloud - ou tu es remplacé par un script.',
-    sources: [3], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 65, leviers: [
+      'Maîtrise Pulumi AI ou Terraform Stacks pour l\'infrastructure as code — L\'IaC augmentée IA est ce qui remplace les scripts manuels. Être celui qui pilote ces outils, pas celui qui fait ce qu\'ils font, c\'est la survie.',
+      'Pilote Datadog AI ou Coralogix pour le monitoring intelligent — Configure des alertes prédictives, des runbooks automatisés. Repositionne-toi comme SRE qui orchestre les agents, pas technicien qui résout les incidents.',
+      'Prépare la certification AWS SysOps Administrator ou Google Cloud SRE — Ces certifications cloud SRE sont le signal de ta montée en compétence. Couple avec un module de sécurité cloud : la combo est très demandée.',
+    ] },
 
   { slug: 'ingenieur-reseau', label: 'Ingénieur réseau', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Configuration, troubleshooting et optimisation des liens sont automatisés. Tu te recentres sur l\'architecture réseau, la sécurité périmétrique et l\'intégration cloud-edge.',
-    sources: [3], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 55, leviers: [
+      'Intègre Cisco Cloud Security AI ou Cloudflare AI Gateway dans ton stack — Ces outils automatisent la détection d\'anomalies réseau et la réponse aux incidents. Pilote-les et libère-toi du troubleshooting répétitif.',
+      'Repositionne-toi sur la sécurité réseau cloud-edge — Le périmètre réseau classique a disparu avec le cloud et le remote. L\'expertise Zero Trust et SD-WAN est la valeur que les agents ne remplacent pas encore.',
+      'Vise la certification CCNP Security ou AWS Advanced Networking Specialty — Ces certifications signalent ta montée vers l\'architecture. Couple avec un projet personnel de réseau cloud documenté sur GitHub.',
+    ] },
 
   { slug: 'responsable-si', label: 'Responsable SI / DSI', risk: 45, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. La gouvernance IT classique cède la place à la gouvernance des agents IA, de la donnée et des risques cyber. Tu deviens stratège technologique au service du métier - pas administrateur d\'infrastructure.',
-    sources: [4], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [4], quadrant: 'mutes', potential: 60, leviers: [
+      'Pilote ton premier déploiement d\'agent IA interne cette semaine — Choisis un use case concret (support IT, synthèse de réunions, documentation). C\'est ta preuve de compétence en gouvernance IA, pas un projet théorique.',
+      'Construis la politique de gouvernance IA de ton entreprise — Règles d\'usage des LLM, sécurité des données, conformité RGPD et audit des modèles : c\'est ton nouveau coeur de métier DSI. Rédige un document d\'ici 30 jours.',
+      'Complète l\'executive program MIT Sloan AI Strategy ou Coursera Google Cloud ML — Ces formations courtes pour dirigeants tech crédibilisent ton positionnement stratégique en interne et sur le marché.',
+    ] },
 
   { slug: 'acheteur', label: 'Acheteur', risk: 52, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Sourcing fournisseurs, RFP et benchmark prix sont accélérés par l\'IA. Tu te concentres sur la négociation stratégique, la résilience de la supply chain et la RSE des fournisseurs.',
@@ -953,15 +1045,27 @@ export const JOBS: Job[] = [
 
   { slug: 'business-analyst', label: 'Business Analyst', risk: 58, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Traduction des besoins métier en specs, reporting et analyse de données structurées sont accélérés par l\'IA. Tu te concentres sur l\'arbitrage entre stakeholders, la modélisation de processus complexes et la conduite du changement.',
-    sources: [3, 4], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [3, 4], quadrant: 'mutes', potential: 70, leviers: [
+      'Automatise tes analyses avec Claude + Hex ou Mode Analytics — Génère les requêtes SQL, les tableaux de bord et les synthèses de données automatiquement. Libère ton temps pour l\'arbitrage métier et la recommandation stratégique.',
+      'Repositionne-toi sur la modélisation de processus IA — Chaque déploiement d\'IA en entreprise nécessite un BA qui sait cartographier les processus avant et après l\'automatisation. Propose-toi sur ces projets en interne.',
+      'Certifie-toi CBAP (Certified Business Analysis Professional) et complète un cours de process mining — Celonis propose des formations sur l\'analyse de processus augmentée IA. Ce combo te distingue des BA sans expertise outils.',
+    ] },
 
   { slug: 'asset-manager', label: 'Asset Manager', risk: 52, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. McKinsey projette 8% de gain d\'efficacité par l\'IA générative sur la recherche, l\'analyse de tendances et la due diligence. Tu te recentres sur la relation client institutionnel et l\'arbitrage stratégique.',
-    sources: [4, 7], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [4, 7], quadrant: 'mutes', potential: 65, leviers: [
+      'Intègre Bloomberg Terminal AI ou BlackRock Aladdin dans ta veille marché — Automatise la synthèse de rapports, l\'analyse sectorielle et les alertes d\'événements. Recentre ton énergie sur la conviction d\'investissement.',
+      'Repositionne-toi sur la relation client institutionnel et l\'allocation complexe — L\'IA optimise les portefeuilles standards. Ta valeur est dans les mandats sur-mesure, la confiance long terme et les marchés illiquides où l\'algorithme ne sait pas naviguer.',
+      'Vise le CFA AI in Investing Certificate ou le CQF (Certificate in Quantitative Finance) — Ces certifications spécialisées signalent ta montée en compétence sur l\'IA financière auprès des allocataires institutionnels.',
+    ] },
 
   { slug: 'portfolio-manager', label: 'Portfolio Manager', risk: 54, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Screening, rebalancing et optimisation de portefeuilles sont accélérés par l\'IA prédictive. La valeur humaine se déplace vers la conviction d\'investissement, la gestion des biais émotionnels du client et les cas atypiques.',
-    sources: [4, 7], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [4, 7], quadrant: 'mutes', potential: 65, leviers: [
+      'Pilote Bcomp ou Wolfram Alpha pour l\'analyse quantitative de tes positions — Automatise le screening et le rebalancing sur les stratégies standardisées. Libère ton attention pour les convictions différenciantes et les risques tail.',
+      'Capitalise ta valeur sur le biais comportemental et la volatilité émotionnelle — L\'algorithme optimise, il ne console pas le client institutionnel qui panique en correction de marché. C\'est ton terrain irremplaçable.',
+      'Vise le CFA Institute AI in Asset Management ou participe à Numerai — Numerai permet de soumettre des modèles quant et de construire une réputation publique dans la communauté. Signal fort pour les gérants alternatifs.',
+    ] },
 
   { slug: 'consultant-it', label: 'Consultant IT', risk: 45, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Audits techniques, roadmaps de transformation et benchmarks fournisseurs sont accélérés par l\'IA. La demande explose à l\'inverse pour les consultants spécialisés IA - déploiement, gouvernance, MLOps.',
