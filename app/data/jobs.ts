@@ -560,31 +560,59 @@ export const JOBS: Job[] = [
 
   { slug: 'macon', label: 'Maçon / Bâtiment', risk: 0, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Manipulation de matériaux lourds dans des chantiers non structurés défie la robotique actuelle. La transition énergétique et les besoins en logement garantissent l\'emploi à long terme.',
-    sources: [6], quadrant: 'pilotes', potential: 70, leviers: [] },
+    sources: [6], quadrant: 'pilotes', potential: 70, leviers: [
+      'Utilise ChatGPT pour rédiger tes devis et factures — Décris le chantier en langage courant, récupère un devis structuré prêt à envoyer. Tu gagnes 1h par chantier sur l\'administratif, sans changer ton outil de facturation.',
+      'Capte ton savoir-faire avec des photos de chantier commentées — Avant/après sur Google Business + Instagram. Chaque réalisation devient une vitrine locale. C\'est le bouche-à-oreille numérique qui génère des appels sans prospection.',
+      'Forme-toi aux relevés 3D avec Matterport ou Camera2BIM — Différenciateur fort sur les marchés de rénovation complexe et les promoteurs. Signal externe qui te positionne comme maçon augmenté, pas simplement artisan.',
+    ] },
 
   { slug: 'plombier', label: 'Plombier', risk: 4, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Diagnostic dans des espaces contraints, intervention sur des installations vieillissantes hétérogènes et urgences d\'eau : hors de portée de la robotique économiquement viable.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Automatise ta facturation avec Tiime AI ou Indy — Devis en deux clics depuis ton téléphone, relances automatiques. Tu fais tes factures sur le trajet retour, pas le soir après le chantier.',
+      'Prends des photos systématiques avant et après intervention — Commentées avec ChatGPT pour créer des fiches techniques et des posts Google Business. Ta réputation locale se construit sans y penser.',
+      'Suis les normes NF C 15-100 et RE2020 avec l\'aide de ChatGPT — Colle le texte réglementaire, pose tes questions en français clair. Tu gardes une longueur d\'avance sur les chantiers de rénovation énergétique qui explosent.',
+    ] },
 
   { slug: 'electricien', label: 'Électricien', risk: 6, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Diagnostic d\'installations vieillissantes, intervention en environnement contraint et responsabilité sécuritaire restent hors de portée des robots. La transition énergétique soutient durablement la demande.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes devis et fiches d\'intervention — Décris le chantier à voix haute, paste les notes dans ChatGPT, récupère un devis formaté. Tu réduis le temps admin de moitié.',
+      'Documente chaque installation IRVE ou borne de recharge que tu poses — Photos + fiche technique générée par ChatGPT sur Google Business. Les demandes de bornes EV vont doubler : sois le premier visible localement.',
+      'Forme-toi aux outils de diagnostic électrique augmenté — Applications de thermographie et FLIR + IA pour détecter points chauds. Signal fort pour attirer les contrats de maintenance et les copropriétés.',
+    ] },
 
   { slug: 'cuisinier-rapide', label: 'Cuisinier de restauration rapide', risk: 0, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Le travail physique cadencé dans un espace restreint résiste étonnamment bien à l\'IA. Bornes de commande automatisées oui, mais préparation physique des repas reste humaine.',
-    sources: [6], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise Choco AI pour tes commandes fournisseurs — Commande par message vocal ou photo, stock ajusté automatiquement. Tu réduis les pertes et les ruptures sans Excel ni téléphone.',
+      'Apprends les bases du management de shift avec ChatGPT — Plannings, scripts de brief équipe, gestion de conflit simple. Si tu vises un poste de responsable, c\'est la compétence qui fait la différence.',
+      'Suis une formation LinkedIn Learning en gestion de cuisine rapide avec IA — 4h qui donnent un vocabulaire opérationnel. Signal pour les recruteurs de chaînes qui déploient des outils digitaux en interne.',
+    ] },
 
   { slug: 'cuisinier-restaurant', label: 'Cuisinier restaurant', risk: 5, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Créativité culinaire, adaptation produit-saison et gestion d\'un coup de feu en service restent humains. Les robots de cuisine restent confinés aux process standardisés.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour créer des suggestions de menus saisonniers à partir de ton stock — Tu colle ce que tu as, il te sort des idées de plats avec coûts matières estimés. Tu libères 30 min de réflexion avant chaque carte.',
+      'Dicte tes recettes signatures avec Otter.ai pendant la mise en place — Tu construis un livre de recettes interne sans jamais écrire une ligne. Capital précieux si tu vises ton propre restaurant.',
+      'Capte ta technique sur vidéo courte pour les réseaux sociaux — TikTok ou Instagram Reels avec Canva AI pour le texte. Cuisinier visible = recruteurs qui t\'appellent et clients qui réservent.',
+    ] },
 
   { slug: 'soudeur', label: 'Soudeur / Coupeur', risk: 14, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas en grande partie. Robots industriels existent en chaîne, mais le sur-mesure, les réparations en extérieur et les interventions sur infrastructures vieillissantes échappent à l\'automatisation.',
-    sources: [6], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [6], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour décrypter les fiches techniques et normes de soudage constructeurs — Colle le PDF ou la photo, pose tes questions en français. Tu réduis les erreurs d\'interprétation sur les aciers spéciaux.',
+      'Documente tes qualifications de soudeur (QS) avec des photos horodatées — Portefeuille numérique partageable avec les bureaux de contrôle et les donneurs d\'ordre industriels. Signal de professionnalisme qui ouvre les marchés grands comptes.',
+      'Explore les formations soudage TIG/MIG augmenté — AFPA propose des modules de qualification. Un soudeur certifié sur aciers inox et alliages spéciaux est recruté avant même de candidater.',
+    ] },
 
   { slug: 'mecanicien', label: 'Mécanicien automobile / moto', risk: 0, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Diagnostic basé sur perceptions sensorielles complexes (bruit, vibration, odeurs) et accès physique contraint aux pièces dans des environnements non standardisés garantissent le métier.',
-    sources: [3], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'tiens', potential: 25, leviers: [
+      'Pilote CarMD ou ETAI avec IA pour le diagnostic OBD — Codes erreur interprétés en secondes, pièces identifiées automatiquement. Tu passes moins de temps sur manuels, plus sur la réparation elle-même.',
+      'Utilise ChatGPT pour traduire les manuels constructeurs anglais ou les fiches techniques complexes — Procédures d\'intervention claires en français en moins d\'une minute. Gain de temps sur les véhicules étrangers ou récents.',
+      'Monte en compétence sur les véhicules électriques — Formations AFPA ou CFA sur haute tension et BMS. Le mécanicien certifié VE est la pénurie des 5 prochaines années : tu te places maintenant.',
+    ] },
 
   { slug: 'masseur', label: 'Masseur-Kinésithérapeute', risk: 12, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Retour haptique, chaleur humaine, adaptation instantanée à la douleur du patient et manipulation anatomique précise constituent l\'essence même de la valeur thérapeutique.',
@@ -671,23 +699,43 @@ export const JOBS: Job[] = [
 
   { slug: 'agriculteur', label: 'Ouvrier agricole / Agriculteur', risk: 0, horizon: 5, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon - peut-être le meilleur. Boostée par la transition écologique, l\'adaptation climatique et la sécurité alimentaire mondiale, la profession connaît la plus forte croissance absolue : +34M emplois projetés d\'ici 2030.',
-    sources: [9], quadrant: 'pilotes', potential: 70, leviers: [] },
+    sources: [9], quadrant: 'pilotes', potential: 70, leviers: [
+      'Bascule sur la météo augmentée Sencrop ou Weenat — Décisions d\'irrigation et de traitement au jour près avec données micro-locales. Tu économises des intrants, tu protèges tes rendements sans jouer aux devinettes.',
+      'Repositionne ta valeur sur l\'observation terrain et l\'arbitrage — Les drones XAG ou Airinov cartographient les anomalies de végétation, toi tu décides quoi traiter, comment, quand. C\'est ton expertise agronomique qui paie, pas la machine.',
+      'Forme-toi à l\'AgTech via INRAE ou ta Chambre d\'agriculture — Modules agriculture de précision + aide aux démarches PAC IA-augmentées. Différenciateur sur les aides et la transmission d\'exploitation.',
+    ] },
 
   { slug: 'maraicher', label: 'Maraîcher', risk: 4, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La demande de circuits courts et la transition agroécologique soutiennent durablement le métier. L\'automatisation reste partielle face à la diversité variétale et météorologique.',
-    sources: [9], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 35, leviers: [
+      'Intègre un outil de suivi phytosanitaire IA comme PlantNet ou Scouting IA — Photo d\'une plante malade, diagnostic en secondes, recommandation d\'intervention. Tu réduis les pertes sur maladies détectées trop tard.',
+      'Utilise ChatGPT pour rédiger tes fiches circuit court — Descriptifs variétaux, recettes associées, story de la production pour ton AMAP ou ta boutique en ligne. Tu vends mieux sans devenir rédacteur.',
+      'Explore les robots de désherbage Naïo ou FarmDroid pour tes lignes maraîchères — Pas pour tout remplacer, mais pour libérer des heures de tâches pénibles. Signal fort pour accéder aux aides à l\'investissement AgTech.',
+    ] },
 
   { slug: 'eleveur', label: 'Éleveur', risk: 6, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Soin du vivant, gestion de la reproduction et adaptation aux pathologies animales restent fondamentalement humains. La demande de produits locaux soutient la profession.',
-    sources: [9], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 35, leviers: [
+      'Déploie des capteurs connectés Connecterra ou Smartbow AI sur ton troupeau — Détection automatique des chaleurs, alertes de boiterie ou de fièvre avant les symptômes visibles. Tu interviens plus tôt, tu perds moins.',
+      'Utilise ChatGPT pour tes démarches administratives — Demandes PAC, dossiers sanitaires, plans d\'alimentation : tu décris la situation, ChatGPT structure le document. 2h d\'admin par semaine récupérées.',
+      'Capte et partage ta démarche d\'élevage en ligne — Photos de vie d\'élevage sur Instagram ou Facebook. Les consommateurs paient une prime au local transparent. Tu construis une clientèle directe qui n\'a pas besoin d\'intermédiaire.',
+    ] },
 
   { slug: 'chauffeur-livreur', label: 'Chauffeur-livreur', risk: 10, horizon: 5, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La complexité du dernier kilomètre - bâtiments non cartographiés, remise en main propre, interaction client - retarde indéfiniment l\'automatisation logistique complète.',
-    sources: [9], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 30, leviers: [
+      'Allège ton admin avec ChatGPT — Rédaction d\'avis clients, contestations de PV, communication avec les expéditeurs exigeants. 30 minutes par jour récupérées sur la paperasse.',
+      'Capitalise sur ton expertise du dernier kilomètre — Documente publiquement tes astuces de livraison (TikTok, blog court). Différenciation forte si tu vises l\'auto-entrepreneur ou la supervision logistique.',
+      'Forme-toi au prompt engineering en 10h — DeepLearning.AI gratuit. Compétence portable si tu pivotes vers customer success ou coordinateur logistique.',
+    ] },
 
   { slug: 'chauffeur-poids-lourd', label: 'Chauffeur poids-lourd', risk: 32, horizon: 10, status: 'croissance',
     dynamic: 'Tu restes dans le bon wagon… pour l\'instant. Le camion autonome avance, mais la complexité réglementaire, la responsabilité accident et les manœuvres en zone urbaine repoussent encore le déploiement à grande échelle.',
-    sources: [21], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise les apps de télématique connectée Continental VDO ou Webfleet — Suivi de conduite, éco-conduite scorée, alertes maintenance : tu prouves ta valeur aux transporteurs qui font de l\'optimisation carburant une priorité.',
+      'Utilise ChatGPT pour préparer tes itinéraires complexes et gérer tes communications clients — Restrictions tonnage, délais déclarés, contestations de pénalités. Tu gagnes en autonomie administrative sans passer par le bureau.',
+      'Monte en compétence sur le transport frigorifique ou les matières dangereuses ADR — Formations AFPA ou auto-école spécialisée. Chauffeur PL spécialisé = tarif horaire 20-30% supérieur et demande continue.',
+    ] },
 
   { slug: 'ingenieur-ia', label: 'Ingénieur IA / Architecte MLOps', risk: 0, horizon: 10, status: 'croissance',
     dynamic: 'Tu es au sommet de la vague. Création de modèles de fondation, intégration cloud sécurisée, optimisation des flux d\'inférence : demande massive, salaires premium. LinkedIn recense 1,3M nouveaux postes IA.',
@@ -735,11 +783,19 @@ export const JOBS: Job[] = [
 
   { slug: 'technicien-eolien', label: 'Technicien éolien', risk: 3, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Maintenance en hauteur, diagnostic mécanique-électrique sur sites isolés et coordination terrain : irréductibles à l\'automatisation à court terme. Demande structurelle forte.',
-    sources: [9], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 35, leviers: [
+      'Exploite les outils de maintenance prédictive Uptake AI ou SparkCognition — Données capteurs en temps réel, alertes de défaillance avant l\'arrêt machine. Tu passes d\'un rôle réactif à un rôle préventif, mieux valorisé.',
+      'Utilise les drones DroneDeploy avec IA pour les inspections de pales — Détection automatique de fissures et érosion sur les images. Tu réduis le temps en hauteur sur les tâches d\'inspection visuelle pure.',
+      'Certifie-toi GWO (Global Wind Organisation) et complète par un module IoT industriel — LinkedIn Learning propose des cours sur les capteurs et l\'IIoT. Profil rare et très recherché par les exploitants de parcs.',
+    ] },
 
   { slug: 'technicien-solaire', label: 'Technicien solaire', risk: 4, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. La diversité des toitures, des configurations résidentielles et des contraintes techniques rend l\'installation difficilement automatisable. Le marché manque cruellement de bras qualifiés.',
-    sources: [9], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise Helioscope ou PVsyst avec IA pour dimensionner les installations — Simulation de production solaire en quelques minutes selon l\'orientation et l\'ombrage. Tu proposes des devis plus précis, tu gagnes des chantiers.',
+      'Prends des photos systématiques de chaque installation pour ton portfolio Google Business — Commentaire généré par ChatGPT, publié après chaque chantier. Ta visibilité locale se construit chantier après chantier.',
+      'Monte en compétence sur le stockage batterie et les systèmes AC/DC couplés — AFPA ou CFA modules énergie. Le technicien solaire + storage est la pénurie des 3 prochaines années.',
+    ] },
 
   { slug: 'specialiste-batiment-durable', label: 'Spécialiste bâtiment durable', risk: 5, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Rénovation énergétique, isolation thermique et matériaux biosourcés : la réglementation européenne crée une demande massive. Les entreprises peinent à recruter.',
@@ -765,31 +821,59 @@ export const JOBS: Job[] = [
 
   { slug: 'menuisier', label: 'Menuisier', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Travail sur mesure, lecture du bois, ajustement à l\'existant : irréductible à la robotique. La demande pour le mobilier sur mesure et la rénovation reste solide.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes devis, fiches techniques et conditions générales — Décris le chantier, récupère un document pro en 2 minutes. Tu passes plus de temps en atelier, moins à la paperasse.',
+      'Photographie chaque réalisation avec légendes — Publie sur Google Business et Instagram avec description générée par ChatGPT. Les clients qui cherchent "menuisier sur mesure [ville]" te trouvent.',
+      'Explore la découpe CNC assistée par IA via logiciel CAO — Cabinet Maker ou Cut2D : tu gagnes en précision sur les pièces complexes. Signal différenciateur pour les architectes d\'intérieur qui veulent un partenaire fiable.',
+    ] },
 
   { slug: 'ebeniste', label: 'Ébéniste', risk: 5, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. La haute valeur ajoutée artisanale et la finition au sentiment échappent à l\'automatisation. Le marché du luxe et de la restauration soutient durablement la profession.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise Midjourney pour explorer des directions créatives avec ton client avant de démarrer — Tu présentes 6 variantes visuelles en 10 minutes, tu valides le style avant la première cheville. Zéro devis refusé pour mauvaise interprétation.',
+      'Capte ton savoir-faire en vidéo courte — Time-lapse d\'une pièce, technique d\'assemblage, finition à la cire : Instagram et LinkedIn. Un ébéniste visible attire les architectes d\'intérieur et les marchés luxe sans démarchage.',
+      'Utilise ChatGPT pour les devis et fiches de chantier — Descriptif des essences, tolérances dimensionnelles, délais et CGV. Tu envoies des documents de niveau cabinet d\'architecte, tu justifies ton tarif.',
+    ] },
 
   { slug: 'boulanger', label: 'Boulanger / Pâtissier', risk: 10, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Tour de main, adaptation aux farines, gestion d\'un fournil et créativité culinaire restent humains. La demande de produits artisanaux locaux soutient le métier.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise Choco AI ou Apicbase pour tes prévisions de ventes et commandes fournisseurs — Tu réduis les invendus de fin de journée et les ruptures du samedi matin. 3-5% de marge récupérée sans changer ton four.',
+      'Documente tes créations saisonnières avec Canva AI — Photos de la galette, de la bûche, des viennoiseries de Pâques : posts Google Business + Facebook prêts en 10 minutes. Les clients locaux partagent, le bouche-à-oreille numérique fait le reste.',
+      'Utilise ChatGPT pour rédiger tes étiquettes allergènes et fiches techniques — Conformité réglementaire rapide sur chaque nouvelle recette. Tu évites l\'amende, tu montres le professionnalisme.',
+    ] },
 
   { slug: 'boucher', label: 'Boucher', risk: 12, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Lecture anatomique, découpe précise et conseil client en proximité résistent à l\'automatisation économiquement viable. Le local et l\'artisanal soutiennent la demande.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes fiches produits, étiquettes et suggestions de recettes — "Avec ce rôti, essayez…" : tu transformes une vente en expérience. Les clients reviennent chercher le conseil, pas juste la viande.',
+      'Poste des reels de découpe sur Instagram ou TikTok — Canva AI pour le texte. Boucher artisan visible = clientèle locale fidèle et commandes événementielles sans démarcher.',
+      'Utilise Marketman AI ou Choco AI pour suivre ton stock et tes coûts matières — Réduction des pertes, commandes optimisées selon les ventes de la semaine. Tu pilotes ta marge sans Excel, en 10 minutes.',
+    ] },
 
   { slug: 'coiffeur', label: 'Coiffeur', risk: 6, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Geste fin sur cheveu vivant + relation de confiance + contact physique : profondément humain. La demande reste solide même en récession.',
-    sources: [21], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 30, leviers: [
+      'Déploie Planity ou Treatwell — Prise de rendez-vous en ligne optimisée par IA, relances automatiques des clients inactifs. Tu remplis ton agenda sans décrocher ton téléphone entre deux coupes.',
+      'Utilise ChatGPT pour préparer des scripts de conseil personnalisés par profil capillaire — Type de cheveu, style de vie, entretien à domicile : tu proposes un accompagnement sur mesure, pas une prestation standard. Le ticket moyen monte.',
+      'Poste des avant/après sur Instagram avec Canva AI pour les textes — 3 posts par semaine, 20 minutes. Le coiffeur visible localement ne fait pas de publicité : ses clients viennent en te cherchant.',
+    ] },
 
   { slug: 'esthetique', label: 'Esthéticien(ne)', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Soins personnalisés, contact physique apaisant et conseil sur la peau spécifique du client restent humains. La demande de bien-être croît avec le stress ambiant.',
-    sources: [21], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 30, leviers: [
+      'Utilise Atolla ou Skin Genius pour les diagnostics peau — Photo du visage, analyse IA du type et des problématiques cutanées. Tu personnalises ton protocole de soin avec un argument objectif que le client comprend et valorise.',
+      'Déploie Planity ou Treatwell pour la prise de rendez-vous et les relances automatiques — Tu ne passes plus ta pause à confirmer des RDV. L\'IA gère l\'agenda, toi tu fais les soins.',
+      'Crée du contenu visuel avant/après avec Canva AI pour Instagram — Résultats de soins, rituels de soin du soir, conseils produits. L\'esthéticien(ne) visible localement remplit son carnet sans publicité payante.',
+    ] },
 
   { slug: 'fleuriste', label: 'Fleuriste', risk: 25, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Composition florale au feeling, conseil émotionnel pour mariages/funérailles et adaptation au stock saisonnier sont irréductiblement humains. Marché de niche stable.',
-    sources: [21], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise Midjourney pour explorer des compositions événementielles avec tes clients mariages — Tu génères 6 bouquets différents en 10 minutes pendant la consultation. Le client choisit, tu exécutes. Zéro malentendu le jour J.',
+      'Gère ton stock saisonnier avec Floral Frog AI — Commandes fournisseurs ajustées aux saisons et aux événements calendaires. Moins d\'invendus, moins de pertes, marge préservée.',
+      'Utilise ChatGPT pour rédiger tes messages personnalisés de communication événements — Mariage, deuil, Saint-Valentin : textes pour tes réseaux et tes cartes-cadeaux en 5 minutes. Tu vends une émotion, pas juste des fleurs.',
+    ] },
 
   // ── SANTÉ ──────────────────────────────────────────────
 
@@ -971,19 +1055,35 @@ export const JOBS: Job[] = [
 
   { slug: 'pilote-ligne', label: 'Pilote de ligne', risk: 18, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste massivement, mais la responsabilité finale, la gestion de crise (Hudson River) et la conformité réglementaire (deux pilotes minimum) garantissent la profession encore longtemps.',
-    sources: [21], quadrant: 'tiens', potential: 45, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 45, leviers: [
+      'Exploite ForeFlight avec IA ou NaviAir AI pour tes briefings pré-vol — Météo augmentée, NOTAMs synthétisés, analyse de route optimisée en 5 minutes. Tu arrives au briefing mieux préparé que la majorité.',
+      'Utilise ChatGPT pour ta formation continue et tes révisions de procédures — Scénarios d\'urgence, questions ATPL, quiz personnalisés selon tes lacunes identifiées. Révisions plus efficaces, heure de simulateur mieux utilisée.',
+      'Documente ta montée en expertise sur les systèmes automatisés — FMS, TCAS, autothrottle IA : un pilote qui comprend et explique l\'automatisation devient instructeur de référence et consultant sécurité.',
+    ] },
 
   { slug: 'controleur-aerien', label: 'Contrôleur aérien', risk: 30, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste, mais la responsabilité légale absolue de la séparation aérienne et la gestion d\'incidents restent humaines. La demande explose avec la croissance du trafic post-COVID.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Maîtrise les systèmes de gestion de trafic augmentés IA (SESAR/iTEC) — Séparation assistée, prédiction de conflits, optimisation de flux : comprendre ce que fait l\'outil te rend plus efficace et plus sûr que ceux qui l\'utilisent passivement.',
+      'Utilise ChatGPT pour préparer tes sessions de formation continue — Scénarios d\'urgence, phraséologie OACI, gestion de trafic intense. Révisions plus ciblées, moins de temps passé sur ce que tu maîtrises déjà.',
+      'Capitalise sur ton expertise pour viser des rôles de supervision ou de formation — Instructeur OJT, inspecteur DGAC : l\'IA augmente la capacité des contrôleurs en place, elle ne crée pas les experts de demain.',
+    ] },
 
   { slug: 'conducteur-train', label: 'Conducteur de train', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute lentement. Lignes automatisées (métro, certaines LGV) progressent, mais le réseau classique et le fret nécessitent la présence d\'un conducteur - pour des raisons techniques et syndicales.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Maîtrise les systèmes d\'aide à la conduite SNCF avec IA (ERTMS, Hercule) — Comprendre l\'outil c\'est conduire mieux et gérer les alertes avec plus de sang-froid. Tu passes de conducteur passif à opérateur technique de référence.',
+      'Utilise ChatGPT pour préparer tes qualifications et révisions réglementaires — Questions d\'examen EPSF, procédures dégradées, marche à suivre sur incidents. Révisions plus rapides, confiance renforcée en situation réelle.',
+      'Vise les qualifications sur lignes complexes ou fret — Le conducteur qualifié sur réseau classique + fret + grande vitesse est le profil le moins exposé à la substitution par automatisation partielle.',
+    ] },
 
   { slug: 'chauffeur-taxi-vtc', label: 'Chauffeur taxi / VTC', risk: 28, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas tout de suite. Le robotaxi avance dans certaines villes US, mais la complexité urbaine européenne, la régulation et le service client maintiennent la demande humaine.',
-    sources: [21], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 35, leviers: [
+      'Optimise tes plages horaires avec les données algorithmes Uber ou Bolt — Les apps te montrent déjà les zones à forte demande : apprends à lire les patterns et à te positionner avant le pic. Tu gagnes 15-20% de courses sans rouler plus.',
+      'Utilise ChatGPT pour gérer tes communications clients et tes avis Google — Réponse aux avis négatifs, message de bienvenue personnalisé, fidélisation clientèle régulière. Ta note moyenne monte, ta visibilité aussi.',
+      'Démarque-toi sur le segment premium ou santé — Véhicule adapté PMR, transport médical non urgent : certifications TPMR. Moins de concurrence, tarif supérieur, clients récurrents institutionnels.',
+    ] },
 
   // ── MÉTIERS SCIENTIFIQUES ──────────────────────────────
 
@@ -1227,11 +1327,19 @@ export const JOBS: Job[] = [
 
   { slug: 'agent-de-voyage', label: 'Agent de voyage', risk: 65, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. La réservation autonome, les agents IA et les comparateurs ont absorbé le métier généraliste. Bascule vers le voyage de niche — luxe, affaires complexes, aventure — c\'est là que la valeur humaine reste.',
-    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
+      'Utilise ChatGPT pour créer des itinéraires sur mesure ultra-personnalisés — Client brief en 10 minutes, programme complet sur 14 jours en 30 minutes. Tu fais en une heure ce que le client ne trouvera pas sur Booking.',
+      'Repositionne-toi sur le voyage B2B complexe ou le luxe — Séminaires d\'entreprise, luna de miel, safaris : ce que l\'IA ne peut pas garantir c\'est la relation de confiance et la gestion de crise sur le terrain. C\'est ton terrain.',
+      'Certifie-toi sur une destination ou une niche via IATA ou les offices de tourisme — Spécialiste Maldives, expert croisière fluviale, voyage responsable : un signal externe précis qui attire les clients qui veulent l\'expert, pas le généraliste.',
+    ] },
 
   { slug: 'chef-de-chantier', label: 'Chef de chantier', risk: 32, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la planification et le suivi BIM. Mais la coordination terrain, la gestion d\'équipes humaines en environnement chaotique et la responsabilité d\'exécution restent fondamentalement humaines.',
-    sources: [21], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise ChatGPT pour générer tes plans de prévention, comptes rendus de réunion et rapports d\'avancement — Dictée ou notes en entrée, document structuré en sortie. Tu envoies des rapports de niveau bureau d\'études en 10 minutes.',
+      'Intègre un outil de suivi chantier photo IA comme Fieldwire ou PlanGrid — Relevés d\'avancement, réserves photographiées et géolocalisées, suivi des sous-traitants en temps réel. Tu coordonnes depuis le terrain sans perdre le fil du bureau.',
+      'Monte en compétence BIM avec Revit ou Autodesk Construction Cloud — La DPGF et les maîtres d\'œuvre exigent de plus en plus le suivi maquette numérique. Chef de chantier BIM-capable = profil rare et mieux payé.',
+    ] },
 
   { slug: 'ingenieur-mecanique', label: 'Ingénieur mécanique', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Le design génératif, la simulation et l\'optimisation topologique sont accélérés par l\'IA. Tu te concentres sur l\'intégration systémique, la responsabilité produit et l\'innovation conceptuelle.',
@@ -1251,7 +1359,11 @@ export const JOBS: Job[] = [
 
   { slug: 'carreleur', label: 'Carreleur', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Lecture du support, ajustement aux contraintes du chantier et précision millimétrique restent hors de portée des robots. La rénovation immobilière soutient durablement la demande.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes devis et fiches de calepinage — Dimensions, quantitatifs, descriptif des poses complexes : tu envoies un document pro en 5 minutes. Les particuliers choisissent l\'artisan qui rassure sur papier.',
+      'Photographie tes poses complexes en cours et terminées — Avant/après publié sur Google Business. Le carreleur visible localement ne cherche pas ses clients, ils le cherchent.',
+      'Approfondis les techniques de pose grandes dalles et salle de bain PMR — Formations AFPA ou CFA. Le carreleur spécialisé en grands formats et accessibilité est le plus sollicité par les promoteurs et les architectes.',
+    ] },
 
   { slug: 'professeur-lycee', label: 'Professeur (lycée)', risk: 18, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Autorité pédagogique, médiation des conflits, transmission de la culture commune et présence physique sont au cœur de la mission éducative. La demande structurelle est forte.',
@@ -1263,15 +1375,27 @@ export const JOBS: Job[] = [
 
   { slug: 'chef-cuisinier', label: 'Chef cuisinier', risk: 15, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Créativité culinaire, leadership en cuisine sous pression et signature gastronomique sont fondamentalement humaines. La gastronomie expérientielle continue de croître.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour gérer les inventaires et les menus saisonniers — Suggestions de recettes optimisant ton stock, fiches techniques en 5 minutes. Tu libères 3-4h par semaine sur l\'admin.',
+      'Capture ton savoir avec Otter.ai ou Whisper — Dicte tes recettes signatures, tes tours de main pendant la mise en place. Tu construis ton manuel de cuisine sans jamais écrire.',
+      'Utilise Claude pour ta veille hebdo tendances — Résumé de 5 minutes sur les nouvelles techniques, produits, concurrents. Tu restes à la page sans y passer ta soirée.',
+    ] },
 
   { slug: 'technicien-maintenance', label: 'Technicien de maintenance', risk: 15, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Diagnostic sensoriel, intervention dans des espaces contraints et adaptation à des installations vieillissantes hétérogènes restent hors de portée des robots. La demande est structurelle.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Pilote une GMAO avec IA comme Mobility Work AI ou Praxedo — Historique des pannes, alertes préventives, gestion des pièces détachées optimisée. Tu préviens les arrêts machines plutôt que tu les subis.',
+      'Utilise ChatGPT pour décrypter les manuels techniques en anglais et générer des procédures d\'intervention — Procédure claire en 3 minutes sur une machine inconnue. Tu réduis les erreurs, tu accélères l\'intervention.',
+      'Monte en compétence sur la maintenance prédictive avec capteurs — Senseye ou IBM Maximo : module en ligne, 10h. Le technicien qui comprend les capteurs IoT et l\'IA de maintenance est le profil rare que les industriels s\'arrachent.',
+    ] },
 
   { slug: 'moniteur-auto-ecole', label: 'Moniteur d\'auto-école', risk: 18, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Pédagogie au volant, gestion du stress de l\'élève et adaptation en temps réel restent humaines. Le permis de conduire reste un rite de passage requérant un humain à côté.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise les apps de suivi élève avec IA — iCar ou Ornikar Pro permettent de tracker la progression de chaque élève, identifier les lacunes persistantes et prioriser les heures. Tu passes moins de temps à te souvenir, plus à corriger.',
+      'Utilise ChatGPT pour créer des fiches personnalisées de bilan de séance — Tu dictes les observations après chaque heure, ChatGPT structure le bilan élève. Relation de confiance renforcée, progression accélérée.',
+      'Obtiens la mention deux-roues ou la qualification ECF conduite accompagnée — Spécialisations qui t\'ouvrent un public plus large et un tarif différencié. Signal externe qui joue en ta faveur dans les dossiers de rachat d\'auto-école.',
+    ] },
 
   { slug: 'ambulancier', label: 'Ambulancier', risk: 12, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Soins d\'urgence, transport médicalisé et accompagnement psychologique du patient restent humains. Le vieillissement démographique fait croître structurellement la demande.',
@@ -1299,15 +1423,27 @@ export const JOBS: Job[] = [
 
   { slug: 'peintre-batiment', label: 'Peintre en bâtiment', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Préparation des supports, ajustement aux configurations et finition à l\'œil restent humaines. Robots peintres existent en industrie, jamais sur chantier résidentiel.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes devis avec descriptifs techniques détaillés — Surface, nombre de couches, préparation du support, garantie : un devis clair et professionnel. Tu justifies ton prix face aux artisans qui écrivent trois lignes.',
+      'Utilise les outils de simulation colorimétrique IA — ColorSnap AI (Sherwin-Williams) ou Dulux Visualizer : tu projettes la couleur directement sur les photos du chantier client. La vente de la prestation peinture se fait pendant la visite.',
+      'Photographie chaque chantier terminé avec des photos qualité — Avant/après publié sur Google Business avec légende ChatGPT. Le peintre qui a une vitrine visuelle ne cherche pas ses chantiers, ils viennent à lui.',
+    ] },
 
   { slug: 'patissier', label: 'Pâtissier', risk: 7, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Geste précis, créativité gustative et adaptation aux ingrédients restent humains. Le marché de l\'artisanat pâtissier soutient durablement la profession.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes fiches techniques et calculs de coûts matières — Recette, ratio prix de revient, allergie : tu as un document réglementaire et commercial propre pour chaque création. Tu seras moins surpris par ta marge.',
+      'Capte tes créations saisonnières sur photo et publie avec Canva AI — Bûche, galette, gâteau de Pâques : la pâtisserie est visuelle. Instagram ou Google Business avec une description ChatGPT. Les commandes arrivent avant même d\'ouvrir.',
+      'Explore les prévisions de ventes avec Apicbase — Données de vente historiques, prévisions par produit et par jour. Tu produis ce qui se vend, tu jettes moins. 3-5% de marge récupérée sans changer une recette.',
+    ] },
 
   { slug: 'moniteur-sport', label: 'Moniteur de sport', risk: 13, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Encadrement physique, motivation incarnée et adaptation au niveau de l\'élève restent humains. La demande de bien-être et de coaching personnalisé soutient la profession.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Intègre une app de suivi de progression IA — TrainHeroic ou TrueCoach pour suivre les performances, adapter les charges et visualiser la progression de tes élèves. Tu personnalises sans tenir un tableur.',
+      'Utilise des apps d\'analyse posturale vidéo-assistée — Technique Running ou Dartfish Express : enregistre un mouvement, l\'IA détecte les défauts techniques. Tu montres à l\'élève ce qu\'il ne ressent pas lui-même.',
+      'Utilise ChatGPT pour préparer tes plans de séance et tes bilans clients — Programme hebdomadaire, fiche de bilan mensuel, suggestions de progression : 10 minutes de prep pour une heure de séance impeccable.',
+    ] },
 
   { slug: 'dieteticien', label: 'Diététicien', risk: 20, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Apps de tracking nutritionnel proposent des plans automatisés, mais l\'accompagnement personnalisé sur troubles alimentaires et pathologies chroniques exige l\'humain. La demande explose.',
@@ -1319,15 +1455,27 @@ export const JOBS: Job[] = [
 
   { slug: 'technicien-cvc', label: 'Technicien CVC (chauffage)', risk: 10, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Pompes à chaleur, climatisation et rénovation énergétique : la transition écologique structure une demande massive. Les entreprises peinent à recruter assez vite.',
-    sources: [9], quadrant: 'tiens', potential: 35, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 35, leviers: [
+      'Utilise ChatGPT pour générer tes rapports d\'intervention et devis de remplacement — Décris l\'installation visitée, récupère un rapport structuré et un devis chiffré. Tu passes moins de temps au bureau, plus sur chantier.',
+      'Monte en compétence sur les pompes à chaleur et la régulation connectée — Formations Daikin, Mitsubishi ou Atlantic certifiantes. Le technicien CVC qualifié PAC est la pénurie des 5 prochaines années, avec des tarifs en hausse.',
+      'Explore les outils de diagnostic à distance comme Resideo ou Ecobee Pro — Suivi à distance des installations clients, alertes de panne préventive. Tu crées un service de maintenance préventive qui fidélise et génère un revenu récurrent.',
+    ] },
 
   { slug: 'serrurier', label: 'Serrurier', risk: 9, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Intervention d\'urgence, expertise mécanique et serrurerie sécurisée sur installations existantes restent humaines. La demande est stable.',
-    sources: [21], quadrant: 'tiens', potential: 25, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 25, leviers: [
+      'Utilise ChatGPT pour rédiger tes devis d\'urgence et fiches d\'intervention détaillées — Description de la serrure, référence du cylindre, travaux réalisés : un document pro envoyé depuis le téléphone avant de repartir du chantier.',
+      'Améliore ta visibilité locale sur Google Business avec des photos d\'interventions — Serrures haute sécurité posées, blindages installés, coffres ouverts : le serrurier visible avec des avis récents est celui qu\'on appelle à 3h du matin.',
+      'Spécialise-toi sur la domotique et les serrures connectées — Yale, Somfy, Nuki : le serrurier qui installe et dépanne du connecté est rare et bien payé. Signal fort pour les syndics et les promoteurs qui équipent en smart lock.',
+    ] },
 
   { slug: 'conducteur-engins', label: 'Conducteur d\'engins', risk: 18, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Engins autonomes progressent en mine et en agriculture, mais le BTP urbain non standardisé reste humain. La transition énergétique et le logement structurent la demande.',
-    sources: [9], quadrant: 'tiens', potential: 30, leviers: [] },
+    sources: [9], quadrant: 'tiens', potential: 30, leviers: [
+      'Familiarise-toi avec les systèmes d\'aide à la conduite sur les engins récents — GPS de chantier, nivelage automatique (Trimble, Leica Geosystems) : un conducteur à l\'aise avec ces outils est plus précis et recruté en priorité.',
+      'Utilise ChatGPT pour rédiger tes carnets de bord d\'intervention et les fiches de sécurité — PPSPS, VIC, registre de maintenance : moins de paperasse, plus de terrain. Signal professionnel fort sur les grands chantiers.',
+      'Élargis tes catégories CACES — R482 catégorie A à G : chaque catégorie supplémentaire te rend polyvalent et recruté plus facilement. Investissement de quelques jours qui se rentabilise en quelques semaines.',
+    ] },
 
   { slug: 'pompiste', label: 'Technicien de surface', risk: 8, horizon: 10, status: 'protege',
     dynamic: 'L\'IA ne te remplace pas. Le nettoyage en environnements complexes, l\'adaptation aux salissures et la responsabilité hygiène en milieu sensible restent fondamentalement humains.',
