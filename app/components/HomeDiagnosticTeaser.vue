@@ -15,27 +15,21 @@ const emit = defineEmits<{ click: [] }>()
     <article class="report" aria-label="Aperçu du rapport d'obsolescence (verrouillé)">
 
       <div class="rep-field">
-        <span class="k font-mono">SUJET</span>
-        <span class="arrow font-mono" aria-hidden="true">›</span>
-        <span class="v"><span class="awaiting font-mono">en attente d'identification</span></span>
-      </div>
-
-      <div class="rep-field">
         <span class="k font-mono">RISQUE</span>
         <span class="arrow font-mono" aria-hidden="true">›</span>
         <span class="v font-mono"><span class="redact" aria-label="valeur masquée">XX</span> / 100</span>
       </div>
 
       <div class="rep-field">
-        <span class="k font-mono">HORIZON</span>
+        <span class="k font-mono">LEVIER IA</span>
         <span class="arrow font-mono" aria-hidden="true">›</span>
-        <span class="v font-mono"><span class="redact" aria-label="valeur masquée">XX</span> ans <span class="hint">( 2 · 5 · 10 )</span></span>
+        <span class="v font-mono"><span class="redact" aria-label="valeur masquée">XX</span> / 100</span>
       </div>
 
       <div class="rep-field">
-        <span class="k font-mono">STATUT</span>
+        <span class="k font-mono">QUADRANT</span>
         <span class="arrow font-mono" aria-hidden="true">›</span>
-        <span class="v font-mono"><span class="redact" aria-label="valeur masquée">EN MUTATION SÉVÈRE</span> <span class="hint">( 1 sur 4 )</span></span>
+        <span class="v font-mono"><span class="redact" aria-label="valeur masquée">TU MUTES</span> <span class="hint">( 1 sur 4 )</span></span>
       </div>
 
       <div class="cta-zone">
@@ -195,9 +189,9 @@ const emit = defineEmits<{ click: [] }>()
   99%      { transform: translateX(100%); opacity: 0; }
   100%     { transform: translateX(100%); opacity: 0; }
 }
-.rep-field:nth-of-type(2) .redact { animation-delay: 0s; }
-.rep-field:nth-of-type(3) .redact { animation-delay: 3s; }
-.rep-field:nth-of-type(4) .redact { animation-delay: 6s; }
+.rep-field:nth-of-type(1) .redact { animation-delay: 0s; }
+.rep-field:nth-of-type(2) .redact { animation-delay: 3s; }
+.rep-field:nth-of-type(3) .redact { animation-delay: 6s; }
 
 /* ── CTA ──────────────────────────────────────── */
 .cta-zone {
