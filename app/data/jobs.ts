@@ -158,7 +158,11 @@ export const JOBS: Job[] = [
 
   { slug: 'analyste-financier', label: 'Analyste financier', risk: 57, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. L\'analyse exhaustive des bilans et flux d\'actualités est exécutée instantanément par l\'IA. Tu te concentres sur la gestion psychologique et relationnelle des clients, plus sur la production des chiffres.',
-    sources: [3], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 70, leviers: [
+      'Bascule sur Bloomberg Terminal AI et Claude pour tes synthèses — Lecture de bilans, croisement actu marché, scénarios stress-tests : minutes au lieu d\'heures. Tu signes plus vite, plus de dossiers couverts.',
+      'Repositionne-toi sur l\'arbitrage et la relation client — L\'IA produit le chiffre, toi tu vends la conviction d\'investissement, tu désamorces les biais émotionnels du client. C\'est ton jugement qui paie.',
+      'Forme-toi à la finance augmentée — DeepLearning.AI Generative AI for Finance + CFA Institute AI in Investment. Différenciateur fort sur les postes senior buy-side et corporate.',
+    ] },
 
   { slug: 'operateur-saisie', label: 'Opérateur de saisie', risk: 91, horizon: 2, status: 'danger',
     dynamic: 'Ton métier se contracte fort. L\'OCR cognitif et les LLM résolvent la lecture de documents et leur saisie avec une précision supérieure. Anticipe le pivot vers la supervision de flux automatisés ou un secteur adjacent qui recrute.',
@@ -1239,11 +1243,19 @@ export const JOBS: Job[] = [
 
   { slug: 'technicien-support', label: 'Technicien support IT', risk: 66, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Le dépannage logiciel et matériel de niveau 1 est pris en charge par des agents internes capables de lire les logs et guider les utilisateurs. Tu remontes en complexité ou tu te fais commoditiser.',
-    sources: [3], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Intercom AI ou Zendesk AI à ton flux — Triage automatique, réponses brouillon, escalade intelligente. Tu te concentres sur les tickets niveau 2-3 que les agents ne savent pas résoudre.',
+      'Repositionne-toi vers SRE ou cybersécurité — Le support de niveau 1 disparaît, mais l\'incident response, les audits de logs et la sécurité opérationnelle explosent. Ton expérience terrain est précieuse.',
+      'Certifie-toi côté infra ou sécu — AWS Solutions Architect, Microsoft Cybersecurity, ou ITIL 4 + Anthropic Academy. Marché tendu sur les profils hybrides support → SRE.',
+    ] },
 
   { slug: 'analyste-donnees', label: 'Analyste données', risk: 67, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Nettoyage, agrégation et reporting standardisé sont absorbés par les agents intégrés aux plateformes BI. Tu pivotes vers la modélisation business, le storytelling data et l\'arbitrage stratégique.',
-    sources: [3], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 70, leviers: [
+      'Bascule sur Hex AI Notebooks ou DataIku pour ton SQL et tes dashboards — Génération de requêtes par prompt, dashboards IA-augmentés. Tu libères 50% de ton temps sur la valeur ajoutée business.',
+      'Repositionne-toi sur le storytelling data et l\'arbitrage — Les chiffres sont commoditisés, l\'interprétation ne l\'est pas. Tu deviens le pont entre data et décision business, pas le producteur du tableau.',
+      'Forme-toi au ML appliqué et à la communication exécutive — DeepLearning.AI Data-Centric AI + Reforge Data Strategy. Le data analyst 2026 sait pitcher au CEO, pas juste pondre du SQL.',
+    ] },
 
   { slug: 'gestionnaire-projet', label: 'Gestionnaire de projet', risk: 52, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Suivi de tâches, comptes rendus et coordination basique sont automatisés. Tu te concentres sur la gestion humaine d\'équipe, l\'arbitrage de scope et la communication exécutive.',
@@ -1271,7 +1283,11 @@ export const JOBS: Job[] = [
 
   { slug: 'assistant-direction', label: 'Assistant de direction', risk: 62, horizon: 5, status: 'danger',
     dynamic: 'Ton métier se contracte. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Bascule vers les postes proches du pouvoir exécutif où la confiance et la discrétion priment — c\'est le seul terrain solide.',
-    sources: [3], quadrant: 'pivotes', potential: 30, leviers: [] },
+    sources: [3], quadrant: 'pivotes', potential: 30, leviers: [
+      'Bascule sur le rôle Chief of Staff ou Office Manager senior — La confiance, la discrétion et la coordination stratégique restent humaines. Vise les structures où tu deviens le bras droit, pas l\'exécutant.',
+      'Apprends le prompt engineering en 10h — DeepLearning.AI gratuit + Anthropic Academy. Compétence portable qui te rend précieuse face aux agents IA, plutôt que substituable par eux.',
+      'Identifie le métier adjacent qui croît — Ops manager, customer success, executive coordination. Ton ADN organisationnel reste recherché, pas dans le secrétariat traditionnel.',
+    ] },
 
   { slug: 'chef-de-produit', label: 'Chef de produit', risk: 48, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit - la partie irréductiblement politique.',
