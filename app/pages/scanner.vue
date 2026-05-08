@@ -1,7 +1,8 @@
 <!-- app/pages/scanner.vue -->
 <script setup lang="ts">
-import { findJobBySlug, searchJobs, type Job } from '~/data/jobs'
+import { findJobBySlug, searchJobs, type Job, type JobQuadrant } from '~/data/jobs'
 import { getSourcesByIds, type Source } from '~/data/sources'
+import { getLeviersByQuadrant } from '~/data/quadrant-leviers'
 import SourcesModal from '~/components/SourcesModal.vue'
 
 // ── SEO ──────────────────────────────────────────────────
@@ -149,6 +150,35 @@ const ACTIONS: Record<Job['status'], string[]> = {
   ],
 }
 
+// ── Quadrant constants (v2) ──────────────────────────────
+const QUADRANT_LABELS: Record<JobQuadrant, string> = {
+  tiens:    'TU TIENS',
+  pilotes:  'TU PILOTES',
+  pivotes:  'TU PIVOTES',
+  mutes:    'TU MUTES',
+}
+
+const QUADRANT_VERDICT_ITALIC: Record<JobQuadrant, string> = {
+  tiens:    'Tu tiens.',
+  pilotes:  'Tu pilotes.',
+  pivotes:  'Tu pivotes.',
+  mutes:    'Tu mutes.',
+}
+
+const QUADRANT_DEFINITIONS: Record<JobQuadrant, string> = {
+  tiens:    'Métier solide, peu touché par l\'IA. Stabilité naturelle, peu de levier d\'amplification.',
+  pilotes:  'Métier solide ET l\'IA t\'amplifie. Avantage concurrentiel rare, à capitaliser maintenant.',
+  pivotes:  'Métier en contraction et l\'IA n\'amplifie pas ton rôle. Reconversion à anticiper.',
+  mutes:    'Métier en contraction MAIS l\'IA t\'arme. Saute le pas avant les autres.',
+}
+
+const QUADRANT_COLOR_VAR: Record<JobQuadrant, string> = {
+  tiens:    'var(--color-protege)',
+  pilotes:  'var(--color-croissance)',
+  pivotes:  'var(--color-danger)',
+  mutes:    'var(--color-mutation)',
+}
+
 // ── Scanner unlock ───────────────────────────────────────
 const { isUnlocked } = useScannerUnlock()
 const reducedMotion = ref(false)
@@ -273,6 +303,13 @@ const revealedSources = ref<boolean[]>([])
 
 const sourcesModalOpen = ref(false)
 
+// ── Newsletter inline form (result-v2) ───────────────────
+const emailInput       = ref('')
+const formationsInterest = ref(false)
+const submitting       = ref(false)
+const submitError      = ref(false)
+const submitMessage    = ref('')
+
 let copyTimer:     ReturnType<typeof setTimeout> | null = null
 let noResultsTimer: ReturnType<typeof setTimeout> | null = null
 let currentScanId = 0
@@ -296,6 +333,31 @@ const ctaHook = computed(() => {
 const ctaButton = computed(() =>
   selectedJob.value?.status === 'danger' ? 'Rejoindre La Fréquence' : "S'inscrire"
 )
+
+const displayRisk = computed(() => selectedJob.value?.risk ?? 0)
+
+const leviersToShow = computed<string[]>(() => {
+  if (!selectedJob.value) return []
+  if (selectedJob.value.leviers.length > 0) return selectedJob.value.leviers
+  return getLeviersByQuadrant(selectedJob.value.quadrant).leviers
+})
+
+const leviersIntro = computed<string>(() => {
+  if (!selectedJob.value) return ''
+  if (selectedJob.value.leviers.length > 0) {
+    return `Trois actions concrètes pour piloter l'IA dans ton métier de ${selectedJob.value.label.toLowerCase()}.`
+  }
+  return getLeviersByQuadrant(selectedJob.value.quadrant).intro
+})
+
+function parseLevier(levier: string): { title: string, description: string } {
+  const sepIndex = levier.indexOf(' — ')
+  if (sepIndex === -1) return { title: levier, description: '' }
+  return {
+    title: levier.slice(0, sepIndex).trim(),
+    description: levier.slice(sepIndex + 3).trim(),
+  }
+}
 
 // ── Autocomplete ─────────────────────────────────────────
 watch(query, (val) => {
@@ -591,6 +653,55 @@ function reset() {
   router.replace({ query: {} })
   nextTick(() => jobInputRef.value?.focus())
 }
+
+// ── Result v2 actions ────────────────────────────────────
+async function onSubscribe() {
+  if (!selectedJob.value) return
+  submitting.value = true
+  submitError.value = false
+  submitMessage.value = ''
+
+  try {
+    const res = await $fetch<{ ok: boolean }>('/api/subscribe', {
+      method: 'POST',
+      body: {
+        prenom: 'Survivant',
+        email: emailInput.value,
+        consent: true,
+        source: 'scanner_gate',
+        job_slug: selectedJob.value.slug,
+        job_status: selectedJob.value.status,
+        job_quadrant: selectedJob.value.quadrant,
+        job_risk: selectedJob.value.risk,
+        job_potential: selectedJob.value.potential,
+        formations_interest: formationsInterest.value,
+      },
+    })
+    if (res.ok) {
+      submitMessage.value = 'C\'est bon. Premier article dans 7 jours max.'
+      emailInput.value = ''
+      formationsInterest.value = false
+      capture('newsletter_subscribed_from_scanner', {
+        job_slug: selectedJob.value.slug,
+        job_quadrant: selectedJob.value.quadrant,
+        formations_interest: formationsInterest.value,
+      })
+    }
+  } catch (e: any) {
+    submitError.value = true
+    submitMessage.value = e?.data?.message ?? 'Erreur technique, réessayez.'
+  } finally {
+    submitting.value = false
+  }
+}
+
+function resetScan() {
+  selectedJob.value = null
+  query.value = ''
+  phase.value = 'idle'
+  router.replace({ query: {} })
+  nextTick(() => jobInputRef.value?.focus())
+}
 </script>
 
 <template>
@@ -650,7 +761,7 @@ function reset() {
                 >{{ job.label }}</li>
               </ul>
               <ul v-else-if="query.length >= 2" class="suggestions">
-                <li class="no-result">// Aucun résultat - essaie un autre terme</li>
+                <li class="no-result">Aucun résultat - essaie un autre terme</li>
               </ul>
             </div>
             <span v-else class="sujet-name font-mono">{{ selectedJob?.label }}</span>
@@ -715,7 +826,7 @@ function reset() {
           class="rep-classified font-mono"
           aria-live="polite"
         >
-          // CLASSIFIÉ - ACCÈS RESTREINT
+          CLASSIFIÉ - ACCÈS RESTREINT
         </div>
 
         <!-- TRAJECTOIRE -->
@@ -814,25 +925,152 @@ function reset() {
           [ ACCÈS ACCORDÉ ] BIENVENUE DANS LA FRÉQUENCE
         </div>
 
-        <!-- Result zone -->
-        <div class="result-zone">
-          <p v-if="!justUnlocked" class="result-hook font-mono">{{ ctaHook }}</p>
-          <div class="result-actions">
-            <GlitchButton
-              v-if="!justUnlocked"
-              :label="ctaButton"
-              to="/#newsletter"
-              @click="onCtaClick"
-            />
-            <button class="share-btn font-mono" @click="copyLink">
-              {{ copied ? '[ Lien copié ! ]' : '[ Partager mon résultat ]' }}
-            </button>
+      </article>
+
+      <!-- ════ RESULT V2 — layout éditorial ════ -->
+      <article
+        v-if="phase === 'unlocked' && selectedJob"
+        class="result-v2"
+        aria-label="Résultat du diagnostic"
+      >
+        <!-- ════ HERO BLOCK ════ -->
+        <div class="result-hero">
+          <KickerLabel>Diagnostic IA · {{ selectedJob.label }}</KickerLabel>
+
+          <h2 class="result-verdict">{{ QUADRANT_VERDICT_ITALIC[selectedJob.quadrant] }}</h2>
+
+          <div class="result-scores font-mono">
+            <span><strong :style="{ color: 'var(--color-mutation)' }">{{ displayRisk }}</strong><span class="score-suffix">/100</span> · risque</span>
+            <span class="score-sep">•</span>
+            <span><strong :style="{ color: 'var(--color-accent)' }">{{ selectedJob.potential }}</strong><span class="score-suffix">/100</span> · levier IA</span>
           </div>
-          <div class="reset-zone">
-            <button class="reset-btn font-mono" @click="reset">// nouveau scan ←</button>
-          </div>
+
+          <p class="result-dynamic">{{ selectedJob.dynamic }}</p>
         </div>
 
+        <div class="sage-rule" aria-hidden="true"></div>
+
+        <!-- ════ SECTION I — POSITION ════ -->
+        <section class="result-section">
+          <div class="section-kicker font-mono">
+            <span class="num">— I.</span>
+            <span class="label">Position dans le cadran</span>
+          </div>
+
+          <div class="position-block">
+            <!-- Matrix chip -->
+            <div class="matrix-chip">
+              <div class="matrix-grid">
+                <div
+                  v-for="q in (['tiens', 'pilotes', 'pivotes', 'mutes'] as JobQuadrant[])"
+                  :key="q"
+                  class="matrix-cell"
+                  :class="{ 'matrix-cell--active': q === selectedJob.quadrant }"
+                  :style="{ '--cell-color': QUADRANT_COLOR_VAR[q] } as any"
+                >
+                  {{ QUADRANT_LABELS[q].replace('TU ', '') }}
+                </div>
+              </div>
+              <div class="matrix-axis-x font-mono">
+                <span>← faible</span>
+                <span>fort →</span>
+              </div>
+              <div class="matrix-axis-label font-mono">Levier IA</div>
+            </div>
+
+            <!-- Legend -->
+            <ul class="legend-list">
+              <li
+                v-for="q in (['tiens', 'pilotes', 'pivotes', 'mutes'] as JobQuadrant[])"
+                :key="q"
+                class="legend-item"
+                :class="{ 'legend-item--active': q === selectedJob.quadrant }"
+                :style="{ '--legend-color': QUADRANT_COLOR_VAR[q] } as any"
+              >
+                <span class="legend-name font-mono">{{ QUADRANT_LABELS[q] }}</span>
+                <span class="legend-def">{{ QUADRANT_DEFINITIONS[q] }}</span>
+                <span v-if="q === selectedJob.quadrant" class="legend-marker font-mono">← toi</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="sage-rule" aria-hidden="true"></div>
+
+        <!-- ════ SECTION II — LEVIERS ════ -->
+        <section class="result-section">
+          <div class="section-kicker font-mono">
+            <span class="num">— II.</span>
+            <span class="label">Tes leviers cette semaine</span>
+          </div>
+
+          <p class="leviers-intro">{{ leviersIntro }}</p>
+
+          <ol class="leviers-list">
+            <li
+              v-for="(levier, i) in leviersToShow"
+              :key="i"
+              class="levier-item"
+            >
+              <span class="levier-num font-mono">{{ String(i + 1).padStart(2, '0') }}</span>
+              <div class="levier-body">
+                <h3 class="levier-title">{{ parseLevier(levier).title }}</h3>
+                <p class="levier-desc">{{ parseLevier(levier).description }}</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <div class="sage-rule" aria-hidden="true"></div>
+
+        <!-- ════ SECTION III — LA SUITE ════ -->
+        <section class="result-section">
+          <div class="section-kicker font-mono">
+            <span class="num">— III.</span>
+            <span class="label">La suite</span>
+          </div>
+
+          <h2 class="suite-headline">Reste un cran devant.</h2>
+
+          <p class="suite-lead">
+            Un nouvel article chaque semaine pour piloter l'IA dans ton métier.
+            Cinq minutes de lecture, sans hype, sans funnel. Concret, terrain.
+          </p>
+
+          <form class="suite-form" @submit.prevent="onSubscribe">
+            <div class="suite-form-row">
+              <input
+                v-model="emailInput"
+                type="email"
+                class="suite-input"
+                placeholder="ton@email.pro"
+                required
+                autocomplete="email"
+              />
+              <button type="submit" class="suite-button font-mono" :disabled="submitting">
+                {{ submitting ? '...' : 'Rejoindre →' }}
+              </button>
+            </div>
+
+            <label class="suite-checkbox">
+              <input v-model="formationsInterest" type="checkbox" />
+              <span>Préviens-moi en avance des formations approfondies (bientôt). Accès en avant-première et tarif lancement.</span>
+            </label>
+
+            <p v-if="submitMessage" class="suite-message" :class="{ 'is-error': submitError }">{{ submitMessage }}</p>
+          </form>
+        </section>
+
+        <div class="sage-rule sage-rule--fade" aria-hidden="true"></div>
+
+        <!-- ════ FOOTER ACTIONS ════ -->
+        <div class="result-actions-v2 font-mono">
+          <button type="button" class="action-link" @click="sourcesModalOpen = true">↗ Sources</button>
+          <span class="action-sep">·</span>
+          <button type="button" class="action-link" @click="copyLink">{{ copied ? '✓ Lien copié' : '⎘ Copier le lien' }}</button>
+          <span class="action-sep">·</span>
+          <button type="button" class="action-link" @click="resetScan">↻ Nouveau scan</button>
+        </div>
       </article>
 
       <!-- ── Popular jobs ──────────────────────────────── -->
@@ -1401,54 +1639,7 @@ function reset() {
 .report[data-state="unlocking"] .idle-hint,
 .report[data-state="unlocked"]  .idle-hint { display: none; }
 
-/* ── Result zone ──────────────────────────────────── */
-.result-zone {
-  display: none;
-  margin-top: 1.75rem;
-  padding-top: 1.35rem;
-  border-top: 1px solid rgba(0, 255, 65, 0.18);
-  text-align: center;
-}
-.report[data-state="unlocked"] .result-zone { display: block; }
-.result-hook {
-  font-size: 0.8rem;
-  color: var(--color-muted);
-  letter-spacing: 0.02em;
-  margin: 0 auto 1rem;
-  line-height: 1.6;
-  max-width: 50ch;
-}
-.result-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.share-btn {
-  background: transparent;
-  border: 1px solid rgba(0, 255, 65, 0.25);
-  color: var(--color-muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  padding: 0.55rem 1rem;
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
-  text-transform: uppercase;
-}
-.share-btn:hover { color: var(--color-accent); border-color: rgba(0, 255, 65, 0.5); }
-.reset-zone { margin-top: 1.25rem; }
-.reset-btn {
-  background: transparent;
-  border: none;
-  color: var(--color-muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-.reset-btn:hover { color: var(--color-accent); }
+/* (result-zone removed — replaced by result-v2 editorial layout) */
 
 /* ── Popular jobs ─────────────────────────────────── */
 .popular-jobs {
@@ -1614,5 +1805,323 @@ function reset() {
   .led                { animation: none; opacity: 1; }
   .traj-revealed      { transition: none; opacity: 1; }
   .source-item        { transition: none; opacity: 1; transform: none; }
+}
+
+/* ════ Result V2 — éditorial layout ════ */
+.result-v2 {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0;
+  font-family: var(--font-sans);
+}
+
+.result-hero {
+  text-align: center;
+  padding: 0 32px;
+}
+
+.result-verdict {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(48px, 10vw, 88px);
+  line-height: 1;
+  color: var(--color-text);
+  margin: 32px 0 20px;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.result-scores {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.result-scores strong { font-weight: 700; }
+.result-scores .score-suffix { color: #555; }
+.result-scores .score-sep { color: #2A2A2A; }
+
+.result-dynamic {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--color-text);
+  opacity: 0.85;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.sage-rule {
+  width: 80px;
+  height: 1px;
+  background: var(--color-accent);
+  margin: 64px auto;
+}
+.sage-rule--fade {
+  background: #2A2A2A;
+  margin: 64px auto 32px;
+}
+
+.result-section {
+  padding: 0 32px;
+}
+
+.section-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+}
+.section-kicker .num { color: var(--color-accent); }
+.section-kicker .label {
+  letter-spacing: 0.22em;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.position-block {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.matrix-chip { width: 160px; flex-shrink: 0; }
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  aspect-ratio: 1;
+  background: transparent;
+  border: 1px solid #2A2A2A;
+  padding: 4px;
+}
+.matrix-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--cell-color);
+  background: color-mix(in srgb, var(--cell-color) 12%, transparent);
+}
+.matrix-cell--active {
+  background: var(--cell-color);
+  color: var(--color-bg);
+  font-weight: 700;
+  font-size: 11px;
+  box-shadow: inset 0 0 0 2px var(--color-accent), 0 0 14px rgba(108, 227, 181, 0.35);
+}
+.matrix-axis-x {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 9px;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+.matrix-axis-label {
+  text-align: center;
+  margin-top: 4px;
+  font-size: 9px;
+  color: #555;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.legend-list {
+  flex: 1;
+  min-width: 280px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.legend-item {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+.legend-item--active {
+  padding: 8px 12px;
+  margin: -8px -12px;
+  background: color-mix(in srgb, var(--legend-color) 10%, transparent);
+  border-left: 2px solid var(--legend-color);
+}
+.legend-name {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--legend-color);
+  font-weight: 700;
+  flex-shrink: 0;
+  min-width: 90px;
+}
+.legend-def {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+  flex: 1;
+}
+.legend-item--active .legend-def {
+  color: var(--color-text);
+  opacity: 0.95;
+}
+.legend-marker {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.leviers-intro {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin: 0 0 36px;
+  max-width: 560px;
+  font-weight: 400;
+}
+.leviers-list { list-style: none; padding: 0; margin: 0; }
+.levier-item {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid #1F1F1F;
+}
+.levier-item:last-child { border-bottom: 1px solid #1F1F1F; }
+.levier-num {
+  font-size: 13px;
+  color: var(--color-accent);
+  letter-spacing: 0.18em;
+  flex-shrink: 0;
+  min-width: 32px;
+  padding-top: 2px;
+}
+.levier-body { flex: 1; min-width: 0; }
+.levier-title {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+  margin: 0 0 8px;
+}
+.levier-desc {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text);
+  opacity: 0.75;
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0;
+}
+
+.suite-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin: 0 0 16px;
+  font-weight: 400;
+}
+.suite-lead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text);
+  opacity: 0.8;
+  max-width: 560px;
+  margin: 0 0 28px;
+}
+.suite-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 560px;
+}
+.suite-form-row { display: flex; gap: 8px; }
+.suite-input {
+  flex: 1;
+  padding: 14px 16px;
+  background: transparent;
+  border: 1px solid #2A2A2A;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.suite-input:focus { border-color: var(--color-accent); }
+.suite-button {
+  padding: 14px 22px;
+  background: var(--color-accent);
+  border: none;
+  color: var(--color-bg);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.suite-button:disabled { opacity: 0.5; cursor: wait; }
+.suite-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+.suite-checkbox input { margin-top: 3px; flex-shrink: 0; accent-color: var(--color-accent); }
+.suite-message { font-size: 13px; margin: 0; color: var(--color-accent); }
+.suite-message.is-error { color: var(--color-danger); }
+
+.result-actions-v2 {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #555;
+  padding: 0 32px;
+}
+.action-link {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  padding: 0;
+}
+.action-link:hover { color: var(--color-text); }
+.action-sep { color: #2A2A2A; }
+
+@media (max-width: 640px) {
+  .result-v2 { padding: 40px 0; margin-top: 32px; }
+  .result-hero { padding: 0 16px; }
+  .result-section { padding: 0 16px; }
+  .result-actions-v2 { padding: 0 16px; }
+  .position-block { flex-direction: column; }
+  .matrix-chip { width: 100%; max-width: 200px; margin: 0 auto; }
+  .legend-list { width: 100%; min-width: 0; }
 }
 </style>
