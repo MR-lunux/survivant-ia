@@ -3,7 +3,7 @@ id: TRC-01
 kind: quiz
 title: Test de Résilience Cognitive
 subtitle: 5 questions pour mesurer ta dépendance à l'IA
-description: Test rapide pour évaluer si l'IA est devenue ta béquille cognitive — score immédiat, sans inscription.
+description: Test rapide pour évaluer si l'IA est devenue ta béquille cognitive, score immédiat, sans inscription.
 kicker: KIT · TRC-01
 parentArticleSlug: offloading-cognitif-quand-l-ia-pense-a-ta-place
 specs:
@@ -82,6 +82,8 @@ Tu utilises l'IA tous les jours. Pour rédiger, pour résumer, pour décider. Ma
 
 Aucune réponse n'est jugée. Aucune donnée n'est stockée. Le résultat s'affiche à l'écran et n'est partagé qu'avec toi.
 
+L'enjeu est concret : un salarié non-tech qui laisse l'IA piloter ses décisions sans s'en apercevoir perd en autonomie, en crédibilité et en profondeur métier. Ce n'est pas une question de compétence technique. C'est une question de posture. Le test mesure exactement ça : où en est ton cerveau dans la boucle de décision ? Est-ce encore toi qui penses, ou est-ce que tu valides ce que l'IA a pensé à ta place ?
+
 ::kit-quiz-slot
 ::
 
@@ -92,6 +94,12 @@ Le TRC-01 mesure ta dépendance cognitive sur cinq dimensions : réflexe initial
 Chacun des trois paliers décrit une posture, pas une fatalité. Le palier *DÉPENDANCE EN COURS* est le plus fréquent : il signifie que tu commences à transférer ton effort cognitif à l'IA, mais tu peux encore reprendre le pilote facilement. Le palier *ATROPHIE CRITIQUE* est plus rare et appelle une rééducation : couper l'IA quelques heures par jour, reprendre des notes manuelles, refaire des choses « sans l'aide ».
 
 Les seuils sont indicatifs et calibrés pour un usage personnel. Le test n'est ni clinique ni standardisé. Il sert de signal, pas de verdict.
+
+Les cinq dimensions ne sont pas choisies au hasard. Le *réflexe initial* révèle si ton premier geste de résolution passe déjà par l'IA. La *validation critique* teste si tu lis vraiment ce qu'elle produit. La *résilience technique* mesure ce qu'il reste de ton expertise quand l'outil disparaît. La *résolution d'erreur* montre si tu cherches à comprendre ou à déléguer. La *capitalisation* évalue si tu accumules de l'expérience ou si tu repars de zéro à chaque fois. Ensemble, ces cinq angles couvrent le cycle complet de l'offloading cognitif au quotidien.
+
+## Quand refaire le test
+
+Refais le TRC-01 tous les trois mois, ou dès qu'un changement important touche tes outils ou ta façon de travailler : adoption d'un nouvel outil IA, changement de poste, nouveau projet avec des livrables différents. La dépendance cognitive s'installe progressivement et se repère surtout en comparant des mesures dans le temps, pas en regardant un score isolé.
 
 ## Sources
 
