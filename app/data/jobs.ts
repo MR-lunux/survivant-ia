@@ -293,19 +293,35 @@ export const JOBS: Job[] = [
 
   { slug: 'commercial', label: 'Commercial B2B', risk: 63, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Prospection à froid, e-mails personnalisés et démonstrations préliminaires sont délégués à des agents IA. Tu deviens négociateur final de contrats complexes et gardien de la relation senior.',
-    sources: [3], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 70, leviers: [
+      'Automatise ta prospection avec Apollo.io AI et Outreach AI — Séquences personnalisées, scoring de leads, relances : l\'IA gère le volume. Toi tu closes les deals que personne d\'autre ne peut signer.',
+      'Repositionne-toi sur la négociation complexe et la relation stratégique — L\'IA prospecte, toi tu construis la confiance long terme. Tes comptes stratégiques ne veulent pas parler à un bot : ils veulent toi.',
+      'Certifie-toi Salesforce Einstein ou Gong et documente tes wins IA sur LinkedIn — Signal fort pour ton équipe et ton marché : tu pilotes les outils, tu n\'es pas remplacé par eux.',
+    ] },
 
   { slug: 'recruteur', label: 'Recruteur', risk: 58, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Sourcing, screening de CV et premier contact sont automatisés. Tu te recentres sur l\'évaluation comportementale, la marque employeur et le closing - l\'humain où l\'humain compte.',
-    sources: [12], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [12], quadrant: 'mutes', potential: 65, leviers: [
+      'Automatise sourcing et screening avec hireEZ ou Eightfold AI — Tri de CV, premiers contacts personnalisés, scoring de fit : 70% du flux passe par l\'IA. Tu te concentres sur l\'évaluation comportementale.',
+      'Repositionne-toi sur la marque employeur et le closing — L\'IA fait remonter les profils ; toi tu construis la promesse, tu désamorces les frictions, tu signes les top talents.',
+      'Forme-toi à l\'évaluation des biais des outils IA RH — LinkedIn Learning AI Recruiting + AlgorithmWatch HR. Compétence rare et bientôt obligatoire (AI Act).',
+    ] },
 
   { slug: 'responsable-rh', label: 'Responsable RH', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Reporting RH, paie standardisée, gestion administrative : automatisés. Le rôle pivote vers le développement humain, la culture d\'entreprise et la gestion du changement induit par l\'IA elle-même.',
-    sources: [12], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [12], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre Workday AI ou BambooHR AI pour automatiser reporting et onboarding — Tableaux de bord temps réel, alertes de désengagement, suggestions de formation : tu pilotes les données, tu ne les collectes plus manuellement.',
+      'Repositionne-toi sur la gestion du changement IA — Ton entreprise déploie de l\'IA et les collaborateurs ont peur. Toi tu deviens le pont entre direction et terrain : animation d\'ateliers, détection des résistances, plan d\'accompagnement.',
+      'Obtiens une certification SHRM ou People Analytics (Coursera/Wharton) — Le RH augmenté par les données est la compétence la plus recherchée en 2026. Un badge visible sur LinkedIn suffit à changer tes opportunités.',
+    ] },
 
   { slug: 'conseiller-financier', label: 'Conseiller financier', risk: 48, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Allocation d\'actifs standardisée et plans patrimoniaux types sont gérés par robo-advisors. Tu te concentres sur la gestion psychologique des clients face aux marchés et les cas patrimoniaux complexes.',
-    sources: [7], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [7], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Salesforce Einstein ou un outil CRM IA pour anticiper les besoins clients — Signaux d\'alerte sur les portefeuilles, moments de vie détectés, segmentation automatique : tu consacres 100% de ton temps aux conversations qui comptent.',
+      'Repositionne-toi sur l\'ingénierie patrimoniale complexe et la gestion comportementale — Les robo-advisors ne gèrent pas la panique d\'un client en krach ni la succession d\'un chef d\'entreprise. C\'est ton terrain exclusif.',
+      'Certifie-toi CFP ou monte sur la planification successorale et l\'immobilier complexe — Coursera AI for Finance + certification CGPC : le signal que tu n\'es pas un conseiller généraliste remplaçable.',
+    ] },
 
   { slug: 'architecte-logiciel', label: 'Architecte logiciel', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute en valeur. L\'IA produit du code à vélocité industrielle, mais elle hallucine, casse des dépendances et introduit des failles. Toi qui sais lire et auditer l\'architecture, tu deviens hautement valorisable.',
@@ -317,7 +333,11 @@ export const JOBS: Job[] = [
 
   { slug: 'community-manager', label: 'Community Manager', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Création de posts, programmation, modération basique et reporting : délégués à l\'IA. Tu te concentres sur la stratégie éditoriale, la gestion de crise et l\'animation authentique de communauté.',
-    sources: [9], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 65, leviers: [
+      'Génère programmation et copies avec ChatGPT + Brandwatch — Routinier 80% sur les visuels et légendes ; tu te libères pour la stratégie. Sprinklr AI suit l\'engagement automatiquement.',
+      'Repositionne-toi sur la stratégie éditoriale et la gestion de crise — L\'IA produit, toi tu décides quel ton, quand, sur quel angle. Ton arbitrage humain devient le différenciateur.',
+      'Certifie-toi HubSpot AI Marketing ou complète DeepLearning.AI Generative AI for Everyone — Différenciateur sur LinkedIn et signe que tu pilotes les outils, pas l\'inverse.',
+    ] },
 
   { slug: 'expert-comptable', label: 'Expert-comptable', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Tenue de comptes et déclarations standardisées sont automatisées. Tu pivotes vers le conseil fiscal stratégique, l\'optimisation patrimoniale et l\'accompagnement des dirigeants - ou tu te fais commoditiser.',
@@ -329,27 +349,51 @@ export const JOBS: Job[] = [
 
   { slug: 'consultant-strategie', label: 'Consultant en stratégie', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Benchmarks, études de marché et synthèses sont produits en heures par l\'IA. Tu vends désormais le jugement, la confrontation au CEO et l\'exécution - pas le slide pack.',
-    sources: [4], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [4], quadrant: 'mutes', potential: 75, leviers: [
+      'Utilise Claude ou les outils McKinsey IDA / BCG GenAI pour tes phases de research — Synthèse de rapports sectoriels, analyse de données brutes, revue de littérature : ce qui prenait 3 jours prend 3 heures. Tu vends ton jugement, pas tes heures de doc.',
+      'Repositionne ta valeur sur l\'exécution et la confrontation dirigeante — Le slide pack ne suffit plus. Tes clients paient pour que tu contestes leurs hypothèses, arbitres les options et restes dans la salle pendant l\'implémentation.',
+      'Publie des prises de position sectorielles sur LinkedIn ou en thought leadership — 2-3 articles de fond par trimestre sur ta niche stratégique. C\'est ton différenciateur face aux concurrents qui utilisent les mêmes IA que toi.',
+    ] },
 
   { slug: 'product-manager', label: 'Product Manager', risk: 38, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit - la partie irréductiblement politique du métier.',
-    sources: [10], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [10], quadrant: 'mutes', potential: 75, leviers: [
+      'Utilise Linear ou Notion AI pour générer tes user stories et PRD — Première version d\'une spec complète en 20 minutes. Tu passes ton temps à prioriser et à challenger les hypothèses, pas à rédiger.',
+      'Repositionne ta valeur sur la vision produit et l\'arbitrage politique — L\'IA génère 10 roadmaps possibles ; toi tu sais laquelle choisir et comment convaincre le CODIR. C\'est ton territoire, pas le sien.',
+      'Complète Reforge AI for Product ou le cours PM IA de Coursera et partage ta perspective en public — Les PM qui comprennent comment intégrer des features IA dans leur produit sont 2x plus employables que les autres.',
+    ] },
 
   { slug: 'journaliste-presse', label: 'Journaliste presse écrite', risk: 35, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Collecte d\'informations basiques, synthèse de rapports financiers, dépêches sportives : entièrement automatisées. L\'investigation complexe sur le terrain devient la seule véritable valeur ajoutée humaine.',
-    sources: [1], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 60, leviers: [
+      'Utilise Claude pour le boulot préparatoire — Synthèse de rapports, recherche d\'archives Lexisnexis, traduction d\'articles étrangers. Tu gardes le terrain et l\'angle, l\'IA te fait gagner 4h par enquête.',
+      'Repositionne ta valeur sur l\'investigation et l\'opinion — Les dépêches sportives et financières sont automatisées. Tu vends la signature, le terrain, le sourcing humain qu\'aucun LLM ne peut produire.',
+      'Documente publiquement comment tu intègres l\'IA — Newsletter ou blog perso sur ta workflow IA. Les rédacteurs en chef de 2026 cherchent les journalistes qui savent piloter ces outils.',
+    ] },
 
   { slug: 'journaliste-tv', label: 'Journaliste TV / Radio', risk: 40, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Présentation automatisée, voix synthétique, montage IA : la production technique se commoditise. La présence incarnée, le terrain et l\'enquête prolongée restent humains - pour combien de temps.',
-    sources: [1], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 55, leviers: [
+      'Intègre Otter ou Whisper pour transcrire et analyser tes interviews terrain — Transcription instantanée, détection des citations clés, résumé automatique. Tu passes plus de temps à creuser les angles qu\'à taper.',
+      'Repositionne-toi sur la présence terrain et les formats documentaires longs — Les JT de 20h sont sous pression IA. Les formats d\'enquête longue, le grand entretien, le documentaire terrain : c\'est là que la présence humaine crée une valeur irremplaçable.',
+      'Documente ta maîtrise des outils IA journalistiques — Module ESJ Lille IA ou formations IJBA, publié sur ton profil. Les rédactions qui intègrent l\'IA cherchent des journalistes qui savent la piloter sans en avoir peur.',
+    ] },
 
   { slug: 'analyste-renseignement', label: 'Analyste renseignement', risk: 64, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Traitement de signaux multiples, reconnaissance de formes dans le bruit informationnel et notes de synthèse sont augmentés par l\'IA. Tu deviens évaluateur critique de la véracité des sources générées.',
-    sources: [6], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [6], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Maltego + Hunchly AI dans ton workflow OSINT — Cartographie des réseaux, croisement de sources ouvertes, détection automatique de patterns : l\'IA fait le volume, toi tu interprètes et tu valides.',
+      'Repositionne-toi sur l\'évaluation critique et la contre-désinformation IA — Les LLM hallucinent et les deepfakes prolifèrent. Ta valeur est de distinguer le vrai du fabriqué là où les algorithmes échouent encore.',
+      'Monte en compétences sur la threat intelligence IA et affiche-le en interne — Formation Recorded Future Academy ou SANS OSINT. Le renseignement augmenté par IA est une spécialité rare qui ne se dévalue pas.',
+    ] },
 
   { slug: 'economiste', label: 'Économiste', risk: 63, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La modélisation macroéconomique et l\'analyse de vastes ensembles de données comportementales sont assistées par l\'IA. Les assistants de recherche disparaissent au profit de directeurs ultra-productifs.',
-    sources: [6], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [6], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Claude ou ChatGPT Code Interpreter dans tes analyses quantitatives — Génération de code Python, exploration de datasets, premiers graphiques : tu réduis le cycle de recherche de 60% et tu te concentres sur l\'interprétation causale.',
+      'Repositionne-toi sur la modélisation causale et le conseil aux décideurs — Les LLM font de la corrélation ; toi tu fais de la causalité. Ton expertise de terrain et ton jugement sur les dynamiques humaines ne s\'automatisent pas.',
+      'Publie sur les biais et limites de l\'IA en économie — Article académique, billet d\'opinion ou intervention conférence : positionnement de référent sur ce que l\'IA ne peut pas modéliser. Rare et très visible.',
+    ] },
 
   { slug: 'analyste-securite', label: 'Analyste sécurité informatique', risk: 63, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Audits de code de base, vulnérabilités connues, tests d\'intrusion standards : automatisés. L\'expertise humaine reste vitale pour anticiper l\'ingénierie sociale et les attaques générées par des IA adverses.',
@@ -393,7 +437,11 @@ export const JOBS: Job[] = [
 
   { slug: 'directeur-marketing', label: 'Directeur marketing', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Campagnes, copies, analytics, segmentation : tout est accéléré 10x par l\'IA. Tu pilotes désormais une équipe réduite suralimentée par des agents - ou tu deviens le bottleneck que tu refusais d\'être.',
-    sources: [9], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 70, leviers: [
+      'Déploie HubSpot AI ou Marketo Engage AI pour automatiser tes campagnes — Segmentation dynamique, personnalisation à l\'échelle, A/B testing automatique. Tu réduis une équipe de 5 à 2 personnes sans perdre en volume.',
+      'Repositionne ta direction sur la stratégie de marque et l\'allocation budgétaire — L\'IA optimise les canaux ; toi tu décides l\'histoire qu\'on raconte, à qui, et combien ça vaut. C\'est là que le directeur gagne ou perd sa légitimité.',
+      'Obtiens la certification Reforge AI Strategy et publie ta vision du marketing IA — Conférence interne, article de fond, intervention client : le directeur marketing qui comprend l\'IA devient conseiller stratégique, pas juste gestionnaire de budget.',
+    ] },
 
   { slug: 'pharmacien', label: 'Pharmacien', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Vérification d\'ordonnances et conseil basique sont assistés par IA en officine. Le rôle pivote vers l\'éducation thérapeutique, le suivi de patients chroniques et la pharmacovigilance.',
@@ -405,7 +453,11 @@ export const JOBS: Job[] = [
 
   { slug: 'politologue', label: 'Politologue / Chercheur social', risk: 40, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Revue de littérature, traitement de sondages à grande échelle et analyse sémantique des discours sont effectués en secondes par l\'IA. Les équipes de recherche se réduisent drastiquement.',
-    sources: [3], quadrant: 'mutes', potential: 60, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 60, leviers: [
+      'Intègre Claude pour ta revue de littérature et l\'analyse de corpus — Résumé de 200 articles en 30 minutes, extraction de concepts clés, comparaison de discours politiques. Tu passes ton temps sur l\'interprétation, pas la collecte.',
+      'Repositionne-toi sur l\'expertise publique et le conseil aux décideurs — Les think tanks et gouvernements ont besoin d\'humains qui comprennent les dynamiques de pouvoir que les algorithmes ne peuvent pas modéliser. Développe tes relations institutionnelles.',
+      'Publie des analyses sur les biais algorithmiques en politique — Veille sur Cambridge Analytica 2.0, manipulation IA des élections, fake news générés. C\'est le sujet le plus recherché par les médias et les financeurs de recherche.',
+    ] },
 
   { slug: 'statisticien', label: 'Statisticien', risk: 65, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Analyse standardisée, modèles de régression et extrapolations sont absorbées par des agents nativement intégrés aux plateformes d\'entreprise. Tu pivotes vers la modélisation causale fine et la rigueur scientifique.',
@@ -619,11 +671,19 @@ export const JOBS: Job[] = [
 
   { slug: 'coach-professionnel', label: 'Coach professionnel', risk: 22, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Face au déclassement cognitif induit par l\'IA, la demande de coaching de carrière, de reconversion et de gestion de stress explose. La présence humaine fait la différence.',
-    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [] },
+    sources: [21], quadrant: 'pilotes', potential: 60, leviers: [
+      'Utilise Notion AI pour automatiser ton back-office coaching — Comptes-rendus de séances, plans d\'action personnalisés, suivi de progression : l\'IA structure, toi tu te concentres sur la relation et l\'accompagnement.',
+      'Développe une spécialité sur la reconversion face à l\'IA — La moitié de tes futurs clients cherchent à survivre à la vague IA. Positionnement "coach de transition IA" : niche porteuse, peu encombrée, demande en forte hausse.',
+      'Lance un podcast ou une newsletter sur le coaching à l\'ère IA — Riverside.fm pour l\'enregistrement, Descript pour le montage. Visibilité en ligne = flux entrant de clients sans prospection. 6 mois pour voir les premiers résultats.',
+    ] },
 
   { slug: 'formateur-adultes', label: 'Formateur d\'adultes', risk: 25, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Le WEF projette que 39% des compétences devront être réapprises d\'ici 2030. La requalification massive des actifs crée un appel d\'air pour les formateurs en présentiel.',
-    sources: [10], quadrant: 'pilotes', potential: 65, leviers: [] },
+    sources: [10], quadrant: 'pilotes', potential: 65, leviers: [
+      'Utilise Synthesia ou Loom AI pour créer tes modules e-learning — Slides animées, avatars vidéo, quiz générés : tu multiplies ton catalogue sans multiplier ton temps de tournage. Idéal pour les contenus à forte demande.',
+      'Spécialise-toi sur la formation aux compétences IA — Prompting, usage de ChatGPT au bureau, automatisation no-code : c\'est le programme le plus commandé par les entreprises depuis 2024. Tu es dans le wagon de la demande.',
+      'Certifie-toi DeepLearning.AI Generative AI for Everyone et affiche-le sur ton catalogue — Preuve que tu maîtrises ce que tu enseignes. Les organismes de formation cherchent des formateurs IA certifiés, pas des amateurs curieux.',
+    ] },
 
   // ── ARTISANAT & MÉTIERS DU CONCRET (PROTÉGÉ / CROISSANCE) ──
 
@@ -713,15 +773,27 @@ export const JOBS: Job[] = [
 
   { slug: 'archiviste', label: 'Archiviste', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La numérisation et l\'OCR cognitif transforment le métier de manipulation physique en métier de gouvernance numérique des fonds. La conservation patrimoniale reste humaine.',
-    sources: [3], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [3], quadrant: 'mutes', potential: 50, leviers: [
+      'Déploie Whisper pour transcrire tes archives audio et Claude pour l\'OCR de manuscrits — Indexation sémantique automatique, recherche vectorielle dans tes fonds : tu passes de l\'indexation manuelle à la gouvernance du savoir numérique.',
+      'Repositionne-toi sur la gouvernance des fonds numériques et la médiation patrimoniale — L\'IA indexe ; toi tu décides ce qui mérite d\'être préservé, comment le rendre accessible et quelle histoire il raconte. C\'est un rôle de conservateur augmenté.',
+      'Monte en compétences sur les bases vectorielles (Pinecone, Weaviate) et l\'IA documentaire — Formation en ligne EBSI ou modules Archimag IA. Deviens la référence qui sait transformer un fonds en base de connaissance interrogeable.',
+    ] },
 
   { slug: 'bibliothecaire', label: 'Bibliothécaire', risk: 35, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Le conseil de lecture et la médiation culturelle deviennent le cœur du métier, à mesure que le catalogage et la recherche se font naturellement par IA.',
-    sources: [21], quadrant: 'mutes', potential: 45, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 45, leviers: [
+      'Intègre des outils de recommandation IA dans tes espaces — Algorithmes de suggestion de lecture personnalisée, chatbot de recherche documentaire basé sur Claude : tu transformes la bibliothèque en espace de découverte augmentée.',
+      'Repositionne-toi sur la médiation culturelle et la lutte contre la désinformation — Dans un monde saturé de contenus générés, ta compétence de sélection critique et de curation de sources fiables devient stratégique. Anime des ateliers info-vérification.',
+      'Développe une expertise en humanités numériques et data curation — Formation Enssib IA ou modules en ligne sur les embeddings documentaires. Positionnement rare qui ouvre vers les archives nationales, les musées et les bibliothèques universitaires.',
+    ] },
 
   { slug: 'agent-immobilier', label: 'Agent immobilier', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Annonces, qualification de prospects et descriptifs : automatisés. La valeur se déplace vers la négociation, la connaissance fine du quartier et la gestion émotionnelle des transactions.',
-    sources: [9], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 55, leviers: [
+      'Utilise ChatGPT pour générer tes fiches biens et descriptifs d\'annonces — 5 versions en 3 minutes, A/B testing automatique sur les portails. Tu libères ton temps pour les visites et la négociation.',
+      'Repositionne-toi sur la connaissance hyper-locale et la gestion émotionnelle — L\'IA te sort les prix au m² ; toi tu sais pourquoi cet immeuble est mieux que l\'autre, et tu accompagnes un acheteur stressé à 300 000 €. Ça ne s\'automatise pas.',
+      'Développe ta visibilité locale en ligne — Chaîne YouTube de visites commentées, avis Google optimisés, partenariats notaires locaux. Ta réputation de terrain est ton actif principal que l\'IA ne peut pas copier.',
+    ] },
 
   { slug: 'gestionnaire-stock', label: 'Gestionnaire de stock', risk: 62, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Prévision de demande, optimisation de réapprovisionnement et inventaires sont automatisés. Tu deviens orchestrateur d\'exceptions et négociateur fournisseurs - ou tu es remplacé.',
@@ -743,23 +815,43 @@ export const JOBS: Job[] = [
 
   { slug: 'responsable-com', label: 'Responsable communication', risk: 45, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque - la part politique et humaine du rôle.',
-    sources: [1], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 65, leviers: [
+      'Intègre Claude ou ChatGPT dans ta chaîne de production de communiqués et contenus — Première version en 5 minutes, toi tu arbitres le ton, la validation juridique et le timing. Gagne 3h par semaine dès maintenant.',
+      'Repositionne-toi sur la communication de crise et la réputation de marque — Meltwater AI surveille les signaux, Cision agrège les retombées. Toi tu prends les décisions que personne d\'autre ne peut prendre sous pression.',
+      'Publie ta veille IA comm sur LinkedIn ou en interne — Newsletter hebdo sur ce que l\'IA change dans la com institutionnelle. En 6 mois, tu deviens la référence que les directions viennent consulter.',
+    ] },
 
   { slug: 'social-media-manager', label: 'Social Media Manager', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Création de posts, programmation et reporting analytics : automatisés. Tu te concentres sur la stratégie, la gestion de communauté authentique et la réaction de crise.',
-    sources: [9], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 65, leviers: [
+      'Automatise la production de contenu avec Jasper ou Writesonic + Buffer AI — Calendrier éditorial généré, visuels Canva AI déclinés, scheduling automatique. Tu libères 60% de ton temps pour l\'engagement réel.',
+      'Repositionne-toi sur la stratégie de croissance et l\'analyse de performance — GA4 + AI insights, Brandwatch pour la veille : tu interprètes les signaux, tu décides la direction. L\'IA exécute, toi tu ajustes.',
+      'Monte une expertise Ads IA et complète la certification Meta AI ou Google Skillshop AI — Le Social Media Manager qui pilote les campagnes IA vaut trois fois celui qui poste du contenu manuellement.',
+    ] },
 
   { slug: 'event-manager', label: 'Chef de projet événementiel', risk: 28, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la coordination logistique. Mais la gestion en temps réel d\'un événement vivant, les relations VIP et l\'adaptation aux imprévus restent fondamentalement humains.',
-    sources: [21], quadrant: 'tiens', potential: 40, leviers: [] },
+    sources: [21], quadrant: 'tiens', potential: 40, leviers: [
+      'Intègre Monday.com AI ou Asana AI pour gérer ta coordination fournisseurs et ton rétroplanning — Alertes automatiques, relances prestataires, gestion des tâches critiques : tu passes moins de temps à la logistique, plus à la direction artistique et aux relations.',
+      'Capitalise ta valeur sur la gestion de crise et les relations VIP — L\'IA optimise un planning, elle ne gère pas un CEO qui arrive en retard ou un traiteur qui annule à J-2. C\'est ton territoire exclusif.',
+      'Obtiens une certification CSEP (Certified Special Events Professional) et documente tes événements en cas d\'étude — Portfolio d\'événements bien photographiés + témoignages clients : ta réputation est le seul actif marketing qui compte dans l\'événementiel.',
+    ] },
 
   { slug: 'photographe', label: 'Photographe', risk: 40, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. La génération d\'images IA commoditise la photo de stock et publicitaire. Subsistent le portrait, l\'événementiel intime et le photojournalisme de terrain - la photo "qui a été là".',
-    sources: [9], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 50, leviers: [
+      'Intègre Lightroom AI et Photoshop Generative Fill dans ton post-traitement — Retouche, détourage, extension de cadre : ce qui prenait 1h prend 10 minutes. Tu te concentres sur la prise de vue et la direction artistique.',
+      'Repositionne-toi sur les segments IA-résistants — Portrait corporate de direction, mariage, reportage humanitaire, photojournalisme d\'événement : la présence physique et la relation humaine créent ce que Midjourney ne peut pas produire.',
+      'Documente et publie ta workflow IA + éthique photographique — Les clients entreprise cherchent des photographes qui savent utiliser l\'IA sans perdre leur ADN. Un article ou une conférence sur ce sujet te positionne en pionnier.',
+    ] },
 
   { slug: 'videaste', label: 'Vidéaste / Monteur', risk: 50, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Génération vidéo et montage automatique progressent vite. Tu te concentres sur la direction artistique, la captation singulière et la narration - la valeur de l\'œil.',
-    sources: [9], quadrant: 'mutes', potential: 55, leviers: [] },
+    sources: [9], quadrant: 'mutes', potential: 55, leviers: [
+      'Intègre DaVinci Resolve Studio AI et Runway Gen-3 dans ta chaîne de montage — Sous-titrage automatique, color grading IA, transitions générées : tu gardes la direction artistique, l\'IA fait l\'exécution répétitive.',
+      'Repositionne-toi sur la narration et la captation en conditions réelles — Les vidéos corpo générées par IA sont propres mais vides. Ton oeil, ta direction de tournage, tes interviews terrain : c\'est le contenu qui garde de la valeur.',
+      'Monte une offre hybride IA + captation et communique dessus — "Je produis 3x plus vite grâce à l\'IA, au même niveau de qualité." Pitch clair, portfolio IA visible : tu décroches des budgets que les vidéastes non-IA ne peuvent pas tenir.',
+    ] },
 
   // ── ÉDUCATION & FORMATION ──────────────────────────────
 
@@ -883,7 +975,11 @@ export const JOBS: Job[] = [
 
   { slug: 'chef-de-produit', label: 'Chef de produit', risk: 48, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Specs, user stories et roadmaps brouillons sont générés par l\'IA. Tu te concentres sur la priorisation arbitrage, l\'alignement stakeholders et la vision produit - la partie irréductiblement politique.',
-    sources: [10], quadrant: 'mutes', potential: 70, leviers: [] },
+    sources: [10], quadrant: 'mutes', potential: 70, leviers: [
+      'Intègre Notion AI ou Asana AI dans ta gestion de roadmap — Génère les user stories, identifie les dépendances, structure tes briefs. Tu te concentres sur l\'alignement cross-fonctionnel et la décision stratégique.',
+      'Repositionne ta valeur sur la définition de vision et la gestion des parties prenantes — L\'IA fait les specs techniques ; toi tu sais pourquoi on construit cette feature, pour qui, et comment convaincre l\'engineering de la prioriser.',
+      'Complète la certification PSPO ou un cours IA produit (Reforge, Product School) — Affiche ta maîtrise des outils IA produit sur ton CV. Le chef de produit qui comprend les LLM et les systèmes IA est le profil le plus demandé.',
+    ] },
 
   { slug: 'responsable-logistique', label: 'Responsable logistique', risk: 45, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Planification, optimisation de routes et prévision de demande sont accélérées par l\'IA. Tu deviens orchestrateur d\'exceptions, négociateur transporteurs et arbitre stratégique multi-sites.',
@@ -891,7 +987,11 @@ export const JOBS: Job[] = [
 
   { slug: 'responsable-communication', label: 'Responsable communication', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Production de contenus, communiqués et reporting sont automatisés. Tu deviens stratège éditorial, gestionnaire de crise et garant de la marque - la part politique et humaine du rôle.',
-    sources: [1], quadrant: 'mutes', potential: 65, leviers: [] },
+    sources: [1], quadrant: 'mutes', potential: 65, leviers: [
+      'Déploie un stack IA comm — Claude pour les contenus, Meltwater AI pour la veille, Canva AI pour les visuels. Automatise la production, recentre ton énergie sur la stratégie narrative et les relations médias.',
+      'Capitalise ta position sur la communication de crise augmentée par les données — Les signaux précoces d\'e-réputation et les scénarios de crise se modélisent avec l\'IA. Toi tu décides comment répondre : c\'est irremplaçable.',
+      'Obtiens la certification Reforge AI Strategy ou un module IA executive (HEC, Sciences Po) — Positionne-toi comme le profil qui fait le pont entre direction et équipes créatives à l\'ère IA. Rare, valorisé.',
+    ] },
 
   { slug: 'technicien-laboratoire', label: 'Technicien de laboratoire', risk: 38, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Robotique de laboratoire et IA d\'interprétation des résultats accélèrent les analyses. Tu te concentres sur la mise au point de protocoles, l\'assurance qualité et l\'expertise sur cas atypiques.',
@@ -955,7 +1055,11 @@ export const JOBS: Job[] = [
 
   { slug: 'formateur', label: 'Formateur professionnel', risk: 35, horizon: 10, status: 'croissance',
     dynamic: 'Tu es dans le bon wagon. Le WEF projette que 39% des compétences devront être réapprises d\'ici 2030. La requalification massive crée un appel d\'air pour les formateurs en présentiel, surtout sur les soft skills.',
-    sources: [10], quadrant: 'pilotes', potential: 65, leviers: [] },
+    sources: [10], quadrant: 'pilotes', potential: 65, leviers: [
+      'Utilise Descript ou Loom AI pour produire tes supports de formation en asynchrone — Modules vidéo montés en 30 minutes, sous-titrés automatiquement, exportés en SCORM. Tu doubles ton catalogue sans doubler ton temps de production.',
+      'Capitalise sur la demande de formation IA en entreprise — Prompting, automatisation, IA générative au travail : les budgets formation explosent sur ces sujets. Positionne 1 à 2 modules IA dans ton catalogue dès maintenant.',
+      'Certifie-toi DeepLearning.AI ou Anthropic Academy et affiche le badge en tête de catalogue — Preuve que tu maîtrises ce que tu enseignes. Différenciateur immédiat face aux formateurs qui parlent d\'IA sans l\'avoir pratiquée.',
+    ] },
 
   { slug: 'responsable-hse', label: 'Responsable HSE', risk: 32, horizon: 10, status: 'protege',
     dynamic: 'L\'IA t\'assiste sur la veille réglementaire et l\'analyse de risques. Mais l\'audit terrain, la culture sécurité et la responsabilité juridique restent humaines. La pression réglementaire soutient durablement la demande.',
@@ -1069,11 +1173,19 @@ export const JOBS: Job[] = [
 
   { slug: 'consultant-it', label: 'Consultant IT', risk: 45, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Audits techniques, roadmaps de transformation et benchmarks fournisseurs sont accélérés par l\'IA. La demande explose à l\'inverse pour les consultants spécialisés IA - déploiement, gouvernance, MLOps.',
-    sources: [4, 13], quadrant: 'mutes', potential: 75, leviers: [] },
+    sources: [4, 13], quadrant: 'mutes', potential: 75, leviers: [
+      'Intègre Notion AI et Confluence AI dans ta production de livrables — Roadmaps, comptes-rendus d\'audit, matrices de risque : l\'IA produit le squelette, toi tu apportes l\'analyse et la recommandation client.',
+      'Repositionne-toi sur la gouvernance IA et l\'implémentation MLOps — Les clients ont besoin de quelqu\'un qui sait déployer, monitorer et gouverner des systèmes IA en prod. C\'est le brief le plus demandé et le moins pourvu.',
+      'Certifie-toi Google Cloud AI ou AWS AI Practitioner et vise une spécialité IA Act compliance — Le consultant IT qui parle gouvernance IA et conformité réglementaire est le profil le plus rare et le mieux payé du marché.',
+    ] },
 
   { slug: 'expert-immobilier', label: 'Expert immobilier', risk: 42, horizon: 10, status: 'mutation',
     dynamic: 'Ton métier mute. Les AVM (modèles de valorisation automatique) absorbent les biens standards en data-rich markets. Tu te concentres sur les biens atypiques, l\'expertise judiciaire et la responsabilité légale - irréductibles à l\'IA.',
-    sources: [21], quadrant: 'mutes', potential: 50, leviers: [] },
+    sources: [21], quadrant: 'mutes', potential: 50, leviers: [
+      'Intègre PriceHubble ou JLL ML dans tes valorisations de biens standards — Automatise la première estimation, gagne 2h par dossier. Tu te positionnes sur les biens complexes où l\'algorithme se plante.',
+      'Repositionne-toi sur l\'expertise judiciaire et les biens atypiques — Châteaux, biens en litige, valeur vénale pour successions : l\'IA ne peut pas assumer la responsabilité légale de ces missions. Toi oui.',
+      'Obtiens une certification REV (Royal Institution of Chartered Surveyors) ou spécialise-toi en expertise judiciaire — Ce positionnement t\'extrait définitivement du marché de la valorisation standardisée que l\'IA va dominer.',
+    ] },
 
   { slug: 'juriste', label: 'Juriste d\'entreprise', risk: 55, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Revue contractuelle, recherche jurisprudentielle et notes de conformité sont les terrains de chasse les plus efficaces des LLM. Tu pivotes vers le conseil stratégique au business, la gestion du risque réglementaire et l\'arbitrage des cas complexes - ou tu te fais commoditiser.',
