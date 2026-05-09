@@ -165,7 +165,7 @@ onMounted(() => {
           <span class="return-link">▶ LIRE L'ARTICLE COMPLET</span>
         </NuxtLink>
 
-        <NewsletterForm />
+        <NewsletterForm context="kit-detail" :kit-id="kit?.code ?? ''" />
       </footer>
     </article>
   </div>
