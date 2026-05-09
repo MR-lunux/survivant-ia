@@ -101,8 +101,8 @@ onUnmounted(() => {
                   <path class="handle" d="M 20 20 L 20 14 Q 20 10 24 10 L 32 10 Q 36 10 36 14 L 36 20"/>
                   <line class="latch" x1="28" y1="26" x2="28" y2="38"/>
                   <g class="tool">
-                    <path class="tool-head" d="M 38 14 L 38 10 L 46 10 L 46 14 L 44 14 L 44 12 L 40 12 L 40 14 Z"/>
-                    <line class="tool-stem" x1="42" y1="14" x2="42" y2="22"/>
+                    <path class="tool-head" d="M 38 24 L 38 20 L 46 20 L 46 24 L 44 24 L 44 22 L 40 22 L 40 24 Z"/>
+                    <line class="tool-stem" x1="42" y1="24" x2="42" y2="36"/>
                   </g>
                 </svg>
               </div>
@@ -506,7 +506,7 @@ onUnmounted(() => {
   .ic-soundwave .ring,
   .ic-hourglass .sand-top,
   .ic-hourglass .sand-bot,
-  .ic-toolbox .latch { animation: none !important; }
+  .ic-toolbox .tool { animation: none !important; }
 }
 
 </style>
