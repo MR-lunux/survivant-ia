@@ -6,6 +6,8 @@ useSeoMeta({
   ogTitle: 'On ouvre un chantier — Survivant-IA',
   ogDescription: 'Un format pour passer de la lecture à la pratique. On y réfléchit. Dis-nous ce qui t\'intéresserait.',
   twitterCard: 'summary_large_image',
+  twitterTitle: 'On ouvre un chantier — Survivant-IA',
+  twitterDescription: 'Un format pour passer de la lecture à la pratique. Dis-nous ce qui t\'intéresserait.',
 })
 
 defineOgImage('Default', {
@@ -56,7 +58,10 @@ async function submit() {
       : err?.statusCode && err.statusCode >= 400 && err.statusCode < 500 ? 'validation'
       : err?.statusCode && err.statusCode >= 500 ? 'server'
       : 'network'
-    capture('chantier_intent_failed', { reason })
+    capture('chantier_intent_failed', {
+      reason,
+      error_message: err?.data?.message ?? err?.message ?? 'unknown',
+    })
   }
 }
 </script>
@@ -226,6 +231,7 @@ async function submit() {
   margin: 0 auto;
 }
 .ch-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
