@@ -475,10 +475,6 @@ onUnmounted(() => {
   60%  { transform: translateY(-8px); }
   100% { transform: translateY(0); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .ic-toolbox .tool { animation: none; }
-}
-
 /* ── Bricks icon (carte 04) — empilement staggered ────── */
 .ic-bricks { width: 100%; height: 100%; }
 .ic-bricks .brick {

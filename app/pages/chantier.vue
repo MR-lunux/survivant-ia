@@ -153,7 +153,7 @@ async function submit() {
         </form>
       </section>
 
-      <p v-else class="ch-success">
+      <p v-else class="ch-success" role="status">
         <em>Merci.</em> On revient vers toi quand le chantier prend forme.
       </p>
     </div>
