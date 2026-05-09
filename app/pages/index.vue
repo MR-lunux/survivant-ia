@@ -102,8 +102,8 @@ onUnmounted(() => {
                   <line class="latch" x1="28" y1="26" x2="28" y2="38"/>
                 </svg>
               </div>
-              <h3 class="qcard-question">Veux-tu <strong>un instrument de poche</strong>&nbsp;?</h3>
-              <p class="qcard-meta">La Boîte à Outils : tests et signaux concrets pour piloter l'IA. Premier outil disponible : TRC-01.</p>
+              <h3 class="qcard-question">Veux-tu <strong>des outils</strong>&nbsp;?</h3>
+              <p class="qcard-meta">La boîte à outils : astuces, prompts, etc. concrets pour piloter l'IA.</p>
               <span class="qcard-arrow">Ouvrir la Boîte à Outils</span>
             </NuxtLink>
           </div>
@@ -425,6 +425,20 @@ onUnmounted(() => {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.ic-toolbox .latch {
+  filter: drop-shadow(0 0 0 transparent);
+  animation: latch-pulse 2.4s ease-in-out infinite;
+}
+@keyframes latch-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px var(--color-accent-glow));
+  }
+}
 
 /* ── Sections ──────────────────────────────────────────── */
 .manifeste        { padding: 2rem 0 3rem; }
@@ -453,7 +467,8 @@ onUnmounted(() => {
   }
   .ic-soundwave .ring,
   .ic-hourglass .sand-top,
-  .ic-hourglass .sand-bot { animation: none !important; }
+  .ic-hourglass .sand-bot,
+  .ic-toolbox .latch { animation: none !important; }
 }
 
 </style>
