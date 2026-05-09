@@ -17,7 +17,7 @@ defineOgImage('Default', {
 
 const { capture } = usePosthogEvent()
 
-function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter') {
+function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter' | 'outils') {
   capture('home_cta_clicked', { cta })
 }
 
@@ -91,6 +91,20 @@ onUnmounted(() => {
               <h3 class="qcard-question">Veux-tu cartographier <strong>l'IA dans ton métier</strong>&nbsp;?</h3>
               <p class="qcard-meta">Le Scanner : diagnostic IA en 10 secondes. Gratuit.</p>
               <span class="qcard-arrow">Tester mon métier</span>
+            </NuxtLink>
+
+            <NuxtLink to="/outils" class="qcard qcard-wide" data-attr="hero-cta-outils" @click="onHomeCta('outils')">
+              <span class="qcard-num">03 / Boîte à Outils</span>
+              <div class="qcard-icon">
+                <svg viewBox="0 0 56 56" class="ic-toolbox" aria-hidden="true">
+                  <rect class="box" x="10" y="20" width="36" height="24" rx="2"/>
+                  <path class="handle" d="M 20 20 L 20 14 Q 20 10 24 10 L 32 10 Q 36 10 36 14 L 36 20"/>
+                  <line class="latch" x1="28" y1="26" x2="28" y2="38"/>
+                </svg>
+              </div>
+              <h3 class="qcard-question">Veux-tu <strong>un instrument de poche</strong>&nbsp;?</h3>
+              <p class="qcard-meta">La Boîte à Outils : tests et signaux concrets pour piloter l'IA. Premier outil disponible : TRC-01.</p>
+              <span class="qcard-arrow">Ouvrir la Boîte à Outils</span>
             </NuxtLink>
           </div>
         </div>
@@ -268,6 +282,8 @@ onUnmounted(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
+/* 3rd card spans both columns (signals "secondaire mais visible") */
+.qcard-wide { grid-column: 1 / -1; }
 .qcard {
   background: var(--color-bg);
   border: 1px solid var(--color-rule);
@@ -396,6 +412,18 @@ onUnmounted(() => {
   90%     { transform: scaleY(1); opacity: 0; }
   96%     { transform: scaleY(0); opacity: 0; }
   100%    { transform: scaleY(0); opacity: 1; }
+}
+
+/* ── Toolbox icon (carte 03) — boîte à outils simple ────── */
+.ic-toolbox { width: 100%; height: 100%; }
+.ic-toolbox .box,
+.ic-toolbox .handle,
+.ic-toolbox .latch {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* ── Sections ──────────────────────────────────────────── */
