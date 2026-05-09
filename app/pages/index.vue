@@ -114,6 +114,15 @@ onUnmounted(() => {
     <!-- ── BANDEAU DE TRAJECTOIRE ──────────────── -->
     <HomeMastheadTrajectoire />
 
+    <!-- ── LINK TO JOBS BROWSE ───────────────── -->
+    <div class="metiers-link-bar">
+      <div class="container">
+        <NuxtLink to="/metiers" class="metiers-link">
+          Parcourir les métiers couverts par le Scanner (196) →
+        </NuxtLink>
+      </div>
+    </div>
+
     <!-- ── MASTHEAD II — MANIFESTE ─────────────── -->
     <HomeMasthead num="II" title="Manifeste" meta="Pour qui écrit la Fréquence" />
 
@@ -450,6 +459,26 @@ onUnmounted(() => {
   line-height: 1.25;
   margin: 0 0 1.75rem;
   max-width: 38ch;
+}
+
+/* ── Discreet link to browse all jobs ───────────────── */
+.metiers-link-bar {
+  background: var(--color-bg);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+.metiers-link {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.metiers-link:hover {
+  color: var(--color-accent);
 }
 
 

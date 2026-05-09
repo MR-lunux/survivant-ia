@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     '/': { sitemap: { priority: 1.0, changefreq: 'weekly' } },
     '/scanner': { sitemap: { priority: 0.9, changefreq: 'monthly' } },
     '/scanner/**': { sitemap: { priority: 0.8, changefreq: 'monthly' } },
+    '/metiers': { sitemap: { priority: 0.9, changefreq: 'monthly' } },
     '/rapports': { sitemap: { priority: 0.9, changefreq: 'weekly' } },
     '/rapports/**': { sitemap: { priority: 0.7, changefreq: 'monthly' } },
     '/outils': { sitemap: { priority: 0.8, changefreq: 'weekly' } },
@@ -93,7 +94,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/rss.xml', '/scanner', '/rapports', '/outils', '/outils/trc-01', '/frequence', '/identite', '/confidentialite', ...scannerRoutes],
+      routes: ['/', '/rss.xml', '/scanner', '/metiers', '/rapports', '/outils', '/outils/trc-01', '/frequence', '/identite', '/confidentialite', ...scannerRoutes],
     },
   },
   vite: {
