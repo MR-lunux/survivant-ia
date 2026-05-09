@@ -12,6 +12,15 @@ export default defineContentConfig({
         date: z.string(),
         category: z.enum(['soft-skills', 'comprendre-ia', 'cas-pratiques']),
         relatedKit: z.string().optional(),
+        secteurs: z.array(z.enum([
+          'cognitif-admin-finance-juridique',
+          'tech-data-design',
+          'marketing-comm-management',
+          'sciences-ingenierie',
+          'sante-care-education',
+          'manuels-artisanat-transport',
+          'juridique-extra-securite-divers',
+        ])).optional(),
       }),
     }),
     outils: defineCollection({

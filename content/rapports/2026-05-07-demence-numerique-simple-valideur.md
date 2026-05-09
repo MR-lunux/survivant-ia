@@ -3,6 +3,9 @@ title: "Démence numérique : ne deviens pas un simple valideur"
 description: "À force de demander tout à l'IA, je perdais mes mots. Le mécanisme s'appelle l'offloading cognitif. La tactique pour reprendre le pilotage."
 date: 2026-05-07
 category: comprendre-ia
+secteurs:
+  - cognitif-admin-finance-juridique
+  - tech-data-design
 ---
 
 Je demandais tout à mon LLM. C'était devenu une blague entre collègues : « demande à Claude, il fait mieux que toi ». Jusqu'au jour où j'ai réalisé que mes mots disparaissaient vraiment.

@@ -5,6 +5,10 @@ date: 2026-05-08
 author: Mathieu Rerat
 category: cas-pratiques
 tags: [piloter-ia, employe-augmente, productivite, carriere]
+secteurs:
+  - cognitif-admin-finance-juridique
+  - tech-data-design
+  - marketing-comm-management
 ---
 
 Tu l'as entendue. Dans le train, au resto, à la machine à café :
