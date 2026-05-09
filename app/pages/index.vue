@@ -100,6 +100,10 @@ onUnmounted(() => {
                   <rect class="box" x="10" y="20" width="36" height="24" rx="2"/>
                   <path class="handle" d="M 20 20 L 20 14 Q 20 10 24 10 L 32 10 Q 36 10 36 14 L 36 20"/>
                   <line class="latch" x1="28" y1="26" x2="28" y2="38"/>
+                  <g class="tool">
+                    <path class="tool-head" d="M 38 14 L 38 10 L 46 10 L 46 14 L 44 14 L 44 12 L 40 12 L 40 14 Z"/>
+                    <line class="tool-stem" x1="42" y1="14" x2="42" y2="22"/>
+                  </g>
                 </svg>
               </div>
               <h3 class="qcard-question">Veux-tu <strong>des outils</strong>&nbsp;?</h3>
@@ -423,30 +427,35 @@ onUnmounted(() => {
   100%    { transform: scaleY(0); opacity: 1; }
 }
 
-/* ── Toolbox icon (carte 03) — boîte à outils simple ────── */
+/* ── Toolbox icon (carte 03) — outil qui émerge ────── */
 .ic-toolbox { width: 100%; height: 100%; }
 .ic-toolbox .box,
 .ic-toolbox .handle,
-.ic-toolbox .latch {
+.ic-toolbox .latch,
+.ic-toolbox .tool-stem {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.ic-toolbox .latch {
-  filter: drop-shadow(0 0 0 transparent);
-  animation: latch-pulse 2.4s ease-in-out infinite;
+.ic-toolbox .tool-head {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
 }
-@keyframes latch-pulse {
-  0%, 100% {
-    opacity: 0.55;
-    filter: drop-shadow(0 0 0 transparent);
-  }
-  50% {
-    opacity: 1;
-    filter: drop-shadow(0 0 4px var(--color-accent-glow));
-  }
+.ic-toolbox .tool {
+  animation: tool-emerge 3s ease-in-out infinite;
+}
+@keyframes tool-emerge {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-8px); }
+  60%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ic-toolbox .tool { animation: none; }
 }
 
 /* ── Sections ──────────────────────────────────────────── */
