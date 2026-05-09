@@ -179,6 +179,9 @@ const QUADRANT_COLOR_VAR: Record<JobQuadrant, string> = {
   mutes:    'var(--color-mutation)',
 }
 
+// Gate désactivé en sous-projet 4 SEO. Flip à true pour réactiver le gate.
+const SCANNER_GATE_ENABLED = false
+
 // ── Scanner unlock ───────────────────────────────────────
 const { isUnlocked } = useScannerUnlock()
 const reducedMotion = ref(false)
@@ -466,12 +469,12 @@ async function startScan(job: Job) {
     shimmering.value = false
 
     progressPct.value = 88
-    phase.value = 'gated'
+    phase.value = 'unlocked'
     capture('scanner_gate_shown', {
       ...jobProps(job, 'suggestion'),
       job_risk: job.risk, job_horizon: job.horizon,
     })
-    return
+    // continue to full scan path below
   }
 
   // ── Path déverrouillé : continue le scan complet ──
@@ -575,14 +578,13 @@ function showResultImmediate(job: Job) {
   statusState.value  = 'decrypted'
 
   if (!isUnlocked.value) {
-    // Path gated : metrics en clair, TRAJ/ACTIONS restent locked, gate visible
+    // Path anciennement gated : tout afficher directement (gate désactivé en sous-projet 4 SEO)
     progressPct.value = 88
-    phase.value = 'gated'
     capture('scanner_gate_shown', {
       ...jobProps(job, 'url_param'),
       job_risk: job.risk, job_horizon: job.horizon,
     })
-    return
+    // fall through to full unlocked path below
   }
 
   // Path unlocked : tout en clair (comportement historique)
@@ -626,6 +628,62 @@ onBeforeUnmount(() => {
   if (noResultsTimer) clearTimeout(noResultsTimer)
   if (riskAnimTimer)  clearInterval(riskAnimTimer)
 })
+
+// ── Newsletter inline form (Section VI) ─────────────────
+const prenomInput       = ref('')
+const emailInput        = ref('')
+const formationsInterest = ref(false)
+const consentChecked    = ref(false)
+const submitting        = ref(false)
+const submitError       = ref(false)
+const submitMessage     = ref('')
+
+async function onSubscribe() {
+  if (!selectedJob.value) return
+  if (!consentChecked.value) {
+    submitError.value = true
+    submitMessage.value = 'Consentement requis.'
+    return
+  }
+  submitting.value = true
+  submitError.value = false
+  submitMessage.value = ''
+
+  try {
+    const res = await $fetch<{ ok: boolean }>('/api/subscribe', {
+      method: 'POST',
+      body: {
+        prenom: prenomInput.value,
+        email: emailInput.value,
+        consent: true,
+        source: 'scanner_inline',
+        job_slug: selectedJob.value.slug,
+        job_status: selectedJob.value.status,
+        job_quadrant: selectedJob.value.quadrant,
+        job_risk: selectedJob.value.risk,
+        job_potential: selectedJob.value.potential,
+        formations_interest: formationsInterest.value,
+      },
+    })
+    if (res.ok) {
+      submitMessage.value = 'C\'est bon. Premier article dans 7 jours max.'
+      prenomInput.value = ''
+      emailInput.value = ''
+      formationsInterest.value = false
+      consentChecked.value = false
+      capture('newsletter_subscribed_from_scanner', {
+        job_slug: selectedJob.value.slug,
+        job_quadrant: selectedJob.value.quadrant,
+        formations_interest: formationsInterest.value,
+      })
+    }
+  } catch (e: any) {
+    submitError.value = true
+    submitMessage.value = e?.data?.message ?? 'Erreur technique, réessayez.'
+  } finally {
+    submitting.value = false
+  }
+}
 
 // ── Share ─────────────────────────────────────────────────
 function copyLink() {
@@ -880,7 +938,7 @@ function resetScan() {
 
         <!-- Gate (locked state) -->
         <ScannerGate
-          v-if="phase === 'gated' && selectedJob"
+          v-if="SCANNER_GATE_ENABLED && phase === 'gated' && selectedJob"
           :job="selectedJob"
           @unlocked="onGateUnlocked"
         />
@@ -993,33 +1051,55 @@ function resetScan() {
 
         <div class="sage-rule" aria-hidden="true"></div>
 
-        <!-- ════ SECTION III — LA SUITE ════ -->
+        <!-- ════ SECTION VI — LA SUITE (form newsletter) ════ -->
         <section class="result-section">
           <div class="section-kicker font-mono">
-            <span class="num">— III.</span>
+            <span class="num">— VI.</span>
             <span class="label">La suite</span>
           </div>
 
           <h2 class="suite-headline">Reste un cran devant.</h2>
 
           <p class="suite-lead">
-            Tu es inscrit à La Fréquence. Premier article dans 7 jours max — concret, terrain, sans hype.
-            En attendant, voici ce que tu peux faire dès maintenant.
+            Un nouvel article chaque semaine pour piloter l'IA dans ton métier.
+            Cinq minutes de lecture, sans hype, sans funnel. Concret, terrain.
           </p>
 
-          <div class="suite-actions">
-            <NuxtLink to="/rapports" class="suite-action">
-              <span class="suite-action-icon">→</span>
-              <span class="suite-action-text">
-                <span class="suite-action-title">Lis les rapports déjà publiés</span>
-                <span class="suite-action-meta">Tactiques, outils et signaux pour piloter l'IA dans ton métier.</span>
-              </span>
-            </NuxtLink>
-          </div>
+          <form class="suite-form" @submit.prevent="onSubscribe">
+            <div class="suite-form-row">
+              <input
+                v-model="prenomInput"
+                type="text"
+                class="suite-input suite-input--prenom"
+                placeholder="Prénom"
+                required
+                autocomplete="given-name"
+              />
+              <input
+                v-model="emailInput"
+                type="email"
+                class="suite-input"
+                placeholder="ton@email.pro"
+                required
+                autocomplete="email"
+              />
+              <button type="submit" class="suite-button font-mono" :disabled="submitting">
+                {{ submitting ? '...' : 'Rejoindre →' }}
+              </button>
+            </div>
 
-          <p class="suite-coming">
-            <strong>Bientôt :</strong> formations approfondies pour aller plus loin. La newsletter te préviendra.
-          </p>
+            <label class="suite-checkbox">
+              <input v-model="formationsInterest" type="checkbox" />
+              <span>Préviens-moi en avance des formations approfondies (bientôt). Accès en avant-première et tarif lancement.</span>
+            </label>
+
+            <label class="suite-checkbox">
+              <input v-model="consentChecked" type="checkbox" required />
+              <span>J'accepte de recevoir La Fréquence (newsletter hebdo, désinscription en 1 clic).</span>
+            </label>
+
+            <p v-if="submitMessage" class="suite-message" :class="{ 'is-error': submitError }">{{ submitMessage }}</p>
+          </form>
         </section>
 
         <div class="sage-rule sage-rule--fade" aria-hidden="true"></div>
@@ -2097,4 +2177,51 @@ function resetScan() {
   .matrix-chip { width: 100%; max-width: 200px; margin: 0 auto; }
   .legend-list { width: 100%; min-width: 0; }
 }
+
+/* ── Section VI newsletter form ───────────────────────── */
+.suite-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 560px;
+}
+.suite-form-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.suite-input {
+  flex: 1;
+  min-width: 180px;
+  padding: 14px 16px;
+  background: transparent;
+  border: 1px solid #2A2A2A;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.suite-input:focus { border-color: var(--color-accent); }
+.suite-input--prenom { max-width: 140px; }
+.suite-button {
+  padding: 14px 22px;
+  background: var(--color-accent);
+  border: none;
+  color: var(--color-bg);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.suite-button:disabled { opacity: 0.5; cursor: wait; }
+.suite-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+.suite-checkbox input { margin-top: 3px; flex-shrink: 0; accent-color: var(--color-accent); }
+.suite-message { font-size: 13px; margin: 0; color: var(--color-accent); }
+.suite-message.is-error { color: var(--color-danger); }
 </style>
