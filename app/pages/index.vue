@@ -17,7 +17,7 @@ defineOgImage('Default', {
 
 const { capture } = usePosthogEvent()
 
-function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter' | 'outils') {
+function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter' | 'outils' | 'chantier') {
   capture('home_cta_clicked', { cta })
 }
 
@@ -93,7 +93,7 @@ onUnmounted(() => {
               <span class="qcard-arrow">Tester mon métier</span>
             </NuxtLink>
 
-            <NuxtLink to="/outils" class="qcard qcard-wide" data-attr="hero-cta-outils" @click="onHomeCta('outils')">
+            <NuxtLink to="/outils" class="qcard" data-attr="hero-cta-outils" @click="onHomeCta('outils')">
               <span class="qcard-num">03 / Boîte à Outils</span>
               <div class="qcard-icon">
                 <svg viewBox="0 0 56 56" class="ic-toolbox" aria-hidden="true">
@@ -109,6 +109,20 @@ onUnmounted(() => {
               <h3 class="qcard-question">Veux-tu <strong>des outils</strong>&nbsp;?</h3>
               <p class="qcard-meta">La boîte à outils : astuces, prompts, etc. concrets pour piloter l'IA.</p>
               <span class="qcard-arrow">Ouvrir la Boîte à Outils</span>
+            </NuxtLink>
+
+            <NuxtLink to="/chantier" class="qcard" data-attr="hero-cta-chantier" @click="onHomeCta('chantier')">
+              <span class="qcard-num">04 / <em>en cours de réflexion</em></span>
+              <div class="qcard-icon">
+                <svg viewBox="0 0 56 56" class="ic-bricks" aria-hidden="true">
+                  <rect class="brick brick-3" x="14" y="14" width="28" height="8" rx="1"/>
+                  <rect class="brick brick-2" x="14" y="24" width="28" height="8" rx="1"/>
+                  <rect class="brick brick-1" x="14" y="34" width="28" height="8" rx="1"/>
+                </svg>
+              </div>
+              <h3 class="qcard-question">Veux-tu <strong>mettre les mains dans le cambouis</strong>&nbsp;?</h3>
+              <p class="qcard-meta">On pense à un format pour passer de la lecture à la pratique. Dis-moi ce qui t'intéresserait.</p>
+              <span class="qcard-arrow">Donner mon avis</span>
             </NuxtLink>
           </div>
         </div>
@@ -295,8 +309,6 @@ onUnmounted(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
-/* 3rd card spans both columns (signals "secondaire mais visible") */
-.qcard-wide { grid-column: 1 / -1; }
 .qcard {
   background: var(--color-bg);
   border: 1px solid var(--color-rule);
@@ -322,6 +334,15 @@ onUnmounted(() => {
   margin-bottom: 1.25rem;
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--color-rule);
+}
+.qcard-num em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-accent);
 }
 .qcard-icon {
   width: 56px;
@@ -456,6 +477,40 @@ onUnmounted(() => {
 }
 @media (prefers-reduced-motion: reduce) {
   .ic-toolbox .tool { animation: none; }
+}
+
+/* ── Bricks icon (carte 04) — empilement staggered ────── */
+.ic-bricks { width: 100%; height: 100%; }
+.ic-bricks .brick {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+}
+.ic-bricks .brick-1 { animation: brick-stack-1 4s ease-in-out infinite; }
+.ic-bricks .brick-2 { animation: brick-stack-2 4s ease-in-out infinite; }
+.ic-bricks .brick-3 { animation: brick-stack-3 4s ease-in-out infinite; }
+
+@keyframes brick-stack-1 {
+  0%, 100% { opacity: 0; transform: translateY(6px); }
+  10%, 95% { opacity: 1; transform: translateY(0); }
+}
+@keyframes brick-stack-2 {
+  0%, 30%, 100% { opacity: 0; transform: translateY(6px); }
+  40%, 95%      { opacity: 1; transform: translateY(0); }
+}
+@keyframes brick-stack-3 {
+  0%, 55%, 100% { opacity: 0; transform: translateY(6px); }
+  65%, 95%      { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ic-bricks .brick {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ── Sections ──────────────────────────────────────────── */
