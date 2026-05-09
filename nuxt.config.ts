@@ -1,4 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+// Extract job slugs from jobs.ts at build time to feed the prerenderer
+const jobsSrc = readFileSync(resolve(__dirname, 'app/data/jobs.ts'), 'utf8')
+const jobSlugs = [...jobsSrc.matchAll(/slug:\s*'([^']+)'/g)].map(m => m[1])
+const scannerRoutes = jobSlugs.map(s => `/scanner/${s}`)
+
 export default defineNuxtConfig({
   devtools: { enabled: false },
   runtimeConfig: {
@@ -41,6 +49,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { sitemap: { priority: 1.0, changefreq: 'weekly' } },
     '/scanner': { sitemap: { priority: 0.9, changefreq: 'monthly' } },
+    '/scanner/**': { sitemap: { priority: 0.8, changefreq: 'monthly' } },
     '/rapports': { sitemap: { priority: 0.9, changefreq: 'weekly' } },
     '/rapports/**': { sitemap: { priority: 0.7, changefreq: 'monthly' } },
     '/outils': { sitemap: { priority: 0.8, changefreq: 'weekly' } },
@@ -84,7 +93,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/rss.xml', '/scanner', '/rapports', '/outils', '/outils/trc-01', '/frequence', '/identite', '/confidentialite'],
+      routes: ['/', '/rss.xml', '/scanner', '/rapports', '/outils', '/outils/trc-01', '/frequence', '/identite', '/confidentialite', ...scannerRoutes],
     },
   },
   vite: {
