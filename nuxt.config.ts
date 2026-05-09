@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     brevoApiKey: '',
     brevoListId: '',
+    brevoChantierListId: '',
     public: {
       posthogKey: '',
     },
@@ -56,6 +57,7 @@ export default defineNuxtConfig({
     '/outils': { sitemap: { priority: 0.8, changefreq: 'weekly' } },
     '/outils/**': { sitemap: { priority: 0.7, changefreq: 'monthly' } },
     '/frequence': { sitemap: { priority: 0.8, changefreq: 'monthly' } },
+    '/chantier': { sitemap: { priority: 0.4, changefreq: 'monthly' } },
     '/identite': { sitemap: { priority: 0.6, changefreq: 'yearly' } },
     '/_ph/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
     '/_ph/**':        { proxy: 'https://eu.i.posthog.com/**' },
@@ -94,7 +96,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/rss.xml', '/scanner', '/metiers', '/rapports', '/outils', '/outils/trc-01', '/frequence', '/identite', '/confidentialite', ...scannerRoutes],
+      routes: ['/', '/rss.xml', '/scanner', '/metiers', '/rapports', '/outils', '/outils/trc-01', '/frequence', '/identite', '/confidentialite', '/chantier', ...scannerRoutes],
     },
   },
   vite: {
