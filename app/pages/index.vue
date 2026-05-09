@@ -112,7 +112,7 @@ onUnmounted(() => {
             </NuxtLink>
 
             <NuxtLink to="/chantier" class="qcard" data-attr="hero-cta-chantier" @click="onHomeCta('chantier')">
-              <span class="qcard-num">04 / <em>en cours de réflexion</em></span>
+              <span class="qcard-num">04 / <span class="qcard-num-status">en cours de réflexion</span></span>
               <div class="qcard-icon">
                 <svg viewBox="0 0 56 56" class="ic-bricks" aria-hidden="true">
                   <rect class="brick brick-3" x="14" y="14" width="28" height="8" rx="1"/>
@@ -335,7 +335,7 @@ onUnmounted(() => {
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--color-rule);
 }
-.qcard-num em {
+.qcard-num-status {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
@@ -505,14 +505,6 @@ onUnmounted(() => {
   65%, 95%      { opacity: 1; transform: translateY(0); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ic-bricks .brick {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
 /* ── Sections ──────────────────────────────────────────── */
 .manifeste        { padding: 2rem 0 3rem; }
 .rapports-section { padding: 1rem 0 3rem; }
@@ -561,7 +553,9 @@ onUnmounted(() => {
   .ic-soundwave .ring,
   .ic-hourglass .sand-top,
   .ic-hourglass .sand-bot,
-  .ic-toolbox .tool { animation: none !important; }
+  .ic-toolbox .tool,
+  .ic-bricks .brick { animation: none !important; }
+  .ic-bricks .brick { opacity: 1; transform: none; }
 }
 
 </style>
