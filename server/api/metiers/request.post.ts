@@ -103,13 +103,16 @@ export default defineEventHandler(async (event) => {
   }
 
   // Appel #2 : newsletter (conditionnel)
+  // updateEnabled: true + attributes: {} → ajoute à la listId pour un contact
+  // existant SANS clobber ses attributs (SOURCE etc. préservés). Le SOURCE
+  // 'metier_request' a déjà été posé par l'appel #1 pour les nouveaux contacts.
   if (subscribeNewsletter === true && brevoListId) {
     const newsletterRes = await brevoUpsertContact({
       email,
       apiKey: brevoApiKey,
       listId: Number(brevoListId),
-      attributes: { SOURCE: 'metier_request' },
-      updateEnabled: false,
+      attributes: {},
+      updateEnabled: true,
     })
     if (!newsletterRes.ok) {
       // La waitlist (#1) a réussi — on ne fait pas échouer le flow utilisateur
