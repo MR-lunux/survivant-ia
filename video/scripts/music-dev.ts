@@ -14,7 +14,9 @@ import { generateStrudel } from "../src/lib/score/generate";
 import { checkDrift } from "./lib/check-drift";
 import type { Score } from "../src/lib/score/types";
 
-const STRUDEL_URL = process.env.STRUDEL_CLAUDE_URL ?? "http://localhost:3001";
+// Default port = 3010 (3000-3003 used locally by Remotion + Nuxt dev servers).
+// Override via STRUDEL_CLAUDE_URL env var if your strudel-claude runs elsewhere.
+const STRUDEL_URL = process.env.STRUDEL_CLAUDE_URL ?? "http://localhost:3010";
 const root = resolve(__dirname, "..");
 const videosDir = join(root, "src/videos");
 
