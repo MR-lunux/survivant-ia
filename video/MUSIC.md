@@ -310,6 +310,18 @@ Pour ajouter un preset (ex: synthwave) :
 - Vérifie que strudel-claude tourne : `lsof -iTCP:3010 -sTCP:LISTEN -P`
 - Si un autre process écoute sur 3010, override : `STRUDEL_CLAUDE_URL=http://localhost:<autre> npm run music:dev`
 
+### `isPlaying: true` côté API mais aucun son dans le browser (macOS)
+
+Console DevTools du browser dit `The AudioContext encountered an error from the audio device or the WebAudio renderer.` ou silence total même avec le démo natif `s("bd*4").bank("RolandTR909")`.
+
+CoreAudio (le sous-système audio macOS) est en vrac. Force-le à re-spawner :
+
+```bash
+sudo killall coreaudiod
+```
+
+Aucun risque, ça coupe l'audio ~2s puis revient. Re-teste après. Si ça persiste : vérifie l'output device dans `System Settings → Sound → Output`, et le Format dans `Audio MIDI Setup.app` (un sample rate exotique comme 96kHz peut faire échouer Web Audio — passe à 44.1 ou 48 kHz).
+
 ### `⚠ Drift detected: <Beat> boundary at X.XXs has no score beat...`
 
 C'est advisory. Plusieurs causes acceptables :
