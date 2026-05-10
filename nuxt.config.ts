@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     brevoApiKey: '',
     brevoListId: '',
     brevoChantierListId: '',
+    brevoMetierWaitlistListId: '',
     public: {
       posthogKey: '',
     },
