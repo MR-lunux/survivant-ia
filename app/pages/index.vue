@@ -419,6 +419,7 @@ onUnmounted(() => {
 /* ── Magnifier-on-grid icon (carte 02) — recherche dans la liste ────── */
 .ic-magnifier-grid { width: 100%; height: 100%; }
 .ic-magnifier-grid .grid {
+  /* lighter weight than lens/handle to read as background */
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -432,22 +433,9 @@ onUnmounted(() => {
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+  animation: magnifier-scan 4s ease-in-out infinite;
 }
-.ic-magnifier-grid .lens {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: lens-scan 4s ease-in-out infinite;
-}
-.ic-magnifier-grid .handle {
-  transform-box: fill-box;
-  transform-origin: top left;
-  animation: handle-scan 4s ease-in-out infinite;
-}
-@keyframes lens-scan {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-10px, -10px); }
-}
-@keyframes handle-scan {
+@keyframes magnifier-scan {
   0%, 100% { transform: translate(0, 0); }
   50%      { transform: translate(-10px, -10px); }
 }
