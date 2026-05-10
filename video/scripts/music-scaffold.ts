@@ -1,12 +1,12 @@
 // scripts/music-scaffold.ts
 // Usage: npx tsx scripts/music-scaffold.ts <Composition> [--force]
-// Reads src/videos/<Composition>.tsx, extracts <Sequence> beats, writes a
+// Reads src/videos/<Composition>.tsx, extracts <Beat duration={N}> tags, writes a
 // draft src/videos/<Composition>.score.ts with placeholder roles and intensity.
 // Refuses to overwrite existing score files unless --force is passed.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { extractSequences } from "./lib/extract-sequences";
+import { extractBeats } from "./lib/extract-beats";
 
 const args = process.argv.slice(2);
 const force = args.includes("--force");
@@ -32,19 +32,18 @@ if (existsSync(scorePath) && !force) {
 }
 
 const src = readFileSync(tsxPath, "utf8");
-const sequences = extractSequences(src);
+const beats = extractBeats(src);
 
-if (sequences.length === 0) {
-  console.error(`✗ No <Sequence> tags found in ${composition}.tsx.`);
+if (beats.length === 0) {
+  console.error(`✗ No <Beat> tags found in ${composition}.tsx.`);
   process.exit(1);
 }
 
-// Total duration: max(from + durationInFrames). Falls back to last seq end.
-const totalFrames = Math.max(...sequences.map(s => s.atFrame + s.durationInFrames));
+// Total duration: sum of all beat durations.
+const totalSec = beats.reduce((acc, b) => acc + b.durationSec, 0);
 
-const beatLines = sequences
-  .sort((a, b) => a.atFrame - b.atFrame)
-  .map(seq => `    { atFrame: ${seq.atFrame}, role: "accent", intensity: "medium" },  // SEQ ${seq.atFrame}-${seq.atFrame + seq.durationInFrames}`)
+const beatLines = beats
+  .map(b => `    { atSec: ${b.atSec}, role: "accent", intensity: "medium" },  // BEAT ${b.atSec}s–${b.atSec + b.durationSec}s`)
   .join("\n");
 
 const file = `// ${composition}.score.ts — généré par music:scaffold, à adapter à la main.
@@ -56,7 +55,7 @@ import type { Score } from "../lib/score/types";
 
 export const SCORE: Score = {
   composition: "${composition}",
-  durationInFrames: ${totalFrames},
+  durationSec: ${totalSec},
   fps: 30,
   preset: "zimmer-tense",
   beats: [
@@ -68,4 +67,4 @@ ${beatLines}
 
 writeFileSync(scorePath, file, "utf8");
 console.log(`✓ Wrote ${scorePath}`);
-console.log(`  ${sequences.length} sequence(s) → beats (all "accent medium" — adapte-les).`);
+console.log(`  ${beats.length} beat(s) → score beats (all "accent medium" — adapte-les).`);
