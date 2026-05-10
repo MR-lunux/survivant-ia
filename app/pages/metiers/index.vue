@@ -128,17 +128,10 @@ defineOgImage('Default', {
     </div>
 
     <p v-if="totalCount === 0" class="empty-state">
-      Aucun métier trouvé pour "{{ searchQuery }}".
+      Aucun métier trouvé pour «&nbsp;{{ searchQuery }}&nbsp;». Demande-le ci-dessous, je l'analyse.
     </p>
 
-    <div class="metiers-cta">
-      <p class="cta-text">
-        Pas trouvé ton métier ?
-      </p>
-      <NuxtLink to="/scanner" class="cta-link font-mono">
-        Tente le diagnostic interactif →
-      </NuxtLink>
-    </div>
+    <MetiersRequestForm :prefill="searchQuery" />
   </div>
 </template>
 
@@ -239,29 +232,4 @@ defineOgImage('Default', {
   color: var(--color-muted);
   padding: 48px 0;
 }
-
-.metiers-cta {
-  text-align: center;
-  margin-top: 64px;
-  padding-top: 48px;
-  border-top: 1px solid rgba(108, 227, 181, 0.15);
-}
-.cta-text {
-  font-size: 16px;
-  color: var(--color-muted);
-  margin: 0 0 16px;
-}
-.cta-link {
-  display: inline-block;
-  padding: 14px 22px;
-  background: var(--color-accent);
-  color: var(--color-bg);
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: opacity 0.15s;
-}
-.cta-link:hover { opacity: 0.85; }
 </style>
