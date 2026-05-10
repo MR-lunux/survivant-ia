@@ -140,8 +140,9 @@ onMounted(() => {
 
 // ── SEO meta + JSON-LD Article + BreadcrumbList ──
 const pageUrl = `https://survivant-ia.ch/scanner/${job.slug}`
-const pageTitle = `${job.label} face à l'IA : ${QUADRANT_VERDICT_ITALIC[job.quadrant]} (${job.risk}/100) | Survivant-IA`
-const pageDesc = `${job.dynamic.slice(0, 155)}...`
+const pageTitle = `${job.label} face à l'IA — ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`
+const pageH1 = `${job.label} face à l'IA en 2026`
+const pageDesc = `${job.dynamic.slice(0, 145)}...`
 
 useSeoMeta({
   title: pageTitle,
@@ -206,8 +207,9 @@ defineOgImage('Metier', {
     <AuthorByline :date-modified="content.dateModified" />
 
     <header class="result-hero">
+      <h1 class="visually-hidden">{{ pageH1 }}</h1>
       <KickerLabel>Diagnostic IA · {{ job.label }}</KickerLabel>
-      <h1 class="result-verdict">{{ QUADRANT_VERDICT_ITALIC[job.quadrant] }}</h1>
+      <p class="result-verdict" role="heading" aria-level="2">{{ QUADRANT_VERDICT_ITALIC[job.quadrant] }}</p>
       <div class="result-scores font-mono">
         <span><strong :style="{ color: 'var(--color-mutation)' }">{{ job.risk }}</strong><span class="score-suffix">/100</span> · risque</span>
         <span class="score-sep">•</span>
@@ -360,6 +362,19 @@ defineOgImage('Metier', {
 .result-hero {
   text-align: center;
   padding: 0 32px;
+}
+
+/* H1 visible aux screen readers + Google, masqué visuellement (visual = verdict italic) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .result-verdict {
