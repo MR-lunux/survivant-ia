@@ -17,7 +17,7 @@ defineOgImage('Default', {
 
 const { capture } = usePosthogEvent()
 
-function onHomeCta(cta: 'scanner' | 'rapports' | 'newsletter' | 'outils' | 'chantier') {
+function onHomeCta(cta: 'metiers' | 'rapports' | 'newsletter' | 'outils' | 'chantier') {
   capture('home_cta_clicked', { cta })
 }
 
@@ -79,8 +79,8 @@ onUnmounted(() => {
               <span class="qcard-arrow">Rejoindre la Fréquence (gratuit)</span>
             </NuxtLink>
 
-            <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
-              <span class="qcard-num">02 / Diagnostic flash</span>
+            <NuxtLink to="/metiers" class="qcard" data-attr="hero-cta-metiers" @click="onHomeCta('metiers')">
+              <span class="qcard-num">02 / Diagnostic par métier</span>
               <div class="qcard-icon">
                 <svg viewBox="0 0 56 56" class="ic-magnifier-grid" aria-hidden="true">
                   <line class="grid" x1="8" y1="18" x2="34" y2="18"/>
@@ -92,9 +92,9 @@ onUnmounted(() => {
                   <line class="handle" x1="43.5" y1="43.5" x2="50" y2="50"/>
                 </svg>
               </div>
-              <h3 class="qcard-question">Veux-tu cartographier <strong>l'IA dans ton métier</strong>&nbsp;?</h3>
-              <p class="qcard-meta">Le Scanner : diagnostic IA en 10 secondes. Gratuit.</p>
-              <span class="qcard-arrow">Tester mon métier</span>
+              <h3 class="qcard-question">Veux-tu voir <strong>où ton métier en est face à l'IA</strong>&nbsp;?</h3>
+              <p class="qcard-meta">196 métiers analysés. Cherche le tien dans la liste.</p>
+              <span class="qcard-arrow">Trouver mon métier</span>
             </NuxtLink>
 
             <NuxtLink to="/outils" class="qcard" data-attr="hero-cta-outils" @click="onHomeCta('outils')">
@@ -140,7 +140,7 @@ onUnmounted(() => {
     <div class="metiers-link-bar">
       <div class="container">
         <NuxtLink to="/metiers" class="metiers-link">
-          Parcourir les métiers couverts par le Scanner (196) →
+          Parcourir les 196 métiers analysés →
         </NuxtLink>
       </div>
     </div>
