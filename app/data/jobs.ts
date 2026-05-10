@@ -1242,8 +1242,9 @@ export const JOBS: Job[] = [
     ], secteur: 'juridique-extra-securite-divers' },
 
   // ── MÉTIERS RESTAURÉS (legacy slugs préservés depuis le scanner v0.7) ──
-  // Ces entrées maintiennent les URLs `/scanner?job=<slug>` historiques pour ne pas casser
-  // les liens partagés. Le contenu est mis à niveau au schéma 2026 (statut éditorial + dynamique).
+  // Ces entrées maintiennent les URLs `/scanner/<slug>` (et anciennes query-strings réécrites)
+  // historiques pour ne pas casser les liens partagés. Le contenu est mis à niveau au schéma
+  // 2026 (statut éditorial + dynamique).
 
   { slug: 'technicien-support', label: 'Technicien support IT', risk: 66, horizon: 5, status: 'mutation',
     dynamic: 'Ton métier mute. Le dépannage logiciel et matériel de niveau 1 est pris en charge par des agents internes capables de lire les logs et guider les utilisateurs. Tu remontes en complexité ou tu te fais commoditiser.',

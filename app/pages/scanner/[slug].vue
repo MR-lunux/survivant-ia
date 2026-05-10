@@ -182,7 +182,7 @@ useHead({
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
-            { '@type': 'ListItem', position: 2, name: 'Scanner', item: 'https://survivant-ia.ch/scanner' },
+            { '@type': 'ListItem', position: 2, name: 'Métiers', item: 'https://survivant-ia.ch/metiers' },
             { '@type': 'ListItem', position: 3, name: job.label },
           ],
         },
@@ -342,9 +342,9 @@ defineOgImage('Metier', {
     <div class="sage-rule sage-rule--fade" aria-hidden="true"></div>
 
     <div class="footer-actions font-mono">
-      <NuxtLink to="/scanner" class="action-link">↻ Tester un autre métier</NuxtLink>
+      <NuxtLink to="/metiers" class="action-link">↻ Voir un autre métier</NuxtLink>
       <span class="action-sep">·</span>
-      <NuxtLink to="/scanner" class="action-link">📋 Voir tous les métiers</NuxtLink>
+      <NuxtLink to="/metiers" class="action-link">📋 Voir tous les métiers</NuxtLink>
     </div>
   </article>
 </template>
