@@ -24,7 +24,9 @@ Strudel exposant une API REST et un enregistreur WAV browser-side.
 | Schéma du score | Beats abstraits (`role` × `intensity`) + `preset` par vidéo. |
 | Granularité des beats | Mix : Sequence-level toujours, word-level optionnel selon la vidéo. |
 | Où vit le score | Un fichier `<Composition>.score.ts` à côté du `.tsx`. |
-| Nombre de presets v1 | Un seul (`zimmer-tense`). `8bit-nostalgic` en v1.5. |
+| Nombre de presets v1 | Deux : `zimmer-tense` ET `8bit-nostalgic`. |
+| Périmètre vidéos v1 | Les 3 vidéos existantes (`RapportTerminal`, `Storytime`, `TestDiagnostic`) toutes scorées. |
+| Stockage MP3 | Commit dans le repo (`public/audio/*.mp3`). Pas gitignore. |
 | Mode d'itération | Watcher chokidar qui POST le code Strudel à `/api/code` à chaque save. |
 | Cible du watcher | Picker interactif au démarrage, lock sur une vidéo pour la session. |
 | GUI custom | Aucune. 3 fenêtres existantes (VS Code + Remotion Studio + strudel-claude). |
@@ -46,7 +48,8 @@ video/
 │           ├── generate.ts                  # NEW : score → string Strudel
 │           └── presets/
 │               ├── index.ts                 # NEW : registry
-│               └── zimmer-tense.ts          # NEW : preset v1
+│               ├── zimmer-tense.ts          # NEW : preset 1
+│               └── 8bit-nostalgic.ts        # NEW : preset 2
 ├── scripts/
 │   ├── post-encode.mjs                      # MODIFIÉ : retirer -an, ajouter -c:a aac
 │   ├── music-scaffold.mjs                   # NEW : .tsx → .score.ts brouillon
@@ -61,11 +64,11 @@ video/
 ```
 
 **Périmètre du changement code** :
-- 7 nouveaux fichiers de lib/scripts (`types.ts`, `generate.ts`, `presets/index.ts`, `presets/zimmer-tense.ts`, `music-scaffold.mjs`, `music-dev.mjs`, `music-install.mjs`)
+- 8 nouveaux fichiers de lib/scripts (`types.ts`, `generate.ts`, `presets/index.ts`, `presets/zimmer-tense.ts`, `presets/8bit-nostalgic.ts`, `music-scaffold.mjs`, `music-dev.mjs`, `music-install.mjs`)
 - 1 nouveau fichier `.score.ts` par vidéo (×3, généré par scaffold puis adapté à la main)
 - 1 ligne `<Audio>` ajoutée par vidéo `.tsx` (×3)
 - 2 modifs ponctuelles : `post-encode.mjs` (audio activé), `package.json` (3 scripts npm)
-- 1 nouveau dossier `public/audio/` (les MP3 produits sont gitignored ou commités selon préférence — à trancher en plan)
+- 1 nouveau dossier `public/audio/` (les MP3 produits sont **commités** dans le repo)
 - 0 refactor du code Remotion existant
 
 ## Schéma du score
@@ -325,7 +328,9 @@ L'audio AAC + faststart + baseline H.264 reste compatible TikTok / iOS / QuickTi
 
 ## Critères de succès
 
-- [ ] Les 3 vidéos existantes ont chacune une bande son alignée sur leurs beats narratifs
+- [ ] Les 3 vidéos existantes (`RapportTerminal`, `Storytime`, `TestDiagnostic`) ont chacune une bande son alignée sur leurs beats narratifs
+- [ ] Les 2 presets (`zimmer-tense`, `8bit-nostalgic`) sont fonctionnels et utilisés au moins une fois chacun parmi les 3 vidéos
+- [ ] Les MP3 sont commités dans `video/public/audio/` et leur présence est vérifiable en CI/au render
 - [ ] Ajouter une nouvelle vidéo = `.tsx` + `music:scaffold` + adapt + `music:dev` + record + `music:install`. Délai musique <30 min.
 - [ ] Le watcher `music:dev` réduit le cycle "modif → écoute" à <1s en moyenne
 - [ ] Le drift score↔vidéo est warné dans la console, pas silencieux
@@ -337,7 +342,7 @@ L'audio AAC + faststart + baseline H.264 reste compatible TikTok / iOS / QuickTi
 | Sujet | Raison |
 |---|---|
 | Headless auto-record (Playwright qui capture l'audio depuis strudel-claude) | Ajoute un browser-runner + capture audio routing. Trop pour gagner 1 clic. À reprendre si volume >20 vidéos/mois. |
-| Plus d'un preset | On part avec `zimmer-tense` seul. `8bit-nostalgic` en v1.5 quand le preset Zimmer est figé. |
+| Plus de 2 presets | `zimmer-tense` + `8bit-nostalgic` couvrent les deux directions sonores recherchées. Autres styles (synthwave, etc.) à reprendre seulement si besoin éditorial. |
 | Markers visuels dans Remotion Studio (overlay des beats sur le scrubber) | Optionnel, ~30 lignes. Stretch goal pendant l'implémentation, sinon v1.5. |
 | Ducking automatique pour voix off | Pas de VO dans les scripts actuels. À reprendre quand un script en demandera. |
 | Cross-video musical themes (motifs récurrents entre vidéos) | YAGNI. Chaque vidéo TikTok stand-alone. |
