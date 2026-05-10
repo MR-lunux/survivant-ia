@@ -82,10 +82,14 @@ onUnmounted(() => {
             <NuxtLink to="/scanner" class="qcard" data-attr="hero-cta-scanner" @click="onHomeCta('scanner')">
               <span class="qcard-num">02 / Diagnostic flash</span>
               <div class="qcard-icon">
-                <svg viewBox="0 0 56 56" class="ic-hourglass" aria-hidden="true">
-                  <path class="frame" d="M 14 8 L 42 8 M 14 48 L 42 48 M 16 8 L 16 14 L 28 26 M 40 8 L 40 14 L 28 26 M 28 30 L 16 42 L 16 48 M 28 30 L 40 42 L 40 48"/>
-                  <path class="sand-top" d="M 17 10 L 39 10 L 28 26 Z"/>
-                  <path class="sand-bot" d="M 28 30 L 39 46 L 17 46 Z"/>
+                <svg viewBox="0 0 56 56" class="ic-magnifier-grid" aria-hidden="true">
+                  <line class="grid" x1="8" y1="18" x2="34" y2="18"/>
+                  <line class="grid" x1="8" y1="28" x2="34" y2="28"/>
+                  <line class="grid" x1="8" y1="38" x2="34" y2="38"/>
+                  <line class="grid" x1="14" y1="12" x2="14" y2="44"/>
+                  <line class="grid" x1="24" y1="12" x2="24" y2="44"/>
+                  <circle class="lens" cx="36" cy="36" r="10"/>
+                  <line class="handle" x1="43.5" y1="43.5" x2="50" y2="50"/>
                 </svg>
               </div>
               <h3 class="qcard-question">Veux-tu cartographier <strong>l'IA dans ton métier</strong>&nbsp;?</h3>
@@ -412,40 +416,40 @@ onUnmounted(() => {
 }
 .ic-soundwave .core { fill: currentColor; }
 
-/* ── Hourglass icon (carte 02) — sablier simple ────── */
-.ic-hourglass { width: 100%; height: 100%; }
-.ic-hourglass .frame {
+/* ── Magnifier-on-grid icon (carte 02) — recherche dans la liste ────── */
+.ic-magnifier-grid { width: 100%; height: 100%; }
+.ic-magnifier-grid .grid {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.35;
+}
+.ic-magnifier-grid .lens,
+.ic-magnifier-grid .handle {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.ic-hourglass .sand-top {
-  fill: currentColor;
+.ic-magnifier-grid .lens {
   transform-box: fill-box;
-  transform-origin: center top;
-  animation: sand-deplete 5s linear infinite;
+  transform-origin: center;
+  animation: lens-scan 4s ease-in-out infinite;
 }
-@keyframes sand-deplete {
-  0%, 5%  { transform: scaleY(1);    opacity: 1; }
-  85%     { transform: scaleY(0.02); opacity: 1; }
-  90%     { transform: scaleY(0);    opacity: 0; }
-  96%     { transform: scaleY(1);    opacity: 0; }
-  100%    { transform: scaleY(1);    opacity: 1; }
-}
-.ic-hourglass .sand-bot {
-  fill: currentColor;
+.ic-magnifier-grid .handle {
   transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: sand-fill 5s linear infinite;
+  transform-origin: top left;
+  animation: handle-scan 4s ease-in-out infinite;
 }
-@keyframes sand-fill {
-  0%, 5%  { transform: scaleY(0); opacity: 1; }
-  85%     { transform: scaleY(1); opacity: 1; }
-  90%     { transform: scaleY(1); opacity: 0; }
-  96%     { transform: scaleY(0); opacity: 0; }
-  100%    { transform: scaleY(0); opacity: 1; }
+@keyframes lens-scan {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-10px, -10px); }
+}
+@keyframes handle-scan {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-10px, -10px); }
 }
 
 /* ── Toolbox icon (carte 03) — outil qui émerge ────── */
@@ -547,8 +551,8 @@ onUnmounted(() => {
     opacity: 1 !important; animation: none !important;
   }
   .ic-soundwave .ring,
-  .ic-hourglass .sand-top,
-  .ic-hourglass .sand-bot,
+  .ic-magnifier-grid .lens,
+  .ic-magnifier-grid .handle,
   .ic-toolbox .tool,
   .ic-bricks .brick { animation: none !important; }
   .ic-bricks .brick { opacity: 1; transform: none; }
