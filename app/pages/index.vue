@@ -157,11 +157,6 @@ onUnmounted(() => {
 
     <SectionDivider />
 
-    <!-- ── SCANNER TEASER ─────────────────────────── -->
-    <div class="container">
-      <HomeDiagnosticTeaser @click="onHomeCta('scanner')" />
-    </div>
-
     <!-- ── MASTHEAD III — COMPÉTENCES ───────────── -->
     <HomeMasthead num="III" title="Compétences IA-proof" meta="Ce que les modèles ne savent pas faire" />
 
