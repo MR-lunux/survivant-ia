@@ -7,25 +7,40 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.456",
+    "@remotion/google-fonts": "4.0.456",
+    "@remotion/tailwind-v4": "4.0.456",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.456",
-    "@remotion/tailwind-v4": "4.0.456",
     "tailwindcss": "4.0.0"
   },
   "devDependencies": {
+    "@inquirer/prompts": "^7.10.1",
     "@remotion/eslint-config-flat": "4.0.456",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
+    "chokidar": "^4.0.3",
     "eslint": "9.19.0",
     "prettier": "3.8.1",
-    "typescript": "5.9.3"
+    "tsx": "^4.21.0",
+    "typescript": "5.9.3",
+    "vitest": "^2.1.9"
   },
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "render:rapport": "remotion render RapportTerminal out/_raw-rapport.mp4 --x264-preset=medium && npm run _post -- _raw-rapport.mp4 rapport-terminal.mp4",
+    "render:storytime": "remotion render Storytime out/_raw-storytime.mp4 --x264-preset=medium && npm run _post -- _raw-storytime.mp4 storytime.mp4",
+    "render:test": "remotion render TestDiagnostic out/_raw-test.mp4 --x264-preset=medium && npm run _post -- _raw-test.mp4 test-diagnostic.mp4",
+    "render:all": "npm run render:rapport && npm run render:storytime && npm run render:test",
+    "_post": "node scripts/post-encode.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "music:scaffold": "tsx scripts/music-scaffold.ts",
+    "music:dev": "tsx scripts/music-dev.ts",
+    "music:install": "node scripts/music-install.mjs"
   },
   "sideEffects": [
     "*.css"
