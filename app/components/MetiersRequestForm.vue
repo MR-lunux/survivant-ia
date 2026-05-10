@@ -195,7 +195,7 @@ async function submit() {
   margin: 0 0 24px;
 }
 
-.mr-form { display: flex; flex-direction: column; gap: 16px; }
+.mr-form { display: flex; flex-direction: column; gap: 16px; position: relative; }
 
 .mr-honeypot {
   position: absolute;
