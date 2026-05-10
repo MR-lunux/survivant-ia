@@ -14,7 +14,7 @@ export function checkDrift(score: Score, tsxSrc: string): string[] {
 
   // 1) Each Sequence start should have at least one beat within window.
   for (const seq of sequences) {
-    const close = score.beats.find(b => Math.abs(b.atFrame - seq.atFrame) <= WINDOW_FRAMES);
+    const close = score.beats.find(b => Math.abs(Math.round(b.atSec * score.fps) - seq.atFrame) <= WINDOW_FRAMES);
     if (!close) {
       warnings.push(
         `Sequence at frame ${seq.atFrame} in .tsx has no beat within ±${WINDOW_FRAMES} frames.`,
@@ -25,10 +25,11 @@ export function checkDrift(score: Score, tsxSrc: string): string[] {
   // 2) Each structural beat should map to a Sequence start within window.
   for (const beat of score.beats) {
     if (!STRUCTURAL_ROLES.has(beat.role)) continue;
-    const close = sequences.find(s => Math.abs(s.atFrame - beat.atFrame) <= WINDOW_FRAMES);
+    const beatFrame = Math.round(beat.atSec * score.fps);
+    const close = sequences.find(s => Math.abs(s.atFrame - beatFrame) <= WINDOW_FRAMES);
     if (!close) {
       warnings.push(
-        `Beat at frame ${beat.atFrame} (role=${beat.role}${beat.label ? `, label=${beat.label}` : ""}) has no <Sequence> within ±${WINDOW_FRAMES} frames.`,
+        `Beat at frame ${beatFrame} (role=${beat.role}${beat.label ? `, label=${beat.label}` : ""}) has no <Sequence> within ±${WINDOW_FRAMES} frames.`,
       );
     }
   }

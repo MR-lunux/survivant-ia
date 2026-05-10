@@ -6,12 +6,12 @@ import type { Score } from "./types";
 describe("generateStrudel", () => {
   const sampleScore: Score = {
     composition: "TestVid",
-    durationInFrames: 60,   // 2 seconds at 30fps — small for readable structs
+    durationSec: 2,         // 2 seconds — small for readable structs
     fps: 30,
     preset: "zimmer-tense",
     beats: [
-      { atFrame: 0,  role: "impact", intensity: "heavy", label: "open" },
-      { atFrame: 30, role: "drop",   intensity: "heavy", label: "close" },
+      { atSec: 0,  role: "impact", intensity: "heavy", label: "open" },
+      { atSec: 1,  role: "drop",   intensity: "heavy", label: "close" },
     ],
   };
 
@@ -23,7 +23,7 @@ describe("generateStrudel", () => {
 
   it("sets cps to match the total duration so 1 cycle = full video", () => {
     const out = generateStrudel(sampleScore);
-    // 60 frames @ 30fps = 2s, cps = 1/2 = 0.5
+    // 2 seconds → cps = 1/2 = 0.5
     expect(out).toMatch(/setcps\(0\.5/);
   });
 
@@ -42,8 +42,24 @@ describe("generateStrudel", () => {
 
   it("emits a struct that triggers each beat at its frame position", () => {
     const out = generateStrudel(sampleScore);
-    // Structs are space-separated tokens of length=durationInFrames
+    // Structs are space-separated tokens of length=durationSec*fps=60
     expect(out).toMatch(/struct\(`1 [~ ]+`\)/);
+  });
+
+  it("converts atSec to frame index using fps", () => {
+    const out = generateStrudel(sampleScore);
+    // The drop beat is at atSec=1, fps=30 → slot 30 should be "1"
+    // Structs are 60-slot patterns. Find the drop layer (uses bd:8 sub) and check slot 30.
+    const lines = out.split("\n");
+    const dropLine = lines.find(l => l.includes('"bd:8 sub"'));
+    expect(dropLine).toBeTruthy();
+    // Extract the struct content
+    const match = dropLine!.match(/struct\(`([^`]+)`\)/);
+    expect(match).toBeTruthy();
+    const slots = match![1].split(" ");
+    expect(slots.length).toBe(60); // 2s * 30fps = 60
+    expect(slots[30]).toBe("1");   // beat at atSec=1 lands at frame 30
+    expect(slots[0]).toBe("~");    // no drop at frame 0
   });
 
   it("throws on unknown preset", () => {

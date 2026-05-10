@@ -5,12 +5,12 @@ import type { Score } from "../../src/lib/score/types";
 
 const baseScore: Score = {
   composition: "Test",
-  durationInFrames: 600,
+  durationSec: 20,
   fps: 30,
   preset: "zimmer-tense",
   beats: [
-    { atFrame: 60, role: "impact", intensity: "heavy" },
-    { atFrame: 200, role: "accent", intensity: "medium", label: "word-level" },
+    { atSec: 2, role: "impact", intensity: "heavy" },
+    { atSec: 200 / 30, role: "accent", intensity: "medium", label: "word-level" },
   ],
 };
 
@@ -36,7 +36,7 @@ describe("checkDrift", () => {
     const score: Score = {
       ...baseScore,
       beats: [
-        { atFrame: 999, role: "drop", intensity: "heavy" },
+        { atSec: 999 / 30, role: "drop", intensity: "heavy" },
       ],
     };
     const tsxSrc = `<Sequence from={60} durationInFrames={140}>X</Sequence>`;
@@ -48,8 +48,8 @@ describe("checkDrift", () => {
     const score: Score = {
       ...baseScore,
       beats: [
-        { atFrame: 60, role: "impact", intensity: "heavy" },
-        { atFrame: 420, role: "accent", intensity: "soft", label: "word-level" },
+        { atSec: 2, role: "impact", intensity: "heavy" },
+        { atSec: 420 / 30, role: "accent", intensity: "soft", label: "word-level" },
       ],
     };
     const tsxSrc = `<Sequence from={60} durationInFrames={500}>X</Sequence>`;
