@@ -65,7 +65,7 @@ useHead({
           '@type': 'CollectionPage',
           '@id': 'https://survivant-ia.ch/metiers#page',
           name: 'Métiers couverts par Survivant-IA',
-          description: 'Les 196 métiers analysés par le Scanner IA, classés par secteur.',
+          description: 'Les 196 métiers analysés par Survivant-IA, classés par secteur.',
           url: 'https://survivant-ia.ch/metiers',
           inLanguage: 'fr-CH',
           isPartOf: { '@id': 'https://survivant-ia.ch/#website' },

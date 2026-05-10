@@ -24,6 +24,7 @@ async function brevoUpsertContact(opts: {
   apiKey: string
   listId: number
   attributes: Record<string, string>
+  updateEnabled: boolean
 }): Promise<{ ok: boolean; status: number; data: any }> {
   const res = await fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
@@ -35,7 +36,7 @@ async function brevoUpsertContact(opts: {
       email: opts.email,
       listIds: [opts.listId],
       attributes: opts.attributes,
-      updateEnabled: true,
+      updateEnabled: opts.updateEnabled,
     }),
   })
 
@@ -93,6 +94,7 @@ export default defineEventHandler(async (event) => {
       SOURCE: 'metier_request',
       REQUESTED_JOB: safeMetier,
     },
+    updateEnabled: true,
   })
 
   if (!waitlistRes.ok) {
@@ -107,6 +109,7 @@ export default defineEventHandler(async (event) => {
       apiKey: brevoApiKey,
       listId: Number(brevoListId),
       attributes: { SOURCE: 'metier_request' },
+      updateEnabled: false,
     })
     if (!newsletterRes.ok) {
       // La waitlist (#1) a réussi — on ne fait pas échouer le flow utilisateur

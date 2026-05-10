@@ -1,13 +1,13 @@
 # Survivant-IA
 
-> Survivant-IA aide les professionnels à ne pas se faire remplacer par l'IA — sans jargon, sans cours de Python. Une newsletter hebdomadaire gratuite (La Fréquence), un scanner de risque par métier, et des rapports terrain concrets.
+> Survivant-IA aide les professionnels à ne pas se faire remplacer par l'IA — sans jargon, sans cours de Python. Une newsletter hebdomadaire gratuite (La Fréquence), un diagnostic IA par métier (196 métiers analysés), et des rapports terrain concrets.
 
 Fondé par Mathieu Rerat (Deputy Head of IT, ex-PwC, Nestlé, Immopac). Basé en Suisse. En français.
 
 ## Pages principales
 
 - [Accueil](https://survivant-ia.ch/): Présentation du projet, manifeste, derniers rapports, newsletter
-- [Scanner IA](https://survivant-ia.ch/scanner): Outil gratuit — teste en 10 secondes le risque que l'IA remplace ton métier. 197 métiers couverts, score éditorial basé sur Tufts University, McKinsey, Goldman Sachs, WEF, LinkedIn.
+- [Métiers face à l'IA](https://survivant-ia.ch/metiers): Browse — 196 métiers analysés et classés par secteur. Chaque métier a son rapport (risque, leviers, sources). Score éditorial basé sur Tufts University, McKinsey, Goldman Sachs, WEF, LinkedIn.
 - [Rapports](https://survivant-ia.ch/rapports): Analyses terrain hebdomadaires sur l'IA et l'emploi, classées par catégorie (soft skills, comprendre l'IA, cas pratiques)
 - [La Fréquence](https://survivant-ia.ch/frequence): Newsletter gratuite — 1 rapport par semaine, 5 minutes de lecture, sans jargon
 - [Identité](https://survivant-ia.ch/identite): Qui est Mathieu Rerat, le fondateur, et pourquoi ce site existe
