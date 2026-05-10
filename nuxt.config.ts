@@ -50,7 +50,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { sitemap: { priority: 1.0, changefreq: 'weekly' } },
-    '/scanner': { sitemap: { priority: 0.9, changefreq: 'monthly' } },
+    '/scanner': { redirect: { to: '/metiers', statusCode: 301 } },
     '/scanner/**': { sitemap: { priority: 0.8, changefreq: 'monthly' } },
     '/metiers': { sitemap: { priority: 0.9, changefreq: 'monthly' } },
     '/rapports': { sitemap: { priority: 0.9, changefreq: 'weekly' } },
