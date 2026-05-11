@@ -36,7 +36,7 @@ const isHome = computed(() => route.path === '/')
 
 const socials = {
   linkedin: 'https://www.linkedin.com/in/mathieurerat',
-  instagram: 'https://www.instagram.com/survivant.ia/',
+  instagram: 'https://www.instagram.com/math.survivant.ia/',
   tiktok: 'https://www.tiktok.com/@survivant_ia',
   youtube: '',
 }
