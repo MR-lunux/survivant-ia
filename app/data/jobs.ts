@@ -33,7 +33,7 @@ export const JOBS: Job[] = [
   // (risque élevé, contraction réelle des effectifs)
 
   { slug: 'teleconseiller', label: 'Téléconseiller', risk: 78, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte. La réception d\'appels et la résolution des plaintes courantes sont gérées par des agents conversationnels à voix naturelle. Bascule vite vers superviseur IA ou rôle qualité — c\'est là que les centres de contact recrutent.',
+    dynamic: 'Ton métier se contracte. La réception d\'appels et la résolution des plaintes courantes sont gérées par des agents conversationnels à voix naturelle. Bascule vite vers superviseur IA ou rôle qualité : c\'est là que les centres de contact recrutent.',
     sources: [3], quadrant: 'pivotes', potential: 20, leviers: [
       'Bascule vers superviseur d\'agents IA — Apprends à monitorer et corriger les agents Zendesk AI ou Intercom AI. Les centres de contact recrutent ces profils maintenant, pas dans deux ans.',
       'Capitalise ton expertise escalade — Documente les typologies de cas que l\'IA rate : ambiguïté, détresse client, litige complexe. Ce catalogue fait de toi le référent qualité indispensable.',
@@ -49,7 +49,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'saisie-de-donnees', label: 'Agent de saisie de données', risk: 90, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte fort. La lecture de documents non structurés et leur saisie systémique sont résolues par l\'OCR cognitif et les LLM. Le WEF projette la suppression de 26 millions de ces postes — anticipe le pivot vers un rôle de supervision ou un secteur adjacent.',
+    dynamic: 'Ton métier se contracte fort. La lecture de documents non structurés et leur saisie systémique sont résolues par l\'OCR cognitif et les LLM. Le WEF projette la suppression de 26 millions de ces postes, anticipe le pivot vers un rôle de supervision ou un secteur adjacent.',
     sources: [3, 9], quadrant: 'pivotes', potential: 10, leviers: [
       'Pilote un outil d\'automatisation de saisie cette semaine — Teste Docsumo ou Nanonets sur tes propres documents. Comprendre l\'outil que tu vas superviser est ton ticket d\'entrée vers le rôle suivant.',
       'Repositionne-toi sur le contrôle qualité des flux IA — Les erreurs OCR et les champs mal extraits exigent une validation humaine. C\'est le poste qui résiste : superviseur de pipeline de données.',
@@ -57,7 +57,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'redacteur-web', label: 'Rédacteur web', risk: 76, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier mute. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Bascule vers la direction éditoriale, le personal branding ou le pilotage d\'agents IA — c\'est là que la valeur se reconstruit.',
+    dynamic: 'Ton métier mute. La rédaction de contenu web standardisé est massivement automatisée par les LLM. Bascule vers la direction éditoriale, le personal branding ou le pilotage d\'agents IA : c\'est là que la valeur se reconstruit.',
     sources: [1, 15, 17], quadrant: 'mutes', potential: 60, leviers: [
       'Intègre Claude ou ChatGPT dans ton workflow cette semaine — Utilise-les pour les premiers brouillons, toi tu interviens sur la voix, l\'angle et la structure. Documente ton gain de temps pour le négocier avec tes clients.',
       'Repositionne-toi en directeur éditorial — Tu ne produis plus du texte, tu valides, tu signes, tu définis la ligne. La supervision de contenu IA est le rôle qui monte dans toutes les rédactions.',
@@ -73,7 +73,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'correcteur', label: 'Correcteur / Relecteur', risk: 85, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte. Correction orthographique, grammaticale, formatage stylistique : l\'IA exécute avec une constance supérieure. Les postes de relecture traditionnels se raréfient — pivote vers l\'édition éditoriale ou la révision de contenu généré par IA.',
+    dynamic: 'Ton métier se contracte. Correction orthographique, grammaticale, formatage stylistique : l\'IA exécute avec une constance supérieure. Les postes de relecture traditionnels se raréfient, pivote vers l\'édition éditoriale ou la révision de contenu généré par IA.',
     sources: [1], quadrant: 'pivotes', potential: 20, leviers: [
       'Deviens réviseur de contenus IA — Utilise Hemingway Editor + Claude pour comparer sorties brutes et corrections humaines. Le marché de la validation de contenu IA est en train de naître.',
       'Pivote vers l\'édition de fond — Restructuration narrative, cohérence argumentaire, style de marque : ce que l\'IA ne sait pas encore faire. Repositionne ton offre sur la valeur éditoriale, pas la correction technique.',
@@ -81,7 +81,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'transcripteur', label: 'Transcripteur', risk: 88, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte fort. La transcription audio→texte et la synthèse de réunions sont des fonctionnalités natives gratuites des outils bureautiques. Le marché indépendant est quasi inexistant — bascule vers un secteur adjacent sans attendre.',
+    dynamic: 'Ton métier se contracte fort. La transcription audio→texte et la synthèse de réunions sont des fonctionnalités natives gratuites des outils bureautiques. Le marché indépendant est quasi inexistant, bascule vers un secteur adjacent sans attendre.',
     sources: [3], quadrant: 'pivotes', potential: 10, leviers: [
       'Bascule vers la post-édition de transcriptions IA — Whisper et Otter font 90% du travail. Le marché qui reste : la correction de précision sur audio difficile (réunions techniques, accents, jargon sectoriel).',
       'Pivote vers l\'analyse qualitative — Synthèse de focus groups, entretiens de recherche, codage thématique. L\'IA fait le brouillon, tu apportes le sens et la rigueur méthodologique.',
@@ -89,7 +89,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'comptable', label: 'Comptable', risk: 72, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier mute. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Tu pivotes vers le conseil stratégique et l\'audit IA — c\'est là que ton expertise comptable devient irremplaçable.',
+    dynamic: 'Ton métier mute. Audit de base, rapprochement bancaire, détection de fraudes simples, tenue de livres : tout est automatisé. Tu pivotes vers le conseil stratégique et l\'audit IA : c\'est là que ton expertise comptable devient irremplaçable.',
     sources: [1, 7], quadrant: 'mutes', potential: 75, leviers: [
       'Automatise tes rapprochements bancaires avec un agent — Connecte Pennylane ou Dext à Claude pour catégoriser les transactions et flagguer les anomalies. Gain : 4 à 6 heures par semaine.',
       'Repositionne-toi sur l\'audit, pas la production — L\'IA produit les comptes, toi tu valides, tu signes, tu portes la responsabilité ordinale. C\'est là que ton expertise devient irremplaçable.',
@@ -97,7 +97,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'analyste-credit', label: 'Analyste crédit', risk: 70, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier mute. Le scoring crédit, l\'analyse des bilans et l\'évaluation du risque de défaut sont automatisés. Tu te repositionnes sur les dossiers complexes, la relation corporate et le conseil en structuration — là où le jugement humain prime.',
+    dynamic: 'Ton métier mute. Le scoring crédit, l\'analyse des bilans et l\'évaluation du risque de défaut sont automatisés. Tu te repositionnes sur les dossiers complexes, la relation corporate et le conseil en structuration, là où le jugement humain prime.',
     sources: [7], quadrant: 'mutes', potential: 60, leviers: [
       'Utilise Claude pour synthétiser tes dossiers complexes — Colle les bilans et rapports dans Claude, génère une synthèse de risque en 2 minutes. Libère ton temps pour les analyses à forte valeur.',
       'Deviens l\'expert des dossiers que l\'IA refuse — Restructurations, crédits syndiqués, contreparties atypiques : ton jugement humain et ta connaissance sectorielle sont irremplaçables sur ces cas.',
@@ -105,7 +105,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'analyste-marketing', label: 'Analyste études de marché', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier mute. Les LLM excellent à digérer des téraoctets de données qualitatives et à rédiger des rapports stratégiques. Tu pilotes les agents, questionnes les hypothèses et transformes l\'analyse en décision — c\'est ça ton levier.',
+    dynamic: 'Ton métier mute. Les LLM excellent à digérer des téraoctets de données qualitatives et à rédiger des rapports stratégiques. Tu pilotes les agents, questionnes les hypothèses et transformes l\'analyse en décision : c\'est ça ton levier.',
     sources: [1], quadrant: 'mutes', potential: 70, leviers: [
       'Pilote Perplexity + Claude pour tes études de marché — Utilise Perplexity pour le desk research, Claude pour synthétiser et structurer. Divise par 3 ton temps de production, triple ton impact stratégique.',
       'Deviens l\'interprète critique, pas le producteur — Les rapports IA se ressemblent tous. Ta valeur : les hypothèses que personne n\'a posées, les biais des données, la décision actionnable. Recentre ton offre sur ça.',
@@ -113,7 +113,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'assistant-juridique', label: 'Assistant juridique', risk: 72, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier mute vite. La revue contractuelle, la recherche jurisprudentielle et les notes de premier niveau sont automatisées. Mute maintenant vers le conseil stratégique et la supervision des outils IA juridiques — avant que la fenêtre se ferme.',
+    dynamic: 'Ton métier mute vite. La revue contractuelle, la recherche jurisprudentielle et les notes de premier niveau sont automatisées. Mute maintenant vers le conseil stratégique et la supervision des outils IA juridiques, avant que la fenêtre se ferme.',
     sources: [7], quadrant: 'mutes', potential: 55, leviers: [
       'Intègre Claude pour la revue contractuelle dès cette semaine — Utilise Claude pour une première passe sur les contrats, toi tu valides et annotas les risques. Gagne 2 à 3 heures par dossier.',
       'Repositionne-toi sur la supervision IA juridique — Lexbase et Doctrine sont tes outils de vérification. Ta valeur n\'est plus dans la recherche, elle est dans la validation critique et la stratégie d\'argumentation.',
@@ -129,7 +129,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'assistant-administratif', label: 'Assistant administratif', risk: 73, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Gestion d\'agendas, priorisation des courriels, préparation de réunions : confiés à des agents virtuels. Le WEF anticipe 19 millions de postes administratifs en moins — anticipe le pivot avant que ça te rattrape.',
+    dynamic: 'Ton métier se contracte. Gestion d\'agendas, priorisation des courriels, préparation de réunions : confiés à des agents virtuels. Le WEF anticipe 19 millions de postes administratifs en moins, anticipe le pivot avant que ça te rattrape.',
     sources: [3, 9], quadrant: 'pivotes', potential: 25, leviers: [
       'Automatise tes tâches récurrentes avec Notion AI ou ChatGPT — Délègue-leur la rédaction de comptes-rendus, résumés de mails et ordres du jour. Montre que tu gères plus avec moins de temps.',
       'Pivote vers office manager ou coordinateur projet — Ces rôles intègrent la gestion opérationnelle, la relation fournisseurs et l\'organisation d\'événements : ils résistent mieux et recrutent.',
@@ -137,7 +137,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'receptionniste', label: 'Réceptionniste', risk: 80, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte. Filtrage d\'appels, prise de rendez-vous et accueil informationnel sont gérés par des agents 24/7. Le marché qui reste est l\'accueil physique haut de gamme — c\'est là que tu te repositionnes.',
+    dynamic: 'Ton métier se contracte. Filtrage d\'appels, prise de rendez-vous et accueil informationnel sont gérés par des agents 24/7. Le marché qui reste est l\'accueil physique haut de gamme : c\'est là que tu te repositionnes.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
       'Prends en main le CRM ou le logiciel de gestion de ton structure — Deviens la référente sur l\'outil de planification. Ceux qui maîtrisent le back-office résistent mieux que ceux qui n\'accueillent qu\'en face à face.',
       'Repositionne-toi sur l\'accueil expérientiel haut de gamme — Hôtellerie 4-5 étoiles, cliniques privées, sièges de grands groupes : ces secteurs paient pour la présence humaine différenciante, pas pour la gestion d\'appels.',
@@ -145,7 +145,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'standardiste', label: 'Standardiste', risk: 83, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte fort. La gestion d\'appels entrants et leur routage sont des fonctions natives des PBX cloud modernes. Le poste humain a quasiment disparu des grandes structures — bascule vers un secteur adjacent sans attendre.',
+    dynamic: 'Ton métier se contracte fort. La gestion d\'appels entrants et leur routage sont des fonctions natives des PBX cloud modernes. Le poste humain a quasiment disparu des grandes structures, bascule vers un secteur adjacent sans attendre.',
     sources: [3], quadrant: 'pivotes', potential: 15, leviers: [
       'Documente tes connaissances de l\'entreprise avant de partir — Procédures, contacts clés, cas fréquents : transforme ce savoir tacite en base documentaire avec Notion. C\'est ton capital pour négocier ton évolution interne.',
       'Pivote vers un rôle administratif ou coordination — Assistanat polyvalent, gestion de planning, back-office client : ces postes recrutent ton profil relationnel et organisationnel. Vise une spécialisation sectorielle.',
@@ -153,7 +153,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'agent-assurance', label: 'Agent d\'assurance', risk: 74, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Souscription standardisée, calcul de primes, traitement de sinistres simples : automatisés. Concentre-toi sur les contrats complexes et la relation patrimoniale — c\'est le terrain qui reste humain.',
+    dynamic: 'Ton métier se contracte. Souscription standardisée, calcul de primes, traitement de sinistres simples : automatisés. Concentre-toi sur les contrats complexes et la relation patrimoniale, c\'est le terrain qui reste humain.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
       'Utilise Claude pour préparer tes entretiens client — Synthèse du dossier, points de vigilance réglementaires, comparatif contrats : 15 minutes de prep IA remplacent 2 heures de travail manuel. Consacre ce temps à la relation.',
       'Pivote vers les risques complexes et la prévoyance patrimoniale — Assurances professionnelles, risques spéciaux, prévoyance chef d\'entreprise : des segments que les comparateurs en ligne ne savent pas vendre.',
@@ -185,7 +185,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'caissier', label: 'Caissier', risk: 78, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Bornes self-checkout, paiement mobile, scan-and-go : la grande distribution réduit massivement ses effectifs caissiers. Bascule vers des rôles à valeur relationnelle — conseil rayon, gestion stocks, accueil client.',
+    dynamic: 'Ton métier se contracte. Bornes self-checkout, paiement mobile, scan-and-go : la grande distribution réduit massivement ses effectifs caissiers. Bascule vers des rôles à valeur relationnelle, conseil rayon, gestion stocks, accueil client.',
     sources: [9], quadrant: 'pivotes', potential: 20, leviers: [
       'Demande à monter en compétence sur la gestion des stocks ou le rayon — Ces rôles sont moins menacés et permettent un glissement naturel depuis la caisse. L\'initiative interne est ta meilleure carte.',
       'Pivote vers un rôle client à plus forte valeur — Conseiller de vente, hôte/hôtesse de service client, animateur rayon : ces postes recrutent ton profil relationnel dans la distribution spécialisée et le commerce indépendant.',
@@ -193,7 +193,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'agent-recouvrement', label: 'Agent de recouvrement', risk: 80, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier se contracte. La relance multicanale automatisée et le scoring IA rendent le travail d\'appel humain non rentable. Pivote vers la négociation à l\'amiable sur dossiers complexes — c\'est le seul segment qui résiste.',
+    dynamic: 'Ton métier se contracte. La relance multicanale automatisée et le scoring IA rendent le travail d\'appel humain non rentable. Pivote vers la négociation à l\'amiable sur dossiers complexes : c\'est le seul segment qui résiste.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
       'Utilise Claude pour préparer tes dossiers de négociation — Synthèse du profil débiteur, historique de paiements, simulation de plans d\'étalement. 10 minutes de prep IA pour une conversation plus efficace.',
       'Repositionne-toi sur les dossiers complexes et les plans amiables — Restructurations de dettes, négociation avec débiteurs pro, médiation : l\'IA ne négocie pas. C\'est ton terrain de résistance.',
@@ -201,7 +201,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'employe-banque', label: 'Employé de banque / Guichetier', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. La digitalisation et les conseillers virtuels suppriment le guichet physique. Les agences ferment — bascule vers un rôle relationnel senior ou vers la gestion de patrimoine avant que le poste standard disparaisse.',
+    dynamic: 'Ton métier se contracte. La digitalisation et les conseillers virtuels suppriment le guichet physique. Les agences ferment, bascule vers un rôle relationnel senior ou vers la gestion de patrimoine avant que le poste standard disparaisse.',
     sources: [20], quadrant: 'pivotes', potential: 25, leviers: [
       'Prends l\'initiative de maîtriser les outils digitaux de ta banque — Simulateurs, plateformes de conseil en ligne, espaces clients : être la référente interne sur ces outils te positionne pour un glissement vers conseillère.',
       'Pivote vers conseiller de clientèle particuliers ou professionnels — Le guichet ferme, le conseil senior reste. Parle à ton manager de ta progression interne avant que la décision soit prise pour toi.',
@@ -209,7 +209,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'specialiste-rp', label: 'Spécialiste relations publiques', risk: 37, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Communiqués de presse, ciblage médiatique, veille réputationnelle : délégués à l\'IA. Les effectifs juniors en agence fondent — pivote vers la stratégie relationnelle et la gestion de crise, là où l\'IA ne décide pas.',
+    dynamic: 'Ton métier se contracte. Communiqués de presse, ciblage médiatique, veille réputationnelle : délégués à l\'IA. Les effectifs juniors en agence fondent, pivote vers la stratégie relationnelle et la gestion de crise, là où l\'IA ne décide pas.',
     sources: [1], quadrant: 'pivotes', potential: 25, leviers: [
       'Utilise Perplexity et Claude pour ta veille réputationnelle — Automatise le monitoring et la synthèse des mentions presse. Libère 3 à 4 heures par semaine pour la relation journaliste et la stratégie.',
       'Repositionne-toi sur la gestion de crise et le conseil senior — La communication de crise, la réputation de dirigeant et les relations institutionnelles complexes exigent un jugement humain. C\'est là que la valeur reste.',
@@ -217,7 +217,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'editeur-reviseur', label: 'Éditeur / Réviseur', risk: 54, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Correction, formatage stylistique et synthèse linguistique sont exécutés par l\'IA. Les postes de révision standards reculent — bascule vers l\'édition de fond, la direction littéraire ou la révision de contenu IA.',
+    dynamic: 'Ton métier se contracte. Correction, formatage stylistique et synthèse linguistique sont exécutés par l\'IA. Les postes de révision standards reculent, bascule vers l\'édition de fond, la direction littéraire ou la révision de contenu IA.',
     sources: [1], quadrant: 'pivotes', potential: 25, leviers: [
       'Bascule vers la révision de contenus générés par IA — Les entreprises produisent massivement avec Claude ou ChatGPT et cherchent des éditeurs humains pour la validation finale. Propose ce service avant que le marché soit saturé.',
       'Pivote vers la direction éditoriale — Ligne éditoriale, sélection des sujets, cohérence de la voix de marque : l\'IA ne décide pas de la stratégie éditoriale. C\'est le poste qui monte dans les rédactions numériques.',
@@ -225,7 +225,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'redacteur-technique', label: 'Rédacteur technique', risk: 42, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Documentation de code et manuels d\'utilisation sont extraits automatiquement par l\'IA depuis les dépôts source. Pivote vers la documentation stratégique, l\'UX writing ou la formation — là où le contexte humain compte.',
+    dynamic: 'Ton métier se contracte. Documentation de code et manuels d\'utilisation sont extraits automatiquement par l\'IA depuis les dépôts source. Pivote vers la documentation stratégique, l\'UX writing ou la formation, là où le contexte humain compte.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
       'Intègre GitHub Copilot dans ton workflow de documentation — Génère les premières ébauches depuis le code source, toi tu restructures, contextualises et adaptes au lecteur. Gagne du temps, déplace ta valeur vers l\'architecture de l\'information.',
       'Pivote vers l\'UX writing et la documentation produit — Microcopy, messages d\'erreur, onboarding utilisateur : ces rôles sont en croissance dans les équipes produit et recrutent des profils tech + écrit.',
@@ -960,7 +960,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'auditeur', label: 'Auditeur financier', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier mute. Tests de procédures, échantillonnage et revue documentaire : automatisés à 80%. Les Big 4 réduisent leurs effectifs juniors. Mute vers le jugement professionnel, l\'audit IA et la relation client senior — c\'est là que tu tiens.',
+    dynamic: 'Ton métier mute. Tests de procédures, échantillonnage et revue documentaire : automatisés à 80%. Les Big 4 réduisent leurs effectifs juniors. Mute vers le jugement professionnel, l\'audit IA et la relation client senior : c\'est là que tu tiens.',
     sources: [7], quadrant: 'mutes', potential: 70, leviers: [
       'Intègre Claude dans tes revues documentaires — Colle les contrats, procès-verbaux et annexes dans Claude pour une première passe de risques. Tu concentres ton jugement sur les points d\'attention identifiés, pas sur la lecture exhaustive.',
       'Repositionne-toi sur l\'audit des systèmes IA — Les entreprises déploient des IA de gestion sans protocole de contrôle. L\'auditeur capable de challenger les modèles IA et leurs biais est une compétence rare et très demandée dans les Big 4.',
@@ -968,7 +968,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'chargee-clientele', label: 'Chargé(e) de clientèle', risk: 60, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier mute. Conseil transactionnel basique, ouverture de compte et mise à jour de dossiers sont automatisés. Pivote vers le conseil patrimonial et la gestion de relation client complexe — là où la banque de détail investit encore.',
+    dynamic: 'Ton métier mute. Conseil transactionnel basique, ouverture de compte et mise à jour de dossiers sont automatisés. Pivote vers le conseil patrimonial et la gestion de relation client complexe, là où la banque de détail investit encore.',
     sources: [3], quadrant: 'mutes', potential: 55, leviers: [
       'Utilise Claude pour préparer chaque entretien client en 5 minutes — Synthèse du portefeuille, alertes sur les contrats arrivant à terme, opportunités de conseil : l\'IA fait le diagnostic, toi tu fais la relation.',
       'Monte vers le conseil patrimonial — Épargne, retraite, transmission : ces sujets exigent écoute, adaptation et confiance. Demande à ton manager un portefeuille de clients premium et les outils qui vont avec.',
@@ -984,7 +984,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'documentaliste', label: 'Documentaliste', risk: 70, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Indexation, classement et recherche documentaire sont des fonctions natives des LLM. Le marché se resserre sur les contextes spécialisés — droit, médecine, archives — bascule vers ces niches sans attendre.',
+    dynamic: 'Ton métier se contracte. Indexation, classement et recherche documentaire sont des fonctions natives des LLM. Le marché se resserre sur les contextes spécialisés, droit, médecine, archives, bascule vers ces niches sans attendre.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
       'Pilote un outil de RAG (recherche augmentée) sur ta base documentaire — Teste Notion AI ou un outil de knowledge management interne pour créer un assistant documentaire. Être celui qui a construit le système te met à l\'abri.',
       'Pivote vers la gouvernance et la qualité de l\'information — Taxonomie, métadonnées, politique d\'archivage, conformité réglementaire : ces fonctions de pilotage stratégique de l\'information résistent à l\'automatisation.',
@@ -1034,7 +1034,7 @@ export const JOBS: Job[] = [
   // ── COMMUNICATION & MARKETING ──────────────────────────
 
   { slug: 'redacteur-publicitaire', label: 'Rédacteur publicitaire / Copywriter', risk: 70, horizon: 2, status: 'danger',
-    dynamic: 'Ton métier mute. La production de copies, slogans et A/B variants est devenue triviale pour les LLM. Tu pilotes les agents, tu crées la stratégie et la signature — ou tu becomes le prestataire le moins cher. Le choix est maintenant.',
+    dynamic: 'Ton métier mute. La production de copies, slogans et A/B variants est devenue triviale pour les LLM. Tu pilotes les agents, tu crées la stratégie et la signature, ou tu becomes le prestataire le moins cher. Le choix est maintenant.',
     sources: [1], quadrant: 'mutes', potential: 60, leviers: [
       'Construis ton workflow IA de production de copies — Claude pour les variants, toi pour la voix, l\'angle et le brief stratégique. Documente ton process et propose-le à tes clients comme une offre de volume augmenté.',
       'Repositionne-toi sur la stratégie de message et la direction créative — Le brief créatif, l\'architecture de marque, la hiérarchie des messages : l\'IA exécute, toi tu décides quoi dire et pourquoi. C\'est là que la valeur se reconstruit.',
@@ -1287,7 +1287,7 @@ export const JOBS: Job[] = [
     ], secteur: 'cognitif-admin-finance-juridique' },
 
   { slug: 'assistant-direction', label: 'Assistant de direction', risk: 62, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Bascule vers les postes proches du pouvoir exécutif où la confiance et la discrétion priment — c\'est le seul terrain solide.',
+    dynamic: 'Ton métier se contracte. Gestion d\'agendas, préparation de réunions, suivi de courriels : confiés à des agents virtuels. Bascule vers les postes proches du pouvoir exécutif où la confiance et la discrétion priment : c\'est le seul terrain solide.',
     sources: [3], quadrant: 'pivotes', potential: 30, leviers: [
       'Bascule sur le rôle Chief of Staff ou Office Manager senior — La confiance, la discrétion et la coordination stratégique restent humaines. Vise les structures où tu deviens le bras droit, pas l\'exécutant.',
       'Apprends le prompt engineering en 10h — DeepLearning.AI gratuit + Anthropic Academy. Compétence portable qui te rend précieuse face aux agents IA, plutôt que substituable par eux.',
@@ -1415,7 +1415,7 @@ export const JOBS: Job[] = [
     ], secteur: 'sciences-ingenierie' },
 
   { slug: 'agent-de-voyage', label: 'Agent de voyage', risk: 65, horizon: 5, status: 'danger',
-    dynamic: 'Ton métier se contracte. La réservation autonome, les agents IA et les comparateurs ont absorbé le métier généraliste. Bascule vers le voyage de niche — luxe, affaires complexes, aventure — c\'est là que la valeur humaine reste.',
+    dynamic: 'Ton métier se contracte. La réservation autonome, les agents IA et les comparateurs ont absorbé le métier généraliste. Bascule vers le voyage de niche, luxe, affaires complexes, aventure, c\'est là que la valeur humaine reste.',
     sources: [3], quadrant: 'pivotes', potential: 25, leviers: [
       'Utilise ChatGPT pour créer des itinéraires sur mesure ultra-personnalisés — Client brief en 10 minutes, programme complet sur 14 jours en 30 minutes. Tu fais en une heure ce que le client ne trouvera pas sur Booking.',
       'Repositionne-toi sur le voyage B2B complexe ou le luxe — Séminaires d\'entreprise, luna de miel, safaris : ce que l\'IA ne peut pas garantir c\'est la relation de confiance et la gestion de crise sur le terrain. C\'est ton terrain.',
