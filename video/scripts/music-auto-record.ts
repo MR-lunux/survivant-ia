@@ -13,8 +13,15 @@
 //
 // One-time setup:
 //   brew install --cask blackhole-2ch       # virtual audio device
-//   brew install switchaudio-osx            # CLI to switch system output
 //   sudo killall coreaudiod                 # force-load BlackHole driver
+//
+//   Then in /Applications/Utilities/Audio MIDI Setup.app:
+//     + → Create Multi-Output Device → tick "BlackHole 2ch" AND your
+//     normal output (e.g. MacBook Pro Speakers). Right-click the new
+//     Multi-Output → "Use This Device For Sound Output".
+//
+//   This routes ALL system audio to both speakers (you hear) AND
+//   BlackHole (we record). Set-and-forget.
 //
 // Per-session prerequisite:
 //   The strudel-claude tab MUST be open in your browser (any tab on
@@ -81,12 +88,12 @@ async function findBlackHoleIndex(): Promise<number> {
 }
 
 async function getCurrentOutputDevice(): Promise<string> {
-  const { stdout } = await runFile("SwitchAudioSource", ["-c", "-t", "output"]);
-  return stdout.trim();
-}
-
-async function setOutputDevice(name: string): Promise<void> {
-  await runFile("SwitchAudioSource", ["-s", name, "-t", "output"]);
+  try {
+    const { stdout } = await runFile("SwitchAudioSource", ["-c", "-t", "output"]);
+    return stdout.trim();
+  } catch {
+    return "(unknown)";
+  }
 }
 
 async function checkStrudelClaude(): Promise<boolean> {
@@ -156,33 +163,42 @@ async function main() {
   }
   console.log(`✓ strudel-claude on ${STRUDEL_URL}`);
 
-  // 3. Save current output, install cleanup handlers
-  const originalOutput = await getCurrentOutputDevice();
-  console.log(`✓ Saved current output: ${originalOutput}`);
+  // 3. Audio routing sanity check
+  //
+  // Strategy: we do NOT switch the system output device. Chrome's AudioContext
+  // is bound to the device that was active when the user first clicked in the
+  // strudel-claude tab. Switching the system default mid-session does not
+  // redirect existing audio streams. So we require the user to have configured
+  // a Multi-Output Device (or set output directly to BlackHole) before
+  // running this script. We warn if the current output looks wrong.
+  const currentOutput = await getCurrentOutputDevice();
+  const outputLooksWrong =
+    !/blackhole/i.test(currentOutput) &&
+    !/multi-output/i.test(currentOutput);
+  if (outputLooksWrong) {
+    console.warn(`⚠ Current system output: "${currentOutput}"`);
+    console.warn("  This is not BlackHole or a Multi-Output Device.");
+    console.warn("  The recording will likely capture silence.");
+    console.warn("  See scripts/music-auto-record.ts header for setup steps.");
+    console.warn("  Proceeding anyway (post-record check will catch silence)...\n");
+  } else {
+    console.log(`✓ System output: ${currentOutput}`);
+  }
 
   let cleanedUp = false;
   const cleanup = async (reason: string) => {
     if (cleanedUp) return;
     cleanedUp = true;
-    console.log(`\n› cleanup (${reason})`);
-    await postStop();
-    try {
-      await setOutputDevice(originalOutput);
-      console.log(`  ✓ Restored output → ${originalOutput}`);
-    } catch (err) {
-      console.error(`  ✗ Couldn't restore output: ${(err as Error).message}`);
-      console.error(`    Manually: System Settings → Sound → Output → "${originalOutput}"`);
+    if (reason !== "done") {
+      console.log(`\n› cleanup (${reason})`);
+      await postStop();
     }
   };
   process.on("SIGINT", async () => { await cleanup("SIGINT"); process.exit(130); });
   process.on("SIGTERM", async () => { await cleanup("SIGTERM"); process.exit(143); });
 
   try {
-    // 4. Switch output to BlackHole
-    await setOutputDevice("BlackHole 2ch");
-    console.log("✓ Output → BlackHole 2ch");
-
-    // 5. Load score, generate Strudel, push
+    // 4. Load score, generate Strudel, push
     const score = await loadScore(scorePath);
     const code = generateStrudel(score);
     await postCode(code);
@@ -233,9 +249,39 @@ async function main() {
     }
     console.log("✓ ffmpeg done");
 
-    // 10. Trim leading silence + convert to MP3
-    //   silenceremove trims silence at start below -50dB lasting 50ms+
-    //   -t keeps exactly durationSec of audio after the trim
+    // 10. Sanity check: did we actually capture audio?
+    //   Run volumedetect on the raw WAV and parse mean_volume in dB.
+    //   Anything <= -75 dB is effectively silence (BlackHole receiving nothing).
+    let meanDb = NaN;
+    try {
+      const { stderr } = await runFile("ffmpeg", [
+        "-hide_banner",
+        "-i", tmpWav,
+        "-af", "volumedetect",
+        "-f", "null", "-",
+      ]).catch(e => e as { stderr: string });
+      const m = stderr.match(/mean_volume:\s*(-?[\d.]+)\s*dB/);
+      if (m) meanDb = Number(m[1]);
+    } catch { /* fall through */ }
+    if (!isFinite(meanDb) || meanDb < -75) {
+      unlinkSync(tmpWav);
+      console.error(`\n✗ Captured silence (mean ${isFinite(meanDb) ? meanDb.toFixed(1) : "?"} dB).`);
+      console.error("  strudel-claude's audio isn't reaching BlackHole. Most likely:");
+      console.error("    - System output is not BlackHole or a Multi-Output Device that includes it");
+      console.error("    - OR Chrome's AudioContext was bound to a different device before you switched");
+      console.error("  Fix:");
+      console.error("    1. Open /Applications/Utilities/Audio MIDI Setup.app");
+      console.error("    2. Create a Multi-Output Device that includes BlackHole 2ch + your speakers");
+      console.error("    3. Right-click that device → Use This Device For Sound Output");
+      console.error("    4. Reload the strudel-claude tab in your browser, click in the page once");
+      console.error("    5. Re-run music:auto-record");
+      throw new Error("recording empty");
+    }
+    console.log(`✓ Captured audio (mean ${meanDb.toFixed(1)} dB)`);
+
+    // 11. Trim leading silence + convert to MP3
+    //   silenceremove trims start below -50 dB lasting ≥ 50 ms.
+    //   -t keeps exactly durationSec of audio after the trim.
     const outMp3 = join(audioDir, `${kebab(composition)}.mp3`);
     await runFile("ffmpeg", [
       "-hide_banner",
@@ -252,7 +298,6 @@ async function main() {
     console.log(`✓ MP3 written → ${outMp3}`);
     unlinkSync(tmpWav);
 
-    // 11. Restore output device
     await cleanup("done");
 
     const kebabName = kebab(composition);

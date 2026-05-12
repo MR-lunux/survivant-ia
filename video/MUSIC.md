@@ -172,7 +172,23 @@ npm run dev
 
 #### Option A — Auto-record (recommandée, zéro clic)
 
-**Prérequis one-time** : `brew install --cask blackhole-2ch && brew install switchaudio-osx && sudo killall coreaudiod`
+**Prérequis one-time** (≈3 min) :
+
+1. **Installer BlackHole** (driver audio virtuel) :
+   ```bash
+   brew install --cask blackhole-2ch
+   sudo killall coreaudiod    # force-load le driver
+   ```
+
+2. **Créer un Multi-Output Device** dans Audio MIDI Setup (manuel, ≈30s) :
+   - Ouvre `/Applications/Utilities/Audio MIDI Setup.app`
+   - Clic sur **+** en bas à gauche → **Create Multi-Output Device**
+   - Coche **BlackHole 2ch** ET ton output normal (Speakers / AirPods)
+   - Clic-droit sur l'entrée "Multi-Output Device" → **Use This Device For Sound Output**
+
+   Maintenant tout le son macOS va aux **deux** sorties simultanément. Tu entends + on capte. Set-and-forget.
+
+3. (Optionnel) `brew install switchaudio-osx` — utilisé pour détecter ton output device courant en sanity-check.
 
 **Prérequis par session** : le tab strudel-claude doit être ouvert dans ton browser et avoir reçu au moins un clic (n'importe où dans la page) pour unlock l'AudioContext.
 
@@ -184,15 +200,14 @@ npm run music:auto-record -- <NomDeLaVideo>
 ```
 
 Le script :
-1. Sauve ton output audio actuel (Built-in, AirPods, etc.)
-2. Switch l'output système sur `BlackHole 2ch` (le son ne sort plus des speakers)
-3. Push le code Strudel à strudel-claude, lance la lecture
-4. ffmpeg capture la durée totale + 2s de buffer
+1. Vérifie BlackHole détecté + ton output courant (warn si pas BlackHole / Multi-Output)
+2. Push le code Strudel à strudel-claude, lance la lecture
+3. ffmpeg capture la durée totale + 2s de buffer
+4. Sanity check loudness (warn-then-abort si silence < -75dB)
 5. Trim le silence de tête, convertit en MP3 192k 48kHz stéréo
 6. Place dans `public/audio/<nom-kebab>.mp3`
-7. Restaure ton output audio d'origine
 
-Tu fais autre chose pendant ce temps — pas de clic, pas de WAV à télécharger manuellement.
+Tu peux faire autre chose pendant ce temps — pas de clic.
 
 #### Option B — Record manuel (fallback)
 
