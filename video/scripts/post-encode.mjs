@@ -1,7 +1,11 @@
 // Post-process : convertit le mp4 sorti par Remotion (profil High, parfois yuvj420p
 // ou color_range pc) en H.264 Constrained Baseline + yuv420p TV-range +faststart.
-// Si Remotion a embarqué une piste audio (via <Audio>), on la ré-encode en AAC 192k.
 // Garantit la lecture sur QuickTime, iOS, TikTok upload, anciens téléphones.
+//
+// Audio : ré-encode en AAC 192k (les vidéos embarquent une piste musique via
+// <Audio> dans le composant Remotion). Si tu retires `<Audio>` d'une vidéo,
+// Remotion peut produire une piste AAC silencieuse qui faisait freeze
+// QuickTime — auquel cas remplace `-c:a aac` par `-an`.
 //
 // Usage : node scripts/post-encode.mjs <input-name-in-out> <output-name-in-out>
 
@@ -39,6 +43,9 @@ try {
     "-profile:v", "baseline",
     "-level", "4.0",
     "-pix_fmt", "yuv420p",
+    // Inscrit les flags couleur DANS le bitstream H.264 (pas seulement le
+    // container). Sans ça, QuickTime / Quick Look macOS refuse parfois.
+    "-x264-params", "colorprim=bt709:transfer=bt709:colormatrix=bt709",
     "-colorspace", "bt709",
     "-color_primaries", "bt709",
     "-color_trc", "bt709",
@@ -46,6 +53,7 @@ try {
     "-crf", "22",
     "-preset", "medium",
     "-movflags", "+faststart",
+    "-brand", "mp42",
     "-c:a", "aac",
     "-b:a", "192k",
     outPath,
