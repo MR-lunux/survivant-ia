@@ -168,26 +168,48 @@ npm run dev
 # ouvre http://localhost:3000, scrubbe la timeline
 ```
 
-### Étape 6 — Recorder le WAV
+### Étape 6 — Recorder le WAV (2 options)
 
-Quand le code Strudel sonne juste, dans le browser strudel-claude (`http://localhost:3010`) :
+#### Option A — Auto-record (recommandée, zéro clic)
 
-1. Cherche le bouton **[● REC]** (en haut de l'interface)
-2. Clique pour démarrer
-3. Laisse tourner ≥ la durée totale de ta vidéo (ex: 30s pour RapportTerminal)
-4. Clique pour arrêter
-5. Le WAV est téléchargé automatiquement par le navigateur
+**Prérequis one-time** : `brew install --cask blackhole-2ch && brew install switchaudio-osx && sudo killall coreaudiod`
 
-### Étape 7 — Convertir en MP3 et installer
+**Prérequis par session** : le tab strudel-claude doit être ouvert dans ton browser et avoir reçu au moins un clic (n'importe où dans la page) pour unlock l'AudioContext.
+
+Puis :
 
 ```bash
 cd /path/to/video
-npm run music:install -- ~/Downloads/<le-fichier>.wav <NomDeLaVideo>
-# ex: npm run music:install -- ~/Downloads/strudel-claude-2026-05-10.wav RapportTerminal
+npm run music:auto-record -- <NomDeLaVideo>
 ```
 
-Ça produit `public/audio/<nom-kebab>.mp3` (192kbps stéréo 48kHz). Le script affiche
-ensuite la ligne exacte à coller dans le `.tsx`.
+Le script :
+1. Sauve ton output audio actuel (Built-in, AirPods, etc.)
+2. Switch l'output système sur `BlackHole 2ch` (le son ne sort plus des speakers)
+3. Push le code Strudel à strudel-claude, lance la lecture
+4. ffmpeg capture la durée totale + 2s de buffer
+5. Trim le silence de tête, convertit en MP3 192k 48kHz stéréo
+6. Place dans `public/audio/<nom-kebab>.mp3`
+7. Restaure ton output audio d'origine
+
+Tu fais autre chose pendant ce temps — pas de clic, pas de WAV à télécharger manuellement.
+
+#### Option B — Record manuel (fallback)
+
+Si BlackHole n'est pas installé ou tu veux écouter en live :
+
+1. Dans le browser strudel-claude : clique **[● REC]** (en haut)
+2. Laisse tourner ≥ la durée totale de ta vidéo (ex: 30s pour RapportTerminal)
+3. Clique pour arrêter
+4. WAV téléchargé automatiquement par le navigateur
+
+Puis convertis :
+
+```bash
+npm run music:install -- ~/Downloads/<le-fichier>.wav <NomDeLaVideo>
+```
+
+Produit `public/audio/<nom-kebab>.mp3` (192kbps stéréo 48kHz).
 
 ### Étape 8 — Câbler `<Audio>` dans la vidéo
 
