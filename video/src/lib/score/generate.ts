@@ -1,59 +1,77 @@
 // src/lib/score/generate.ts
+//
+// Transforme un Score en code Strudel exécutable.
+//
+// Stratégie (v2, post-refactor sync) :
+//   - setcps(1) : Strudel exécute 1 cycle par seconde (sa valeur normale, fiable)
+//   - Pour chaque beat à atSec=N :
+//       - cycleIndex = floor(N), inCycle = N - cycleIndex
+//       - Le beat fire au cycle `cycleIndex` à `inCycle` secondes dans ce cycle
+//       - Implémenté via `.late(inCycle).mask("<0 0 ... 1 ... 0>")`
+//         où le mask en notation `<>` lit un élément par cycle (1 lecture
+//         sur toute la durée du morceau)
+//   - Le base layer du preset est étiré sur tout le morceau via `.slow(numCycles)`
+//   - Les beats role="texture" avec `durationSec` sont expansés en ticks atomiques
+//     (8 ticks par seconde par défaut) avant rendu
+//
+// Pourquoi cette refactor :
+//   La v1 utilisait setcps(1/30) + struct(900-slot). Strudel n'a pas respecté
+//   ce cps extrême et a interprété le struct comme 900 hits par seconde,
+//   produisant un tempo régulier décorrélé du score. La nouvelle approche
+//   utilise des valeurs cps mainstream et des idiomes Strudel canoniques.
+
 import type { Score, Beat } from "./types";
 import { PRESETS } from "./presets";
+
+const TEXTURE_TICKS_PER_SEC = 8;
 
 export function generateStrudel(score: Score): string {
   const preset = PRESETS[score.preset];
   if (!preset) throw new Error(`Unknown preset: ${String(score.preset)}`);
 
-  const totalSeconds = score.durationSec;
-  const totalFrames = Math.round(totalSeconds * score.fps);
-  const cps = 1 / totalSeconds;
+  const numCycles = Math.max(1, Math.ceil(score.durationSec));
+  const lines: string[] = [];
 
-  const layers: string[] = [
-    `  // base\n  ${preset.base({ totalSeconds })}`,
-  ];
+  // Base layer (drone étiré sur toute la durée)
+  const baseSnippet = preset.base({ totalSeconds: score.durationSec });
+  lines.push(`  // base layer (sustained ${score.durationSec}s)\n  ${baseSnippet}.slow(${numCycles})`);
 
-  // Group beats by role so we emit one layer per role
-  // (one struct per layer, at most 5 layers — readable Strudel output).
-  const byRole = groupByRole(score.beats);
-  for (const role of Object.keys(byRole) as Array<keyof typeof byRole>) {
-    const beats = byRole[role]!;
-    const dominantBeat = pickDominant(beats);
-    const snippet = preset.beat(dominantBeat);
-    const frames = beats.map(b => Math.round(b.atSec * score.fps));
-    const struct = buildStruct(frames, totalFrames);
-    layers.push(`  // ${role} (${beats.length} beat${beats.length > 1 ? "s" : ""})\n  ${snippet}.struct(\`${struct}\`)`);
+  // Étape 1 : expand les textures en ticks atomiques
+  const atomicBeats: Beat[] = [];
+  for (const beat of score.beats) {
+    if (beat.role === "texture" && beat.durationSec && beat.durationSec > 0) {
+      const numTicks = Math.max(1, Math.round(beat.durationSec * TEXTURE_TICKS_PER_SEC));
+      for (let i = 0; i < numTicks; i++) {
+        atomicBeats.push({
+          ...beat,
+          atSec: beat.atSec + i / TEXTURE_TICKS_PER_SEC,
+        });
+      }
+    } else {
+      atomicBeats.push(beat);
+    }
+  }
+
+  // Étape 2 : une ligne stack par beat atomique
+  for (const beat of atomicBeats) {
+    const cycleIndex = Math.floor(beat.atSec);
+    const inCycle = beat.atSec - cycleIndex;
+    if (cycleIndex < 0 || cycleIndex >= numCycles) continue;
+
+    const maskTokens = new Array(numCycles).fill("0");
+    maskTokens[cycleIndex] = "1";
+    const maskStr = `<${maskTokens.join(" ")}>`;
+
+    const snippet = preset.beat(beat);
+    const labelComment = beat.label ? ` ${beat.label}` : "";
+    const inCycleStr = inCycle.toFixed(3);
+    lines.push(`  // ${beat.role}${labelComment} @ ${beat.atSec.toFixed(2)}s\n  ${snippet}.late(${inCycleStr}).mask("${maskStr}")`);
   }
 
   return [
-    `setcps(${cps.toFixed(6)});`,
+    `setcps(1);`,
     `stack(`,
-    layers.join(",\n"),
+    lines.join(",\n"),
     `)`,
   ].join("\n");
-}
-
-function groupByRole(beats: Beat[]): Partial<Record<Beat["role"], Beat[]>> {
-  const out: Partial<Record<Beat["role"], Beat[]>> = {};
-  for (const b of beats) {
-    (out[b.role] ??= []).push(b);
-  }
-  return out;
-}
-
-// Choose the highest-intensity beat in a group as the "voice" for that layer.
-function pickDominant(beats: Beat[]): Beat {
-  const order: Record<Beat["intensity"], number> = { soft: 0, medium: 1, heavy: 2 };
-  return [...beats].sort((a, b) => order[b.intensity] - order[a.intensity])[0]!;
-}
-
-// Build a high-resolution mini-notation struct: one slot per frame.
-// "1" at frame indices in `frames`, "~" elsewhere. Joined by spaces.
-function buildStruct(frames: number[], totalFrames: number): string {
-  const slots = new Array(totalFrames).fill("~");
-  for (const f of frames) {
-    if (f >= 0 && f < totalFrames) slots[f] = "1";
-  }
-  return slots.join(" ");
 }

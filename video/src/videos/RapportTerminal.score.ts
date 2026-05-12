@@ -2,16 +2,16 @@
 // Spec: docs/superpowers/specs/2026-05-10-strudel-remotion-music-pipeline-design.md
 //
 // Architecture beat-driven : la vidéo est composée de 6 <Beat duration={N}> :
-//   1. Stat 1 (0-5s)         · slam-in big number + progress bar
-//   2. Stat 2 (5-10s)        · slam-in big number + progress bar
-//   3. Statement choc (10-15s) · "DEUX" punch + caption TypeOn
-//   4. Pivot (15-17.5s)      · pivot vers les 3 leviers + signature italique
+//   1. Stat 1 (0-5s)          · slam-in big number + progress bar (counter 0.5→2.2s)
+//   2. Stat 2 (5-10s)         · slam-in big number + progress bar (counter 5.5→7.2s)
+//   3. Statement choc (10-15s)· "DEUX" punch + caption TypeOn
+//   4. Pivot (15-17.5s)       · pivot vers les 3 leviers + signature italique
 //   5. 3 leviers (17.5-26.5s) · 3 cards qui apparaissent à 0.2, 2.7, 5.2s du Beat
-//   6. Close (26.5-30s)      · domaine slam-in + footer
+//   6. Close (26.5-30s)       · domaine slam-in + footer
 //
-// Les `atSec` ci-dessous correspondent aux moments précis où il y a du PUNCH
-// dans la vidéo (slam-in, signature, drop). Pas un beat par Beat-boundary —
-// un beat musical par moment d'impact narratif.
+// preset = zimmer-uematsu : sub-bass Zimmer + nappe Uematsu mélancolique.
+// fadeInSec = 2 : ramp doux de 0 à 100% volume sur les 2 premières secondes.
+// Textures pendant les compteurs : cliquetis dense à 8 ticks/sec.
 
 import type { Score } from "../lib/score/types";
 
@@ -19,13 +19,16 @@ export const SCORE: Score = {
   composition: "RapportTerminal",
   durationSec: 30,
   fps: 30,
-  preset: "zimmer-tense",
+  preset: "zimmer-uematsu",
+  fadeInSec: 2,
   beats: [
     // Beat 1 — Stat 1 (5s)
     { atSec: 0.2,  role: "impact",     intensity: "heavy",  label: "stat1-slam" },
+    { atSec: 0.5,  durationSec: 1.7,   role: "texture", intensity: "soft", label: "stat1-counter" },
 
     // Beat 2 — Stat 2 (5s)
     { atSec: 5.2,  role: "impact",     intensity: "heavy",  label: "stat2-slam" },
+    { atSec: 5.5,  durationSec: 1.7,   role: "texture", intensity: "soft", label: "stat2-counter" },
 
     // Beat 3 — Statement choc (5s)
     { atSec: 10.2, role: "accent",     intensity: "medium", label: "statement-deux" },

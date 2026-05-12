@@ -2,32 +2,35 @@
 // Schéma du score musical pour les vidéos Remotion.
 // Voir docs/superpowers/specs/2026-05-10-strudel-remotion-music-pipeline-design.md
 //
-// REFACTOR (post-Beat-driven): le score parle maintenant en SECONDES, pas en frames.
-// La conversion frame ↔ sec se fait dans generate.ts via le `fps`.
+// Le score parle en SECONDES (pas en frames). generate.ts traduit en patterns
+// Strudel (setcps=1 + mask + late) — voir generate.ts pour les détails.
 
 export type BeatRole =
   | "impact"      // gros coup (slam-in, gros chiffre)
   | "accent"      // ponctuation moyenne (transition de Beat, mot-clé fort)
   | "transition" // pivot/riser (changement de plan)
   | "drop"        // bass drop (close domaine, verdict)
-  | "sustain";    // tenue (pause, drone)
+  | "sustain"     // tenue (pause, drone)
+  | "texture";    // texture continue sur une durée (e.g. cliquetis de compteur)
 
 export type Intensity = "soft" | "medium" | "heavy";
 
-export type PresetName = "zimmer-tense" | "8bit-nostalgic";
+export type PresetName = "zimmer-tense" | "8bit-nostalgic" | "zimmer-uematsu";
 
 export type Beat = {
-  atSec: number;       // moment du beat en secondes (depuis le début de la vidéo)
+  atSec: number;            // moment du beat en secondes (depuis le début de la vidéo)
   role: BeatRole;
   intensity: Intensity;
   label?: string;
+  durationSec?: number;     // pour role="texture" : étalement de la texture en secondes
 };
 
 export type Score = {
-  composition: string;     // ex: "RapportTerminal" — utilisé pour le filename audio
-  durationSec: number;     // durée totale de la vidéo en secondes
-  fps: number;             // framerate cible (utilisé en interne pour la résolution du struct Strudel)
+  composition: string;       // ex: "RapportTerminal" — utilisé pour le filename audio
+  durationSec: number;       // durée totale de la vidéo en secondes
+  fps: number;               // framerate cible (informatif)
   preset: PresetName;
+  fadeInSec?: number;        // fade-in audio appliqué au MP3 final (post-processing ffmpeg)
   beats: Beat[];
 };
 
