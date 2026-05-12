@@ -48,7 +48,7 @@ function onMetierClick(secteur: string, slug: string) {
 useSeoMeta({
   title: 'Tous les métiers face à l\'IA : 196 diagnostics par secteur | Survivant-IA',
   description: 'Cherche ton métier ou explore les 196 diagnostics IA classés par secteur (cognitif, tech, santé, manuels, etc.) pour piloter l\'IA dans ton travail.',
-  ogTitle: 'Tous les métiers face à l\'IA — Survivant-IA',
+  ogTitle: 'Tous les métiers face à l\'IA, Survivant-IA',
   ogDescription: '196 diagnostics IA par secteur. Cherche le tien.',
   ogUrl: 'https://survivant-ia.ch/metiers',
   ogType: 'website',

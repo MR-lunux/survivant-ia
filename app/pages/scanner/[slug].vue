@@ -60,6 +60,8 @@ const leviersIntro = computed<string>(() => {
 })
 
 function parseLevier(levier: string): { title: string, description: string } {
+  // Séparateur titre/description = ` — ` (em-dash entouré d'espaces).
+  // Data-internal, jamais rendu visible : title va dans <h3>, description dans <p>.
   const sepIndex = levier.indexOf(' — ')
   if (sepIndex === -1) return { title: levier, description: '' }
   return {
@@ -140,19 +142,19 @@ onMounted(() => {
 
 // ── SEO meta + JSON-LD Article + BreadcrumbList ──
 const pageUrl = `https://survivant-ia.ch/scanner/${job.slug}`
-const pageTitle = `${job.label} face à l'IA — ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`
+const pageTitle = `${job.label} face à l'IA, ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`
 const pageH1 = `${job.label} face à l'IA en 2026`
 const pageDesc = `${job.dynamic.slice(0, 145)}...`
 
 useSeoMeta({
   title: pageTitle,
   description: pageDesc,
-  ogTitle: `${job.label} face à l'IA — ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`,
+  ogTitle: `${job.label} face à l'IA, ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`,
   ogDescription: pageDesc,
   ogUrl: pageUrl,
   ogType: 'article',
   twitterCard: 'summary_large_image',
-  twitterTitle: `${job.label} face à l'IA — ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`,
+  twitterTitle: `${job.label} face à l'IA, ${QUADRANT_VERDICT_ITALIC[job.quadrant]}`,
   twitterDescription: pageDesc,
 })
 
@@ -220,10 +222,10 @@ defineOgImage('Metier', {
 
     <div class="sage-rule" aria-hidden="true"></div>
 
-    <!-- Section I — Position dans le cadran -->
+    <!-- Section I, Position dans le cadran -->
     <section class="result-section">
       <div class="section-kicker font-mono">
-        <span class="num">— I.</span>
+        <span class="num">- I.</span>
         <span class="label">Position dans le cadran</span>
       </div>
       <div class="position-block">
@@ -263,10 +265,10 @@ defineOgImage('Metier', {
 
     <div class="sage-rule" aria-hidden="true"></div>
 
-    <!-- Section II — Leviers -->
+    <!-- Section II, Leviers -->
     <section class="result-section">
       <div class="section-kicker font-mono">
-        <span class="num">— II.</span>
+        <span class="num">- II.</span>
         <span class="label">Tes leviers cette semaine</span>
       </div>
       <p class="leviers-intro">{{ leviersIntro }}</p>
@@ -283,7 +285,7 @@ defineOgImage('Metier', {
 
     <div class="sage-rule" aria-hidden="true"></div>
 
-    <!-- Section III — 3 angles éditoriaux -->
+    <!-- Section III, 3 angles éditoriaux -->
     <MetierEditorialSection
       :job="job"
       :contexte="content.contexte"
@@ -293,15 +295,15 @@ defineOgImage('Metier', {
 
     <div class="sage-rule" aria-hidden="true"></div>
 
-    <!-- Section IV — FAQ -->
+    <!-- Section IV, FAQ -->
     <MetierFAQ :job="job" :faq="content.faq" />
 
     <div class="sage-rule" aria-hidden="true"></div>
 
-    <!-- Section V — Pour aller plus loin -->
+    <!-- Section V, Pour aller plus loin -->
     <section class="result-section">
       <div class="section-kicker font-mono">
-        <span class="num">— V.</span>
+        <span class="num">- V.</span>
         <span class="label">Pour aller plus loin</span>
       </div>
       <MetierArticles :job="job" />
@@ -310,10 +312,10 @@ defineOgImage('Metier', {
 
     <div class="sage-rule" aria-hidden="true"></div>
 
-    <!-- Section VI — La suite (form newsletter) -->
+    <!-- Section VI, La suite (form newsletter) -->
     <section class="result-section">
       <div class="section-kicker font-mono">
-        <span class="num">— VI.</span>
+        <span class="num">- VI.</span>
         <span class="label">La suite</span>
       </div>
       <h2 class="suite-headline">Reste un cran devant.</h2>
