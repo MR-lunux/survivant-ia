@@ -312,6 +312,8 @@ defineOgImage('Metier', {
 
     <div class="sage-rule" aria-hidden="true"></div>
 
+    <OutilsMetierSection :metier-slug="slug" />
+
     <!-- Section VI, La suite (form newsletter) -->
     <section class="result-section">
       <div class="section-kicker font-mono">
