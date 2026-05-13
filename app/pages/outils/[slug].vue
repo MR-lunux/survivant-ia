@@ -150,6 +150,11 @@ onMounted(() => {
           :data="kit.data"
         />
 
+        <KitGenerateurEcriture
+          v-if="kit.kind === 'app' && kit.code === 'generateur-ecriture-comptable'"
+          :kit-id="kit.code"
+        />
+
         <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
       </div>
 
