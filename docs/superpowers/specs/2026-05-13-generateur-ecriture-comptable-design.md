@@ -1,16 +1,16 @@
-# Générateur d'écriture comptable — design (outil interactif EURIA)
+# Générateur d'écriture comptable — design (outil interactif Infomaniak AI Service)
 
-**Date** : 2026-05-13
+**Date** : 2026-05-13 (initial) · révisé 2026-05-13 (intégration voix + correction branding)
 **Statut** : brainstorming livré, awaiting user review before writing-plans
-**Scope** : outil interactif hosted sur survivant-ia.ch, première app non-quiz de la Boîte à Outils, propulsé par EURIA (Infomaniak), cible principale comptable Suisse PME
+**Scope** : outil interactif hosted sur survivant-ia.ch, première app non-quiz de la Boîte à Outils, propulsé par Infomaniak AI Service (chat + audio transcription), cible principale comptable Suisse PME
 
 ---
 
 ## 1. Intention
 
-Construire le premier **outil "app" interactif** de Survivant-IA : le visiteur décrit en langage naturel une écriture comptable, EURIA (LLM suisse souveraine d'Infomaniak) la structure selon le plan comptable PME Suisse, et le visiteur télécharge un fichier Excel prêt à importer dans Bexio, Abacus ou Sage 50.
+Construire le premier **outil "app" interactif** de Survivant-IA : le visiteur décrit en langage naturel une écriture comptable — en tapant le texte **ou en dictant à la voix** — un service IA hébergé en Suisse (Infomaniak AI Service, modèles Mistral) la structure selon le plan comptable PME Suisse, et le visiteur télécharge un fichier Excel prêt à importer dans Bexio, Abacus ou Sage 50.
 
-L'outil vit comme nouveau document dans la collection `content/outils/`, sous le pattern existant (TRC-01 = quiz). Il introduit un nouveau `kind: app`. Le pattern de page `/outils/[slug]` existant est réutilisé sans modification structurelle ; seul un nouveau composant `KitGenerateurEcriture.vue` est ajouté pour le rendu interactif.
+L'outil vit comme nouveau document dans la collection `content/outils/`, sous le pattern existant (TRC-01 = quiz). Il introduit un nouveau `kind: app`. Le pattern de page `/outils/[slug]` existant est réutilisé sans modification structurelle ; un nouveau composant `KitGenerateurEcriture.vue` rend l'interactif.
 
 L'outil sert trois objectifs business simultanément :
 - **Lead magnet** différencié, complémentaire au scanner d'obsolescence
@@ -21,11 +21,11 @@ L'outil sert trois objectifs business simultanément :
 
 - Pas d'authentification utilisateur, pas de compte, pas de session persistée serveur-side
 - Pas de DB, pas de stockage des écritures côté Survivant-IA (tout vit dans `localStorage` du navigateur)
-- Pas de transcription audio native (le visiteur tape ou colle depuis SuperWhisper / autre outil dictée — couvert dans l'article ultérieur)
+- Pas de stockage audio (les fichiers audio sont uploadés, batchés chez Infomaniak, jamais persistés côté Survivant-IA)
 - Pas d'import xlsx (la v1 génère uniquement, n'importe pas)
 - Pas de plan comptable général ou Karrer-Hattenhauer (PME Sterchi uniquement)
 - Pas de support TVA multi-pays (Suisse uniquement)
-- Pas d'open source du code (transparence narrative via le bloc "transparence · données" + lien vers documentation EURIA)
+- Pas d'open source du code (transparence narrative via le bloc "transparence · données" + lien vers documentation Infomaniak AI Services)
 - Pas de pages métier `/metiers/[slug].vue` dédiées (le pattern existant `/scanner/[slug]` couvre la surface métier)
 
 ## 3. Référence
@@ -33,7 +33,8 @@ L'outil sert trois objectifs business simultanément :
 - Pre-mortem Survivant-IA du 2026-05-10 (cluster comptable Suisse identifié comme niche prioritaire)
 - Pivot éditorial 2026-05-04 (positioning transformatif, contrat éditorial, formations payantes annoncées)
 - TRC-01 (pattern de référence pour `content/outils/*.md` et `app/pages/outils/[slug].vue`)
-- EURIA Infomaniak : API gratuite compatible OpenAI, datacenters Suisses, données non utilisées pour entraîner les modèles ([infomaniak.com/en/euria](https://www.infomaniak.com/en/euria))
+- **Infomaniak AI Service** : API OpenAI-compatible avec modèles open source (Mistral, Llama, Mixtral) hébergés en Suisse, conformité RGPD/LPD, prompts et données ne quittent pas la Suisse et ne servent pas à entraîner les modèles tiers ([infomaniak.com/fr/hebergement/ai-services](https://www.infomaniak.com/fr/hebergement/ai-services))
+- **Référence d'intégration** : projet Rinto (`/Users/mathieu/Documents/Rinto-chantier/rinto-field-os/server/api/infomaniak/chat.post.ts`, `server/api/ai/transcribe.post.js`, `server/api/ai/transcribe-status.get.ts`) — pattern complet et testé en production pour chat + audio async batch
 
 ## 4. Architecture
 
@@ -42,21 +43,28 @@ L'outil sert trois objectifs business simultanément :
 | Route | Type | Responsabilité |
 |---|---|---|
 | `GET /outils/generateur-ecriture-comptable` | page Nuxt | Render `<KitGenerateurEcriture>` via `[slug].vue` existant + frontmatter |
-| `POST /api/generateur-ecriture-comptable/parse` | server route | Reçoit `{ text, currentDate }`, valide input, appelle EURIA, valide output, retourne JSON structuré |
-| `POST /api/generateur-ecriture-comptable/feedback` | server route | Reçoit `{ email?, prochainOutil? }`, push Brevo via `server/api/subscribe.post.ts` existant si email présent |
+| `POST /api/generateur-ecriture-comptable/parse` | server route | Reçoit `{ text, currentDate }`, valide input, appelle Infomaniak AI chat, valide output, retourne JSON structuré |
+| `POST /api/generateur-ecriture-comptable/transcribe` | server route | Reçoit `multipart/form-data` avec `audio`, valide le fichier, upload à Infomaniak Whisper, retourne `batch_id` |
+| `GET /api/generateur-ecriture-comptable/transcribe-status?batch_id=...` | server route | Poll le statut Infomaniak, retourne `processing` ou `completed` + transcription |
+| `POST /api/generateur-ecriture-comptable/feedback` | server route | Reçoit `{ email?, prochainOutil? }`, push Brevo si email présent |
 
 ### 4.2 Stack
 
-- **Frontend** : Vue 3 (composant `KitGenerateurEcriture.vue` monté depuis `[slug].vue` via `v-if="kit.kind === 'app' && kit.code === 'generateur-ecriture-comptable'"`)
+- **Frontend** : Vue 3 (composant `KitGenerateurEcriture.vue` monté depuis `[slug].vue` via `v-if="kit.kind === 'app' && kit.code === 'generateur-ecriture-comptable'"`) + sous-composant `KitGenerateurEcritureVoice.vue` pour la capture audio
+- **Audio capture browser** : `MediaRecorder` API native (Chrome/Edge/Safari), format `audio/webm;codecs=opus` ou fallback `audio/mp4`, max 30s par enregistrement
 - **Excel** : librairie `xlsx` (SheetJS), génération 100% client-side
 - **State** : local au composant + persistance `localStorage` clé `survivant-generateur-ecriture-rows`
-- **Backend** : 2 server routes Nuxt minces, pas de DB, rate limit en mémoire
-- **EURIA** : appel HTTPS POST avec `OPENAI_API_KEY` style (env var `EURIA_API_KEY`), modèle par défaut Infomaniak (à confirmer pendant l'implémentation), `response_format: { type: "json_object" }`
+- **Backend** : 4 server routes Nuxt minces, pas de DB, rate limit en mémoire
+- **Infomaniak AI Service** :
+  - Chat : `POST https://api.infomaniak.com/1/ai/${productId}/openai/chat/completions` avec `Authorization: Bearer ${token}`
+  - Whisper (audio) : `POST /openai/audio/transcriptions` (async, retourne `batch_id`) puis `GET /results/${batchId}` pour polling
+  - Modèle par défaut : `Mistral-Small-3.2-24B-Instruct-2506` (configurable via env var)
+  - Multipart upload via `formdata-node` (déjà éprouvé dans Rinto)
 - **Analytics** : PostHog (déjà installé sur le site)
 
 ### 4.3 Pas de persistance serveur
 
-Aucune écriture, aucun montant, aucun email ne touche un disque sur survivant-ia.ch. Le payload texte transite (1) du navigateur vers la route Nuxt, (2) de la route vers EURIA Genève, (3) retour vers le navigateur. Aucun log applicatif ne capture le contenu utilisateur. PostHog enregistre uniquement des événements anonymes (compteurs, latences) sans payload texte.
+Aucune écriture, aucun montant, aucun email, aucun fichier audio ne touche un disque sur survivant-ia.ch. Le flow texte transite (1) navigateur → route Nuxt → Infomaniak Genève → retour. Le flow voix transite (1) navigateur → route Nuxt (upload multipart) → Infomaniak batch async → polling status → retour transcription au navigateur. Aucun log applicatif ne capture le contenu utilisateur (ni texte, ni audio). PostHog enregistre uniquement des événements anonymes (compteurs, latences) sans payload texte ni audio.
 
 ## 5. UX flow
 
@@ -67,12 +75,13 @@ Section hero (rendue depuis `content/outils/generateur-ecriture-comptable.md` `i
 ```
 OUTIL · GÉNÉRATEUR D'ÉCRITURE COMPTABLE
 
-Décris une écriture, EURIA la structure dans ton journal.
+Dicte ou écris une écriture, l'IA la structure dans ton journal.
 
-EURIA : LLM suisse souveraine, hébergée par Infomaniak à Genève.
+Service IA open source hébergé en Suisse par Infomaniak (modèle Mistral). Tes
+prompts ne servent pas à entraîner les modèles, aucune donnée ne quitte la Suisse.
 ```
 
-Typographie : kicker Inter caps mono, baseline Inter body avec "EURIA" en Playfair italic accent menthe `#6CE3B5`, qualifier Inter regular text-dim.
+Typographie : kicker Inter caps mono, baseline Inter body avec emphase Playfair italic accent menthe `#6CE3B5` sur "l'IA", qualifier Inter regular text-dim.
 
 ### 5.2 Bloc transparence · données (juste sous le hero, visible)
 
@@ -82,27 +91,40 @@ TRANSPARENCE · DONNÉES
 Rien n'est sauvé côté Survivant-IA. Tes écritures vivent uniquement
 dans ton navigateur (localStorage). Tu peux tout effacer en un clic.
 
-Le texte que tu colles passe par EURIA, l'IA souveraine d'Infomaniak
-hébergée dans des datacenters Suisses. Ton texte ne sert pas à entraîner
-les modèles, et aucune donnée ne quitte la Suisse.
+Le texte que tu colles, ou la voix que tu dictes, passe par Infomaniak
+AI Service, hébergé dans des datacenters Suisses. Tes prompts et données
+ne servent pas à entraîner les modèles tiers, et aucune donnée ne quitte
+la Suisse.
 
-Aucune écriture, aucun email, aucun montant n'est stocké sur le site
-ni ailleurs. PostHog enregistre uniquement des événements anonymes
-(nombre d'utilisations, pas le contenu).
+Aucune écriture, aucun email, aucun montant, aucun fichier audio n'est
+stocké sur le site ni ailleurs. PostHog enregistre uniquement des
+événements anonymes (nombre d'utilisations, pas le contenu).
 
 ▼ Comment ça marche techniquement (accordion replié par défaut)
-   Flow : ton navigateur → survivant-ia.ch (proxy léger) → EURIA Genève
-   → réponse. Aucune persistance côté serveur.
-   Liens : Infomaniak Euria · Article complet sur le traitement des données.
+   Flow texte : ton navigateur → survivant-ia.ch (proxy léger) →
+   Infomaniak Genève → réponse.
+   Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper
+   (async) → polling jusqu'à transcription → utilisée comme entrée du
+   parsing comptable.
+   Aucune persistance côté serveur.
+   Liens : Infomaniak AI Services · Article complet sur le traitement
+   des données (à venir).
 ```
 
 ### 5.3 Zone d'action (cœur de la page)
 
-```
-[Textarea]
-  ↳ placeholder : "Exemple : Migros 47.80 frais représentation client X hier"
+Deux modes d'entrée — voix ou texte — exposés au même niveau visuel.
 
-Essaie un exemple :
+```
+[Bouton mic] [Textarea]
+   ↳ Bouton mic : icône micro Inter caps mono, accent menthe ;
+     clic = démarrer enregistrement ; re-clic ou 30s max = stop.
+     État enregistrement : icône pulse + chrono (« 00:08 »).
+     État transcription : spinner + « Transcription en cours… ».
+   ↳ Textarea : placeholder « Exemple : Migros 47.80 frais
+     représentation client X hier »
+
+Essaie un exemple (chips uniquement visibles en mode texte) :
   [Migros 47.80 frais représentation hier]
   [Facture Bexio 39 CHF SaaS pour le mois]
   [Leasing voiture 850 mensualité juin]
@@ -112,11 +134,23 @@ Compteur discret : N / 10 essais aujourd'hui (hairline `--color-rule`)
 [Bouton : Proposer l'écriture →]
 ```
 
-**Chips d'exemples** : un clic remplit le textarea (le visiteur peut éditer avant validation). Trois exemples couvrent commerce courant / SaaS / leasing — 3 patterns différents qui démontrent la couverture. Capture event `generateur_ecriture_example_chip_clicked` avec `example_key`.
+**Comportement voix** :
+1. Clic sur le bouton mic → demande permission microphone navigateur (1ʳᵉ fois)
+2. Si refusé : message inline "L'accès au microphone a été refusé. Utilise la saisie texte." + masquer le bouton mic pour la session
+3. Si accepté : démarrer `MediaRecorder`, afficher pulse visuel + chrono qui défile
+4. Stop déclenché par : (a) re-clic sur le bouton mic, (b) 30s atteintes, (c) clic ailleurs
+5. Upload audio → POST `/api/generateur-ecriture-comptable/transcribe` → reçoit `batch_id`
+6. Polling `/api/generateur-ecriture-comptable/transcribe-status?batch_id=X` toutes les 2s, max 60s timeout
+7. Quand `status: completed` : la transcription est insérée dans le textarea, le user peut éditer avant de cliquer "Proposer l'écriture"
+8. Si timeout ou error : message inline "La transcription a échoué. Réessaie ou tape l'écriture."
+
+**Comportement chips d'exemples** :
+- Visibles uniquement en mode texte (pas pendant l'enregistrement ni la transcription)
+- Clic remplit le textarea, peut être édité avant validation
 
 **Bouton "Proposer l'écriture"** : désactivé tant que textarea vide ou validation input couche 1 échoue (cf. §7).
 
-### 5.4 Carte preview éditable (après réponse EURIA)
+### 5.4 Carte preview éditable (après réponse parsing)
 
 Tous les champs sont éditables (le comptable corrige avant de valider). Le champ `Pièce` est pré-rempli avec le prochain numéro séquentiel (basé sur le nombre de lignes déjà au journal + 1, padded à 3 chiffres : `001`, `002`, ...) mais reste éditable. Layout :
 
@@ -136,7 +170,7 @@ Montant TVA   [3.59]     Montant TTC [47.80]
 [Refaire] [Ajouter au journal →]
 
 ────────────────────────────────────────
-Proposition générée par EURIA · Infomaniak Genève · Aucune donnée retenue.
+Proposition générée par Infomaniak AI Service · Mistral hébergé à Genève · Aucune donnée retenue.
 ```
 
 Footer hairline persistant rappelle la souveraineté à chaque proposition.
@@ -164,7 +198,7 @@ Tu as aimé ? Dis-le moi.
 
 Si l'utilisateur ferme sans répondre, la bannière ne réapparaît pas pendant 7 jours (cookie `survivant-generateur-feedback-dismissed`).
 
-Si email rempli : push vers Brevo via `/api/generateur-ecriture-comptable/feedback` qui réutilise le pipeline `/api/subscribe.post.ts` existant, avec source `dictee-compta-feedback` (à mapper avec un `LIST_ID` Brevo dédié pour tracking). Si `prochainOutil` rempli : transmis comme attribut Brevo `PROCHAIN_OUTIL_SUGGESTION` pour analyse manuelle ultérieure.
+Si email rempli : push vers Brevo via `/api/generateur-ecriture-comptable/feedback` avec source `generateur-ecriture-comptable`, attribut `PROCHAIN_OUTIL_SUGGESTION` pour analyse manuelle ultérieure.
 
 ### 5.7 Cas d'erreur
 
@@ -172,20 +206,25 @@ Si email rempli : push vers Brevo via `/api/generateur-ecriture-comptable/feedba
 |---|---|
 | Textarea vide | Bouton "Proposer l'écriture" disabled |
 | Input couche 1 rejeté (cf. §7.1) | Bouton disabled + message inline "Ce texte ne ressemble pas à une écriture comptable. Reformule." |
-| EURIA retourne `{ error: "hors_scope" }` | Message inline "Reformule avec une description d'écriture comptable." |
-| EURIA retourne `{ error: "contenu_inapproprie" }` | Message inline générique idem (pas d'info révélant la défense) |
-| Validation output serveur échoue (cf. §7.3) | Message inline "EURIA a renvoyé une proposition invalide. Réessaie." |
-| HTTP 5xx EURIA | Message inline "Service indisponible. Réessaie dans quelques instants." |
-| Rate limit 10/jour atteint | Message dédié : "Tu as atteint 10 essais aujourd'hui. La version sans limite arrive avec La Fréquence." + CTA newsletter direct, capture event `generateur_ecriture_rate_limit_hit` |
+| Permission micro refusée | Message inline + masquage bouton mic pour la session |
+| Recording > 30s | Auto-stop + transcription |
+| Audio upload error (réseau, format invalide) | Message inline "Échec de l'upload audio. Réessaie ou tape l'écriture." |
+| Transcription timeout (60s polling) | Message inline "La transcription prend trop longtemps. Réessaie ou tape l'écriture." |
+| Transcription vide (silence détecté) | Message inline "Aucune parole détectée. Parle plus fort ou plus près du micro." |
+| Infomaniak chat retourne `{ error: "hors_scope" }` | Message inline "Reformule avec une description d'écriture comptable." |
+| Infomaniak chat retourne `{ error: "contenu_inapproprie" }` | Message inline générique idem (pas d'info révélant la défense) |
+| Validation output serveur échoue (cf. §7.3) | Message inline "L'IA a renvoyé une proposition invalide. Réessaie." |
+| HTTP 5xx Infomaniak | Message inline "Service indisponible. Réessaie dans quelques instants." |
+| Rate limit 10/jour atteint | Message dédié : "Tu as atteint 10 essais aujourd'hui. La version sans limite arrive avec La Fréquence." + CTA newsletter direct |
 
-## 6. Stratégie prompt EURIA
+## 6. Stratégie prompt parsing comptable
 
 ### 6.1 System prompt (statique)
 
 ```
 Tu es un assistant comptable pour PME suisses. Tu reçois une description
-en langage naturel et tu retournes une écriture structurée selon le Plan
-comptable PME (modèle Sterchi).
+en langage naturel (saisie texte ou transcription vocale) et tu retournes
+une écriture structurée selon le Plan comptable PME (modèle Sterchi).
 
 Tu retournes UNIQUEMENT un objet JSON valide avec ces champs :
 {
@@ -211,7 +250,7 @@ Règles comptabilité Suisse 2026 :
 - Si pas de TVA spécifiée pour dépense Suisse standard, suppose 8.1%
 - Si contrepartie non spécifiée, suppose 1020 Banque
 
-Plan comptable abrégé (codes courants — utilise UNIQUEMENT ces codes) :
+Plan comptable abrégé (utilise UNIQUEMENT ces codes) :
 1020 Banque · 1100 Créances clients · 1300 Stock
 2000 Dettes fournisseurs · 2200 TVA due · 2300 TVA récupérable
 3000 Ventes · 3200 Services
@@ -227,6 +266,12 @@ Format date :
 - "hier" → date du jour - 1
 - "lundi dernier", "vendredi" → jour le plus récent
 - format absolu (15/05/2026 ou 2026-05-15) → ISO
+
+Note spécifique transcription vocale : les transcriptions Whisper peuvent
+contenir des erreurs de chiffres ("quarante-sept quatre-vingts" pour 47.80,
+ou "huit pourcent un" pour 8.1%). Interprète intelligemment les nombres
+écrits en lettres ou les approximations vocales pour reconstruire les
+montants chiffrés exacts.
 
 RÈGLES STRICTES (garde-fous) :
 - Tu ne réponds QU'à des descriptions d'écritures comptables suisses PME.
@@ -253,23 +298,31 @@ Date d'aujourd'hui : {currentDateISO}
 Écriture : "{userText}"
 ```
 
-### 6.3 Paramètres API
+### 6.3 Paramètres API chat
 
-- `model` : modèle EURIA par défaut (à confirmer pendant l'implémentation — vérifier `developer.infomaniak.com`)
+- `model` : `Mistral-Small-3.2-24B-Instruct-2506` (configurable via env var `INFOMANIAK_AI_MODEL`)
 - `response_format` : `{ type: "json_object" }`
 - `temperature` : 0.2 (déterminisme pour comptabilité)
 - `max_tokens` : 400 (output structuré court)
 
-### 6.4 Affichage `confidence` et `note`
+### 6.4 Paramètres API transcription
+
+- Endpoint : `POST /openai/audio/transcriptions`
+- `model` : `whisper`
+- `response_format` : `verbose_json` (pour récupérer la langue détectée)
+- Multipart : `file` (audio blob) + `model` + `response_format`
+- Réponse : `{ batch_id }` (async)
+
+### 6.5 Affichage `confidence` et `note`
 
 - `confidence < 0.7` → bandeau hairline sous la carte preview : "Niveau de confiance modéré — vérifie attentivement"
 - `note` non vide → ligne hairline sous la carte : "Note : {note}"
 
 Ces signaux servent le narrative éditorial Survivant-IA : l'IA est faillible, l'humain reste pilote. Le comptable garde la responsabilité juridique de l'écriture.
 
-## 7. Garde-fous (5 couches)
+## 7. Garde-fous (6 couches)
 
-### 7.1 Couche 1 — Validation input (frontend + server)
+### 7.1 Couche 1 — Validation input texte (frontend + server)
 
 - Longueur max 200 caractères
 - Blocklist FR + EN basique (~30 mots vulgaires / offensants connus) → bouton disabled
@@ -279,16 +332,24 @@ Ces signaux servent le narrative éditorial Survivant-IA : l'IA est faillible, l
 
 Validation effectuée **en frontend ET en serveur** (defense in depth).
 
-### 7.2 Couche 2 — Durcissement system prompt
+### 7.2 Couche 2 — Validation upload audio
 
-Cf. §6.1, section "RÈGLES STRICTES".
+- Taille max 1.5 MB (largement suffisant pour 30s audio webm/opus)
+- Durée max 30s côté client (limite MediaRecorder)
+- Types MIME autorisés : `audio/webm`, `audio/ogg`, `audio/mp4`, `audio/wav`, `audio/mpeg`
+- Magic number check côté serveur (pattern Rinto via `validateUploadedFile`)
+- Si invalide → 400 + message inline générique côté UI
 
-### 7.3 Couche 3 — Validation output server-side (Zod schema)
+### 7.3 Couche 3 — Durcissement system prompt
 
-Avant de retourner la réponse EURIA au frontend, le server route valide :
+Cf. §6.1, section "RÈGLES STRICTES". Inchangé pour texte et voix (la transcription voix produit du texte qui passe ensuite par le même prompt).
 
-- JSON parsable et schema Zod valide
-- `compteDebit` ET `compteCredit` dans la whitelist plan PME (constante `PLAN_COMPTABLE_PME_WHITELIST` de ~40 codes)
+### 7.4 Couche 4 — Validation output server-side (Zod-like schema en TypeScript)
+
+Avant de retourner la réponse Infomaniak au frontend, le server route `parse.post.ts` valide :
+
+- JSON parsable et schema valide
+- `compteDebit` ET `compteCredit` dans la whitelist plan PME (constante `PLAN_COMPTABLE_PME_WHITELIST` de ~20 codes)
 - `tauxTva ∈ {0, 2.6, 3.8, 8.1}`
 - `abs(montantHT * (1 + tauxTva/100) - montantTTC) < 0.05`
 - `abs(montantTTC - montantHT - montantTva) < 0.05`
@@ -296,15 +357,16 @@ Avant de retourner la réponse EURIA au frontend, le server route valide :
 - `date` dans `[today - 5 ans, today + 1 jour]`
 - `montants ∈ [0.05, 1_000_000]`
 
-Si n'importe quelle validation échoue → server retourne erreur générique au frontend SANS transmettre le payload EURIA. Event PostHog `generateur_ecriture_validation_failed` avec champ `reason` (jamais le contenu).
+Si n'importe quelle validation échoue → server retourne erreur générique au frontend SANS transmettre le payload Infomaniak. Event PostHog `generateur_ecriture_validation_failed` avec champ `reason` (jamais le contenu).
 
-### 7.4 Couche 4 — Rate limit IP
+### 7.5 Couche 5 — Rate limit IP
 
 - 10 essais / jour / IP, reset à minuit Europe/Zurich
-- Implémentation : Map en mémoire `Map<ip, { count, resetAt }>` si déploiement single-instance ; sinon Upstash Redis free tier (10k req/jour gratuits)
+- Compteur partagé pour parse ET transcribe (une dictée + parsing = 1 essai, pas 2)
+- Implémentation : Map en mémoire `Map<ip, { count, resetAt }>` si déploiement single-instance
 - Si dépassé : HTTP 429 + payload `{ error: "rate_limit" }`, frontend affiche CTA newsletter
 
-### 7.5 Couche 5 — Monitoring + circuit breaker
+### 7.6 Couche 6 — Monitoring + circuit breaker
 
 - Event PostHog `generateur_ecriture_validation_failed` en temps réel (avec `reason`)
 - Threshold informel : > 20 validation_failed / heure → signal d'attaque coordonnée, ajustement manuel (abaisser rate limit ou désactiver via env var `GENERATEUR_ECRITURE_ENABLED=false`)
@@ -361,17 +423,16 @@ Les 3 slugs correspondent à des entrées existantes de `app/data/jobs.ts`. Futu
 
 ### 9.2 Surface sur `/scanner/[slug].vue`
 
-Modification de `app/pages/scanner/[slug].vue` (existant) pour query les outils pertinents :
+Modification de `app/pages/scanner/[slug].vue` (existant) pour query les outils pertinents via in-memory filter (robuste pour ~10-20 tools) :
 
 ```ts
-const { data: outilsDuMetier } = await useAsyncData(`outils-${slug}`, () =>
-  queryCollection('outils')
-    .where('metiers', 'LIKE', `%${slug}%`)
-    .all()
-)
+const { data: outilsDuMetier } = await useAsyncData(`outils-${slug}`, async () => {
+  const all = await queryCollection('outils').all()
+  return (all ?? []).filter((tool: any) =>
+    Array.isArray(tool.metiers) && tool.metiers.includes(slug)
+  )
+})
 ```
-
-(La syntaxe exacte de la query dépend du driver `@nuxt/content` — à confirmer en implémentation. Si `LIKE` ne fonctionne pas pour les array fields, alternative `.where('metiers', 'IN', [slug])`.)
 
 ### 9.3 Section visuelle dans `/scanner/[slug].vue`
 
@@ -381,8 +442,8 @@ Ajout d'une nouvelle section visuelle juste avant le bloc Newsletter (Section VI
 OUTILS POUR PILOTER L'IA DANS CE MÉTIER
 
 [Pour chaque outil dans outilsDuMetier]
-  Générateur d'écriture comptable · DEMO
-  Décris une écriture, EURIA la structure dans ton journal.
+  Générateur d'écriture comptable · APP
+  Dicte ou écris une écriture, l'IA la structure dans ton journal.
   → Tester l'outil
 ```
 
@@ -392,15 +453,7 @@ Si `outilsDuMetier.length === 0` : section non affichée (pas de placeholder vid
 
 ### 9.4 Tracking de provenance
 
-L'event PostHog `kit_viewed` existant capte déjà `from: 'direct' | 'article' | 'list'`. On ajoute le cas `'metier'` :
-
-```ts
-const fromQuery = route.query.from
-let from: 'direct' | 'article' | 'list' | 'metier' = 'direct'
-if (['article', 'list', 'metier'].includes(fromQuery as string)) {
-  from = fromQuery as typeof from
-}
-```
+L'event PostHog `kit_viewed` existant capte déjà `from: 'direct' | 'article' | 'list'`. On ajoute le cas `'metier'`.
 
 ## 10. Frontmatter complet `content/outils/generateur-ecriture-comptable.md`
 
@@ -409,8 +462,8 @@ if (['article', 'list', 'metier'].includes(fromQuery as string)) {
 code: generateur-ecriture-comptable
 kind: app
 title: Générateur d'écriture comptable
-subtitle: Décris une écriture, EURIA la structure dans ton journal.
-description: Outil interactif gratuit pour comptable et fiduciaire Suisse. Décris une écriture en langage naturel, EURIA (IA souveraine Infomaniak) la structure selon le plan comptable PME. Télécharge ton journal au format Excel importable dans Bexio, Abacus ou Sage 50.
+subtitle: Dicte ou écris une écriture, l'IA la structure dans ton journal.
+description: Outil interactif gratuit pour comptable et fiduciaire Suisse. Dicte ou écris une écriture en langage naturel, l'IA souveraine d'Infomaniak (AI Service) la structure selon le plan comptable PME. Télécharge ton journal au format Excel importable dans Bexio, Abacus ou Sage 50.
 kicker: OUTIL · GÉNÉRATEUR D'ÉCRITURE COMPTABLE
 parentArticleSlug:
 metiers:
@@ -418,18 +471,18 @@ metiers:
   - expert-comptable
   - assistant-administratif
 specs:
-  - "1 ÉCRITURE / ESSAI"
+  - "VOIX + TEXTE"
   - "PLAN COMPTABLE PME"
-  - "EURIA SUISSE"
+  - "IA HÉBERGÉE EN SUISSE"
   - "10 ESSAIS / JOUR"
-calloutPitch: "Dicte ou écris une écriture en langage naturel, EURIA (LLM suisse souveraine) la structure dans ton journal Excel. Plan comptable PME Suisse, TVA, conversion HT/TTC. Rien n'est sauvé."
+calloutPitch: "Dicte ou écris une écriture en langage naturel, l'IA souveraine d'Infomaniak la structure dans ton journal Excel. Plan comptable PME Suisse, TVA, conversion HT/TTC. Rien n'est sauvé."
 intro: |
   [Copie statique au-dessus du composant : pitch + transparence · données.
    Pas de chips d'exemples ici — les chips sont rendues par le composant
    pour rester sous le textarea.]
 outro: |
   [Copie statique sous le composant : FAQ courte, lien vers l'article
-   futur sur le traitement des données, mentions Infomaniak Euria.]
+   futur sur le traitement des données, mention Infomaniak AI Services.]
 data:
   ratelimit_per_day: 10
   posthog_event_prefix: generateur_ecriture
@@ -441,21 +494,31 @@ data:
 | Fichier | Responsabilité |
 |---|---|
 | `app/components/KitGenerateurEcriture.vue` | Composant interactif principal (textarea, chips, preview, table, feedback) |
+| `app/components/KitGenerateurEcritureVoice.vue` | Sous-composant capture audio + transcription (mic button, état recording, polling status) |
 | `app/components/KitGenerateurEcritureRow.vue` | Une ligne du tableau journal (édition inline + bouton suppression) |
 | `app/components/KitGenerateurEcritureTransparence.vue` | Bloc transparence · données (réutilisable, futur autres outils) |
 | `app/components/OutilsMetierSection.vue` | Section "OUTILS POUR PILOTER L'IA DANS CE MÉTIER" insérée dans `/scanner/[slug].vue` |
 
 Pas de modif structurelle de `[slug].vue` au-delà de l'ajout d'un `v-if` pour le nouveau `kind: app`. Pas de modif des composants existants (`KitQuiz`, `KitCard`).
 
-Mineure : ajout du chip filter "APP" sur `app/pages/outils/index.vue` (remplace ou ajoute à côté des chips disabled).
+Mineure : ajout du chip filter "APP" sur `app/pages/outils/index.vue` (à côté des chips disabled).
 
 ## 12. PostHog events
 
 ```js
 posthog.capture('generateur_ecriture_viewed')                  // pageview (autocapture)
 posthog.capture('generateur_ecriture_example_chip_clicked', { example_key })
-posthog.capture('generateur_ecriture_first_parse', { parse_latency_ms })
-posthog.capture('generateur_ecriture_parse_success', { rows_in_session, parse_latency_ms })
+posthog.capture('generateur_ecriture_voice_started')           // clic mic
+posthog.capture('generateur_ecriture_voice_completed', {       // transcription OK
+  audio_duration_ms,
+  transcription_latency_ms,
+  detected_language
+})
+posthog.capture('generateur_ecriture_voice_failed', {          // permission denied / upload error / timeout
+  reason
+})
+posthog.capture('generateur_ecriture_first_parse', { parse_latency_ms, input_mode })  // input_mode = 'text' | 'voice'
+posthog.capture('generateur_ecriture_parse_success', { rows_in_session, parse_latency_ms, input_mode })
 posthog.capture('generateur_ecriture_parse_error', { error_type })
 posthog.capture('generateur_ecriture_row_edited_before_add', { fields_edited })
 posthog.capture('generateur_ecriture_row_added')
@@ -471,9 +534,10 @@ PostHog identify : quand un email est soumis (feedback ou abonnement Fréquence)
 Dashboards à créer post-lancement (1h de config) :
 1. Funnel principal : viewed → first_parse → excel_downloaded → feedback_submitted → newsletter_subscribed
 2. Intensité d'usage : distribution `rows_in_session`
-3. Qualité EURIA : ratio `parse_success` / `parse_error`, `row_edited_before_add` (signal d'apprentissage)
-4. Demande : count `rate_limit_hit` / jour
-5. Garde-fous : count `validation_failed` / heure, grouped by `reason`
+3. Qualité IA : ratio `parse_success` / `parse_error`, `row_edited_before_add`
+4. Usage voix vs texte : `input_mode` distribution
+5. Qualité voix : `voice_completed` vs `voice_failed`, distribution `audio_duration_ms`
+6. Garde-fous : count `validation_failed` / heure, grouped by `reason`
 
 ## 13. Quality gates
 
@@ -482,33 +546,36 @@ Avant de déclarer livré :
 - [ ] Page `/outils/generateur-ecriture-comptable` rend sans erreur, hero + transparence + zone d'action visibles
 - [ ] 3 chips d'exemples remplissent correctement le textarea
 - [ ] Une écriture simple ("Migros 47.80 frais représentation hier") produit une proposition cohérente : compte 6570, contrepartie 1020, TVA 8.1%, montants HT/TVA/TTC qui s'additionnent
+- [ ] Le bouton mic demande la permission micro au navigateur, l'enregistrement démarre et s'arrête correctement
+- [ ] Une dictée vocale ("Migros quarante-sept francs quatre-vingts frais représentation hier") produit une proposition cohérente (l'IA interprète les nombres en lettres)
+- [ ] Transcription échoue gracieusement (timeout, permission refusée, audio vide) avec messages clairs
 - [ ] Édition d'un champ dans la preview avant "Ajouter au journal" persiste la valeur éditée
 - [ ] 5 lignes ajoutées au journal → bouton "Télécharger Excel" fonctionne, fichier ouvre dans Excel/Numbers sans erreur, colonnes correctes
 - [ ] Refresh de la page → journal persiste (localStorage)
 - [ ] Bouton "Nouveau journal" + confirm → reset complet du localStorage
-- [ ] Rate limit 10/jour testé en mode local : à la 11e tentative, message dédié + CTA newsletter affiché
+- [ ] Rate limit 10/jour testé : à la 11e tentative (texte ou voix), message dédié + CTA newsletter affiché
 - [ ] Input injection (`"ignore previous instructions"`) → bouton disabled, message inline
 - [ ] Input vulgaire → bouton disabled, message inline
-- [ ] EURIA retourne réponse invalide (simulé via mock) → message générique inline, event PostHog `validation_failed` enregistré
+- [ ] Audio file > 1.5 MB ou type non autorisé → 400 inline
+- [ ] Infomaniak retourne réponse invalide (simulé via mock) → message générique inline, event PostHog `validation_failed` enregistré
 - [ ] Bannière feedback apparaît après téléchargement OU 3 lignes ajoutées
 - [ ] Email feedback → push Brevo testé en mode test
 - [ ] Section "OUTILS POUR PILOTER L'IA DANS CE MÉTIER" apparaît sur `/scanner/comptable`, `/scanner/expert-comptable`, `/scanner/assistant-administratif` ; n'apparaît pas sur `/scanner/medecin-generaliste`
 - [ ] Tous les events PostHog firent et apparaissent dans le dashboard
-- [ ] Aucune écriture, aucun email, aucun montant ne touche un log applicatif côté serveur (vérification manuelle code review)
+- [ ] Aucune écriture, aucun email, aucun montant, aucun fichier audio ne touche un log applicatif côté serveur (vérification manuelle code review)
 
 ## 14. Risques (cross-référencés avec le pre-mortem du 2026-05-10)
 
 | Scenario pre-mortem | Risque pour cet outil | Mitigation v1 |
 |---|---|---|
-| 1 — Cadence brisée | Construire l'outil consomme du temps qui aurait pu être un article hebdo | Scope strict (pas d'audio, pas d'open source, pas d'import xlsx), implémentation cappée à 2 weekends (~9-12h) |
+| 1 — Cadence brisée | Construire l'outil consomme du temps qui aurait pu être un article hebdo | Scope strict (réutilisation du code Rinto pour la voix, pas d'open source, pas d'import xlsx), implémentation cappée à ~3 weekends (~15-20h avec voix) |
 | 2 — Acquisition death spiral | L'outil seul ne se trouve pas sans canal | Surface automatique dans `/scanner/[slug]` pour 3 métiers ; article complémentaire à venir |
 | 3 — Vaporware fatigue | L'outil est annoncé puis pas livré, aggravant la promesse "bientôt" | Ne PAS annoncer publiquement avant que la v1 fonctionne. Lancer en mode silencieux, mention dans Fréquence après vérification |
-| 4 — AI content commoditization | ChatGPT peut faire le même parsing | Différenciation par souveraineté EURIA (LPD, Genève) + spécificité plan comptable PME Suisse |
+| 4 — AI content commoditization | ChatGPT peut faire le même parsing | Différenciation par souveraineté Suisse Infomaniak (LPD, Genève) + spécificité plan comptable PME Suisse + voix intégrée (la plupart des concurrents francophones non-techs n'auront pas ça) |
 | 5 — Newsletter retention free-fall | Si l'outil ne convertit pas vers newsletter, le funnel reste cassé | Bannière feedback non-bloquante + capture intelligente "prochain outil" comme signal de demande qualifiée |
 
 ## 15. Future extensions (v1.1, v2)
 
-- Transcription audio native (EURIA Whisper si disponible, sinon Web Speech API browser, sinon Infomaniak custom AI)
 - Import xlsx pour ajouter à un journal existant
 - Plan comptable Karrer-Hattenhauer en option
 - Pages métier dédiées `/metiers/[slug].vue` (séparées de `/scanner/[slug]`)
@@ -518,3 +585,4 @@ Avant de déclarer livré :
 - Versioning / historique des journaux
 - Export CSV / autre format
 - API publique pour intégrateurs (formation payante)
+- Streaming response (réduit la latence perçue parsing)
