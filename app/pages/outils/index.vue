@@ -79,7 +79,8 @@ const kitCount = computed(() => kits.value?.length ?? 0)
 
     <div class="filters">
       <button class="filter active" type="button">TOUS</button>
-      <button class="filter disabled" type="button" disabled title="Bientôt">QUIZ</button>
+      <button class="filter" type="button">QUIZ</button>
+      <button class="filter" type="button">APP</button>
       <button class="filter disabled" type="button" disabled title="Bientôt">CHEATSHEET</button>
       <button class="filter disabled" type="button" disabled title="Bientôt">FICHE</button>
       <button class="filter disabled" type="button" disabled title="Bientôt">VIDÉO</button>
