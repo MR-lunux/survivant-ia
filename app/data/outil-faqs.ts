@@ -34,5 +34,9 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       question: 'Pourquoi seulement 10 essais par jour ?',
       answer: "Limite anti-abus par IP, pas pour t'embêter, pour éviter qu'un bot ratisse l'outil et fasse exploser ma facture Infomaniak. À 0,024 centime l'écriture, 10 essais par jour suffisent largement pour évaluer si c'est utile dans ton flux. Si tu veux passer en production sur de vrais volumes, écris-moi.",
     },
+    {
+      question: 'Comment ça marche techniquement ?',
+      answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Service à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Aucune persistance côté serveur, le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
+    },
   ],
 }
