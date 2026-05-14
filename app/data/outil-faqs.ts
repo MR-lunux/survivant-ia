@@ -31,8 +31,8 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       answer: 'Côté Infomaniak (le moteur IA), une écriture parsée coûte environ 0,024 centime suisse (~700 tokens entrants à 0,30 CHF par million + ~80 tokens sortants à 0,40 CHF par million). Une dictée vocale de 10 secondes via Whisper V3 ajoute environ 0,1 centime. Concrètement : 1 franc te paye plus de 4000 écritures texte ou environ 1000 dictées. C\'est offert ici, mais à toi de mesurer ce que ça représente vs. un comptable à 150 CHF de l\'heure.',
     },
     {
-      question: 'Pourquoi seulement 10 essais par jour ?',
-      answer: "Limite anti-abus par IP, pas pour t'embêter, pour éviter qu'un bot ratisse l'outil et fasse exploser ma facture Infomaniak. À 0,024 centime l'écriture, 10 essais par jour suffisent largement pour évaluer si c'est utile dans ton flux. Si tu veux passer en production sur de vrais volumes, écris-moi à mathieu@survivant-ia.ch.",
+      question: "Est-ce vraiment gratuit ?",
+      answer: "Oui, c'est un outil offert pour l'instant. Aucune inscription, aucun paiement, aucune carte demandée. Le coût des appels Infomaniak est à ma charge tant que les volumes restent raisonnables — pour des usages production sur de gros volumes, écris-moi à mathieu@survivant-ia.ch et on regarde ensemble.",
     },
     {
       question: 'Comment ça marche techniquement ?',

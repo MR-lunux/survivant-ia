@@ -148,7 +148,7 @@ async function onSubmitParse() {
 
 function handleParseError(code: string, payload: { error: string; reason?: string }) {
   if (code === 'rate_limit') {
-    inputError.value = 'Tu as atteint 10 essais aujourd\'hui. La version sans limite arrive avec La Fréquence.'
+    inputError.value = 'Une petite pause d\'usage. Réessaie dans quelques minutes.'
     capture('generateur_ecriture_rate_limit_hit')
   } else if (code === 'invalid_input') inputError.value = friendlyError(payload.reason ?? '')
   else if (code === 'validation_failed' || code === 'ai_unreachable') inputError.value = 'L\'IA n\'a pas pu structurer cette écriture. Reformule avec plus de contexte.'
