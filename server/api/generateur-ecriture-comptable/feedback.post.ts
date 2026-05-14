@@ -26,10 +26,9 @@ export default defineEventHandler(async (event) => {
       return { error: 'bad_email' }
     }
 
-    const brevoApiKey = process.env.BREVO_API_KEY
-    const brevoListId = process.env.BREVO_LIST_ID_GENERATEUR_ECRITURE ?? process.env.BREVO_LIST_ID
+    const { brevoApiKey, brevoListId } = useRuntimeConfig()
     if (!brevoApiKey || !brevoListId) {
-      console.error('[generateur-ecriture/feedback] Brevo env vars missing')
+      console.error('[generateur-ecriture/feedback] Brevo runtime config missing')
       setResponseStatus(event, 500)
       return { error: 'config_missing' }
     }

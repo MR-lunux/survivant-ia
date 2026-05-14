@@ -9,7 +9,8 @@ interface ParseRequest {
 }
 
 export default defineEventHandler(async (event) => {
-  if (process.env.GENERATEUR_ECRITURE_ENABLED === 'false') {
+  const config = useRuntimeConfig()
+  if (config.generateurEcritureEnabled === 'false') {
     setResponseStatus(event, 503)
     return { error: 'disabled' }
   }

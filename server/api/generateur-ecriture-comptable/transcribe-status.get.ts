@@ -1,7 +1,8 @@
 import { peekRateLimit } from '../../utils/rate-limit'
 
 export default defineEventHandler(async (event) => {
-  if (process.env.GENERATEUR_ECRITURE_ENABLED === 'false') {
+  const config = useRuntimeConfig()
+  if (config.generateurEcritureEnabled === 'false') {
     setResponseStatus(event, 503)
     return { error: 'disabled' }
   }
@@ -21,8 +22,8 @@ export default defineEventHandler(async (event) => {
     return { error: 'bad_batch_id' }
   }
 
-  const token = process.env.INFOMANIAK_AI_TOKEN
-  const productId = process.env.INFOMANIAK_AI_PRODUCT_ID
+  const token = config.infomaniakAiToken
+  const productId = config.infomaniakAiProductId
   if (!token || !productId) {
     setResponseStatus(event, 500)
     return { error: 'config_missing' }

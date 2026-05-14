@@ -14,6 +14,10 @@ export default defineNuxtConfig({
     brevoListId: '',
     brevoChantierListId: '',
     brevoMetierWaitlistListId: '',
+    infomaniakAiToken: '',
+    infomaniakAiProductId: '',
+    infomaniakAiModel: 'Mistral-Small-3.2-24B-Instruct-2506',
+    generateurEcritureEnabled: 'true',
     public: {
       posthogKey: '',
     },

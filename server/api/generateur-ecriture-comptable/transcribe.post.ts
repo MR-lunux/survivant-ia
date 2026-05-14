@@ -2,7 +2,8 @@ import { validateAudio } from '../../utils/audio-validation'
 import { checkRateLimit } from '../../utils/rate-limit'
 
 export default defineEventHandler(async (event) => {
-  if (process.env.GENERATEUR_ECRITURE_ENABLED === 'false') {
+  const config = useRuntimeConfig()
+  if (config.generateurEcritureEnabled === 'false') {
     setResponseStatus(event, 503)
     return { error: 'disabled' }
   }
@@ -33,8 +34,8 @@ export default defineEventHandler(async (event) => {
     return { error: 'invalid_audio', reason: validation.reason }
   }
 
-  const token = process.env.INFOMANIAK_AI_TOKEN
-  const productId = process.env.INFOMANIAK_AI_PRODUCT_ID
+  const token = config.infomaniakAiToken
+  const productId = config.infomaniakAiProductId
   if (!token || !productId) {
     console.error('[generateur-ecriture/transcribe] Infomaniak config missing')
     setResponseStatus(event, 500)

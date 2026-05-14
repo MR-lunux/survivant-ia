@@ -58,12 +58,13 @@ export interface ChatCallOptions {
 }
 
 export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptions): Promise<unknown> {
-  const token = process.env.INFOMANIAK_AI_TOKEN
-  const productId = process.env.INFOMANIAK_AI_PRODUCT_ID
-  const model = process.env.INFOMANIAK_AI_MODEL || 'Mistral-Small-3.2-24B-Instruct-2506'
+  const config = useRuntimeConfig()
+  const token = config.infomaniakAiToken
+  const productId = config.infomaniakAiProductId
+  const model = config.infomaniakAiModel || 'Mistral-Small-3.2-24B-Instruct-2506'
 
   if (!token || !productId) {
-    throw new Error('Infomaniak AI configuration missing (INFOMANIAK_AI_TOKEN, INFOMANIAK_AI_PRODUCT_ID)')
+    throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
   }
 
   const userMessage = `Date d'aujourd'hui : ${currentDateISO}\nÉcriture : "${text}"`
