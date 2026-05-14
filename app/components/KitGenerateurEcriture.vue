@@ -12,7 +12,7 @@ const { capture } = usePosthogEvent()
 const EXAMPLES = [
   'Migros 47.80 frais représentation hier',
   'Facture Bexio 39 CHF SaaS pour le mois',
-  'Leasing voiture 850 mensualité juin',
+  'Leasing voiture 850 mensualité avril',
 ]
 const STORAGE_KEY = 'survivant-generateur-ecriture-rows'
 const FEEDBACK_DISMISSED_KEY = 'survivant-generateur-feedback-dismissed'

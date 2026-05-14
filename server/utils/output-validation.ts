@@ -62,8 +62,8 @@ export function validateAiResponse(raw: unknown): ValidationOutcome {
   const dateObj = new Date(obj.date)
   const now = new Date()
   const fiveYearsAgo = new Date(now.getFullYear() - 5, now.getMonth(), now.getDate())
-  const tomorrow = new Date(now.getTime() + 24 * 3600 * 1000)
-  if (dateObj < fiveYearsAgo || dateObj > tomorrow) return { valid: false, reason: 'date_out_of_range' }
+  const ninetyDaysAhead = new Date(now.getTime() + 90 * 24 * 3600 * 1000)
+  if (dateObj < fiveYearsAgo || dateObj > ninetyDaysAhead) return { valid: false, reason: 'date_out_of_range' }
 
   if (typeof obj.libelle !== 'string' || obj.libelle.length === 0 || obj.libelle.length > 120) {
     return { valid: false, reason: 'bad_libelle' }

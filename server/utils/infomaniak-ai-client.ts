@@ -47,6 +47,9 @@ Format date :
 - "hier" → date du jour - 1
 - "lundi dernier", "vendredi" → jour le plus récent
 - format absolu (15/05/2026 ou 2026-05-15) → ISO
+- mois seul ("mars", "en juin", "mensualité d'avril") → dernier jour de ce mois de l'année courante (ex. "mars" en 2026 → 2026-03-31)
+- année seule ("2024", "facture de 2025") → 31 décembre de cette année (ex. "2024" → 2024-12-31)
+- aucune précision temporelle → date du jour
 
 Note transcription vocale : les transcriptions Whisper peuvent contenir des erreurs de chiffres ("quarante-sept quatre-vingts" pour 47.80). Interprète intelligemment les nombres écrits en lettres.
 
