@@ -350,7 +350,7 @@ defineOgImage('Metier', {
     <div class="footer-actions font-mono">
       <NuxtLink to="/metiers" class="action-link">↻ Voir un autre métier</NuxtLink>
       <span class="action-sep">·</span>
-      <NuxtLink to="/metiers" class="action-link">📋 Voir tous les métiers</NuxtLink>
+      <NuxtLink to="/metiers" class="action-link">→ Voir tous les métiers</NuxtLink>
     </div>
   </article>
 </template>

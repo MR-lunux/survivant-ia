@@ -94,7 +94,6 @@ onMounted(() => {
       <span class="badge-sep">░░</span>
       <span class="badge-text">NIVEAU 2</span>
       <span class="badge-bracket">]</span>
-      <span class="badge-lock">🔒</span>
     </div>
 
     <h3 class="gate-headline">Accès restreint.</h3>
@@ -205,7 +204,6 @@ onMounted(() => {
 }
 .gate-badge .badge-bracket,
 .gate-badge .badge-sep { color: var(--color-accent); }
-.gate-badge .badge-lock { font-size: 0.85em; }
 
 .gate-headline {
   font-family: var(--font-mono);
