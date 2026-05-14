@@ -32,7 +32,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: 'Pourquoi seulement 10 essais par jour ?',
-      answer: "Limite anti-abus par IP, pas pour t'embêter, pour éviter qu'un bot ratisse l'outil et fasse exploser ma facture Infomaniak. À 0,024 centime l'écriture, 10 essais par jour suffisent largement pour évaluer si c'est utile dans ton flux. Si tu veux passer en production sur de vrais volumes, écris-moi.",
+      answer: "Limite anti-abus par IP, pas pour t'embêter, pour éviter qu'un bot ratisse l'outil et fasse exploser ma facture Infomaniak. À 0,024 centime l'écriture, 10 essais par jour suffisent largement pour évaluer si c'est utile dans ton flux. Si tu veux passer en production sur de vrais volumes, écris-moi à mathieu@survivant-ia.ch.",
     },
     {
       question: 'Comment ça marche techniquement ?',

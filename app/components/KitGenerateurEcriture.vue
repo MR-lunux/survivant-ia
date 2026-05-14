@@ -197,6 +197,9 @@ function detectEditedFields(current: AccountingProposition): string[] {
   return fields
 }
 
+const actionZoneRef = ref<HTMLElement | null>(null)
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+
 function addPreviewToJournal() {
   if (!preview.value) return
   const editedFields = detectEditedFields(preview.value)
@@ -215,6 +218,10 @@ function addPreviewToJournal() {
   capture('generateur_ecriture_row_added')
   preview.value = null
   text.value = ''
+  nextTick(() => {
+    actionZoneRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    textareaRef.value?.focus({ preventScroll: true })
+  })
 }
 
 function rejectPreview() { preview.value = null }
@@ -294,7 +301,7 @@ function dismissFeedback() {
   <div class="generateur-ecriture">
     <KitGenerateurEcritureTransparence />
 
-    <section class="action-zone">
+    <section ref="actionZoneRef" class="action-zone">
       <div class="input-row">
         <KitGenerateurEcritureVoice
           @started="onVoiceStarted"
@@ -302,9 +309,10 @@ function dismissFeedback() {
           @failed="onVoiceFailed"
         />
         <textarea
+          ref="textareaRef"
           v-model="text"
           class="textarea"
-          rows="2"
+          rows="3"
           maxlength="200"
           placeholder="Exemple : Migros 47.80 frais représentation client X hier"
           :disabled="isSubmitting"
@@ -430,8 +438,11 @@ function dismissFeedback() {
 .feedback-form { display: flex; flex-direction: column; gap: 0.5rem; }
 .feedback-thanks { position: fixed; bottom: 1rem; right: 1rem; background: var(--color-accent); color: var(--color-bg); padding: 0.75rem 1.25rem; font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
 @media (max-width: 640px) {
+  .action-zone { padding: 1.25rem; }
   .grid { grid-template-columns: 1fr; }
   .feedback-banner { left: 1rem; right: 1rem; max-width: none; }
-  .input-row { flex-direction: column; }
+  .input-row { flex-direction: column; align-items: stretch; }
+  .input-row :deep(.voice-btn) { align-self: center; }
+  .textarea { min-height: 120px; font-size: 16px; }
 }
 </style>
