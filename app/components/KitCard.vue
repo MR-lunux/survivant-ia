@@ -1,5 +1,7 @@
 <!-- app/components/KitCard.vue -->
 <script setup lang="ts">
+import { getOutilCta } from '~/data/outil-ctas'
+
 type KitProp = {
   code: string
   kind: string
@@ -52,7 +54,7 @@ function onClick() {
     <div class="card-specs">
       <span v-for="(s, i) in kit?.specs ?? []" :key="i">{{ s }}</span>
     </div>
-    <div class="card-cta">▶ MESURER MA RÉSILIENCE</div>
+    <div class="card-cta">▶ {{ getOutilCta(kit?.code ?? '', kit?.kind ?? '') }}</div>
   </NuxtLink>
 
   <div v-else class="kit-card coming" aria-hidden="true">
