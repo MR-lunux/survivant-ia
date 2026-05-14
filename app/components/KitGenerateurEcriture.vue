@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import * as XLSX from 'xlsx'
 import { validateInput } from '~/utils/input-validation'
+import { PLAN_COMPTABLE_PME } from '~/utils/plan-comptable-pme'
 import type { JournalRow } from './KitGenerateurEcritureRow.vue'
 import type { AccountingProposition, AiErrorResponse } from '~/utils/output-types'
 
@@ -158,6 +159,24 @@ function handleParseError(code: string, payload: { error: string; reason?: strin
 
 function nextPieceNumber(): string {
   return String(rows.value.length + 1).padStart(3, '0')
+}
+
+function compteLibelle(code: string): string {
+  const trimmed = (code ?? '').trim()
+  return (PLAN_COMPTABLE_PME as Record<string, string>)[trimmed] ?? ''
+}
+
+const planComptableEntries = Object.entries(PLAN_COMPTABLE_PME) as [string, string][]
+const showPlanComptable = ref(false)
+function togglePlanComptable() {
+  showPlanComptable.value = !showPlanComptable.value
+  if (showPlanComptable.value) capture('generateur_ecriture_plan_comptable_opened')
+}
+function pickCompte(code: string, target: 'debit' | 'credit') {
+  if (!preview.value) return
+  if (target === 'debit') preview.value.compteDebit = code
+  else preview.value.compteCredit = code
+  capture('generateur_ecriture_compte_picked_from_plan', { code, target })
 }
 
 const round2 = (n: number) => Math.round(n * 100) / 100
@@ -339,8 +358,23 @@ function dismissFeedback() {
         <label class="field"><span class="field-label">Date</span><input v-model="preview.date" type="text" class="input" /></label>
         <label class="field"><span class="field-label">Pièce</span><input :value="nextPieceNumber()" type="text" class="input" disabled /></label>
         <label class="field full"><span class="field-label">Libellé</span><input v-model="preview.libelle" type="text" class="input" maxlength="120" /></label>
-        <label class="field"><span class="field-label">Compte débit</span><input v-model="preview.compteDebit" type="text" class="input" /></label>
-        <label class="field"><span class="field-label">Compte crédit</span><input v-model="preview.compteCredit" type="text" class="input" /></label>
+        <label class="field">
+          <span class="field-label">Compte débit</span>
+          <input v-model="preview.compteDebit" type="text" class="input" list="plan-comptable-list" />
+          <span class="field-hint" :class="{ unknown: !compteLibelle(preview.compteDebit) }">
+            {{ compteLibelle(preview.compteDebit) || 'Code non reconnu' }}
+          </span>
+        </label>
+        <label class="field">
+          <span class="field-label">Compte crédit</span>
+          <input v-model="preview.compteCredit" type="text" class="input" list="plan-comptable-list" />
+          <span class="field-hint" :class="{ unknown: !compteLibelle(preview.compteCredit) }">
+            {{ compteLibelle(preview.compteCredit) || 'Code non reconnu' }}
+          </span>
+        </label>
+        <datalist id="plan-comptable-list">
+          <option v-for="[code, libelle] in planComptableEntries" :key="code" :value="code">{{ libelle }}</option>
+        </datalist>
         <label class="field"><span class="field-label">Montant HT</span><input v-model.number="preview.montantHT" @change="recomputeFromHt" type="number" step="0.01" class="input" /></label>
         <label class="field"><span class="field-label">Taux TVA</span><input v-model.number="preview.tauxTva" @change="recomputeFromHt" type="number" step="0.1" class="input" /></label>
         <label class="field"><span class="field-label">Montant TVA</span><input v-model.number="preview.montantTva" type="number" step="0.01" class="input" /></label>
@@ -348,6 +382,26 @@ function dismissFeedback() {
       </div>
       <div v-if="previewLowConfidence" class="warning">Niveau de confiance modéré — vérifie attentivement.</div>
       <div v-if="preview.note" class="note">Note : {{ preview.note }}</div>
+      <button type="button" class="plan-toggle" :aria-expanded="showPlanComptable" @click="togglePlanComptable">
+        <span class="plan-toggle-icon" aria-hidden="true">{{ showPlanComptable ? '▲' : '▼' }}</span>
+        Plan comptable suisse PME ({{ planComptableEntries.length }} comptes disponibles)
+      </button>
+      <div v-if="showPlanComptable" class="plan-grid" role="region" aria-label="Plan comptable">
+        <button
+          v-for="[code, libelle] in planComptableEntries"
+          :key="code"
+          type="button"
+          class="plan-row"
+        >
+          <span class="plan-code">{{ code }}</span>
+          <span class="plan-libelle">{{ libelle }}</span>
+          <span class="plan-actions">
+            <span class="plan-pick" @click.stop="pickCompte(code, 'debit')">Débit</span>
+            <span class="plan-pick" @click.stop="pickCompte(code, 'credit')">Crédit</span>
+          </span>
+        </button>
+      </div>
+
       <div class="actions">
         <button type="button" class="btn-secondary" @click="rejectPreview">Refaire</button>
         <button type="button" class="btn-primary" @click="addPreviewToJournal">Ajouter au journal →</button>
@@ -419,6 +473,84 @@ function dismissFeedback() {
 .field-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.25rem; display: block; }
 .input { width: 100%; font-family: var(--font-sans); font-size: 0.92rem; padding: 0.55rem 0.7rem; background: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-hairline); }
 .input:focus { outline: none; border-color: var(--color-accent); }
+.field-hint {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  margin-top: 0.3rem;
+  min-height: 1em;
+}
+.field-hint.unknown { color: var(--color-danger, #c5614f); opacity: 0.85; }
+
+.plan-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: transparent;
+  border: none;
+  padding: 0.6rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+.plan-toggle:hover { color: var(--color-accent); }
+.plan-toggle-icon { color: var(--color-accent); font-size: 0.6rem; }
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--color-rule);
+  margin: 0.5rem 0 1rem;
+  animation: plan-fade 0.25s ease-out;
+}
+@keyframes plan-fade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.plan-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.85rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-hairline);
+  text-align: left;
+  cursor: default;
+  width: 100%;
+}
+.plan-row:nth-last-child(-n+2) { border-bottom: none; }
+.plan-code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+.plan-libelle {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-text-soft);
+}
+.plan-actions { display: flex; gap: 0.35rem; }
+.plan-pick {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--color-hairline);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.plan-pick:hover { color: var(--color-accent); border-color: var(--color-accent); }
 .warning, .note { font-size: 0.85rem; padding: 0.6rem 0.85rem; border-left: 2px solid; margin: 0.75rem 0; }
 .warning { border-color: var(--color-warn, #d49b54); color: var(--color-warn, #d49b54); background: rgba(212, 155, 84, 0.05); }
 .note { border-color: var(--color-muted); color: var(--color-text-soft); }
@@ -444,5 +576,8 @@ function dismissFeedback() {
   .input-row { flex-direction: column; align-items: stretch; }
   .input-row :deep(.voice-btn) { align-self: center; }
   .textarea { min-height: 120px; font-size: 16px; }
+  .plan-grid { grid-template-columns: 1fr; }
+  .plan-row:nth-last-child(-n+2) { border-bottom: 1px solid var(--color-hairline); }
+  .plan-row:last-child { border-bottom: none; }
 }
 </style>
