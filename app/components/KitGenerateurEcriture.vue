@@ -160,6 +160,28 @@ function nextPieceNumber(): string {
   return String(rows.value.length + 1).padStart(3, '0')
 }
 
+const round2 = (n: number) => Math.round(n * 100) / 100
+
+function recomputeFromHt() {
+  if (!preview.value) return
+  const ht = preview.value.montantHT
+  const taux = preview.value.tauxTva
+  if (!Number.isFinite(ht) || !Number.isFinite(taux) || taux < 0) return
+  const tva = round2(ht * taux / 100)
+  preview.value.montantTva = tva
+  preview.value.montantTTC = round2(ht + tva)
+}
+
+function recomputeFromTtc() {
+  if (!preview.value) return
+  const ttc = preview.value.montantTTC
+  const taux = preview.value.tauxTva
+  if (!Number.isFinite(ttc) || !Number.isFinite(taux) || taux < 0) return
+  const ht = round2(ttc / (1 + taux / 100))
+  preview.value.montantHT = ht
+  preview.value.montantTva = round2(ttc - ht)
+}
+
 function detectEditedFields(current: AccountingProposition): string[] {
   if (!originalProposition.value) return []
   const fields: string[] = []
@@ -311,10 +333,10 @@ function dismissFeedback() {
         <label class="field full"><span class="field-label">Libellé</span><input v-model="preview.libelle" type="text" class="input" maxlength="120" /></label>
         <label class="field"><span class="field-label">Compte débit</span><input v-model="preview.compteDebit" type="text" class="input" /></label>
         <label class="field"><span class="field-label">Compte crédit</span><input v-model="preview.compteCredit" type="text" class="input" /></label>
-        <label class="field"><span class="field-label">Montant HT</span><input v-model.number="preview.montantHT" type="number" step="0.01" class="input" /></label>
-        <label class="field"><span class="field-label">Taux TVA</span><input v-model.number="preview.tauxTva" type="number" step="0.1" class="input" /></label>
+        <label class="field"><span class="field-label">Montant HT</span><input v-model.number="preview.montantHT" @change="recomputeFromHt" type="number" step="0.01" class="input" /></label>
+        <label class="field"><span class="field-label">Taux TVA</span><input v-model.number="preview.tauxTva" @change="recomputeFromHt" type="number" step="0.1" class="input" /></label>
         <label class="field"><span class="field-label">Montant TVA</span><input v-model.number="preview.montantTva" type="number" step="0.01" class="input" /></label>
-        <label class="field"><span class="field-label">Montant TTC</span><input v-model.number="preview.montantTTC" type="number" step="0.01" class="input" /></label>
+        <label class="field"><span class="field-label">Montant TTC</span><input v-model.number="preview.montantTTC" @change="recomputeFromTtc" type="number" step="0.01" class="input" /></label>
       </div>
       <div v-if="previewLowConfidence" class="warning">Niveau de confiance modéré — vérifie attentivement.</div>
       <div v-if="preview.note" class="note">Note : {{ preview.note }}</div>
