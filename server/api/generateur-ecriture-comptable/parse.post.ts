@@ -53,6 +53,28 @@ export default defineEventHandler(async (event) => {
     return { error: 'ai_unreachable' }
   }
 
+  if (rawResponse && typeof rawResponse === 'object') {
+    const r = rawResponse as Record<string, unknown>
+    const taux = typeof r.tauxTva === 'number' ? r.tauxTva : null
+    const ht = typeof r.montantHT === 'number' ? r.montantHT : null
+    const ttc = typeof r.montantTTC === 'number' ? r.montantTTC : null
+    const source = r.montantSource === 'ht' ? 'ht' : 'ttc'
+    if (taux !== null && taux >= 0) {
+      const round2 = (n: number) => Math.round(n * 100) / 100
+      if (source === 'ttc' && ttc !== null) {
+        const newHt = round2(ttc / (1 + taux / 100))
+        r.montantHT = newHt
+        r.montantTva = round2(ttc - newHt)
+        r.montantTTC = ttc
+      } else if (source === 'ht' && ht !== null) {
+        const newTva = round2(ht * taux / 100)
+        r.montantHT = ht
+        r.montantTva = newTva
+        r.montantTTC = round2(ht + newTva)
+      }
+    }
+  }
+
   const validation = validateAiResponse(rawResponse)
   if (!validation.valid) {
     console.warn('[generateur-ecriture/parse] validation_failed:', validation.reason)

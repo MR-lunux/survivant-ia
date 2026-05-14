@@ -13,6 +13,7 @@ Tu retournes UNIQUEMENT un objet JSON valide avec ces champs :
   "tauxTva": 8.1 | 2.6 | 3.8 | 0,
   "montantTva": number en CHF,
   "montantTTC": number en CHF,
+  "montantSource": "ttc" | "ht",
   "confidence": number entre 0 et 1,
   "note": "explication courte si ambiguïté, sinon chaîne vide"
 }
@@ -20,7 +21,13 @@ Tu retournes UNIQUEMENT un objet JSON valide avec ces champs :
 Règles comptabilité Suisse 2026 :
 - Taux TVA : 8.1% standard, 2.6% réduit (alimentation, livres, médicaments), 3.8% hébergement, 0% exonéré
 - Frais de représentation (6570) : le champ note doit rappeler la limite de déductibilité 50% pour personnes morales
-- Si montant fourni est TTC, calcule HT et TVA. Si HT, calcule TVA et TTC. La somme doit être cohérente à 1 centime près.
+- Interprétation du montant : RÈGLE PAR DÉFAUT "ticket de caisse" → si l'utilisateur écrit juste un nombre sans qualifier, c'est TTC (montantSource="ttc", montantTTC = ce nombre). UNIQUEMENT si l'utilisateur écrit explicitement "HT" / "hors taxes" / "net" à côté du montant, alors montantSource="ht" (montantHT = ce nombre). Les mots "TTC" / "toutes taxes" / "brut" / "total" confirment "ttc".
+- Exemples :
+  · "Migros 47.80" → montantSource="ttc", montantTTC=47.80, montantHT≈44.22 (ne te casse pas la tête sur le calcul, donne une approximation)
+  · "Loyer 2500 HT" → montantSource="ht", montantHT=2500, montantTTC≈2595
+  · "Facture 1080 toutes taxes" → montantSource="ttc", montantTTC=1080
+  · "SaaS Notion 89 CHF" → montantSource="ttc", montantTTC=89, montantHT≈82.33
+- Note : le serveur recalcule HT/TVA/TTC exactement à partir de montantSource et tauxTva, donc concentre-toi sur poser le bon montantSource et mettre le bon nombre dans le bon champ.
 - Si pas de TVA spécifiée pour dépense Suisse standard, suppose 8.1%
 - Si contrepartie non spécifiée, suppose 1020 Banque
 
@@ -96,6 +103,7 @@ export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptio
               tauxTva: { type: 'number' },
               montantTva: { type: 'number' },
               montantTTC: { type: 'number' },
+              montantSource: { type: 'string', enum: ['ttc', 'ht'] },
               confidence: { type: 'number' },
               note: { type: 'string' },
               error: { type: 'string' },
