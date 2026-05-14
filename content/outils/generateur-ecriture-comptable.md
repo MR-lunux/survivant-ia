@@ -14,7 +14,7 @@ specs:
   - "VOIX + TEXTE"
   - "PLAN COMPTABLE PME"
   - "IA HÉBERGÉE EN SUISSE"
-  - "EXPORT EXCEL → BEXIO"
+  - "EXPORT EXCEL"
 calloutPitch: "Dicte ou écris une écriture en langage naturel, l'IA souveraine d'Infomaniak la structure dans ton journal Excel. Plan comptable PME Suisse, TVA, conversion HT/TTC. Rien n'est sauvé."
 intro: |
   Cet outil structure une écriture comptable Suisse à partir d'une description en langage naturel. Tu décris en tapant ou en dictant : « Migros 47.80 frais représentation client X hier », l'IA propose : date, libellé, comptes débit/crédit, TVA, HT/TTC. Tu valides ou tu corriges, tu ajoutes au journal, tu télécharges en Excel.
