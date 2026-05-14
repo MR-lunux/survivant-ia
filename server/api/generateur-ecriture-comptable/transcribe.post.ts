@@ -1,5 +1,5 @@
-import { validateAudio } from '~/server/utils/audio-validation'
-import { checkRateLimit } from '~/server/utils/rate-limit'
+import { validateAudio } from '../../utils/audio-validation'
+import { checkRateLimit } from '../../utils/rate-limit'
 
 export default defineEventHandler(async (event) => {
   if (process.env.GENERATEUR_ECRITURE_ENABLED === 'false') {

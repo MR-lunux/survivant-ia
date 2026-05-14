@@ -1,7 +1,7 @@
-import { validateInput, sanitizeInput } from '~/server/utils/input-validation'
-import { validateAiResponse } from '~/server/utils/output-validation'
-import { checkRateLimit } from '~/server/utils/rate-limit'
-import { callInfomaniakChat } from '~/server/utils/infomaniak-ai-client'
+import { validateInput, sanitizeInput } from '../../utils/input-validation'
+import { validateAiResponse } from '../../utils/output-validation'
+import { checkRateLimit } from '../../utils/rate-limit'
+import { callInfomaniakChat } from '../../utils/infomaniak-ai-client'
 
 interface ParseRequest {
   text: string

@@ -1,4 +1,4 @@
-import { peekRateLimit } from '~/server/utils/rate-limit'
+import { peekRateLimit } from '../../utils/rate-limit'
 
 export default defineEventHandler(async (event) => {
   if (process.env.GENERATEUR_ECRITURE_ENABLED === 'false') {
