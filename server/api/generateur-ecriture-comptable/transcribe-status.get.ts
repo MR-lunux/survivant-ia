@@ -76,8 +76,11 @@ export default defineEventHandler(async (event) => {
   }
 
   if (status === 'failed' || status === 'error') {
-    setResponseStatus(event, 500)
-    return { error: 'transcription_failed' }
+    // Whisper couldn't transcribe (silent / too short / noisy audio).
+    // Return 200 with a status field so the frontend handles it via
+    // its res.error branch, not the network catch — and the user
+    // sees a friendly "Aucune parole détectée" instead of a scary 500.
+    return { status: 'failed', error: 'transcription_failed' }
   }
 
   return { status: 'processing' }
