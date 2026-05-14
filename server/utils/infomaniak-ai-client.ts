@@ -61,7 +61,7 @@ export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptio
   const config = useRuntimeConfig()
   const token = config.infomaniakAiToken
   const productId = config.infomaniakAiProductId
-  const model = config.infomaniakAiModel || 'Mistral-Small-3.2-24B-Instruct-2506'
+  const model = config.infomaniakAiModel || 'mistral24b'
 
   if (!token || !productId) {
     throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
@@ -81,7 +81,29 @@ export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptio
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: userMessage },
       ],
-      response_format: { type: 'json_object' },
+      response_format: {
+        type: 'json_schema',
+        json_schema: {
+          name: 'ecriture_ou_erreur',
+          schema: {
+            type: 'object',
+            properties: {
+              date: { type: 'string' },
+              libelle: { type: 'string' },
+              compteDebit: { type: 'string' },
+              compteCredit: { type: 'string' },
+              montantHT: { type: 'number' },
+              tauxTva: { type: 'number' },
+              montantTva: { type: 'number' },
+              montantTTC: { type: 'number' },
+              confidence: { type: 'number' },
+              note: { type: 'string' },
+              error: { type: 'string' },
+              needed: { type: 'array', items: { type: 'string' } },
+            },
+          },
+        },
+      },
       temperature: 0.2,
       max_tokens: 400,
     }),
