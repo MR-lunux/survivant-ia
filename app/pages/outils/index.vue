@@ -59,7 +59,22 @@ const { data: kits } = await useAsyncData('all-kits', () =>
     .all()
 )
 
-const kitCount = computed(() => kits.value?.length ?? 0)
+type Filter = 'all' | 'quiz' | 'app'
+const activeFilter = ref<Filter>('all')
+
+const filteredKits = computed(() => {
+  const all = kits.value ?? []
+  if (activeFilter.value === 'all') return all
+  return all.filter(k => k.kind === activeFilter.value)
+})
+
+const kitCount = computed(() => filteredKits.value.length)
+
+function setFilter(next: Filter) {
+  if (activeFilter.value === next) return
+  activeFilter.value = next
+  capture('kit_list_filter_changed', { filter: next })
+}
 </script>
 
 <template>
@@ -77,18 +92,30 @@ const kitCount = computed(() => kits.value?.length ?? 0)
       <span>RÉSULTATS PRIVÉS · AUCUNE COLLECTE</span>
     </div>
 
-    <div class="filters">
-      <button class="filter active" type="button">TOUS</button>
-      <button class="filter" type="button">QUIZ</button>
-      <button class="filter" type="button">APP</button>
-      <button class="filter disabled" type="button" disabled title="Bientôt">CHEATSHEET</button>
-      <button class="filter disabled" type="button" disabled title="Bientôt">FICHE</button>
-      <button class="filter disabled" type="button" disabled title="Bientôt">VIDÉO</button>
+    <div class="filters" role="tablist" aria-label="Filtrer les outils">
+      <button
+        class="filter" type="button" role="tab"
+        :class="{ active: activeFilter === 'all' }"
+        :aria-selected="activeFilter === 'all'"
+        @click="setFilter('all')"
+      >TOUS</button>
+      <button
+        class="filter" type="button" role="tab"
+        :class="{ active: activeFilter === 'quiz' }"
+        :aria-selected="activeFilter === 'quiz'"
+        @click="setFilter('quiz')"
+      >QUIZ</button>
+      <button
+        class="filter" type="button" role="tab"
+        :class="{ active: activeFilter === 'app' }"
+        :aria-selected="activeFilter === 'app'"
+        @click="setFilter('app')"
+      >APP</button>
     </div>
 
     <div class="kits-grid">
       <KitCard
-        v-for="(kit, i) in kits ?? []"
+        v-for="(kit, i) in filteredKits"
         :key="kit.id"
         :kit="{
           code: kit.code,
@@ -101,7 +128,7 @@ const kitCount = computed(() => kits.value?.length ?? 0)
         :position="i + 1"
         @card-click="onCardClick"
       />
-      <KitCard variant="coming" />
+      <KitCard v-if="activeFilter === 'all'" variant="coming" />
     </div>
 
     <p class="bottom-note">
@@ -154,10 +181,12 @@ const kitCount = computed(() => kits.value?.length ?? 0)
   border: 1px solid var(--color-hairline);
   color: var(--color-muted);
   background: transparent;
-  cursor: not-allowed;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
 }
-.filter.active { color: var(--color-accent); border-color: var(--color-accent); cursor: pointer; }
-.filter.disabled { opacity: 0.4; }
+.filter:hover { color: var(--color-text); border-color: var(--color-text); }
+.filter.active { color: var(--color-accent); border-color: var(--color-accent); }
+.filter.active:hover { color: var(--color-accent); border-color: var(--color-accent); }
 .kits-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
