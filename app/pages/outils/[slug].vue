@@ -23,9 +23,9 @@ const { data: parentArticle } = await useAsyncData(`parent-of-${slug}`, async ()
 })
 
 useSeoMeta({
-  title: () => kit.value ? `${kit.value.title} (${kit.value.code}) | Survivant-IA` : 'Kit | Survivant-IA',
+  title: () => kit.value?.title ? `${kit.value.title} | Survivant-IA` : 'Kit | Survivant-IA',
   description: () => kit.value?.description ?? '',
-  ogTitle: () => kit.value ? `${kit.value.title} (${kit.value.code})` : '',
+  ogTitle: () => kit.value?.title ?? '',
   ogDescription: () => kit.value?.description ?? '',
   twitterCard: 'summary_large_image',
   twitterTitle: () => kit.value?.title ?? '',
@@ -39,7 +39,7 @@ const kitJsonLd = computed(() => {
     {
       '@type': 'WebApplication',
       '@id': `${baseUrl}#app`,
-      name: `${kit.value.title} (${kit.value.code})`,
+      name: kit.value.title,
       url: baseUrl,
       description: kit.value.description,
       applicationCategory: 'EducationalApplication',
