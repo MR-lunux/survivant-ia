@@ -1,15 +1,23 @@
 <!-- app/components/KitGenerateurEcritureTransparence.vue -->
+<script setup lang="ts">
+function scrollToFaq(event: MouseEvent) {
+  event.preventDefault()
+  const target = document.getElementById('kit-faq')
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+</script>
+
 <template>
   <div class="trust-strip" role="note">
     <span class="dot" aria-hidden="true"></span>
     <span class="text">
-      <strong>Hébergé Infomaniak Genève</strong>
+      <strong>IA souveraine (Infomaniak Genève)</strong>
       <span class="sep" aria-hidden="true">·</span>
       Rien n'est stocké
       <span class="sep" aria-hidden="true">·</span>
       Pas d'entraînement sur tes données
     </span>
-    <NuxtLink to="#kit-faq-heading" class="link">Détails</NuxtLink>
+    <a href="#kit-faq" class="link" @click="scrollToFaq">Détails</a>
   </div>
 </template>
 

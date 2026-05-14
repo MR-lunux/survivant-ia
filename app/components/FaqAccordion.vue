@@ -43,7 +43,7 @@ function onAccordionToggle(event: Event, index: number, question: string) {
 </script>
 
 <template>
-  <section class="faq-accordion">
+  <section id="kit-faq" class="faq-accordion">
     <div v-if="kickerLabel" class="section-kicker font-mono">
       <span v-if="kickerNum" class="num">{{ kickerNum }}</span>
       <span class="label">{{ kickerLabel }}</span>
