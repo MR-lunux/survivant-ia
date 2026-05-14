@@ -115,8 +115,15 @@ async function onSubmitParse() {
     const latency = Math.round(performance.now() - start)
 
     if ('error' in response) {
-      handleParseError(response.error, response as { error: string; reason?: string })
-      capture('generateur_ecriture_parse_error', { error_type: response.error })
+      const payload = response as { error: string; reason?: string }
+      handleParseError(response.error, payload)
+      capture('generateur_ecriture_parse_error', {
+        error_type: response.error,
+        validation_reason: payload.reason,
+        input_length: text.value.length,
+        input_mode: lastInputMode.value,
+        parse_latency_ms: latency,
+      })
       return
     }
     preview.value = response

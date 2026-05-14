@@ -79,7 +79,7 @@ export default defineEventHandler(async (event) => {
   if (!validation.valid) {
     console.warn('[generateur-ecriture/parse] validation_failed:', validation.reason)
     setResponseStatus(event, 502)
-    return { error: 'validation_failed' }
+    return { error: 'validation_failed', reason: validation.reason }
   }
 
   return validation.data
