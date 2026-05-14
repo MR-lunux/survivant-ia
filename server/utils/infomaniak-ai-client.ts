@@ -1,7 +1,7 @@
 // Wrapper Infomaniak AI Service (chat completion).
 // API OpenAI-compatible, pattern éprouvé dans Rinto.
 
-const SYSTEM_PROMPT = `Tu es un assistant comptable pour PME suisses. Tu reçois une description en langage naturel (saisie texte ou transcription vocale) et tu retournes une écriture structurée selon le Plan comptable PME (modèle Sterchi).
+const SYSTEM_PROMPT = `Tu es un assistant comptable pour PME suisses. Tu reçois une description en langage naturel (saisie texte ou transcription vocale) et tu retournes une écriture structurée selon le plan comptable suisse PME.
 
 Tu retournes UNIQUEMENT un objet JSON valide avec ces champs :
 {

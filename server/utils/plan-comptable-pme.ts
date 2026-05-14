@@ -1,4 +1,4 @@
-// Plan comptable PME (modèle Sterchi) — codes utilisés par le générateur d'écriture.
+// Plan comptable suisse PME — codes utilisés par le générateur d'écriture.
 // Whitelist STRICTE : Infomaniak AI ne peut retourner que ces codes.
 
 export const PLAN_COMPTABLE_PME = {

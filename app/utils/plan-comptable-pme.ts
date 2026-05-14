@@ -1,4 +1,4 @@
-// Plan comptable PME (modèle Sterchi) — codes utilisés par le générateur d'écriture.
+// Plan comptable suisse PME — codes utilisés par le générateur d'écriture.
 // Miroir de server/utils/plan-comptable-pme.ts (constante + fonctions pures).
 // Duplication nécessaire car Nuxt 4 refuse les imports server → client en build prod.
 

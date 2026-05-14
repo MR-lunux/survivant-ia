@@ -36,7 +36,7 @@ outro: |
   Quelques précisions importantes :
 
   - Je ne suis pas développeur full-stack à temps plein. Je suis Deputy Head of IT dans une boîte qui n'a rien de tech ; cet outil a été construit en marge de mes journées.
-  - Mes connaissances comptables sont basiques : ce que j'ai appris en bossant avec mon comptable et en lisant quelques pages sur le plan PME Sterchi. Le prompt système qui structure les écritures a été itéré avec Claude à partir des règles que je lui ai données.
+  - Mes connaissances comptables sont basiques : ce que j'ai appris en bossant avec mon comptable et en lisant quelques pages sur le plan comptable suisse PME. Le prompt système qui structure les écritures a été itéré avec Claude à partir des règles que je lui ai données.
   - « 4 heures » ne veut pas dire que tu peux le refaire en 4 heures, ni que c'est trivial. Cela veut dire que **la barrière entre une idée et un outil fonctionnel a fondu**, à condition de savoir poser le problème, arbitrer les compromis, et reconnaître quand l'IA hallucine.
 
   ## Le pari derrière l'outil
