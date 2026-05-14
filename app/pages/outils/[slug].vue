@@ -1,5 +1,7 @@
 <!-- app/pages/outils/[slug].vue -->
 <script setup lang="ts">
+import { OUTIL_FAQS } from '~/data/outil-faqs'
+
 const route = useRoute()
 const slug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
 
@@ -157,9 +159,9 @@ onMounted(() => {
 
         <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
 
-        <div v-if="kit.faq && kit.faq.length > 0" class="kit-faq-wrap">
+        <div v-if="OUTIL_FAQS[kit.code]" class="kit-faq-wrap">
           <FaqAccordion
-            :faqs="kit.faq"
+            :faqs="OUTIL_FAQS[kit.code]"
             kicker-label="Questions fréquentes"
             event-name="kit_faq_opened"
             :event-props="{ kit_id: kit.code }"
