@@ -3,7 +3,7 @@ code: generateur-ecriture-comptable
 kind: app
 title: Générateur d'écriture comptable
 subtitle: Dicte ou écris une écriture, l'IA la structure dans ton journal.
-description: Outil interactif gratuit pour comptable et fiduciaire Suisse. Dicte ou écris une écriture en langage naturel, l'IA souveraine d'Infomaniak (AI Service) la structure selon le plan comptable PME. Télécharge ton journal au format Excel importable dans Bexio, Abacus ou Sage 50.
+description: "Outil interactif gratuit. Tu dictes ou tu tapes une écriture, l'IA la structure et tu exportes le journal en Excel. Conçu pour les comptables - un exemple concret de comment l'IA augmente ton métier."
 kicker: OUTIL · GÉNÉRATEUR D'ÉCRITURE COMPTABLE
 parentArticleSlug:
 metiers:
