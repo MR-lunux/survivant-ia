@@ -156,6 +156,15 @@ onMounted(() => {
         />
 
         <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
+
+        <div v-if="kit.faq && kit.faq.length > 0" class="kit-faq-wrap">
+          <FaqAccordion
+            :faqs="kit.faq"
+            kicker-label="Questions fréquentes"
+            event-name="kit_faq_opened"
+            :event-props="{ kit_id: kit.code }"
+          />
+        </div>
       </div>
 
       <footer class="kit-footer">
@@ -198,6 +207,7 @@ onMounted(() => {
 }
 .kit-specs .dot { color: var(--color-dim); }
 .kit-body { font-size: 1.02rem; line-height: 1.75; color: var(--color-text-soft); }
+.kit-faq-wrap { margin-top: 3rem; }
 
 .parent-card {
   display: flex; justify-content: space-between; align-items: center;

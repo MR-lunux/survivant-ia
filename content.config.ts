@@ -38,6 +38,10 @@ export default defineContentConfig({
         calloutPitch: z.string().optional(),
         intro: z.string().default(''),
         outro: z.string().default(''),
+        faq: z.array(z.object({
+          question: z.string(),
+          answer: z.string(),
+        })).default([]),
         data: z.record(z.any()),
       }),
     }),
