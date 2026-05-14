@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     brevoMetierWaitlistListId: '',
     infomaniakAiToken: '',
     infomaniakAiProductId: '',
-    infomaniakAiModel: 'Mistral-Small-3.2-24B-Instruct-2506',
+    infomaniakAiModel: 'mistral24b',
     generateurEcritureEnabled: 'true',
     public: {
       posthogKey: '',
