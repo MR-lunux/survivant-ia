@@ -1,15 +1,14 @@
 <!-- app/components/OutilsMetierSection.vue -->
 <script setup lang="ts">
+import { outilsForMetier } from '~/data/outils-manifest'
+
 const props = defineProps<{ metierSlug: string }>()
 
-const { data: outils } = await useAsyncData(`outils-metier-${props.metierSlug}`, async () => {
-  const all = await queryCollection('outils').all()
-  return (all ?? []).filter((tool: any) =>
-    Array.isArray(tool.metiers) && tool.metiers.includes(props.metierSlug)
-  )
-})
-
-const visible = computed(() => (outils.value ?? []).length > 0)
+// Static manifest avoids runtime SQLite query (better-sqlite3 native
+// binding fails on Vercel serverless). Synced manually with
+// content/outils/*.md frontmatter — see app/data/outils-manifest.ts.
+const outils = computed(() => outilsForMetier(props.metierSlug))
+const visible = computed(() => outils.value.length > 0)
 </script>
 
 <template>
