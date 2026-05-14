@@ -270,17 +270,6 @@ const isDisabled = computed(() => state.value === 'denied' || state.value === 'u
   transition: opacity 0.2s, transform 0.2s;
 }
 
-/* IDLE — soft ripple to invite voice */
-.state-idle .ic-mic .ring {
-  animation: ripple 3s ease-out infinite;
-}
-.state-idle .ic-mic .ring-1 { animation-delay: 0s; }
-.state-idle .ic-mic .ring-2 { animation-delay: 1.5s; }
-@keyframes ripple {
-  0%   { transform: scale(0.6); opacity: 0.55; }
-  100% { transform: scale(1.8); opacity: 0; }
-}
-
 /* RECORDING — red, mic fades, stop square appears */
 .state-recording {
   background: var(--color-danger, #c5614f);
