@@ -1,6 +1,6 @@
 <!-- app/components/KitGenerateurEcritureRow.vue -->
 <script setup lang="ts">
-import { PLAN_COMPTABLE_PME } from '~/server/utils/plan-comptable-pme'
+import { PLAN_COMPTABLE_PME } from '~/utils/plan-comptable-pme'
 
 export interface JournalRow {
   date: string

@@ -1,9 +1,9 @@
 <!-- app/components/KitGenerateurEcriture.vue -->
 <script setup lang="ts">
 import * as XLSX from 'xlsx'
-import { validateInput } from '~/server/utils/input-validation'
+import { validateInput } from '~/utils/input-validation'
 import type { JournalRow } from './KitGenerateurEcritureRow.vue'
-import type { AccountingProposition, AiErrorResponse } from '~/server/utils/output-validation'
+import type { AccountingProposition, AiErrorResponse } from '~/utils/output-types'
 
 defineProps<{ kitId: string }>()
 
