@@ -7,11 +7,11 @@ const faqs = [
   },
   {
     q: "Quelles sont les compétences à développer face à l'IA ?",
-    a: "Trois familles : la pensée critique (formuler le bon problème, reconnaître quand l'IA hallucine), la relation humaine (communiquer, désamorcer un conflit, lire une salle), et le jugement contextuel (prendre des décisions en environnement ambigu). Aucune n'est automatisable - toutes se travaillent.",
+    a: "Trois familles : la pensée critique (formuler le bon problème, reconnaître quand l'IA hallucine), la relation humaine (communiquer, désamorcer un conflit, lire une salle), et le jugement contextuel (prendre des décisions en environnement ambigu). Aucune n'est automatisable : toutes se travaillent.",
   },
   {
     q: "Faut-il se former à l'IA même si on n'est pas dans la tech ?",
-    a: "Oui - mais pas comme tu l'imagines. Tu n'as pas besoin d'apprendre à coder. Tu dois apprendre à dialoguer avec l'IA : savoir quoi lui demander, comment formuler une contrainte, quand ne pas lui faire confiance. C'est de la maîtrise du langage et du raisonnement, pas de la tech.",
+    a: "Oui, mais pas comme tu l'imagines. Tu n'as pas besoin d'apprendre à coder. Tu dois apprendre à dialoguer avec l'IA : savoir quoi lui demander, comment formuler une contrainte, quand ne pas lui faire confiance. C'est de la maîtrise du langage et du raisonnement, pas de la tech.",
   },
   {
     q: "Comment survivre à l'IA au travail quand on n'a pas de compétences techniques ?",

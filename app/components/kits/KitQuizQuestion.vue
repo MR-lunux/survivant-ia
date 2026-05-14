@@ -20,7 +20,7 @@ function pick(choice: Choice) {
 
 <template>
   <div class="quiz-question">
-    <div class="q-label">QUESTION {{ index }} / {{ total }} — {{ question.label }}</div>
+    <div class="q-label">QUESTION {{ index }} / {{ total }} · {{ question.label }}</div>
     <div class="q-prompt">« {{ question.prompt }} »</div>
     <div class="q-choices">
       <button

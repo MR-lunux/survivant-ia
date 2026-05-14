@@ -67,7 +67,7 @@ function onClick() {
     <div class="card-specs">
       <span>EN PRÉPARATION</span>
     </div>
-    <div class="card-cta">— —</div>
+    <div class="card-cta">- -</div>
   </div>
 </template>
 

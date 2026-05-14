@@ -20,7 +20,7 @@ const QUADRANT_HEADING: Record<JobQuadrant, string> = {
 <template>
   <section class="metier-editorial">
     <div class="section-kicker font-mono">
-      <span class="num">— III.</span>
+      <span class="num">- III.</span>
       <span class="label">{{ QUADRANT_HEADING[job.quadrant] }}</span>
     </div>
 

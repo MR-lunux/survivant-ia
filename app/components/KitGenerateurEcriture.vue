@@ -67,7 +67,7 @@ const isInputValid = computed(() => {
 
 function friendlyError(reason: string): string {
   switch (reason) {
-    case 'too_long': return 'Trop long — limite-toi à 200 caractères.'
+    case 'too_long': return 'Trop long : limite-toi à 200 caractères.'
     case 'url_present': return 'Pas d\'URLs dans une écriture comptable.'
     case 'profanity':
     case 'injection_attempt': return 'Ce texte ne ressemble pas à une écriture comptable. Reformule.'
@@ -380,7 +380,7 @@ function dismissFeedback() {
         <label class="field"><span class="field-label">Montant TVA</span><input v-model.number="preview.montantTva" type="number" step="0.01" class="input" /></label>
         <label class="field"><span class="field-label">Montant TTC</span><input v-model.number="preview.montantTTC" @change="recomputeFromTtc" type="number" step="0.01" class="input" /></label>
       </div>
-      <div v-if="previewLowConfidence" class="warning">Niveau de confiance modéré — vérifie attentivement.</div>
+      <div v-if="previewLowConfidence" class="warning">Niveau de confiance modéré : vérifie attentivement.</div>
       <div v-if="preview.note" class="note">Note : {{ preview.note }}</div>
       <button type="button" class="plan-toggle" :aria-expanded="showPlanComptable" @click="togglePlanComptable">
         <span class="plan-toggle-icon" aria-hidden="true">{{ showPlanComptable ? '▲' : '▼' }}</span>
@@ -433,8 +433,8 @@ function dismissFeedback() {
       <button type="button" class="dismiss" aria-label="Fermer" @click="dismissFeedback">×</button>
       <div class="kicker">TU AS AIMÉ ? DIS-LE MOI.</div>
       <div class="feedback-form">
-        <input v-model="feedbackEmail" type="email" placeholder="Ton email — optionnel" class="input" />
-        <input v-model="feedbackProchainOutil" type="text" placeholder="Quel prochain outil tu aimerais voir ? — optionnel" class="input" maxlength="500" />
+        <input v-model="feedbackEmail" type="email" placeholder="Ton email (optionnel)" class="input" />
+        <input v-model="feedbackProchainOutil" type="text" placeholder="Quel prochain outil tu aimerais voir ? (optionnel)" class="input" maxlength="500" />
         <button type="button" class="btn-primary" @click="submitFeedback">Envoyer</button>
       </div>
     </div>

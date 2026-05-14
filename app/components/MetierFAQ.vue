@@ -11,7 +11,7 @@ const props = defineProps<{
 <template>
   <FaqAccordion
     :faqs="props.faq"
-    kicker-num="— IV."
+    kicker-num="- IV."
     kicker-label="Questions fréquentes"
     event-name="metier_faq_opened"
     :event-props="{ slug: props.job.slug }"

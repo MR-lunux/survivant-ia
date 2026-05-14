@@ -7,7 +7,7 @@
 
       <nav v-if="!isHome" class="nav">
         <NuxtLink to="/rapports" class="nav-link" data-attr="header-nav-rapports">Rapports de Survie</NuxtLink>
-        <NuxtLink to="/outils" class="nav-link" data-attr="header-nav-outils">Boîte à Outils</NuxtLink>
+        <NuxtLink to="/outils" class="nav-link" data-attr="header-nav-outils">Boîte à outils</NuxtLink>
         <NuxtLink to="/frequence" class="nav-link" data-attr="header-nav-frequence">La Fréquence</NuxtLink>
         <NuxtLink to="/identite" class="nav-link" data-attr="header-nav-identite">Identité</NuxtLink>
       </nav>

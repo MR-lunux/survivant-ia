@@ -52,7 +52,7 @@ const kitJsonLd = computed(() => {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
-        { '@type': 'ListItem', position: 2, name: 'Boîte à Outils', item: 'https://survivant-ia.ch/outils' },
+        { '@type': 'ListItem', position: 2, name: 'Boîte à outils', item: 'https://survivant-ia.ch/outils' },
         { '@type': 'ListItem', position: 3, name: kit.value.code },
       ],
     },
@@ -114,7 +114,7 @@ onMounted(() => {
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem;">
     <Breadcrumbs
       :items="[
-        { label: 'Boîte à Outils', to: '/outils' },
+        { label: 'Boîte à outils', to: '/outils' },
         { label: kit?.code ?? '' },
       ]"
     />

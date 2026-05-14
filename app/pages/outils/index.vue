@@ -1,12 +1,12 @@
 <!-- app/pages/outils/index.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'La Boîte à Outils : tests et instruments pour piloter l\'IA | Survivant-IA',
+  title: 'La Boîte à outils : tests et instruments pour piloter l\'IA | Survivant-IA',
   description: 'Tests, calculateurs, cheatsheets pour les salariés non-tech qui veulent piloter l\'IA dans leur métier. Gratuit, sans inscription, résultats privés.',
-  ogTitle: 'La Boîte à Outils — Survivant-IA',
+  ogTitle: 'La Boîte à outils · Survivant-IA',
   ogDescription: 'Des instruments de poche pour piloter l\'IA dans ton métier. Chaque outil prolonge un article.',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'La Boîte à Outils — Survivant-IA',
+  twitterTitle: 'La Boîte à outils · Survivant-IA',
   twitterDescription: 'Des instruments de poche pour piloter l\'IA dans ton métier.',
 })
 
@@ -19,7 +19,7 @@ useHead({
         {
           '@type': 'CollectionPage',
           '@id': 'https://survivant-ia.ch/outils#page',
-          name: 'La Boîte à Outils',
+          name: 'La Boîte à outils',
           description: 'Tests, calculateurs, cheatsheets pour piloter l\'IA dans son métier. Chaque outil prolonge un article.',
           inLanguage: 'fr-CH',
           isPartOf: { '@id': 'https://survivant-ia.ch/#website' },
@@ -28,7 +28,7 @@ useHead({
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://survivant-ia.ch/' },
-            { '@type': 'ListItem', position: 2, name: 'Boîte à Outils' },
+            { '@type': 'ListItem', position: 2, name: 'Boîte à outils' },
           ],
         },
       ],
@@ -37,7 +37,7 @@ useHead({
 })
 
 defineOgImage('Default', {
-  title: 'La Boîte à Outils',
+  title: 'La Boîte à outils',
   kicker: '// INSTRUMENTS POUR PILOTER L\'IA',
 })
 
@@ -79,7 +79,7 @@ function setFilter(next: Filter) {
 
 <template>
   <div class="container" style="padding-top: 4rem; padding-bottom: 6rem;">
-    <Breadcrumbs :items="[{ label: 'Boîte à Outils' }]" />
+    <Breadcrumbs :items="[{ label: 'Boîte à outils' }]" />
 
     <div class="page-header">
       <KickerLabel>LA BOÎTE À OUTILS</KickerLabel>

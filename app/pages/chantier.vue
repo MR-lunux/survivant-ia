@@ -1,12 +1,12 @@
 <!-- app/pages/chantier.vue -->
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Chantier — Survivant-IA',
+  title: 'Chantier · Survivant-IA',
   description: 'On réfléchit à un format pour passer de la lecture à la pratique. Dis-nous ce qui t\'intéresserait.',
-  ogTitle: 'On ouvre un chantier — Survivant-IA',
+  ogTitle: 'On ouvre un chantier · Survivant-IA',
   ogDescription: 'Un format pour passer de la lecture à la pratique. On y réfléchit. Dis-nous ce qui t\'intéresserait.',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'On ouvre un chantier — Survivant-IA',
+  twitterTitle: 'On ouvre un chantier · Survivant-IA',
   twitterDescription: 'Un format pour passer de la lecture à la pratique. Dis-nous ce qui t\'intéresserait.',
 })
 
@@ -83,7 +83,7 @@ async function submit() {
           <p>
             Un atelier collectif live. Un challenge de deux semaines à plusieurs.
             Un coaching à quatre ou cinq. Un format async par email.
-            On hésite — c'est <em>vraiment</em> en cours de réflexion.
+            On hésite, c'est <em>vraiment</em> en cours de réflexion.
           </p>
         </div>
 

@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter | Survivant-IA',
-  description: 'Le repère des salariés qui veulent maîtriser l\'IA pour en sortir gagnants. Un nouvel article chaque semaine, sans jargon. Bonus : diagnostic IA par métier.',
+  description: 'Le repère des salariés qui veulent maîtriser l\'IA pour en sortir gagnants. Un nouvel article chaque semaine, sans jargon. Et un diagnostic IA par métier.',
   ogTitle: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter',
   ogDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans ton métier. Gratuit, sans jargon. Et un diagnostic IA par métier.',
   twitterCard: 'summary_large_image',
@@ -98,7 +98,7 @@ onUnmounted(() => {
             </NuxtLink>
 
             <NuxtLink to="/outils" class="qcard" data-attr="hero-cta-outils" @click="onHomeCta('outils')">
-              <span class="qcard-num">03 / Boîte à Outils</span>
+              <span class="qcard-num">03 / Boîte à outils</span>
               <div class="qcard-icon">
                 <svg viewBox="0 0 56 56" class="ic-toolbox" aria-hidden="true">
                   <rect class="box" x="10" y="20" width="36" height="24" rx="2"/>
@@ -112,7 +112,7 @@ onUnmounted(() => {
               </div>
               <h3 class="qcard-question">Veux-tu <strong>des outils</strong>&nbsp;?</h3>
               <p class="qcard-meta">La boîte à outils : astuces, prompts, etc. concrets pour piloter l'IA.</p>
-              <span class="qcard-arrow">Ouvrir la Boîte à Outils</span>
+              <span class="qcard-arrow">Ouvrir la Boîte à outils</span>
             </NuxtLink>
 
             <NuxtLink to="/chantier" class="qcard" data-attr="hero-cta-chantier" @click="onHomeCta('chantier')">
