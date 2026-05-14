@@ -174,7 +174,7 @@ const buttonLabel = computed(() => {
     case 'transcribing': return 'Transcription en cours…'
     case 'denied': return 'Micro refusé'
     case 'unsupported': return 'Micro indisponible'
-    default: return '🎙 Dicter'
+    default: return 'Dicter'
   }
 })
 
