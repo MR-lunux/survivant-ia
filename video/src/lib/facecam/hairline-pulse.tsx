@@ -16,17 +16,17 @@ export const HairlinePulse: React.FC<{ topPx: number }> = ({ topPx }) => {
   );
 
   return (
-    <AbsoluteFill style={{ pointerEvents: "none" }}>
+    <AbsoluteFill style={{ pointerEvents: "none", zIndex: 10000 }}>
       <div
         style={{
           position: "absolute",
-          top: topPx,
+          top: topPx - 1,
           left: 0,
           right: 0,
-          height: 1,
-          background: `linear-gradient(90deg, rgba(108,227,181,0.15) 0%, ${COLORS.accent} 15%, ${COLORS.accent} 85%, rgba(108,227,181,0.15) 100%)`,
+          height: 3,
+          background: `linear-gradient(90deg, rgba(108,227,181,0.2) 0%, ${COLORS.accent} 12%, ${COLORS.accent} 88%, rgba(108,227,181,0.2) 100%)`,
           opacity: easedPhase,
-          boxShadow: `0 0 8px rgba(108, 227, 181, ${0.4 * easedPhase})`,
+          boxShadow: `0 0 16px rgba(108, 227, 181, ${0.65 * easedPhase}), 0 0 32px rgba(108, 227, 181, ${0.3 * easedPhase})`,
         }}
       />
     </AbsoluteFill>

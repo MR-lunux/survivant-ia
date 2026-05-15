@@ -1,7 +1,10 @@
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
-import { ParticleBackground } from "../components/ParticleBackground";
 import { Grain } from "../components/Background";
 import { COLORS } from "../theme";
+
+// ParticleBackground vit désormais au root de FaceCam (pas ici) pour que le canvas
+// soit dimensionné à la pleine taille du clip et que les particules ne soient pas
+// écrasées par le squish vertical du conteneur top-half.
 
 export const AmbientLayer: React.FC<{ heightPx: number }> = ({ heightPx }) => {
   const frame = useCurrentFrame();
@@ -13,7 +16,6 @@ export const AmbientLayer: React.FC<{ heightPx: number }> = ({ heightPx }) => {
 
   return (
     <AbsoluteFill style={{ height: heightPx, pointerEvents: "none" }}>
-      <ParticleBackground />
       <Grain />
       <div
         style={{

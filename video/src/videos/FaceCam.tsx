@@ -4,6 +4,7 @@ import { FaceCamZone, type FaceTrackPoint } from "../lib/facecam/face-cam-zone";
 import { HairlinePulse } from "../lib/facecam/hairline-pulse";
 import { AmbientLayer } from "../lib/facecam/ambient-layer";
 import { BaseBg } from "../lib/components/Background";
+import { ParticleBackground } from "../lib/components/ParticleBackground";
 import type { FaceCamTimeline, CropAnchor } from "../lib/schemas";
 
 type Props = FaceCamTimeline & {
@@ -29,8 +30,11 @@ export const FaceCam: React.FC<Props> = ({
   return (
     <AbsoluteFill style={{ backgroundColor: "#0F0F0E" }}>
       <BaseBg />
+      {/* Particles at root: full canvas, naturally covered in bottom half by face cam.
+          Putting them inside the top-half wrapper would squish the canvas vertically. */}
+      <ParticleBackground />
 
-      {/* Top half: motion design + ambient + scenes */}
+      {/* Top half: ambient (grain + accent dot) + scenes */}
       <AbsoluteFill style={{ height: motionHeight }}>
         <AmbientLayer heightPx={motionHeight} />
         {events.map((evt, i) => {
@@ -48,9 +52,6 @@ export const FaceCam: React.FC<Props> = ({
         })}
       </AbsoluteFill>
 
-      {/* Hairline separator at y=motionHeight */}
-      <HairlinePulse topPx={motionHeight} />
-
       {/* Bottom half: face cam */}
       <AbsoluteFill style={{ top: motionHeight, height: faceHeight }}>
         <FaceCamZone
@@ -64,6 +65,11 @@ export const FaceCam: React.FC<Props> = ({
           sourceHeight={sourceHeight}
         />
       </AbsoluteFill>
+
+      {/* Hairline separator: rendered LAST so it sits on top of the face cam zone.
+          Otherwise the face cam wrapper (top: motionHeight) starts at y=motionHeight
+          and visually covers the 1px line at that exact y. */}
+      <HairlinePulse topPx={motionHeight} />
     </AbsoluteFill>
   );
 };
