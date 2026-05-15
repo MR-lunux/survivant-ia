@@ -267,6 +267,7 @@ export const FaceCamTimelineSchema = z.object({
   cuts: z.array(z.object({ from: z.number().min(0), to: z.number().min(0) })),
   totalDurationSec: z.number().positive(),
   events: z.array(TimelineEventSchema),
+  sourceDims: z.object({ w: z.number().positive(), h: z.number().positive() }).optional(),
 });
 
 export type FaceCamTimeline = z.infer<typeof FaceCamTimelineSchema>;

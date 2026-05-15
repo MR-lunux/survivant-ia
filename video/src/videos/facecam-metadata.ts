@@ -18,9 +18,9 @@ export const facecamMetadata: CalculateMetadataFunction<Input> = async ({ props 
   // Resolve cut mp4 path (apply-cuts produces .cut.mp4)
   const cutPath = `facecam-raws/${props.episodeId}.cut.mp4`;
   // For source dimensions, ffprobe is not available at render-side reliably. Default to
-  // expected source dims based on inputAspect; override via env if needed.
-  const sourceWidth = timeline.inputAspect === "9:16" ? 1080 : 1920;
-  const sourceHeight = timeline.inputAspect === "9:16" ? 1920 : 1080;
+  // expected source dims based on inputAspect; override via sourceDims in timeline JSON.
+  const sourceWidth = timeline.sourceDims?.w ?? (timeline.inputAspect === "9:16" ? 1080 : 1920);
+  const sourceHeight = timeline.sourceDims?.h ?? (timeline.inputAspect === "9:16" ? 1920 : 1080);
 
   return {
     durationInFrames: Math.ceil(timeline.totalDurationSec * 30),

@@ -46,4 +46,9 @@ describe("FaceCamTimelineSchema", () => {
     const bad = { ...validTimeline, cropAnchor: { y: 1.5 } };
     expect(() => FaceCamTimelineSchema.parse(bad)).toThrow();
   });
+
+  it("accepts optional sourceDims", () => {
+    const ok = { ...validTimeline, sourceDims: { w: 3840, h: 2160 } };
+    expect(() => FaceCamTimelineSchema.parse(ok)).not.toThrow();
+  });
 });
