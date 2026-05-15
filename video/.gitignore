@@ -8,4 +8,5 @@ out
 
 # FaceCam pipeline
 public/facecam-raws/
+public/facecam-data/
 facecam-data/
