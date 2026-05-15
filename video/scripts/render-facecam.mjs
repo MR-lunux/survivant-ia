@@ -14,6 +14,7 @@ if (!episodeId) {
 }
 
 console.log(`\n=== Render FaceCam · ${episodeId} ===\n`);
+execFileSync("node", [join(process.cwd(), "scripts/sync-timeline.mjs"), episodeId], { stdio: "inherit" });
 execFileSync("node", [join(process.cwd(), "scripts/apply-cuts.mjs"), episodeId], { stdio: "inherit" });
 
 const rawOut = `out/_raw-facecam-${episodeId}.mp4`;
