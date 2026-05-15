@@ -57,17 +57,19 @@ execFileSync(
   { stdio: "inherit" },
 );
 
-// Whisper writes <prefix>.json — normalize to our shape with word-level array
+// Whisper writes <prefix>.json — normalize to our shape with word-level array.
+// whisper-cli's --output-json-full puts numeric timestamps in `tok.offsets` (milliseconds).
+// `tok.timestamps` is also present but holds string-formatted clocks ("00:00:00,000"); we ignore it.
 const raw = JSON.parse(readFileSync(`${join(outDir, `${episodeId}.transcript`)}.json`, "utf8"));
 const words = [];
 for (const segment of raw.transcription || []) {
-  // whisper-cli emits a `tokens` array with per-token timestamps when --output-json-full is set
   for (const tok of segment.tokens || []) {
     const text = (tok.text || "").trim();
-    if (!text || text.startsWith("[")) continue; // skip special tokens
-    const start = (tok.timestamps?.from ?? tok.offsets?.from ?? 0) / 1000;
-    const end = (tok.timestamps?.to ?? tok.offsets?.to ?? 0) / 1000;
-    words.push({ word: text, start, end });
+    if (!text || text.startsWith("[")) continue; // skip special tokens like [_BEG_]
+    const fromMs = typeof tok.offsets?.from === "number" ? tok.offsets.from : null;
+    const toMs = typeof tok.offsets?.to === "number" ? tok.offsets.to : null;
+    if (fromMs === null || toMs === null) continue;
+    words.push({ word: text, start: fromMs / 1000, end: toMs / 1000 });
   }
 }
 const normalized = { language: "fr", words };
