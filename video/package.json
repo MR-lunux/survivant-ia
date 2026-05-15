@@ -42,6 +42,7 @@
     "music:dev": "tsx scripts/music-dev.ts",
     "music:install": "node scripts/music-install.mjs",
     "music:auto-record": "tsx scripts/music-auto-record.ts",
+    "facecam:import": "node scripts/import-source.mjs",
     "facecam:prepare": "node scripts/prepare-facecam.mjs",
     "facecam:cut": "node scripts/apply-cuts.mjs",
     "render:facecam": "node scripts/render-facecam.mjs",
