@@ -178,6 +178,35 @@ bash scripts/setup-whisper.sh
 | `HairlineDivider` | Séparateur menthe 1px animé — transition entre beats |
 | `CloseURL` | Écran de fermeture : domaine sage en Playfair + appel à l'action |
 
+### Smoke test apres un clone
+
+Pour vérifier que le pipeline tourne apres un clone ou un changement structurel :
+
+```bash
+node scripts/make-demo-fixture.mjs   # genere un mp4 testsrc 10s dans public/facecam-raws/
+npm run render:facecam -- _demo-10s
+```
+
+La timeline demo `facecam-data/_demo-10s.timeline.json` est gitignore. Recrée-la a la main si absente :
+
+```json
+{
+  "episodeId": "_demo-10s",
+  "inputAspect": "9:16",
+  "cropAnchor": "top",
+  "cuts": [],
+  "totalDurationSec": 10,
+  "events": [
+    { "tStart": 0, "tEnd": 2.5, "scene": "KickerOpening", "props": { "kicker": "DEMO · FACECAM", "line": "test du pipeline", "signature": "le Survivant." } },
+    { "tStart": 2.5, "tEnd": 5.0, "scene": "BigStat", "props": { "value": 73, "suffix": "%", "caption": "stat de test", "label": "label de test" } },
+    { "tStart": 5.0, "tEnd": 7.5, "scene": "ItalicMoment", "props": { "text": "ca marche.", "fontSize": 120 } },
+    { "tStart": 7.5, "tEnd": 10, "scene": "CloseURL", "props": { "url": "survivant-ia.ch" } }
+  ]
+}
+```
+
+Sortie attendue : `out/facecam-_demo-10s.mp4` (~1 Mo).
+
 ### Troubleshooting FaceCam
 
 **Whisper introuvable** → relance `bash scripts/setup-whisper.sh`. Vérifie que le binaire est dans `scripts/lib/whisper.cpp/main`.
