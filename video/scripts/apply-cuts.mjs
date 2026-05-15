@@ -31,6 +31,11 @@ if (!existsSync(srcPath) || !existsSync(timelinePath)) {
 const timeline = JSON.parse(readFileSync(timelinePath, "utf8"));
 const cuts = timeline.cuts || [];
 
+if (!Array.isArray(cuts) || !cuts.every(c => typeof c.from === "number" && typeof c.to === "number" && c.from >= 0 && c.to > c.from)) {
+  console.error("Invalid cuts in timeline JSON: each cut must be { from: number >= 0, to: number > from }");
+  process.exit(1);
+}
+
 if (cuts.length === 0) {
   console.log("→ No cuts, copying source to .cut.mp4");
   execFileSync("ffmpeg", ["-y", "-i", srcPath, "-c", "copy", dstPath], { stdio: "inherit" });
