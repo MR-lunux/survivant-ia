@@ -9,6 +9,7 @@
     "@remotion/cli": "4.0.456",
     "@remotion/google-fonts": "4.0.456",
     "@remotion/tailwind-v4": "4.0.456",
+    "pdf-lib": "^1.17.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.456",
@@ -43,7 +44,8 @@
     "music:auto-record": "tsx scripts/music-auto-record.ts",
     "facecam:prepare": "node scripts/prepare-facecam.mjs",
     "facecam:cut": "node scripts/apply-cuts.mjs",
-    "render:facecam": "node scripts/render-facecam.mjs"
+    "render:facecam": "node scripts/render-facecam.mjs",
+    "carousel:render": "./scripts/render-cycle.sh"
   },
   "sideEffects": [
     "*.css"
