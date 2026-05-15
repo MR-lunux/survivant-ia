@@ -13,6 +13,10 @@ if (!episodeId) {
   console.error("Usage: node transcribe.mjs <episodeId>");
   process.exit(1);
 }
+if (!/^[A-Za-z0-9_-]+$/.test(episodeId)) {
+  console.error(`Invalid episodeId "${episodeId}": only [A-Za-z0-9_-] allowed`);
+  process.exit(1);
+}
 
 const WHISPER_DIR = process.env.WHISPER_DIR || join(homedir(), ".local/whisper.cpp");
 const WHISPER_BIN = existsSync(join(WHISPER_DIR, "build/bin/whisper-cli"))

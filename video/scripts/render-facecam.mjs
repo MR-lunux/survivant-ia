@@ -12,6 +12,10 @@ if (!episodeId) {
   console.error("Usage: node render-facecam.mjs <episodeId>");
   process.exit(1);
 }
+if (!/^[A-Za-z0-9_-]+$/.test(episodeId)) {
+  console.error(`Invalid episodeId "${episodeId}": only [A-Za-z0-9_-] allowed`);
+  process.exit(1);
+}
 
 console.log(`\n=== Render FaceCam · ${episodeId} ===\n`);
 execFileSync("node", [join(process.cwd(), "scripts/sync-timeline.mjs"), episodeId], { stdio: "inherit" });

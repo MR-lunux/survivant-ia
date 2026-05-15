@@ -12,6 +12,10 @@ if (!episodeId) {
   console.error("Usage: node scripts/sync-timeline.mjs <episodeId>");
   process.exit(1);
 }
+if (!/^[A-Za-z0-9_-]+$/.test(episodeId)) {
+  console.error(`Invalid episodeId "${episodeId}": only [A-Za-z0-9_-] allowed`);
+  process.exit(1);
+}
 
 const root = process.cwd();
 const src = join(root, "facecam-data", `${episodeId}.timeline.json`);

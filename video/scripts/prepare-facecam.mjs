@@ -10,6 +10,10 @@ if (!episodeId) {
   console.error("Usage: node prepare-facecam.mjs <episodeId>");
   process.exit(1);
 }
+if (!/^[A-Za-z0-9_-]+$/.test(episodeId)) {
+  console.error(`Invalid episodeId "${episodeId}": only [A-Za-z0-9_-] allowed`);
+  process.exit(1);
+}
 
 const root = process.cwd();
 console.log(`\n=== Prepare FaceCam · ${episodeId} ===\n`);
