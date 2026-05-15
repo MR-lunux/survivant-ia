@@ -8,6 +8,14 @@
 import { Config } from "@remotion/cli/config";
 import { enableTailwind } from '@remotion/tailwind-v4';
 
-Config.setVideoImageFormat("jpeg");
+// PNG plutôt que JPEG comme intermediate : évite le yuvj420p full-range
+// qui rend les .mp4 incompatibles avec QuickTime / TikTok.
+Config.setVideoImageFormat("png");
 Config.setOverwriteOutput(true);
 Config.overrideWebpackConfig(enableTailwind);
+
+// H.264 Constrained Baseline + yuv420p TV-range = compat universelle
+// (QuickTime, Safari, Chrome, TikTok, iOS).
+Config.setCodec("h264");
+Config.setPixelFormat("yuv420p");
+Config.setCrf(22);
