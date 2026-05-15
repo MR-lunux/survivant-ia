@@ -1,17 +1,18 @@
 import type { CalculateMetadataFunction } from "remotion";
-import { readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { staticFile } from "remotion";
 import { parseTimeline } from "../lib/facecam/timeline-loader";
 
 type Input = { episodeId: string };
 
 export const facecamMetadata: CalculateMetadataFunction<Input> = async ({ props }) => {
-  const cwd = process.cwd();
-  const path = join(cwd, "facecam-data", `${props.episodeId}.timeline.json`);
-  if (!existsSync(path)) {
-    throw new Error(`Missing timeline: ${path}`);
+  const url = staticFile(`facecam-data/${props.episodeId}.timeline.json`);
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(
+      `Missing timeline at ${url} (status ${res.status}). Run: node scripts/sync-timeline.mjs ${props.episodeId}`,
+    );
   }
-  const raw = JSON.parse(readFileSync(path, "utf8"));
+  const raw = await res.json();
   const timeline = parseTimeline(raw);
 
   // Resolve cut mp4 path (apply-cuts produces .cut.mp4)
