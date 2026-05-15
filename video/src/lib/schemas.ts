@@ -262,7 +262,6 @@ export const CropAnchorSchema = z.union([
 
 export const FaceCamTimelineSchema = z.object({
   episodeId: z.string().min(1),
-  videoSrc: z.string().min(1),
   inputAspect: z.enum(["9:16", "16:9"]),
   cropAnchor: CropAnchorSchema,
   cuts: z.array(z.object({ from: z.number().min(0), to: z.number().min(0) })),

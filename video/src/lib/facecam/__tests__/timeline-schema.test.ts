@@ -3,7 +3,6 @@ import { FaceCamTimelineSchema } from "../../schemas";
 
 const validTimeline = {
   episodeId: "ep-001",
-  videoSrc: "facecam-raws/ep-001.mp4",
   inputAspect: "9:16",
   cropAnchor: "top",
   cuts: [{ from: 4.2, to: 5.1 }],
