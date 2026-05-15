@@ -44,7 +44,10 @@
     "music:scaffold": "tsx scripts/music-scaffold.ts",
     "music:dev": "tsx scripts/music-dev.ts",
     "music:install": "node scripts/music-install.mjs",
-    "music:auto-record": "tsx scripts/music-auto-record.ts"
+    "music:auto-record": "tsx scripts/music-auto-record.ts",
+    "facecam:prepare": "node scripts/prepare-facecam.mjs",
+    "facecam:cut": "node scripts/apply-cuts.mjs",
+    "render:facecam": "node scripts/render-facecam.mjs"
   },
   "sideEffects": [
     "*.css"
