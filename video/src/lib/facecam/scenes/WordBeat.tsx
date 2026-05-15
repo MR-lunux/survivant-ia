@@ -4,23 +4,22 @@ import type { SceneCommonProps, WordCue } from "./types";
 
 type Props = {
   words: WordCue[];
-  baseAnchor: number; // seconds — t0 of the scene in the global timeline
   size?: "huge" | "lg" | "md";
 };
 
 const SIZE_PX = { huge: 110, lg: 78, md: 54 };
 
-export const WordBeat: React.FC<SceneCommonProps & { props: Record<string, unknown> }> = ({ props }) => {
+export const WordBeat: React.FC<SceneCommonProps & { props: Record<string, unknown> }> = ({ tStart, props }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { words, baseAnchor, size = "lg" } = props as unknown as Props;
+  const { words, size = "lg" } = props as unknown as Props;
   const fontSize = SIZE_PX[size];
 
   return (
     <AbsoluteFill style={{ padding: 80, justifyContent: "center", alignItems: "flex-start", flexWrap: "wrap" }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 920 }}>
         {words.map((w, i) => {
-          const enterFrame = Math.round((w.anchor - baseAnchor) * fps);
+          const enterFrame = Math.round((w.anchor - tStart) * fps);
           const t = frame - enterFrame;
           if (t < 0) return null;
           const sp = spring({ frame: t, fps, config: { damping: 14, mass: 0.5 } });

@@ -39,7 +39,7 @@ export const FaceCam: React.FC<Props> = ({
           return (
             <Sequence key={i} from={from} durationInFrames={dur} layout="none">
               <AbsoluteFill style={{ height: motionHeight }}>
-                <Scene durationFrames={dur} props={evt.props} />
+                <Scene durationFrames={dur} tStart={evt.tStart} props={evt.props} />
               </AbsoluteFill>
             </Sequence>
           );

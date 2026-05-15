@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type { SceneCommonProps } from "./types";
 
 export type SceneComponent = FC<SceneCommonProps & { props: Record<string, unknown> }>;
+// SceneCommonProps includes: durationFrames, tStart, props
 
 import { KickerOpening } from "./KickerOpening";
 import { WordBeat } from "./WordBeat";
