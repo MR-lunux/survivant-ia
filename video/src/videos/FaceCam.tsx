@@ -1,6 +1,6 @@
 import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 import { SCENES } from "../lib/facecam/scenes";
-import { FaceCamZone } from "../lib/facecam/face-cam-zone";
+import { FaceCamZone, type FaceTrackPoint } from "../lib/facecam/face-cam-zone";
 import { HairlinePulse } from "../lib/facecam/hairline-pulse";
 import { AmbientLayer } from "../lib/facecam/ambient-layer";
 import { BaseBg } from "../lib/components/Background";
@@ -10,6 +10,7 @@ type Props = FaceCamTimeline & {
   cutVideoSrc: string;
   sourceWidth: number;
   sourceHeight: number;
+  faceTrack?: FaceTrackPoint[];
 };
 
 export const FaceCam: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const FaceCam: React.FC<Props> = ({
   cropAnchor,
   sourceWidth,
   sourceHeight,
+  faceTrack,
 }) => {
   const { fps, width, height } = useVideoConfig();
   const motionHeight = height / 2; // 960
@@ -55,6 +57,7 @@ export const FaceCam: React.FC<Props> = ({
           src={cutVideoSrc}
           inputAspect={inputAspect}
           cropAnchor={cropAnchor as CropAnchor}
+          faceTrack={faceTrack}
           width={width}
           height={faceHeight}
           sourceWidth={sourceWidth}

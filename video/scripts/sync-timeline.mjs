@@ -31,3 +31,11 @@ if (!existsSync(src)) {
 mkdirSync(destDir, { recursive: true });
 copyFileSync(src, dest);
 console.log(`✓ Synced: public/facecam-data/${episodeId}.timeline.json`);
+
+// Optional: sync face-track.json too if it exists (for face-tracking crop mode)
+const trackSrc = join(root, "facecam-data", `${episodeId}.face-track.json`);
+const trackDest = join(destDir, `${episodeId}.face-track.json`);
+if (existsSync(trackSrc)) {
+  copyFileSync(trackSrc, trackDest);
+  console.log(`✓ Synced: public/facecam-data/${episodeId}.face-track.json`);
+}

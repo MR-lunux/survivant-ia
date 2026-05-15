@@ -10,3 +10,6 @@ out
 public/facecam-raws/
 public/facecam-data/
 facecam-data/
+
+# Python venv for face-tracking deps (mediapipe + opencv)
+.venv/

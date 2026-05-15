@@ -13,7 +13,16 @@ bash scripts/setup-whisper.sh
 
 Clone whisper.cpp dans `~/.local/whisper.cpp`, télécharge le modèle FR `large-v3` (~3 Go), compile. Compte ~30 min, à faire une seule fois.
 
-Vérifie `ffmpeg` : `which ffmpeg`. Sinon : `brew install ffmpeg`.
+Vérifie `ffmpeg` et `cmake` : `which ffmpeg cmake`. Sinon : `brew install ffmpeg cmake`.
+
+Pour le face tracking (optionnel mais recommandé), un venv Python avec MediaPipe :
+
+```bash
+python3.9 -m venv .venv
+.venv/bin/pip install mediapipe opencv-python
+```
+
+(Le venv est dans `video/.venv/`, gitignored. ~80 Mo.)
 
 ---
 
@@ -58,6 +67,18 @@ Sortie : deux fichiers dans `facecam-data/` :
 - `episode-001.silences.json` (blancs détectés > 0.5s)
 
 Durée : ~1× la durée de la vidéo (Whisper local sur M1 ≈ temps réel).
+
+### 2bis. (optionnel mais recommandé) Track ton visage
+
+```bash
+npm run facecam:track -- episode-001
+```
+
+MediaPipe détecte ton visage à 5fps, smoothe la trajectoire, écrit `facecam-data/episode-001.face-track.json`. Pendant le render, le crop suit ta tête en temps réel — pas besoin de régler `cropAnchor` à la main.
+
+Durée : ~10-30s pour une vidéo de 60s.
+
+Si le track n'est pas généré, le pipeline retombe sur le `cropAnchor` statique du timeline.
 
 ### 3. Demande à Claude le montage
 

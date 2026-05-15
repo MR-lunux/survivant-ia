@@ -44,6 +44,7 @@
     "music:auto-record": "tsx scripts/music-auto-record.ts",
     "facecam:import": "node scripts/import-source.mjs",
     "facecam:prepare": "node scripts/prepare-facecam.mjs",
+    "facecam:track": "node scripts/track-face.mjs",
     "facecam:cut": "node scripts/apply-cuts.mjs",
     "render:facecam": "node scripts/render-facecam.mjs",
     "carousel:render": "./scripts/render-cycle.sh"
