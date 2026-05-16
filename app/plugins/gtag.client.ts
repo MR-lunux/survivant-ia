@@ -58,7 +58,7 @@ export default defineNuxtPlugin(() => {
   }
 
   // 6. Watch les changements ultérieurs.
-  watch(() => state.value.analytics, (next) => {
+  const stopWatcher = watch(() => state.value.analytics, (next) => {
     const granted = next === 'granted'
     window.gtag('consent', 'update', {
       analytics_storage: granted ? 'granted' : 'denied',
@@ -67,4 +67,8 @@ export default defineNuxtPlugin(() => {
       ad_personalization: granted ? 'granted' : 'denied',
     })
   })
+
+  if (import.meta.hot) {
+    import.meta.hot.dispose(() => stopWatcher())
+  }
 })
