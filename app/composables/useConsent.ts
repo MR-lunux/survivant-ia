@@ -30,7 +30,10 @@ function readStorage(): StoredConsent | null {
     if (typeof parsed.timestamp !== 'number') return null
     if (Date.now() - parsed.timestamp > TTL_MS) return null
     return parsed
-  } catch {
+  } catch (e) {
+    if (import.meta.dev) {
+      console.warn('[useConsent] readStorage failed:', e instanceof Error ? e.message : String(e))
+    }
     return null
   }
 }
@@ -43,8 +46,11 @@ function writeStorage(analytics: boolean) {
       timestamp: Date.now(),
       version: CONSENT_VERSION,
     } satisfies StoredConsent))
-  } catch {
-    // private browsing, quota, etc. : on tolère silencieusement.
+  } catch (e) {
+    if (import.meta.dev) {
+      console.warn('[useConsent] writeStorage failed:', e instanceof Error ? e.message : String(e))
+    }
+    // private browsing, quota, etc. : on tolère silencieusement en prod.
   }
 }
 
