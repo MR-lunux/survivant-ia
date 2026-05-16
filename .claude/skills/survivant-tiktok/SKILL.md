@@ -22,7 +22,7 @@ description: Use when the user wants to write a TikTok script in the Survivant-I
 
 ### Invariants — jamais négociables
 
-- **Persona Mathieu le Survivant** (référence Ken le Survivant), pas seulement Mathieu Rerat
+- **Persona Mathieu le Survivant** (référence Ken le Survivant), pas seulement Mathieu Rerat. **Par défaut : persona implicite** (la voix-signature suffit, pas besoin de nommer Mathieu textuellement à chaque vidéo). **Textuel obligatoire** seulement si : vidéo de présentation / premier contact avec une nouvelle audience / la thèse repose sur le parcours de Mathieu (cas où "le Survivant" est l'argument).
 - **Pas d'invention factuelle** sur durées, lieux, chiffres, parcours bio — doit être sourcé (page identité / mémoire) ou neutre
 - **Cluster 2 action** pour le fond et le CTA : "apprendre à survivre", "prendre le virage", "ne pas se faire remplacer". Jamais cluster peur seul.
 - **Pas de "méthode"** comme mot — "formation" autorisé comme produit futur
@@ -81,16 +81,20 @@ c. Générer **5 hooks** taggés framework. Sélection guidée :
    - thèse "ce métier va changer" / call-out d'audience → privilégier *call-out direct* + *listicle*
    - thèse complexe demandant suspense → privilégier *curiosity gap* + *dialogue-en-tête*
    - thèse visuellement démontrable (objet, écran) → inclure *pattern interrupt visuel*
+   - Avant de rédiger les 5 hooks, **fixer la durée cible globale** (25-45s par vidéo, sweet spot 30-35s). Le corps de chaque hook doit tenir dans cette enveloppe une fois additionné au hook lui-même et au CTA.
    
    Justifier le choix en 1 ligne en tête de section ("frameworks retenus : … parce que …").
 d. Pour chaque hook : **corps 20-30s** (3-5 phrases), **punch** (phrase de fin), **CTA** (cluster action + domaine)
 e. **Découpage shot-by-shot** : plan (cadre visage / cadre objet / écran), mouvement, texte à l'écran, durée approximative
-f. **Auto-check voix** (voir `## Auto-check voix` ci-dessous) : pour chaque ligne, valider les 7 bloquants — **réécrire si l'un casse**. Pour la règle soft (full negation), tolérer la dérogation et la noter dans `Voice check`.
+f. **Auto-check voix** (voir `## Auto-check voix` ci-dessous) : pour chaque ligne, valider les 8 bloquants — **réécrire si l'un casse**. Pour la règle soft (full negation), tolérer la dérogation et la noter dans `Voice check`.
 g. **Recommander un seul hook** avec 2-3 lignes de justif (voix + retention probable). Pas de top-2, pas d'ex æquo, pas de "ça dépend de ton intention".
 
 ## Output template
 
 ````markdown
+## Durée cible
+[total visé : 25-45s par vidéo finale, sweet spot retention. hook 2-5s + corps 18-30s + CTA 3-5s. dépasser 45s seulement si la thèse l'exige absolument.]
+
 ## Thèse + phrase-cliff
 
 **Thèse :** [une phrase, le fond]
@@ -105,9 +109,10 @@ g. **Recommander un seul hook** avec 2-3 lignes de justif (voix + retention prob
 **Corps (20-30s) :** [3-5 phrases]
 **Punch :** [phrase de fin]
 **CTA :** [cluster action — priorité "La Fréquence" (newsletter, conversion #1) ; survivant-ia.ch si la thèse appelle le scanner ou un article spécifique]
-**Shot-by-shot :**
-- 0:00–0:02 — [plan, mouvement, texte à l'écran]
-- 0:02–0:08 — …
+**Caption (sous la vidéo) :** [1-2 phrases max, restate phrase-cliff ou variation, soft CTA, pas plus de 3 hashtags, pas d'emoji. ex : "le métier ne meurt pas, la tâche si. #comptabilité #ia"]
+**Shot-by-shot :** *(4-7 plans pour une vidéo 25-45s, coupes toutes les 4-7s pour tenir l'attention)*
+- 0:00–0:0X — [plan, mouvement, texte à l'écran]
+- 0:0X–0:1X — …
 - …
 **Voice check :** [full negation OK / dérogation ligne X : raison / no emoji OK / casse OK / pas d'invention OK]
 
@@ -144,12 +149,13 @@ Pour chaque hook généré, vérifier ligne par ligne. Deux niveaux :
 2. **Casse minuscule sur concepts coinés** — "simple valideur", pas "Simple Valideur". CAPS autorisé uniquement pour un mot seul d'impact à l'écran (ex: « VALIDER »).
 3. **Pas de "méthode"** — utiliser "formation" si besoin de désigner un produit futur.
 4. **Pas d'invention factuelle** — durées, lieux, chiffres, bio Mathieu : sourcés ou neutres. En cas de doute, neutraliser.
-5. **Domaine** — `survivant-ia.ch`, jamais .com/.fr.
-6. **Cluster 2 action** — CTA dans le champ lexical "apprendre à survivre / prendre le virage / ne pas se faire remplacer". Pas cluster peur seul.
-7. **Persona** — "Mathieu le Survivant" si Mathieu est référencé (pas seulement nommé textuellement — toute référence à son parcours ou à sa parole compte).
+5. **Caption** — 1-2 phrases max, pas d'emoji dans la caption, ≤ 3 hashtags, hashtags en minuscules. Différent du texte à l'écran (qui reste plein cadre, court, signal visuel).
+6. **Domaine** — `survivant-ia.ch`, jamais .com/.fr.
+7. **Cluster 2 action** — CTA dans le champ lexical "apprendre à survivre / prendre le virage / ne pas se faire remplacer". Pas cluster peur seul.
+8. **Persona** — par défaut implicite (voix-signature). Si Mathieu est nommé textuellement, c'est "Mathieu le Survivant", jamais "Mathieu Rerat" seul. Si la vidéo demande explicitement une présentation (nouvelle audience / parcours-argument), persona textuel obligatoire.
 
 Si un bloquant casse, **réécrire la ligne**. Ne pas flagger et ship.
 
 ### Soft — dérogation tolérée avec raison
 
-8. **Full negation** — "je ne suis pas" par défaut. Dérogation "je suis pas" tolérée uniquement si la version full sonne forcée à l'oral rapide. Si dérogation : l'écrire dans `Voice check` avec la raison ligne par ligne.
+9. **Full negation** — "je ne suis pas" par défaut. Dérogation "je suis pas" tolérée uniquement si la version full sonne forcée à l'oral rapide. Si dérogation : l'écrire dans `Voice check` avec la raison ligne par ligne.
