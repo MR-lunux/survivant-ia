@@ -38,7 +38,7 @@ A trend "does not match" if it requires any of:
 - Emoji-driven captions or on-screen text
 - TikTok-bro / hype-influencer persona ("let's gooo", "this changed my life")
 - Fake-vulnerability / engagement-bait framing
-- Generic "POV: I'm a [job] in 2024 💀"
+- Generic "POV: I'm a [job] in 2024" framing closed by an emoji (skull, sob, crying, dead-eye etc.)
 - Music or format that imposes a comedic register incompatible with anti-hype posture
 
 A trend "matches" if:
