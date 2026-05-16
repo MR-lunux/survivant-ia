@@ -34,7 +34,7 @@ description: Use when the user wants to write a TikTok script in the Survivant-I
 
 - **Full negation** : règle par défaut "je ne suis pas" sur hooks, phrases-clés, punch lines (signature voix). Dérogation tolérée vers "je suis pas" uniquement dans le fil de l'oral rapide si la version full sonne forcée — le skill doit l'expliciter ligne par ligne quand il déroge.
 - **Texte à l'écran TikTok** : CAPS autorisé pour un **mot seul d'impact** (ex: « VALIDER »). Phrase entière = casse normale. Jamais de styling LinkedIn-influenceur (gras tous les 3 mots, etc.).
-- **V2 Editorial Dark** : reste visuelle dans le site et le carousel. En vidéo, on garde la **patte ton** (sobriété, autorité posée, anti-hype) mais on n'impose pas la palette menthe `#6CE3B5` dans la vidéo elle-même. Le menthe revient en caption-CTA / overlay survivant-ia.ch en fin de vidéo (cohérence brand).
+- **V2 Editorial Dark** : reste visuelle dans le site et le carousel. En vidéo, on garde la **patte ton** (sobriété, autorité posée, anti-hype) mais on n'impose pas la palette menthe `#6CE3B5` dans la vidéo elle-même.
 - **Rythme parlé** : phrases courtes, coupes nettes, pas la prosodie d'article. Voix Survivant-IA parlée = dérivée de l'écrite, pas identique.
 
 ## Frameworks de hook (8)
@@ -60,8 +60,8 @@ La phrase qui appelle la suivante sans donner la réponse.
 Ex : « il y a un seul truc qui sépare un comptable qui survit à 2027 d'un comptable qui disparaît. »
 
 ### 6. pattern interrupt visuel
-Pas un hook texte — un hook visuel. Plan source (écran, objet) → coupe nette → plan visage parlant.
-Ex (description) : 1s sur écran de saisie comptable, coupe sèche, plan visage : « regarde bien cet écran. tu le verras plus jamais. »
+Hook hybride visuel + texte. Plan source (écran, objet) → coupe nette → plan visage parlant. La phrase parlée commence **après** la coupe, sur le plan visage.
+Ex (description visuelle) : 1s sur écran de saisie comptable, coupe sèche, plan visage. **Hook texte** : « regarde bien cet écran. tu le verras plus jamais. »
 
 ### 7. listicle
 Nombre + délai + cible. Promet une structure dénombrable.
@@ -75,10 +75,18 @@ Ex : « …et c'est ce moment-là que je me suis dit : alors c'est ça, être co
 
 a. Lire l'asset source si fourni (chemin fichier) ; sinon demander la thèse à l'utilisateur
 b. Extraire la **phrase-cliff** (l'asset central qu'on garde mot pour mot)
-c. Générer **5 hooks** taggés framework. Le skill choisit les 5 frameworks les plus pertinents pour la thèse parmi les 8 disponibles, et justifie le choix en 1 ligne en tête de section ("frameworks retenus : … parce que …")
+c. Générer **5 hooks** taggés framework. Sélection guidée :
+   - thèse contrarian / inversion d'idée reçue → privilégier *contrarian* + *faux-consensus brisé*
+   - thèse temporellement urgente (échéance) → privilégier *stakes*
+   - thèse "ce métier va changer" / call-out d'audience → privilégier *call-out direct* + *listicle*
+   - thèse complexe demandant suspense → privilégier *curiosity gap* + *dialogue-en-tête*
+   - thèse visuellement démontrable (objet, écran) → inclure *pattern interrupt visuel*
+   
+   Justifier le choix en 1 ligne en tête de section ("frameworks retenus : … parce que …").
 d. Pour chaque hook : **corps 20-30s** (3-5 phrases), **punch** (phrase de fin), **CTA** (cluster action + domaine)
 e. **Découpage shot-by-shot** : plan (cadre visage / cadre objet / écran), mouvement, texte à l'écran, durée approximative
-f. Auto-check voix : pour chaque ligne, valider full negation, pas d'emoji, pas de "méthode", pas d'invention factuelle. Lister les dérogations explicites. Voir `## Auto-check voix`.
+f. **Auto-check voix** (voir `## Auto-check voix` ci-dessous) : pour chaque ligne, valider les 7 bloquants — **réécrire si l'un casse**. Pour la règle soft (full negation), tolérer la dérogation et la noter dans `Voice check`.
+g. **Recommander un seul hook** avec 2-3 lignes de justif (voix + retention probable). Pas de top-2, pas d'ex æquo, pas de "ça dépend de ton intention".
 
 ## Output template
 
@@ -96,7 +104,7 @@ f. Auto-check voix : pour chaque ligne, valider full negation, pas d'emoji, pas 
 **Hook :** [1-2 phrases, < 3 secondes parlées]
 **Corps (20-30s) :** [3-5 phrases]
 **Punch :** [phrase de fin]
-**CTA :** [cluster action + survivant-ia.ch ou "La Fréquence"]
+**CTA :** [cluster action — priorité "La Fréquence" (newsletter, conversion #1) ; survivant-ia.ch si la thèse appelle le scanner ou un article spécifique]
 **Shot-by-shot :**
 - 0:00–0:02 — [plan, mouvement, texte à l'écran]
 - 0:02–0:08 — …
@@ -119,22 +127,29 @@ f. Auto-check voix : pour chaque ligne, valider full negation, pas d'emoji, pas 
 
 ---
 
-## Reco
+## Reco (un seul hook)
+
+*Un seul hook recommandé. Pas de top-2.*
 
 Hook **N** ([framework]) est le plus aligné — voix + retention probable — parce que [2-3 lignes].
 ````
 
 ## Auto-check voix
 
-Pour chaque hook généré, vérifier ligne par ligne :
+Pour chaque hook généré, vérifier ligne par ligne. Deux niveaux :
 
-1. **Full negation** — "je ne suis pas" par défaut. Dérogation "je suis pas" tolérée uniquement si la version full sonne forcée à l'oral rapide. Si dérogation : l'écrire dans `Voice check` avec la raison.
-2. **Pas d'emoji** — ni dans le script parlé (logique), ni dans la caption suggérée, ni dans le texte à l'écran.
-3. **Casse minuscule sur concepts coinés** — "simple valideur", pas "Simple Valideur". CAPS autorisé uniquement pour un mot seul d'impact à l'écran (ex: « VALIDER »).
-4. **Pas de "méthode"** — utiliser "formation" si besoin de désigner un produit futur.
-5. **Pas d'invention factuelle** — durées, lieux, chiffres, bio Mathieu : sourcés ou neutres. En cas de doute, neutraliser.
-6. **Domaine** — `survivant-ia.ch`, jamais .com/.fr.
-7. **Cluster 2 action** — CTA dans le champ lexical "apprendre à survivre / prendre le virage / ne pas se faire remplacer". Pas cluster peur seul.
-8. **Persona** — "Mathieu le Survivant" si Mathieu est nommé.
+### Bloquants — réécrire jusqu'à conformité
 
-Si un invariant casse et ne peut pas se corriger en gardant le sens, **flagger explicitement** dans le `Voice check` plutôt que de masquer.
+1. **Pas d'emoji** — ni dans le script parlé, ni dans la caption suggérée, ni dans le texte à l'écran.
+2. **Casse minuscule sur concepts coinés** — "simple valideur", pas "Simple Valideur". CAPS autorisé uniquement pour un mot seul d'impact à l'écran (ex: « VALIDER »).
+3. **Pas de "méthode"** — utiliser "formation" si besoin de désigner un produit futur.
+4. **Pas d'invention factuelle** — durées, lieux, chiffres, bio Mathieu : sourcés ou neutres. En cas de doute, neutraliser.
+5. **Domaine** — `survivant-ia.ch`, jamais .com/.fr.
+6. **Cluster 2 action** — CTA dans le champ lexical "apprendre à survivre / prendre le virage / ne pas se faire remplacer". Pas cluster peur seul.
+7. **Persona** — "Mathieu le Survivant" si Mathieu est référencé (pas seulement nommé textuellement — toute référence à son parcours ou à sa parole compte).
+
+Si un bloquant casse, **réécrire la ligne**. Ne pas flagger et ship.
+
+### Soft — dérogation tolérée avec raison
+
+8. **Full negation** — "je ne suis pas" par défaut. Dérogation "je suis pas" tolérée uniquement si la version full sonne forcée à l'oral rapide. Si dérogation : l'écrire dans `Voice check` avec la raison ligne par ligne.
