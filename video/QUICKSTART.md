@@ -1,117 +1,92 @@
-# FaceCam — quickstart pour Mathieu
+# FaceCam — quickstart Mathieu
 
-Recette copier-coller pour produire un épisode. Pour les détails (architecture, kit, troubleshooting), voir `README.md`.
+Recette copier-coller pour produire un épisode. Pour les détails (architecture, kit de scènes), voir `README.md` et `src/lib/facecam/SCENES.md`.
 
 ---
 
-## Une fois (setup)
+## Setup (une fois)
 
 ```bash
 cd video
+
+# Whisper FR + ffmpeg + cmake
 bash scripts/setup-whisper.sh
-```
+brew install ffmpeg cmake
 
-Clone whisper.cpp dans `~/.local/whisper.cpp`, télécharge le modèle FR `large-v3` (~3 Go), compile. Compte ~30 min, à faire une seule fois.
-
-Vérifie `ffmpeg` et `cmake` : `which ffmpeg cmake`. Sinon : `brew install ffmpeg cmake`.
-
-Pour le face tracking (optionnel mais recommandé), un venv Python avec MediaPipe :
-
-```bash
+# MediaPipe face tracking (venv Python 3.9 local)
 python3.9 -m venv .venv
 .venv/bin/pip install mediapipe opencv-python
 ```
 
-(Le venv est dans `video/.venv/`, gitignored. ~80 Mo.)
-
 ---
 
-## Tournage
+## Pipeline d'un épisode
 
-Phone selfie portrait 9:16 (le plus simple), ou webcam horizontal 16:9.
+### 1. Rushes + derush dans CapCut
 
-Cadrage portrait : visage centré tête-épaules dans le cadre, regard dans l'objectif, ~50 cm, fond sombre, lumière devant. Trépied obligatoire.
+Tu films en portrait 9:16 sur ton phone, idéalement avec le texte au-dessus de ta tête comme prompteur. Tu derushes dans CapCut pour garder uniquement les bonnes prises. Export en `.mov`.
 
-> Note `cropAnchor` : pour un selfie naturel (visage centré verticalement), `cropAnchor: "center"` est le bon défaut. `"top"` ne marche que si tu places strictement ta tête dans le tiers haut du cadre.
+**Pas de captions encore** — elles s'ajoutent à la toute fin (étape 7).
 
----
+### 2. Drop dans le repo
 
-## Pipeline complet, étape par étape
+Un dossier par sujet dans `video/facecam-data/<sujet>/`, contenant :
+- `0517.mov` — ton derush propre
+- `0517.txt` — ton script texte (une ligne par phrase)
 
-### 1. Importe ton fichier source
-
-```bash
-cd video
-npm run facecam:import -- ~/Downloads/IMG_8183.MOV episode-001
-```
-
-Le script :
-- détecte la rotation (typique iPhone : `rotation=-90`) et la **bake dans le stream**
-- transcode en H.264 yuv420p AAC faststart
-- normalise vers `1080×1920` (portrait) ou `1920×1080` (paysage)
-- écrit dans `public/facecam-raws/episode-001.mp4`
-
-Marche avec `.MOV`, `.mp4`, `.mkv`, n'importe quoi que ffmpeg avale. Si l'extension dit déjà mp4 mais qu'il y a une rotation tag (cas fréquent), c'est ré-encodé proprement.
-
-Nomme `episode-001`, `episode-002`, etc. Caractères autorisés : `[A-Za-z0-9_-]` uniquement.
-
-### 2. Prépare (transcribe + détection silences)
+### 3. Import
 
 ```bash
-cd video
-npm run facecam:prepare -- episode-001
+npm run facecam:import -- video/facecam-data/<sujet>/0517.mov <episodeId>
 ```
 
-Sortie : deux fichiers dans `facecam-data/` :
-- `episode-001.transcript.json` (mots + timestamps Whisper)
-- `episode-001.silences.json` (blancs détectés > 0.5s)
+Le script bake la rotation iPhone, downscale en 1080×1920, encode en H.264 propre. Sortie : `public/facecam-raws/<episodeId>.mp4`.
 
-Durée : ~1× la durée de la vidéo (Whisper local sur M1 ≈ temps réel).
-
-### 2bis. (optionnel mais recommandé) Track ton visage
+### 4. Prepare (Whisper + silences)
 
 ```bash
-npm run facecam:track -- episode-001
+npm run facecam:prepare -- <episodeId>
 ```
 
-MediaPipe détecte ton visage à 5fps, smoothe la trajectoire, écrit `facecam-data/episode-001.face-track.json`. Pendant le render, le crop suit ta tête en temps réel — pas besoin de régler `cropAnchor` à la main.
+Sortie : `facecam-data/<episodeId>.transcript.json` (mots + timestamps) + `.silences.json`. Durée : ~temps réel sur M1.
 
-Durée : ~10-30s pour une vidéo de 60s.
-
-Si le track n'est pas généré, le pipeline retombe sur le `cropAnchor` statique du timeline.
-
-### 3. Demande à Claude le montage
-
-Dans une session Claude Code dans ce projet, dis-lui :
-
-> "Voici episode-001. Lis transcript + silences, propose-moi les cuts, génère la timeline."
-
-Claude :
-- lit les 2 JSON
-- te propose la liste de cuts à appliquer (tu dis OK ou retires des coupes spécifiques)
-- génère `facecam-data/episode-001.timeline.json` (le montage complet)
-
-### 4. Preview dans Studio
+### 5. Face track
 
 ```bash
-npm run dev
+npm run facecam:track -- <episodeId>
 ```
 
-Ouvre `http://localhost:3000`, clique sur composition `FaceCam`. Dans le panneau Props à droite, mets `episodeId` à `episode-001`. Tu vois le rendu en preview live.
+MediaPipe détecte ta position visage à 5fps, calcule la moyenne + bias yeux. Crop static stable (anti-tremblement).
 
-Si ton visage est mal cadré : ajuste `cropAnchor` (`top`, `center`, `bottom`, ou `{y: 0.3}` pour précis).
+### 6. Demander à Claude le montage
 
-Si un mot est mal calé : édite directement `facecam-data/episode-001.timeline.json` ou redemande à Claude de regénérer.
+Dans une session Claude Code dans ce projet :
 
-### 5. Render final
+> "Voici episode-XXX. Lis le transcript + le script .txt, génère la timeline avec motion design DA-aligné."
+
+Pour les beats que tu veux storyboarder, brief :
+
+> "À 00:34, je dis 'X'. J'aimerais [métaphore visuelle]."
+
+Claude génère `facecam-data/<episodeId>.timeline.json` et peut coder de nouvelles scènes custom si besoin.
+
+### 7. Render
 
 ```bash
-npm run render:facecam -- episode-001
+npm run render:facecam -- <episodeId>
 ```
 
-Sortie : `video/out/facecam-episode-001.mp4`. Format Constrained Baseline H.264 yuv420p faststart, joue partout (TikTok, QuickTime, iOS, Android).
+Sortie : `out/facecam-<episodeId>.mp4` (Constrained Baseline H.264 yuv420p faststart, joue partout).
 
-Durée render : ~1-3 min pour 30-60s de vidéo.
+### 8. CapCut final — captions karaoke
+
+Réimporte `out/facecam-<episodeId>.mp4` dans CapCut. Lance l'auto-caption FR. Style :
+- Police bold sans-serif
+- Fill `#6CE3B5` pour le mot actif (karaoke menthe)
+- Fill blanc/cream pour le reste
+- Position en haut ou centre, hors de la zone face cam
+
+Export final → publication TikTok / Reels / Shorts.
 
 ---
 
@@ -119,39 +94,38 @@ Durée render : ~1-3 min pour 30-60s de vidéo.
 
 | Erreur | Cause | Fix |
 |---|---|---|
-| `Missing whisper binary` | setup-whisper pas fait | `bash scripts/setup-whisper.sh` |
-| `Invalid episodeId "..."` | caractères interdits dans le nom | rename avec `[A-Za-z0-9_-]` |
-| `Refusing to overwrite ...` | tu importes deux fois le même episodeId | supprime le mp4 dans `public/facecam-raws/` ou pick un autre nom |
-| `Missing timeline at ...` | timeline.json pas encore généré | demande à Claude étape 3 |
-| Rendu plante "ratio non supporté" | source ni 9:16 ni 16:9 | refilme dans le bon ratio |
-| Studio preview vide / erreur fetch | sync timeline pas fait | `node scripts/sync-timeline.mjs episode-001` |
-| QuickTime refuse d'ouvrir le mp4 final | encodage pas conforme | `npm run fix:mp4` |
-| Ton visage est coupé en haut ou en bas dans le rendu final | cropAnchor mal réglé | change `cropAnchor` à `"center"` (défaut conseillé) ou `{y: 0.3}` pour précis |
-| Vidéo source à l'envers ou tournée 90° | rotation tag mal interprété | re-importe avec `facecam:import` (rotation auto-bakée), pas de `mv` manuel |
+| `Missing whisper binary` | setup whisper pas fait | `bash scripts/setup-whisper.sh` |
+| `Invalid episodeId "..."` | caractères interdits dans le nom | utiliser uniquement `[A-Za-z0-9_-]` |
+| `Refusing to overwrite ...` | import 2× même episodeId | `rm public/facecam-raws/<id>.mp4` puis re-import |
+| `Missing timeline at ...` | timeline.json pas généré | demande à Claude (étape 6) |
+| `unusual ratio` | source ni 9:16 ni 16:9 | refilme dans le bon ratio |
+| Studio preview vide | sync timeline pas fait | `node scripts/sync-timeline.mjs <id>` |
+| QuickTime refuse le mp4 | codec non conforme | `npm run fix:mp4` |
+| Visage coupé en haut/bas | cropAnchor mal réglé | tweak `cropAnchor` dans timeline JSON (`"top"`, `"center"`, `"bottom"`, `{y: 0.3}`) |
+| Vidéo source à l'envers | rotation iPhone mal interprétée | re-importe avec `facecam:import` (rotation auto-bakée) |
 
 ---
 
-## Variantes d'un même tournage
+## Re-render rapide d'une variante
 
-Pour tester deux montages du même mp4 :
+Si tu changes la timeline.json mais que tu veux pas refaire tout le pipeline :
 
 ```bash
-cp facecam-data/episode-001.timeline.json facecam-data/episode-001-v2.timeline.json
-# édite v2, ou demande à Claude une variante
-node scripts/sync-timeline.mjs episode-001-v2
-node scripts/render-facecam.mjs episode-001-v2
+node scripts/sync-timeline.mjs <episodeId>
+node scripts/render-facecam.mjs <episodeId>
 ```
 
-Tu obtiens `out/facecam-episode-001-v2.mp4` à comparer.
+Le `sync-timeline` recopie la timeline vers `public/` pour que Remotion la voie. Le render produit un nouveau mp4.
 
 ---
 
-## Smoke test (ça marche encore ?)
+## Smoke test
+
+Si tu doutes que le pipeline fonctionne :
 
 ```bash
-cd video
 node scripts/make-demo-fixture.mjs
 node scripts/render-facecam.mjs _demo-10s
 ```
 
-Si `out/facecam-_demo-10s.mp4` se génère, le pipeline va bien.
+Sortie attendue : `out/facecam-_demo-10s.mp4` (~1 Mo, 10s).
