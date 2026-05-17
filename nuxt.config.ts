@@ -78,6 +78,7 @@ export default defineNuxtConfig({
     '/_ph/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
     '/_ph/**':        { proxy: 'https://eu.i.posthog.com/**' },
     '/confidentialite': { sitemap: false },
+    '/cookies': { sitemap: false },
   },
   content: {
     highlight: { theme: 'github-dark' },
@@ -118,7 +119,7 @@ export default defineNuxtConfig({
         '/outils/generateur-ecriture-comptable',
         '/rapports/2026-05-08-ia-supprime-inefficience',
         '/rapports/offloading-cognitif-quand-l-ia-pense-a-ta-place',
-        '/frequence', '/identite', '/confidentialite', '/chantier',
+        '/frequence', '/identite', '/confidentialite', '/cookies', '/chantier',
         ...scannerRoutes,
       ],
     },
