@@ -4,17 +4,13 @@ import type { SceneCommonProps } from "./types";
 import { ICON_PATHS } from "./icons";
 
 // Two-beat scene:
-//   beat 1 (~30%) — the word "idée" appears with a lightbulb halo above
-//   beat 2 (~70%) — transition to a keyboard with code lines being "typed"
-//                   (lines appear left-to-right, simulating commentaire writing)
+//   beat 1 (~30%) — lightbulb icon + italic "idée."
+//   beat 2 (~70%) — a chat-style message bubble where text is typed
+//                   character by character with a blinking cursor
 
-const Icon: React.FC<{ name: string; size: number; color: string; opacity?: number; transform?: string }> = ({
-  name,
-  size,
-  color,
-  opacity = 1,
-  transform,
-}) => {
+const TYPED_TEXT = "voici mon idée…";
+
+const Icon: React.FC<{ name: string; size: number; color: string; opacity?: number }> = ({ name, size, color, opacity = 1 }) => {
   const paths = ICON_PATHS[name];
   if (!paths) return null;
   return (
@@ -27,7 +23,7 @@ const Icon: React.FC<{ name: string; size: number; color: string; opacity?: numb
       strokeWidth={1.3}
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ opacity, transform }}
+      style={{ opacity }}
     >
       {paths.map((d, i) => (
         <path key={i} d={d} />
@@ -45,7 +41,7 @@ export const IdeaToKeyboard: React.FC<SceneCommonProps & { props: Record<string,
   const beat1End = dur * 0.35;
   const inBeat1 = t < beat1End;
 
-  // Beat 1: lightbulb halo + "idée" word
+  // Beat 1: lightbulb + "idée"
   const bulbSp = inBeat1 ? spring({ frame: t * fps, fps, config: { damping: 14, mass: 0.5 } }) : 1;
   const ideaFadeIn = interpolate(t, [0.15, 0.45], [0, 1], {
     extrapolateLeft: "clamp",
@@ -58,24 +54,29 @@ export const IdeaToKeyboard: React.FC<SceneCommonProps & { props: Record<string,
   });
   const ideaOpacity = ideaFadeIn * ideaFadeOut;
 
-  // Beat 2: keyboard centered + lines typing
-  const kbStart = beat1End - 0.1;
-  const kbT = t - kbStart;
-  const kbSp = kbT > 0 ? spring({ frame: kbT * fps, fps, config: { damping: 14, mass: 0.5 } }) : 0;
-  const kbOpacity = interpolate(kbT, [0, 0.2], [0, 1], {
+  // Beat 2: chat bubble fades in, text types out
+  const bubbleStart = beat1End - 0.1;
+  const bubbleT = t - bubbleStart;
+  const bubbleSp = bubbleT > 0 ? spring({ frame: bubbleT * fps, fps, config: { damping: 14, mass: 0.5 } }) : 0;
+  const bubbleOpacity = interpolate(bubbleT, [0, 0.25], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Lines "typing" — N lines appear one-by-one, each filling left-to-right
-  const lineCount = 4;
-  const lineStartTime = beat1End + 0.2; // after keyboard appears
-  const typingDur = dur - lineStartTime - 0.3;
-  const linePerSec = typingDur / lineCount;
-  const lineWidths = [0.95, 0.7, 0.88, 0.6]; // varied for natural look
+  // Typing animation: chars appear over time. Start typing after bubble fades in.
+  const typingStart = bubbleStart + 0.35;
+  const typingDur = (dur - typingStart) * 0.7; // leave 30% to read the result
+  const typingProgress = interpolate(t, [typingStart, typingStart + typingDur], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 0.6, 1),
+  });
+  const visibleChars = Math.floor(typingProgress * TYPED_TEXT.length);
+  const visibleText = TYPED_TEXT.slice(0, visibleChars);
 
-  // Tap pulses on keyboard (Beat 2)
-  const showTapPulses = t > beat1End && t < dur - 0.3;
+  // Blinking cursor: visible 0.5s on, 0.5s off
+  const cursorVisible = bubbleT > 0.35 && Math.floor(t * 2) % 2 === 0;
+  const isTypingDone = visibleChars >= TYPED_TEXT.length;
 
   return (
     <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: 80 }}>
@@ -94,16 +95,16 @@ export const IdeaToKeyboard: React.FC<SceneCommonProps & { props: Record<string,
             gap: 32,
           }}
         >
-          <div style={{ position: "relative", width: 260, height: 260 }}>
+          <div style={{ position: "relative", width: 240, height: 240, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div
               style={{
                 position: "absolute",
-                inset: -20,
+                inset: -10,
                 borderRadius: "50%",
                 background: `radial-gradient(circle, rgba(108,227,181,0.5) 0%, transparent 60%)`,
               }}
             />
-            <Icon name="lightbulb" size={260} color={COLORS.accent} />
+            <Icon name="lightbulb" size={220} color={COLORS.accent} />
           </div>
           <div
             style={{
@@ -120,80 +121,103 @@ export const IdeaToKeyboard: React.FC<SceneCommonProps & { props: Record<string,
         </div>
       )}
 
-      {/* Beat 2 — keyboard typing comments */}
-      {kbT > 0 && (
+      {/* Beat 2 — chat bubble typing */}
+      {bubbleT > 0 && (
         <div
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
-            transform: `translate(-50%, -50%) scale(${kbSp})`,
-            opacity: kbOpacity,
+            transform: `translate(-50%, -50%) scale(${bubbleSp})`,
+            opacity: bubbleOpacity,
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            gap: 28,
+            alignItems: "flex-start",
+            width: 760,
           }}
         >
-          {/* Lines being typed */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, width: 560, alignItems: "flex-start" }}>
-            {Array.from({ length: lineCount }).map((_, i) => {
-              const lineStart = lineStartTime + i * linePerSec;
-              const localLineT = t - lineStart;
-              if (localLineT < 0) return null;
-              const lineProgress = interpolate(localLineT, [0, linePerSec * 0.8], [0, 1], {
-                extrapolateRight: "clamp",
-                easing: Easing.bezier(0.4, 0, 0.6, 1),
-              });
-              return (
-                <div
-                  key={i}
+          {/* Bubble */}
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              background: COLORS.surface,
+              border: `1px solid rgba(232, 229, 221, 0.18)`,
+              borderRadius: 24,
+              padding: "30px 36px",
+              minHeight: 140,
+              boxShadow: `0 0 32px rgba(108, 227, 181, ${0.18 * bubbleOpacity})`,
+            }}
+          >
+            {/* Mini header — like a chat input label */}
+            <div
+              style={{
+                fontFamily: FONTS.mono,
+                fontSize: 22,
+                color: COLORS.muted,
+                letterSpacing: 1.5,
+                textTransform: "uppercase",
+                marginBottom: 14,
+              }}
+            >
+              › commentaire
+            </div>
+            {/* Typed text */}
+            <div
+              style={{
+                fontFamily: FONTS.sans,
+                fontSize: 52,
+                fontWeight: 600,
+                color: COLORS.text,
+                lineHeight: 1.2,
+                letterSpacing: -0.5,
+                minHeight: 64,
+              }}
+            >
+              {visibleText}
+              {!isTypingDone && (
+                <span
                   style={{
-                    height: 10,
-                    background: COLORS.muted,
-                    borderRadius: 5,
-                    width: `${lineWidths[i] * 100 * lineProgress}%`,
-                    minWidth: 4,
-                    opacity: 0.85,
+                    display: "inline-block",
+                    width: 4,
+                    height: 56,
+                    background: COLORS.accent,
+                    marginLeft: 6,
+                    verticalAlign: "middle",
+                    opacity: cursorVisible ? 1 : 0,
                   }}
                 />
-              );
-            })}
-          </div>
-
-          {/* Keyboard */}
-          <div style={{ position: "relative" }}>
-            <Icon name="keyboard" size={280} color={COLORS.accent} />
-            {/* Tap pulses */}
-            {showTapPulses && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: -22,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  display: "flex",
-                  gap: 28,
-                }}
-              >
-                {[0, 0.25, 0.5].map((phase, j) => {
-                  const pulse = (Math.sin((t + phase) * Math.PI * 5) + 1) / 2;
-                  return (
-                    <div
-                      key={j}
-                      style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 5,
-                        background: COLORS.accent,
-                        opacity: 0.4 + pulse * 0.6,
-                        transform: `scale(${0.7 + pulse * 0.4})`,
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            )}
+              )}
+              {isTypingDone && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 4,
+                    height: 56,
+                    background: COLORS.accent,
+                    marginLeft: 6,
+                    verticalAlign: "middle",
+                    opacity: cursorVisible ? 1 : 0,
+                  }}
+                />
+              )}
+            </div>
+            {/* Bubble tail (bottom-left) */}
+            <svg
+              width={28}
+              height={20}
+              viewBox="0 0 28 20"
+              style={{ position: "absolute", bottom: -18, left: 60 }}
+            >
+              <path
+                d="M0 0 L28 0 L14 20 Z"
+                fill={COLORS.surface}
+                stroke="rgba(232, 229, 221, 0.18)"
+                strokeWidth={1}
+              />
+              {/* Cover top of tail with surface fill to hide the seam */}
+              <path d="M0 0 L28 0 L14 1 Z" fill={COLORS.surface} />
+            </svg>
           </div>
         </div>
       )}
