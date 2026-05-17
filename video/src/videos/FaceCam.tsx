@@ -1,4 +1,4 @@
-import { AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
+import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 import { SCENES } from "../lib/facecam/scenes";
 import { FaceCamZone, type FaceTrackPoint } from "../lib/facecam/face-cam-zone";
 import { HairlinePulse } from "../lib/facecam/hairline-pulse";
@@ -16,30 +16,6 @@ type Props = FaceCamTimeline & {
   captions?: Caption[];
 };
 
-// Wraps each scene's Sequence with fade-in (6 frames) + fade-out (10 frames)
-// and a subtle scale dance (1.0 → 1.0 → 0.98) on the way out, so transitions
-// between scenes feel alive instead of jump-cut.
-const SceneFade: React.FC<{ durationFrames: number; children: React.ReactNode }> = ({ durationFrames, children }) => {
-  const frame = useCurrentFrame();
-  const opacity = interpolate(
-    frame,
-    [0, 6, durationFrames - 10, durationFrames],
-    [0, 1, 1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) },
-  );
-  const scale = interpolate(
-    frame,
-    [0, 6, durationFrames - 10, durationFrames],
-    [0.98, 1.0, 1.0, 0.98],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) },
-  );
-  return (
-    <div style={{ width: "100%", height: "100%", opacity, transform: `scale(${scale})`, transformOrigin: "center" }}>
-      {children}
-    </div>
-  );
-};
-
 export const FaceCam: React.FC<Props> = ({
   events,
   cutVideoSrc,
@@ -51,11 +27,8 @@ export const FaceCam: React.FC<Props> = ({
   captions,
 }) => {
   const { fps, width, height } = useVideoConfig();
-  // Split shifted DOWN to give burned-in CapCut captions room above the hairline.
-  // 1080×1080 motion / 1080×840 face cam (instead of 50/50) = +120px breathing
-  // room for captions positioned at the top of the source video.
-  const motionHeight = 1080;
-  const faceHeight = height - motionHeight; // 840
+  const motionHeight = height / 2; // 960
+  const faceHeight = height / 2;
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#0F0F0E" }}>
@@ -75,9 +48,7 @@ export const FaceCam: React.FC<Props> = ({
           return (
             <Sequence key={i} from={from} durationInFrames={dur} layout="none">
               <AbsoluteFill style={{ height: motionHeight }}>
-                <SceneFade durationFrames={dur}>
-                  <Scene durationFrames={dur} tStart={evt.tStart} props={evt.props} />
-                </SceneFade>
+                <Scene durationFrames={dur} tStart={evt.tStart} props={evt.props} />
               </AbsoluteFill>
             </Sequence>
           );

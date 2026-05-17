@@ -16,6 +16,7 @@ import { CloseURL } from "./CloseURL";
 import { IconBurst } from "./IconBurst";
 import { VoiceWaveBars } from "./VoiceWaveBars";
 import { ProcessFlow } from "./ProcessFlow";
+import { ComptableToTomb } from "./ComptableToTomb";
 
 export const SCENES: Record<string, SceneComponent> = {
   KickerOpening,
@@ -30,4 +31,5 @@ export const SCENES: Record<string, SceneComponent> = {
   IconBurst,
   VoiceWaveBars,
   ProcessFlow,
+  ComptableToTomb,
 };

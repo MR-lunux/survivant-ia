@@ -79,6 +79,12 @@ export const ICON_PATHS: Record<string, string[]> = {
     "M3 7l6 6l4 -4l8 8",
     "M14 17l7 0l0 -7",
   ],
+  tomb: [
+    "M3 21h18",
+    "M5 21V12c0 -1 1 -2 2 -2h10c1 0 2 1 2 2v9",
+    "M12 5v5",
+    "M9 7h6",
+  ],
 };
 
 export type IconName = keyof typeof ICON_PATHS;
