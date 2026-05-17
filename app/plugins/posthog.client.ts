@@ -27,7 +27,12 @@ export default defineNuxtPlugin(() => {
     capture_pageview: false,
     capture_pageleave: true,
     autocapture: true,
-    capture_performance: true,
+    // Garde network_timing (utile dans les replays) mais coupe web_vitals (~4 KiB).
+    capture_performance: { network_timing: true, web_vitals: false },
+    // Modules PostHog désactivés pour réduire le poids de page (~48 KiB combinés).
+    disable_surveys: true,
+    capture_dead_clicks: false,
+    capture_exceptions: false,
     respect_dnt: true,
     loaded: (ph) => {
       try {

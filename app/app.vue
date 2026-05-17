@@ -45,6 +45,9 @@ useHead({
     { rel: 'alternate', hreflang: 'fr-CH', href: canonicalUrl },
     { rel: 'alternate', hreflang: 'fr', href: canonicalUrl },
     { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
+    // Établir la connexion vers les CDN Google plus tôt (Consent Mode v2 charge gtag dès le départ).
+    { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
+    { rel: 'preconnect', href: 'https://www.google-analytics.com' },
   ],
   meta: [{ property: 'og:url', content: canonicalUrl }],
   script: [{
