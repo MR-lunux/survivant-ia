@@ -7,12 +7,8 @@ const { state, accept, refuse } = useConsent()
 const showModal = ref(false)
 const draftAnalytics = ref(false)
 
-function openModalFromBanner() {
-  draftAnalytics.value = state.value.analytics === 'granted'
-  showModal.value = true
-}
-
-function openModalFromReopen() {
+// Synchronise le toggle avec l'état courant à chaque ouverture (depuis le bandeau ou depuis le footer/page Cookies).
+function openModal() {
   draftAnalytics.value = state.value.analytics === 'granted'
   showModal.value = true
 }
@@ -37,11 +33,20 @@ function saveCustom() {
   showModal.value = false
 }
 
+const closeButtonRef = ref<HTMLButtonElement | null>(null)
+
+watch(showModal, async (open) => {
+  if (open) {
+    await nextTick()
+    closeButtonRef.value?.focus()
+  }
+})
+
 onMounted(() => {
-  window.addEventListener('open-cookie-settings', openModalFromReopen)
+  window.addEventListener('open-cookie-settings', openModal)
 })
 onBeforeUnmount(() => {
-  window.removeEventListener('open-cookie-settings', openModalFromReopen)
+  window.removeEventListener('open-cookie-settings', openModal)
 })
 </script>
 
@@ -59,12 +64,14 @@ onBeforeUnmount(() => {
         <div class="cookie-banner-inner container">
           <div class="cookie-banner-content">
             <svg class="cookie-svg" viewBox="0 0 32 32" aria-hidden="true">
+              <!-- Cercle externe avec une encoche bas-droite (cookie croqué). -->
               <path
                 d="M16 3 A13 13 0 1 0 28 22 a5 5 0 0 1 -5 -5 a5 5 0 0 1 -5 -5 A6 6 0 0 1 16 3 z"
                 fill="none"
                 stroke="#6CE3B5"
                 stroke-width="1.5"
               />
+              <!-- Pépites asymétriques. -->
               <circle cx="11" cy="11" r="1.4" fill="#6CE3B5" fill-opacity="0.6" />
               <circle cx="20" cy="14" r="1.2" fill="#6CE3B5" fill-opacity="0.6" />
               <circle cx="13" cy="20" r="1.6" fill="#6CE3B5" fill-opacity="0.6" />
@@ -91,7 +98,7 @@ onBeforeUnmount(() => {
               type="button"
               class="cookie-btn cookie-btn-outline"
               data-attr="cookie-customize"
-              @click="openModalFromBanner"
+              @click="openModal"
             >
               Personnaliser
             </button>
@@ -116,13 +123,16 @@ onBeforeUnmount(() => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="cookie-modal-title"
+        tabindex="-1"
         @click.self="closeModal"
+        @keydown.esc.stop="closeModal"
       >
         <div class="cookie-modal-card">
           <div class="cookie-modal-header">
             <KickerLabel>PRÉFÉRENCES COOKIES</KickerLabel>
             <h2 id="cookie-modal-title">Vos préférences cookies</h2>
             <button
+              ref="closeButtonRef"
               type="button"
               class="cookie-modal-close"
               aria-label="Fermer"
@@ -210,7 +220,8 @@ onBeforeUnmount(() => {
 .cookie-banner {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 150;
+  /* var(--color-surface) #14140F à 95% d'opacité (backdrop-blur exige le canal alpha). */
   background: rgba(20, 20, 15, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -286,7 +297,7 @@ onBeforeUnmount(() => {
 /* === Modal === */
 .cookie-modal-overlay {
   position: fixed; inset: 0;
-  z-index: 110;
+  z-index: 160;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center;
