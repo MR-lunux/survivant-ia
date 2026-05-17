@@ -61,6 +61,24 @@ export const ICON_PATHS: Record<string, string[]> = {
     "M10 19v2",
     "M14 19v2",
   ],
+  shield: [
+    "M12 3l8 3v6c0 5 -3 8 -8 9c-5 -1 -8 -4 -8 -9V6l8 -3z",
+    "M9 12l2 2l4 -4",
+  ],
+  chat: [
+    "M3 20l1.3 -3.9A9 8 0 1 1 7.7 19L3 20",
+    "M12 12l0 .01",
+    "M8 12l0 .01",
+    "M16 12l0 .01",
+  ],
+  xmark: [
+    "M18 6l-12 12",
+    "M6 6l12 12",
+  ],
+  trendingDown: [
+    "M3 7l6 6l4 -4l8 8",
+    "M14 17l7 0l0 -7",
+  ],
 };
 
 export type IconName = keyof typeof ICON_PATHS;
