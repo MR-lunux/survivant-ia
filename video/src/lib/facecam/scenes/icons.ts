@@ -54,6 +54,13 @@ export const ICON_PATHS: Record<string, string[]> = {
     "M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0",
     "M12 7v5l3 3",
   ],
+  skull: [
+    "M12 3c-5 0 -9 4 -9 9c0 2.4 1 4.6 2.5 6.2L6 21h12l.5 -2.8c1.5 -1.6 2.5 -3.8 2.5 -6.2c0 -5 -4 -9 -9 -9z",
+    "M9 13a1 1 0 1 0 -2 0a1 1 0 0 0 2 0z",
+    "M17 13a1 1 0 1 0 -2 0a1 1 0 0 0 2 0z",
+    "M10 19v2",
+    "M14 19v2",
+  ],
 };
 
 export type IconName = keyof typeof ICON_PATHS;
