@@ -22,12 +22,13 @@ defineOgImage(false)
 
     <section class="policy-section">
       <h2>Données collectées</h2>
-      <p>Lors de l'inscription à la newsletter, nous collectons :</p>
+      <p>Selon votre interaction avec le site, nous collectons :</p>
       <ul>
-        <li>Votre adresse email</li>
-        <li>Votre prénom</li>
+        <li><strong>Inscription newsletter :</strong> adresse email, prénom</li>
+        <li><strong>Mesure d'audience (sous consentement) :</strong> pages visitées, durée de visite, source de trafic, interactions, parcours de navigation, enregistrements de session, adresse IP anonymisée (Google Analytics 4)</li>
+        <li><strong>Stockage technique local :</strong> indicateur de consentement cookies, indicateur scanner (voir <em>Stockage local</em> plus bas)</li>
       </ul>
-      <p>Au-delà de la newsletter, nous collectons des données d'audience anonymes (voir ci-dessous : <em>Mesure d'audience anonyme</em>).</p>
+      <p>Les outils de mesure d'audience (Google Analytics 4, PostHog) <strong>ne traitent jamais</strong> votre email ni votre prénom : ces données ne sont envoyées qu'à Brevo, qui gère la newsletter.</p>
     </section>
 
     <section class="policy-section">
@@ -36,25 +37,39 @@ defineOgImage(false)
     </section>
 
     <section class="policy-section">
-      <h2>Sous-traitant</h2>
-      <p>Les données sont traitées par <strong>Brevo</strong> (Sendinblue SAS), hébergé dans l'Union européenne, dans le respect du RGPD. <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">Politique de confidentialité Brevo ↗</a></p>
+      <h2>Sous-traitants</h2>
+      <p>Vos données sont traitées par les sous-traitants suivants, selon leur finalité :</p>
+      <ul>
+        <li><strong>Brevo (Sendinblue SAS)</strong> — newsletter, hébergement UE. <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">Politique ↗</a></li>
+        <li><strong>PostHog Inc.</strong> — mesure d'audience et heatmaps, hébergement UE (Francfort). <a href="https://posthog.com/privacy" target="_blank" rel="noopener">Politique ↗</a></li>
+        <li><strong>Google LLC</strong> — Google Analytics 4, hébergement États-Unis avec clauses contractuelles types. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique ↗</a></li>
+      </ul>
+      <p>Détail technique des cookies sur la <NuxtLink to="/cookies">page Cookies</NuxtLink>.</p>
     </section>
 
     <section class="policy-section">
-      <h2>Mesure d'audience anonyme</h2>
-      <p>Pour comprendre comment le site est utilisé et l'améliorer, nous utilisons <strong>PostHog</strong> (hébergé dans l'Union européenne, à Francfort) en mode strictement anonyme :</p>
+      <h2>Mesure d'audience</h2>
+      <p>Pour comprendre comment le site est utilisé et l'améliorer, nous utilisons deux outils sous votre consentement explicite (bannière à la première visite, modifiable via « Gérer mes cookies » dans le footer ou la <NuxtLink to="/cookies">page Cookies</NuxtLink>) :</p>
       <ul>
-        <li>Aucun cookie n'est déposé sur votre appareil</li>
-        <li>Aucun identifiant persistant n'est créé</li>
-        <li>Les données collectées (pages visitées, clics, métiers scannés, performances techniques) sont agrégées et ne permettent pas de vous identifier</li>
-        <li>Conformément à l'exemption CNIL pour la mesure d'audience, ces données sont conservées 13 mois maximum</li>
+        <li><strong>PostHog</strong> (hébergé dans l'Union européenne, à Francfort) : mesure de trafic, analyse de parcours, heatmaps, enregistrements de sessions. Conservation 1 an. <em>Do Not Track</em> respecté automatiquement. <a href="https://posthog.com/privacy" target="_blank" rel="noopener">Politique PostHog ↗</a></li>
+        <li><strong>Google Analytics 4</strong> (Google LLC, États-Unis) : mesure d'audience, attribution des sources, préparation d'éventuelles campagnes Google Ads. Transfert hors UE encadré par les clauses contractuelles types (SCC) approuvées par la Commission européenne. IP anonymisée. Conservation 14 mois. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique Google ↗</a></li>
       </ul>
-      <p>Vous pouvez vous opposer à cette mesure en activant le mode <em>Do Not Track</em> de votre navigateur - nous le respectons automatiquement.</p>
-      <p><a href="https://posthog.com/privacy" target="_blank" rel="noopener">Politique de confidentialité PostHog ↗</a></p>
+      <p><strong>Si vous refusez</strong> : Google Analytics 4 fonctionne en mode anonymisé sans cookie (Google Consent Mode v2, signaux agrégés pour modélisation) ; PostHog repasse en mode anonyme sans cookie ni enregistrement de session.</p>
+      <p>Le détail de chaque cookie (nom, durée, finalité) est disponible sur la <NuxtLink to="/cookies">page Cookies</NuxtLink>.</p>
     </section>
 
     <section class="policy-section">
       <h2>Stockage local (localStorage)</h2>
+
+      <h3>Indicateur consentement cookies</h3>
+      <p>
+        Lorsque vous validez vos préférences cookies, nous stockons votre choix dans le
+        <code>localStorage</code> sous la clé <code>cookie-consent</code>
+        (<code>{ analytics, timestamp, version }</code>). Cette donnée ne quitte
+        jamais votre navigateur. Elle est renouvelée tous les 13 mois, conformément
+        à la recommandation CNIL.
+      </p>
+
       <h3>Indicateur technique du scanner</h3>
       <p>
         Lorsque vous déverrouillez le rapport complet du scanner via votre email,
@@ -90,7 +105,7 @@ defineOgImage(false)
     </section>
 
     <p class="font-mono" style="font-size: 0.65rem; color: var(--color-muted); margin-top: 3rem;">
-      Dernière mise à jour : avril 2026
+      Dernière mise à jour : mai 2026
     </p>
   </div>
 </template>

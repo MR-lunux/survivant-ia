@@ -4,6 +4,12 @@ const socials = {
   instagram: '',
   youtube: '',
 }
+
+function openCookieSettings() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('open-cookie-settings'))
+  }
+}
 </script>
 
 <template>
@@ -18,6 +24,19 @@ const socials = {
         <NuxtLink to="/rapports" data-attr="footer-nav-rapports">Rapports de Survie</NuxtLink>
         <NuxtLink to="/frequence" data-attr="footer-nav-frequence">Rejoindre la Fréquence</NuxtLink>
         <NuxtLink to="/identite" data-attr="footer-nav-identite">Identité du Survivant</NuxtLink>
+      </div>
+
+      <div class="footer-links footer-links-legal">
+        <NuxtLink to="/confidentialite" data-attr="footer-legal-confidentialite">Politique de confidentialité</NuxtLink>
+        <NuxtLink to="/cookies" data-attr="footer-legal-cookies">Cookies</NuxtLink>
+        <button
+          type="button"
+          class="footer-legal-button"
+          data-attr="footer-legal-manage-cookies"
+          @click="openCookieSettings"
+        >
+          Gérer mes cookies
+        </button>
       </div>
 
       <div v-if="socials.linkedin || socials.instagram || socials.youtube" class="footer-social">
@@ -44,10 +63,16 @@ const socials = {
 }
 .footer-inner {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto auto;
   gap: 3rem;
   align-items: start;
   margin-bottom: 2rem;
+}
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
 .footer-tagline {
   font-size: 0.75rem;
@@ -81,4 +106,16 @@ const socials = {
 }
 .footer-social a:hover { color: var(--color-accent); }
 .footer-bottom { border-top: 1px solid var(--color-surface-2); padding-top: 1rem; }
+.footer-legal-button {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s;
+}
+.footer-legal-button:hover { color: var(--color-accent); }
 </style>

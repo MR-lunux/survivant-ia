@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     generateurEcritureEnabled: 'true',
     public: {
       posthogKey: '',
+      gtagId: '',
     },
   },
   modules: [
@@ -60,7 +61,7 @@ export default defineNuxtConfig({
         'Referrer-Policy': 'strict-origin-when-cross-origin',
         'Permissions-Policy': 'camera=(), microphone=(self), geolocation=(), interest-cohort=()',
         'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self';",
+        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self' blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self';",
       },
     },
     '/': { sitemap: { priority: 1.0, changefreq: 'weekly' } },
@@ -77,6 +78,7 @@ export default defineNuxtConfig({
     '/_ph/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
     '/_ph/**':        { proxy: 'https://eu.i.posthog.com/**' },
     '/confidentialite': { sitemap: false },
+    '/cookies': { sitemap: false },
   },
   content: {
     highlight: { theme: 'github-dark' },
@@ -117,7 +119,7 @@ export default defineNuxtConfig({
         '/outils/generateur-ecriture-comptable',
         '/rapports/2026-05-08-ia-supprime-inefficience',
         '/rapports/offloading-cognitif-quand-l-ia-pense-a-ta-place',
-        '/frequence', '/identite', '/confidentialite', '/chantier',
+        '/frequence', '/identite', '/confidentialite', '/cookies', '/chantier',
         ...scannerRoutes,
       ],
     },
