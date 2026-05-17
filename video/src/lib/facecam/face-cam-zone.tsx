@@ -1,8 +1,12 @@
-import { OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { OffthreadVideo, staticFile } from "remotion";
 import { computeCropTransform } from "./crop";
 import type { CropAnchor } from "../schemas";
 
-export type FaceTrackPoint = { t: number; cx: number; cy: number };
+export type FaceTrackPoint = { t: number; cx: number; cy: number; h?: number };
+
+// Eye position is roughly 25% from the top of the MediaPipe face bbox.
+// To center on eyes, shift the crop center UPWARD by 25% of bbox height.
+const EYE_BIAS_FRACTION = 0.25;
 
 type Props = {
   src: string;
@@ -15,21 +19,24 @@ type Props = {
   sourceHeight: number;
 };
 
-function interpolateTrack(track: FaceTrackPoint[], t: number): FaceTrackPoint {
-  if (t <= track[0].t) return track[0];
-  if (t >= track[track.length - 1].t) return track[track.length - 1];
-  for (let i = 1; i < track.length; i++) {
-    if (track[i].t >= t) {
-      const a = track[i - 1];
-      const b = track[i];
-      const r = (t - a.t) / (b.t - a.t);
-      return { t, cx: a.cx + (b.cx - a.cx) * r, cy: a.cy + (b.cy - a.cy) * r };
+function meanCenter(track: FaceTrackPoint[]): { cx: number; cy: number } {
+  let sumCx = 0, sumCy = 0, sumH = 0, nH = 0;
+  for (const p of track) {
+    sumCx += p.cx;
+    sumCy += p.cy;
+    if (typeof p.h === "number") {
+      sumH += p.h;
+      nH++;
     }
   }
-  return track[track.length - 1];
+  const cx = sumCx / track.length;
+  const cy = sumCy / track.length;
+  const meanH = nH > 0 ? sumH / nH : 0;
+  // Bias upward toward eyes (eyes ~25% from top of bbox = 25% above bbox center)
+  return { cx, cy: cy - meanH * EYE_BIAS_FRACTION };
 }
 
-function dynamicTransformFromFaceTrack(
+function staticTransformFromFaceCenter(
   inputAspect: "9:16" | "16:9",
   cx: number,
   cy: number,
@@ -60,13 +67,12 @@ export const FaceCamZone: React.FC<Props> = ({
   sourceWidth,
   sourceHeight,
 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
+  // Static averaged crop: compute mean face center once, no per-frame movement.
+  // Dynamic tracking caused nausea-inducing jitter for talking-head selfies.
   const transform = faceTrack && faceTrack.length > 0
     ? (() => {
-        const { cx, cy } = interpolateTrack(faceTrack, frame / fps);
-        return dynamicTransformFromFaceTrack(inputAspect, cx, cy, sourceWidth, sourceHeight, width, height);
+        const { cx, cy } = meanCenter(faceTrack);
+        return staticTransformFromFaceCenter(inputAspect, cx, cy, sourceWidth, sourceHeight, width, height);
       })()
     : computeCropTransform({
         inputAspect,

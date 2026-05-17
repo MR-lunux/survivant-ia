@@ -58,16 +58,22 @@ if (track.length === 0) {
 
 // Smooth the trajectory with a moving average over SMOOTH_WINDOW_SEC.
 // Removes per-frame jitter while preserving real movement.
-const smoothed = track.map((point, i) => {
-  let sumCx = 0, sumCy = 0, count = 0;
+const smoothed = track.map((point) => {
+  let sumCx = 0, sumCy = 0, sumH = 0, count = 0;
   for (let j = 0; j < track.length; j++) {
     if (Math.abs(track[j].t - point.t) <= SMOOTH_WINDOW_SEC / 2) {
       sumCx += track[j].cx;
       sumCy += track[j].cy;
+      sumH += track[j].h ?? 0;
       count++;
     }
   }
-  return { t: point.t, cx: Math.round((sumCx / count) * 10) / 10, cy: Math.round((sumCy / count) * 10) / 10 };
+  return {
+    t: point.t,
+    cx: Math.round((sumCx / count) * 10) / 10,
+    cy: Math.round((sumCy / count) * 10) / 10,
+    h: Math.round((sumH / count) * 10) / 10,
+  };
 });
 
 const output = { width, height, track: smoothed };

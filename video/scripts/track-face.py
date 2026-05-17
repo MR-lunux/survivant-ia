@@ -72,10 +72,11 @@ def main() -> int:
                 box = result.detections[0].bounding_box
                 cx = round(box.origin_x + box.width / 2, 1)
                 cy = round(box.origin_y + box.height / 2, 1)
-                track.append({"t": t, "cx": cx, "cy": cy})
-                last_detection = (cx, cy)
+                h = round(box.height, 1)
+                track.append({"t": t, "cx": cx, "cy": cy, "h": h})
+                last_detection = (cx, cy, h)
             elif last_detection is not None:
-                track.append({"t": t, "cx": last_detection[0], "cy": last_detection[1]})
+                track.append({"t": t, "cx": last_detection[0], "cy": last_detection[1], "h": last_detection[2]})
 
         frame_idx += 1
 
