@@ -21,6 +21,11 @@ export const SCENE_NAMES = [
   "VoiceWaveBars",
   "ProcessFlow",
   "ComptableToTomb",
+  "CycleFlow",
+  "BrainEmptying",
+  "AIComparison",
+  "ClockTicking",
+  "IdeaToKeyboard",
 ] as const;
 
 export const TimelineEventSchema = z

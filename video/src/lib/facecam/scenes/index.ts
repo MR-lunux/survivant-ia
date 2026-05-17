@@ -17,6 +17,11 @@ import { IconBurst } from "./IconBurst";
 import { VoiceWaveBars } from "./VoiceWaveBars";
 import { ProcessFlow } from "./ProcessFlow";
 import { ComptableToTomb } from "./ComptableToTomb";
+import { CycleFlow } from "./CycleFlow";
+import { BrainEmptying } from "./BrainEmptying";
+import { AIComparison } from "./AIComparison";
+import { ClockTicking } from "./ClockTicking";
+import { IdeaToKeyboard } from "./IdeaToKeyboard";
 
 export const SCENES: Record<string, SceneComponent> = {
   KickerOpening,
@@ -32,4 +37,9 @@ export const SCENES: Record<string, SceneComponent> = {
   VoiceWaveBars,
   ProcessFlow,
   ComptableToTomb,
+  CycleFlow,
+  BrainEmptying,
+  AIComparison,
+  ClockTicking,
+  IdeaToKeyboard,
 };
