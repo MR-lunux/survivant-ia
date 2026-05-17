@@ -59,4 +59,7 @@ useHead({
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <ClientOnly>
+    <CookieBanner />
+  </ClientOnly>
 </template>
