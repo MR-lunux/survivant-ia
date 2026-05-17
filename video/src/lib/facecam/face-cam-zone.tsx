@@ -67,9 +67,14 @@ export const FaceCamZone: React.FC<Props> = ({
   sourceWidth,
   sourceHeight,
 }) => {
-  // Static averaged crop: compute mean face center once, no per-frame movement.
-  // Dynamic tracking caused nausea-inducing jitter for talking-head selfies.
-  const transform = faceTrack && faceTrack.length > 0
+  // Crop strategy:
+  // - If the timeline specifies an EXPLICIT anchor ("top" / "bottom" / {y: …}),
+  //   we honor that and skip face tracking. User intent wins.
+  // - If anchor is "center" (the implicit default), we use face tracking when
+  //   available so the face stays centered automatically.
+  const userExplicit = cropAnchor === "top" || cropAnchor === "bottom" || (typeof cropAnchor === "object");
+  const useTrack = !userExplicit && faceTrack && faceTrack.length > 0;
+  const transform = useTrack
     ? (() => {
         const { cx, cy } = meanCenter(faceTrack);
         return staticTransformFromFaceCenter(inputAspect, cx, cy, sourceWidth, sourceHeight, width, height);
