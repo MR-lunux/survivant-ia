@@ -3,6 +3,7 @@ import { SCENES } from "../lib/facecam/scenes";
 import { FaceCamZone, type FaceTrackPoint } from "../lib/facecam/face-cam-zone";
 import { HairlinePulse } from "../lib/facecam/hairline-pulse";
 import { AmbientLayer } from "../lib/facecam/ambient-layer";
+import { Captions, type Caption } from "../lib/facecam/captions";
 import { BaseBg } from "../lib/components/Background";
 import { ParticleBackground } from "../lib/components/ParticleBackground";
 import type { FaceCamTimeline, CropAnchor } from "../lib/schemas";
@@ -12,6 +13,7 @@ type Props = FaceCamTimeline & {
   sourceWidth: number;
   sourceHeight: number;
   faceTrack?: FaceTrackPoint[];
+  captions?: Caption[];
 };
 
 export const FaceCam: React.FC<Props> = ({
@@ -22,6 +24,7 @@ export const FaceCam: React.FC<Props> = ({
   sourceWidth,
   sourceHeight,
   faceTrack,
+  captions,
 }) => {
   const { fps, width, height } = useVideoConfig();
   const motionHeight = height / 2; // 960
@@ -70,6 +73,12 @@ export const FaceCam: React.FC<Props> = ({
           Otherwise the face cam wrapper (top: motionHeight) starts at y=motionHeight
           and visually covers the 1px line at that exact y. */}
       <HairlinePulse topPx={motionHeight} />
+
+      {/* Burned-in captions for silent viewing. Positioned in the top of the face
+          cam zone so they don't conflict with TikTok's bottom UI. */}
+      {captions && captions.length > 0 && (
+        <Captions captions={captions} topPx={motionHeight + 40} />
+      )}
     </AbsoluteFill>
   );
 };

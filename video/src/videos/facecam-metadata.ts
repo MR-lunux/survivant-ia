@@ -2,6 +2,7 @@ import type { CalculateMetadataFunction } from "remotion";
 import { staticFile } from "remotion";
 import { parseTimeline } from "../lib/facecam/timeline-loader";
 import type { FaceTrackPoint } from "../lib/facecam/face-cam-zone";
+import type { Caption } from "../lib/facecam/captions";
 
 type Input = { episodeId: string };
 
@@ -34,6 +35,21 @@ export const facecamMetadata: CalculateMetadataFunction<Input> = async ({ props 
     // no track, falls back to static cropAnchor
   }
 
+  // Optional captions: burned-in subtitles for silent viewing
+  let captions: Caption[] | undefined;
+  try {
+    const capUrl = staticFile(`facecam-data/${props.episodeId}.captions.json`);
+    const capRes = await fetch(capUrl);
+    if (capRes.ok) {
+      const capRaw = (await capRes.json()) as Caption[];
+      if (Array.isArray(capRaw) && capRaw.length > 0) {
+        captions = capRaw;
+      }
+    }
+  } catch {
+    // no captions, scene runs caption-free
+  }
+
   // Resolve cut mp4 path (apply-cuts produces .cut.mp4)
   const cutPath = `facecam-raws/${props.episodeId}.cut.mp4`;
   // Source dims: prefer face-track dims (definitive, measured by Python), then timeline
@@ -52,6 +68,7 @@ export const facecamMetadata: CalculateMetadataFunction<Input> = async ({ props 
       sourceWidth,
       sourceHeight,
       faceTrack,
+      captions,
     } as unknown as Input,
   };
 };

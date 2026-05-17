@@ -39,3 +39,11 @@ if (existsSync(trackSrc)) {
   copyFileSync(trackSrc, trackDest);
   console.log(`✓ Synced: public/facecam-data/${episodeId}.face-track.json`);
 }
+
+// Optional: sync captions.json too if it exists (for burned-in subtitles)
+const capSrc = join(root, "facecam-data", `${episodeId}.captions.json`);
+const capDest = join(destDir, `${episodeId}.captions.json`);
+if (existsSync(capSrc)) {
+  copyFileSync(capSrc, capDest);
+  console.log(`✓ Synced: public/facecam-data/${episodeId}.captions.json`);
+}
