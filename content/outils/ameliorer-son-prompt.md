@@ -2,7 +2,7 @@
 code: ameliorer-son-prompt
 kind: app
 title: Améliore ton prompt
-subtitle: Le template + l'améliorateur, dans le même outil. Colle ton prompt, l'IA le restructure et te montre ce qui manquait.
+subtitle: Colle ton prompt brut, l'IA le restructure et te montre ce qui manquait.
 description: "Outil interactif. Tu colles ton prompt brut, l'IA le restructure selon les bonnes pratiques (rôle, contexte, tâche, format, contraintes). Gratuit, sans inscription. IA hébergée en Suisse."
 kicker: OUTIL · AMÉLIORE TON PROMPT
 parentArticleSlug:
@@ -13,11 +13,14 @@ specs:
   - "AUCUN STOCKAGE"
   - "GRATUIT SANS INSCRIPTION"
 calloutPitch: "Colle ton prompt brut dans le champ. L'IA d'Infomaniak (hébergée en Suisse) le restructure selon la grille des 6 champs (rôle, contexte, tâche, format, contraintes, exemples), et te dit ce qui manquait. Rien n'est gardé."
-intro: |
+intro:
+outro: |
+  ## Pourquoi cet outil
+
   Tu utilises ChatGPT, Claude ou Mistral mais tu trouves que tes réponses sont moyennes, sans savoir pourquoi. Neuf fois sur dix : ton prompt n'est pas structuré. Tu balances une demande, l'IA comble les trous comme elle peut, et tu obtiens une réponse générique.
 
   Cet outil applique à ton prompt brut une grille de 6 champs : rôle, contexte, tâche, format, contraintes, exemples. C'est ce que les guides d'Anthropic et d'OpenAI utilisent comme base. Tu vois la grille se remplir, et tu vois ce que tu n'avais pas pensé à mettre.
-outro: |
+
   ## Quand cet outil est utile (et quand il ne l'est pas)
 
   Cet outil est fait pour les prompts isolés du quotidien : un mail à écrire, une synthèse à pondre, une analyse à demander. Le moment où tu te dis « ça pourrait être mieux » sans savoir comment.
