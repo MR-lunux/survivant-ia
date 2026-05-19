@@ -29,16 +29,6 @@ outro: |
   - Les **flows conversationnels longue durée** (chat de 20 messages où tu itères). L'outil structure un prompt isolé, pas un dialogue.
   - Quand ton **prompt initial est déjà solide** — l'outil te dira « already_solid », tu auras juste perdu 5 secondes.
 
-  ## Combien de temps cet outil a-t-il pris à construire
-
-  Cet outil — interface, modération en 3 niveaux, call API Infomaniak, tracking PostHog, animations, FAQ — a été construit en environ **4 heures**, avec [Claude Code](https://claude.com/claude-code) comme assistant de développement.
-
-  Quelques précisions importantes :
-
-  - Je ne suis pas développeur full-stack à temps plein. Je suis Deputy Head of IT dans une boîte qui n'a rien de tech ; cet outil a été construit en marge de mes journées.
-  - Le system prompt qui restructure ton prompt a été itéré une dizaine de fois pour atteindre une grille stable.
-  - « 4 heures » ne veut pas dire que tu peux le refaire en 4 heures, ni que c'est trivial. Cela veut dire que **la barrière entre une idée et un outil fonctionnel a fondu**, à condition de savoir poser le problème et reconnaître quand l'IA hallucine.
-
   ## Le pari derrière l'outil
 
   L'IA en 2026, dans ton métier, n'est ni la révolution promise par McKinsey, ni le risque existentiel craint sur LinkedIn. C'est un multiplicateur — à condition de savoir lui parler.

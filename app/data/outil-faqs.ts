@@ -64,5 +64,9 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       question: 'Ça marche aussi pour les prompts en anglais ?',
       answer: 'Tu peux coller un prompt anglais. La sortie sera en français. Si tu veux la sortie en anglais, ajoute « FORMAT DE SORTIE : answer in English » dans ton prompt brut.',
     },
+    {
+      question: 'Comment cet outil a-t-il été construit ?',
+      answer: 'En environ 3 heures, avec Claude Code comme assistant de développement. Je ne suis pas développeur full-stack à temps plein — je suis Deputy Head of IT dans une boîte qui n\'a rien de tech, cet outil a été construit en marge de mes journées. Le system prompt qui restructure ton prompt a été itéré une dizaine de fois pour atteindre une grille stable. « 3 heures » ne veut pas dire que tu peux le refaire en 3 heures, ni que c\'est trivial — cela veut dire que la barrière entre une idée et un outil fonctionnel a fondu, à condition de savoir poser le problème et reconnaître quand l\'IA hallucine.',
+    },
   ],
 }
