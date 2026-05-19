@@ -1,9 +1,7 @@
 <!-- app/components/KitAmelioreTonPrompt.vue -->
 <script setup lang="ts">
-import KitAmelioreTonPromptExemples from './KitAmelioreTonPromptExemples.vue'
 import KitAmelioreTonPromptForm from './KitAmelioreTonPromptForm.vue'
 import KitAmelioreTonPromptOutput from './KitAmelioreTonPromptOutput.vue'
-import type { AmeliorerPromptExample } from '~/data/ameliorer-prompt-examples'
 
 defineProps<{ kitId: string }>()
 
@@ -45,27 +43,6 @@ const structured = ref<Structured | null>(null)
 const additions = ref<Addition[]>([])
 const alreadySolid = ref(false)
 const errorMsg = ref<string | null>(null)
-
-// Cas exemple : on affiche les 6 champs + additions en simulant un succès,
-// sans appel API. Petite latence artificielle pour que l'animation joue.
-function loadExample(example: AmeliorerPromptExample, position: number) {
-  capture('ameliorer_prompt_example_clicked', {
-    kit_id: 'ameliorer-son-prompt',
-    example_id: example.id,
-    example_position: position,
-  })
-
-  promptBrut.value = example.before
-  state.value = 'loading'
-  errorMsg.value = null
-
-  setTimeout(() => {
-    structured.value = example.after.structured
-    additions.value = example.after.additions
-    alreadySolid.value = example.after.already_solid
-    state.value = 'success'
-  }, 500)
-}
 
 async function onSubmit(value: string) {
   capture('ameliorer_prompt_submitted', {
@@ -145,15 +122,13 @@ function onCopied(payload: { chars: number; had_optional_fields: boolean }) {
   })
 }
 
-function onFieldExpanded(field: 'context' | 'constraints' | 'examples') {
-  capture('ameliorer_prompt_field_expanded', { kit_id: 'ameliorer-son-prompt', field })
+function onStructureExpanded() {
+  capture('ameliorer_prompt_structure_expanded', { kit_id: 'ameliorer-son-prompt' })
 }
 </script>
 
 <template>
   <section class="kap">
-    <KitAmelioreTonPromptExemples @example-clicked="loadExample" />
-
     <KitAmelioreTonPromptForm
       v-model="promptBrut"
       :state="state"
@@ -172,7 +147,7 @@ function onFieldExpanded(field: 'context' | 'constraints' | 'examples') {
       :additions="additions"
       :already-solid="alreadySolid"
       @copied="onCopied"
-      @field-expanded="onFieldExpanded"
+      @structure-expanded="onStructureExpanded"
     />
   </section>
 </template>

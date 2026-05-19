@@ -66,7 +66,7 @@ function onSubmit() {
 
 <template>
   <form class="kfm" @submit.prevent="onSubmit">
-    <label class="kfm-label" for="kfm-input">TON PROMPT</label>
+    <label class="kfm-label" for="kfm-input">TON PROMPT À AMÉLIORER</label>
     <textarea
       id="kfm-input"
       class="kfm-textarea"
