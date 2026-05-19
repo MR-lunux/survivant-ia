@@ -54,7 +54,7 @@ onUnmounted(() => {
         </p>
 
         <p class="hero-subtitle">
-          Tu sens que l'IA arrive sur ton métier. Tu as raison. Il y aura des gagnants et des perdants — et ça ne se jouera pas sur qui code le mieux, mais sur qui a compris à temps ce qui changeait dans son travail.
+          Tu sens que l'IA arrive sur ton métier. Tu as raison. Il y aura des gagnants et des perdants. Et ça ne se jouera pas sur qui code le mieux, mais sur qui a compris à temps ce qui changeait dans son travail.
           C'est ce que tu trouves ici : <strong>des signaux clairs</strong>, une fois par semaine, pour passer de subir l'IA à garder le contrôle.
         </p>
 

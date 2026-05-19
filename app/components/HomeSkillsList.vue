@@ -40,7 +40,7 @@ const skills = [
         Devenir <span class="accent">indispensable</span>, pas remplaçable.
       </h2>
       <p class="skills-intro">
-        Quatre compétences que <strong>personne ne déléguera à un modèle</strong>. Quatre axes concrets pour devenir indispensable, pas remplaçable — sur lesquels tu peux travailler dès maintenant.
+        Quatre compétences que <strong>personne ne déléguera à un modèle</strong>. Quatre axes concrets pour devenir indispensable, pas remplaçable. Sur lesquels tu peux travailler dès maintenant.
       </p>
     </div>
 
