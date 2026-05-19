@@ -12,31 +12,31 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
   'generateur-ecriture-comptable': [
     {
       question: 'Mes données partent-elles aux États-Unis ?',
-      answer: "Non. Le moteur IA est hébergé dans les datacenters Infomaniak en Suisse (certifiés ISO 27001, conformes nLPD). Aucun appel n'est routé vers OpenAI, Anthropic, Google ou un fournisseur extra-européen.",
+      answer: "Non. L'IA tourne sur les datacenters Infomaniak en Suisse (certifiés ISO 27001 et conformes nLPD). Aucun appel ne part vers OpenAI, Anthropic, Google ou un autre fournisseur hors d'Europe.",
     },
     {
       question: 'Mes prompts servent-ils à entraîner des modèles ?',
-      answer: "Non. Infomaniak AI Service contracte explicitement le no-training : tes descriptions d'écriture ne nourrissent ni Mistral, ni Whisper, ni aucun modèle tiers. C'est l'avantage face à ChatGPT, Claude.ai ou Gemini grand public, qui entraînent par défaut sur les conversations.",
+      answer: "Non. Infomaniak s'engage contractuellement à ne rien entraîner sur nos appels. Tes descriptions ne nourrissent aucun de leurs modèles (Mistral, Whisper, ou tiers). Différence avec ChatGPT, Claude.ai ou Gemini grand public : eux, par défaut, s'entraînent sur tes conversations.",
     },
     {
       question: "Qu'est-ce que Survivant-IA garde de mes écritures ?",
-      answer: "Rien. Le journal vit uniquement dans ton navigateur (mémoire de session). Aucune base de données, aucun cache, aucun log applicatif ne stocke le contenu de tes écritures. Seuls les codes d'erreur techniques (timeout, validation ratée) sont loggés pour debug, jamais le texte saisi. Tu fermes l'onglet, tout disparaît côté Survivant-IA.",
+      answer: "Rien. Le journal vit uniquement dans ton navigateur (mémoire de session). Côté serveur, rien n'est gardé : pas de base de données, pas de cache, pas de log. On log uniquement les erreurs techniques (timeout, validation ratée), jamais le texte. Tu fermes l'onglet, tout disparaît côté Survivant-IA.",
     },
     {
       question: "Quel modèle d'IA fait le travail ?",
-      answer: 'Mistral Ministral-3 (14 milliards de paramètres, instruction-tuned), servi par Infomaniak. Le choix : modèle ouvert, performant en français, fort en JSON structuré, hébergé en Suisse. Pas du GPT-4 ou Claude, pas besoin de la puissance d\'un frontier model pour structurer une ligne comptable.',
+      answer: 'Mistral Ministral-3 (14 milliards de paramètres, instruction-tuned), servi par Infomaniak. Pourquoi celui-ci : modèle ouvert, bon en français, solide sur le JSON structuré, hébergé en Suisse. Pas du GPT-4 ou Claude. Pour structurer une ligne comptable, pas besoin de la puissance d\'un frontier model.',
     },
     {
       question: 'Combien coûte un appel à Survivant-IA ?',
-      answer: 'Côté Infomaniak (le moteur IA), une écriture parsée coûte environ 0,024 centime suisse (~700 tokens entrants à 0,30 CHF par million + ~80 tokens sortants à 0,40 CHF par million). Une dictée vocale de 10 secondes via Whisper V3 ajoute environ 0,1 centime. Concrètement : 1 franc te paye plus de 4000 écritures texte ou environ 1000 dictées. C\'est offert ici, mais à toi de mesurer ce que ça représente vs. un comptable à 150 CHF de l\'heure.',
+      answer: 'Côté Infomaniak (l\'IA), une écriture parsée coûte environ 0,024 centime suisse (~700 tokens entrants à 0,30 CHF par million + ~80 tokens sortants à 0,40 CHF par million). Une dictée de 10 secondes via Whisper V3 ajoute environ 0,1 centime. En clair : 1 franc te paye plus de 4000 écritures texte ou environ 1000 dictées. C\'est offert ici. À toi de comparer avec un comptable à 150 CHF de l\'heure.',
     },
     {
       question: "Est-ce vraiment gratuit ?",
-      answer: "Oui, c'est un outil offert pour l'instant. Aucune inscription, aucun paiement, aucune carte demandée. Le coût des appels Infomaniak est à ma charge tant que les volumes restent raisonnables — pour des usages production sur de gros volumes, écris-moi à mathieu@survivant-ia.ch et on regarde ensemble.",
+      answer: "Oui, c'est offert pour l'instant. Pas d'inscription, pas de paiement, pas de carte demandée. Le coût des appels Infomaniak est à ma charge tant que les volumes restent raisonnables. Si tu veux l'utiliser en production sur de gros volumes, écris-moi à mathieu@survivant-ia.ch et on regarde ensemble.",
     },
     {
       question: 'Comment ça marche techniquement ?',
-      answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Service à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Aucune persistance côté serveur, le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
+      answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Service à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Rien n'est gardé côté serveur. Le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
     },
   ],
   'ameliorer-son-prompt': [
