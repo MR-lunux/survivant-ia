@@ -24,7 +24,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: "Quel modèle d'IA fait le travail ?",
-      answer: 'Mistral Ministral-3 (14 milliards de paramètres, instruction-tuned, version décembre 2025), servi par Infomaniak. Pourquoi celui-ci : modèle ouvert, bon en français, solide sur le JSON structuré, hébergé en Suisse. Pas du GPT-4 ou Claude. Pour structurer une ligne comptable, pas besoin de la puissance d\'un frontier model.',
+      answer: 'Un modèle Mistral via Infomaniak AI Services, hébergé en Suisse. Pourquoi un Mistral : modèle ouvert, bon en français, solide sur le JSON structuré. Pas du GPT-4 ou Claude. Pour structurer une ligne comptable, pas besoin de la puissance d\'un frontier model.',
     },
     {
       question: 'Combien coûte un appel à Survivant-IA ?',
@@ -46,7 +46,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: 'Quelle IA est utilisée derrière ?',
-      answer: 'Mistral Ministral-3 (14B), hébergée par Infomaniak en Suisse. Même setup que pour nos autres outils. On ne route rien vers OpenAI ou Anthropic. Ton prompt ne traverse pas l\'Atlantique.',
+      answer: 'Un modèle Mistral via Infomaniak AI Services, hébergé en Suisse. Même setup que pour nos autres outils. On ne route rien vers OpenAI ou Anthropic. Ton prompt ne traverse pas l\'Atlantique.',
     },
     {
       question: 'Pourquoi 6 champs et pas plus / pas moins ?',
