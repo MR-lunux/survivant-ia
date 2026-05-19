@@ -34,6 +34,14 @@ export const OUTILS_MANIFEST: OutilManifestEntry[] = [
     kind: 'quiz',
     metiers: [],
   },
+  {
+    code: 'ameliorer-son-prompt',
+    path: '/outils/ameliorer-son-prompt',
+    title: 'Améliore ton prompt',
+    subtitle: 'Colle ton prompt, l\'IA le restructure et te montre ce qui manquait.',
+    kind: 'app',
+    metiers: [],
+  },
 ]
 
 export function outilsForMetier(metierSlug: string): OutilManifestEntry[] {
