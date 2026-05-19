@@ -118,6 +118,7 @@ export default defineNuxtConfig({
         '/', '/rss.xml', '/scanner', '/metiers', '/rapports', '/outils',
         '/outils/trc-01',
         '/outils/generateur-ecriture-comptable',
+        '/outils/ameliorer-son-prompt',
         '/rapports/2026-05-08-ia-supprime-inefficience',
         '/rapports/offloading-cognitif-quand-l-ia-pense-a-ta-place',
         '/frequence', '/identite', '/confidentialite', '/cookies', '/chantier',
