@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter | Survivant-IA',
-  description: 'Le repère des salariés qui veulent maîtriser l\'IA pour en sortir gagnants. Un nouvel article chaque semaine, sans jargon. Et un diagnostic IA par métier.',
+  description: 'Le repère des professionnels qui veulent rester pertinents face à l\'IA pour en sortir gagnants. Un nouvel article chaque semaine, sans jargon. Et un diagnostic IA par métier.',
   ogTitle: 'Survivre à l\'IA au travail, c\'est apprendre à la piloter',
   ogDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans ton métier. Gratuit, sans jargon. Et un diagnostic IA par métier.',
   twitterCard: 'summary_large_image',
@@ -11,7 +11,7 @@ useSeoMeta({
 })
 
 defineOgImage('Default', {
-  title: 'Le repère des salariés qui veulent maîtriser l\'IA',
+  title: 'Le repère des professionnels qui veulent rester pertinents face à l\'IA',
   titleAccent: 'pour en sortir gagnants.',
 })
 
@@ -50,13 +50,12 @@ onUnmounted(() => {
         <h1 class="hero-h1">Survivre à l'IA au travail, c'est apprendre à la piloter</h1>
 
         <p class="hero-tagline">
-          Le repère des salariés qui veulent maîtriser l'IA <span class="accent">pour en sortir gagnants.</span>
+          Le repère des professionnels qui veulent rester pertinents face à l'IA <span class="accent">pour en sortir gagnants.</span>
         </p>
 
         <p class="hero-subtitle">
-          Tu sens que l'IA arrive sur ton métier. Tu as raison, et c'est ta meilleure opportunité depuis dix ans.
-          Voici <strong>les leviers</strong> pour devenir le salarié qui maîtrise l'IA mieux que les autres dans son équipe.
-          Sans jargon, sans coder, sans formation de six mois.
+          Tu sens que l'IA arrive sur ton métier. Tu as raison. Il y aura des gagnants et des perdants — et ça ne se jouera pas sur qui code le mieux, mais sur qui a compris à temps ce qui changeait dans son travail.
+          C'est ce que tu trouves ici : <strong>des signaux clairs</strong>, une fois par semaine, pour passer de subir l'IA à garder le contrôle.
         </p>
 
         <div class="swiss-cta">
