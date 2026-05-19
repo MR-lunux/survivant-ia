@@ -110,27 +110,49 @@ export async function callAmeliorerChat({ promptBrut, temperature = 0.3 }: Ameli
     throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
   }
 
-  const response = await fetch(`https://api.infomaniak.com/1/ai/${productId}/openai/chat/completions`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: promptBrut },
-      ],
-      response_format: { type: 'json_schema', json_schema: JSON_SCHEMA },
-      temperature,
-      max_tokens: 1500,
-    }),
-  })
+  // Timeout explicite côté client. On laisse Infomaniak jusqu'à 25s pour
+  // répondre — au-delà, on abort proprement et l'endpoint retourne ai_unreachable.
+  // (Vercel function maxDuration par défaut = 10s Hobby, 60s Pro ; on reste
+  // sous les deux pour être safe.)
+  const ABORT_MS = 25_000
+  const controller = new AbortController()
+  const abortTimeout = setTimeout(() => controller.abort(), ABORT_MS)
+
+  let response: Response
+  const fetchStart = Date.now()
+  try {
+    response = await fetch(`https://api.infomaniak.com/1/ai/${productId}/openai/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: promptBrut },
+        ],
+        response_format: { type: 'json_schema', json_schema: JSON_SCHEMA },
+        temperature,
+        max_tokens: 2500,
+      }),
+      signal: controller.signal,
+    })
+  } catch (err) {
+    if ((err as { name?: string }).name === 'AbortError') {
+      throw new Error(`Infomaniak chat timeout après ${ABORT_MS}ms (modèle ${model})`)
+    }
+    throw err
+  } finally {
+    clearTimeout(abortTimeout)
+  }
+
+  const fetchDuration = Date.now() - fetchStart
 
   if (!response.ok) {
     const errorText = await response.text().catch(() => '')
-    throw new Error(`Infomaniak chat API error ${response.status}: ${errorText.slice(0, 200)}`)
+    throw new Error(`Infomaniak chat API error ${response.status} après ${fetchDuration}ms (modèle ${model}): ${errorText.slice(0, 200)}`)
   }
 
   const data = await response.json() as {
