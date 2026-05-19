@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     infomaniakAiProductId: '',
     infomaniakAiModel: 'mistral24b',
     generateurEcritureEnabled: 'true',
+    posthogServerKey: '',
     public: {
       posthogKey: '',
       gtagId: '',
