@@ -13,21 +13,21 @@ const skills = [
     label: 'Relation humaine',
     verb: 'Lire',
     rest: "ce qu'un humain ne dit pas",
-    body: "Désamorcer un conflit, motiver une équipe, comprendre ce qu'un client veut vraiment derrière ses mots. Aucun modèle de langage ne fait ça. La confiance se construit humain à humain.",
+    body: "Désamorcer un conflit, motiver une équipe, comprendre ce qu'un client veut vraiment derrière ses mots. Aucun modèle ne fait ça. La confiance ne se délègue pas à un modèle.",
   },
   {
     n: '03',
     label: 'Jugement contextuel',
     verb: 'Décider',
     rest: 'en zone grise',
-    body: "L'IA optimise. Elle ne raisonne pas en éthique, en contexte politique, en arbitrages d'équipe. Quand le contexte est ambigu, c'est l'humain qui tranche, et c'est lui qu'on paie.",
+    body: "L'IA optimise. Elle ne raisonne pas en éthique, ni en contexte politique. Quand le contexte est ambigu, c'est l'humain qui tranche, et c'est lui qu'on paie.",
   },
   {
     n: '04',
     label: 'Communication',
     verb: 'Tenir',
     rest: 'la parole quand ça compte',
-    body: "Une IA rédige. Elle ne défend pas un budget devant un comité, ne porte pas une mauvaise nouvelle à une équipe, ne convainc pas un sceptique en face-à-face. Communiquer engage un corps, un timing, une responsabilité : c'est ça que personne ne délègue à un modèle.",
+    body: "Une IA rédige. Elle ne défend pas un budget devant un comité, ne porte pas une mauvaise nouvelle à une équipe, ne convainc pas un sceptique en face-à-face. Communiquer engage un corps et un risque. Ça, personne ne le délègue à un modèle.",
   },
 ]
 </script>
@@ -40,7 +40,7 @@ const skills = [
         Devenir <span class="accent">indispensable</span>, pas remplaçable.
       </h2>
       <p class="skills-intro">
-        Quatre axes de travail concrets. Ce que les modèles de langage ne savent pas faire. Et ne sauront pas faire de sitôt. Ce que <strong>personne ne va déléguer à un modèle</strong>.
+        Quatre compétences que <strong>personne ne déléguera à un modèle</strong>. Quatre axes concrets pour devenir indispensable, pas remplaçable — sur lesquels tu peux travailler dès maintenant.
       </p>
     </div>
 
