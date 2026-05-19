@@ -50,13 +50,13 @@ const blockCopy = computed(() => {
   if (!props.structured) return ''
   const s = props.structured
   const parts: string[] = []
-  parts.push(`RÔLE\n${s.role}`)
-  if (s.context) parts.push(`\nCONTEXTE\n${s.context}`)
-  parts.push(`\nTÂCHE\n${s.task}`)
-  parts.push(`\nFORMAT DE SORTIE\n${s.format}`)
-  if (s.constraints) parts.push(`\nCONTRAINTES\n${s.constraints}`)
-  if (s.examples) parts.push(`\nEXEMPLES\n${s.examples}`)
-  return parts.join('\n')
+  parts.push(`RÔLE : ${s.role}`)
+  if (s.context) parts.push(`CONTEXTE : ${s.context}`)
+  parts.push(`TÂCHE : ${s.task}`)
+  parts.push(`FORMAT DE SORTIE : ${s.format}`)
+  if (s.constraints) parts.push(`CONTRAINTES : ${s.constraints}`)
+  if (s.examples) parts.push(`EXEMPLES : ${s.examples}`)
+  return parts.join('\n\n')
 })
 
 const copyState = ref<'idle' | 'copied'>('idle')
