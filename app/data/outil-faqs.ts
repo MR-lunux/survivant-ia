@@ -39,4 +39,30 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Service à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Aucune persistance côté serveur, le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
     },
   ],
+  'ameliorer-son-prompt': [
+    {
+      question: 'L\'outil garde-t-il mon prompt ?',
+      answer: 'Non. On capture des métriques anonymes — taille, durée, succès — jamais le texte. Le prompt transite par notre serveur le temps du call à l\'IA Infomaniak (Suisse, Genève) et n\'est pas persisté.',
+    },
+    {
+      question: 'Quelle IA est utilisée derrière ?',
+      answer: 'Mistral 24B, hébergée chez Infomaniak en Suisse. Même infra que tous nos outils. Pas d\'OpenAI, pas d\'Anthropic — ton prompt ne traverse pas l\'Atlantique.',
+    },
+    {
+      question: 'Pourquoi 6 champs et pas plus / pas moins ?',
+      answer: 'C\'est la médiane des bonnes pratiques publiées par Anthropic, OpenAI, et la recherche sur le prompting. Moins → tu rates des leviers. Plus → c\'est de la sur-spécification qui dégrade les réponses. Les 6 couvrent 95% des cas pros.',
+    },
+    {
+      question: 'L\'outil refuse mon prompt, c\'est normal ?',
+      answer: 'Oui si ton prompt contient des insultes, du contenu sexuel explicite, du dénigrement ciblé ou des demandes nocives. Politique stricte, raisons légales et éditoriales. Reformule en restant pro et ça passera.',
+    },
+    {
+      question: 'Combien de fois par jour je peux l\'utiliser ?',
+      answer: '20 améliorations par jour et par IP. Si tu atteins la limite, reviens demain — ou inscris-toi à La Fréquence (un bypass abonnés est en cours).',
+    },
+    {
+      question: 'Ça marche aussi pour les prompts en anglais ?',
+      answer: 'Tu peux coller un prompt anglais. La sortie sera en français. Si tu veux la sortie en anglais, ajoute « FORMAT DE SORTIE : answer in English » dans ton prompt brut.',
+    },
+  ],
 }
