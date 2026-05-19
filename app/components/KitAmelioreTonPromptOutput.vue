@@ -102,7 +102,7 @@ async function onCopy() {
       <aside class="ko-warning" role="note">
         <span class="ko-warning-label">AVANT DE LE COLLER AILLEURS</span>
         <p class="ko-warning-text">
-          Vérifie qu'il ne contient pas de données sensibles (noms de clients, infos confidentielles, secrets pros). Ici on respecte RGPD/LPD : Infomaniak Suisse, aucun stockage, aucun entraînement sur tes prompts. Mais l'IA où tu colleras ce prompt (ChatGPT, Claude, Gemini, etc.) n'offre pas forcément les mêmes garanties.
+          Vérifie qu'il ne contient pas de données sensibles (noms de clients, infos confidentielles, secrets pros). Ici on respecte RGPD/LPD : Infomaniak Suisse, aucun stockage, aucun entraînement sur tes prompts. Mais le LLM où tu colleras ce prompt (Mistral, Gemini, ChatGPT, Claude, etc.) n'offre pas forcément les mêmes garanties.
         </p>
       </aside>
 

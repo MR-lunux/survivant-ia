@@ -17,7 +17,7 @@ intro:
 outro: |
   ## Pourquoi cet outil
 
-  Tu utilises ChatGPT, Claude ou Mistral mais tu trouves que tes réponses sont moyennes, sans savoir pourquoi. Neuf fois sur dix : ton prompt n'est pas structuré. Tu balances une demande, l'IA comble les trous comme elle peut, et tu obtiens une réponse générique.
+  Tu utilises ton LLM préféré (Mistral, Gemini, ChatGPT, Claude, etc.) mais tu trouves que tes réponses sont moyennes, sans savoir pourquoi. Neuf fois sur dix : ton prompt n'est pas structuré. Tu balances une demande, l'IA comble les trous comme elle peut, et tu obtiens une réponse générique.
 
   Cet outil applique à ton prompt brut une grille de 6 champs : rôle, contexte, tâche, format, contraintes, exemples. C'est ce que les guides d'Anthropic et d'OpenAI utilisent comme base. Tu vois la grille se remplir, et tu vois ce que tu n'avais pas pensé à mettre.
 
