@@ -157,6 +157,11 @@ onMounted(() => {
           :kit-id="kit.code"
         />
 
+        <KitAmelioreTonPrompt
+          v-if="kit.kind === 'app' && kit.code === 'ameliorer-son-prompt'"
+          :kit-id="kit.code"
+        />
+
         <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
 
         <div v-if="OUTIL_FAQS[kit.code]" class="kit-faq-wrap">
