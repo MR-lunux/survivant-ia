@@ -7,7 +7,6 @@ interface RateLimitEntry {
 }
 
 const store = new Map<string, RateLimitEntry>()
-const DAILY_LIMIT = 10
 
 function getZurichMidnightMs(now = Date.now()): number {
   const fmt = new Intl.DateTimeFormat('en-CA', {
@@ -27,33 +26,50 @@ export interface RateLimitResult {
   resetAt: number
 }
 
-export function checkRateLimit(ip: string): RateLimitResult {
+const DAILY_LIMIT_DEFAULT = 10
+
+export interface RateLimitOptions {
+  namespace?: string
+  limit?: number
+}
+
+function storeKey(ip: string, namespace: string): string {
+  return namespace ? `${namespace}::${ip}` : ip
+}
+
+export function checkRateLimit(ip: string, options: RateLimitOptions = {}): RateLimitResult {
+  const namespace = options.namespace ?? ''
+  const limit = options.limit ?? DAILY_LIMIT_DEFAULT
   const now = Date.now()
   const windowStart = getZurichMidnightMs(now)
   const tomorrow = windowStart + 24 * 3600 * 1000
-  const entry = store.get(ip)
+  const key = storeKey(ip, namespace)
+  const entry = store.get(key)
 
   if (!entry || entry.windowStart < windowStart) {
-    store.set(ip, { count: 1, windowStart })
-    return { allowed: true, remaining: DAILY_LIMIT - 1, resetAt: tomorrow }
+    store.set(key, { count: 1, windowStart })
+    return { allowed: true, remaining: limit - 1, resetAt: tomorrow }
   }
 
-  if (entry.count >= DAILY_LIMIT) {
+  if (entry.count >= limit) {
     return { allowed: false, remaining: 0, resetAt: tomorrow }
   }
 
   entry.count += 1
-  return { allowed: true, remaining: DAILY_LIMIT - entry.count, resetAt: tomorrow }
+  return { allowed: true, remaining: limit - entry.count, resetAt: tomorrow }
 }
 
 // Check WITHOUT incrementing (used by transcribe-status polling)
-export function peekRateLimit(ip: string): RateLimitResult {
+export function peekRateLimit(ip: string, options: RateLimitOptions = {}): RateLimitResult {
+  const namespace = options.namespace ?? ''
+  const limit = options.limit ?? DAILY_LIMIT_DEFAULT
   const now = Date.now()
   const windowStart = getZurichMidnightMs(now)
   const tomorrow = windowStart + 24 * 3600 * 1000
-  const entry = store.get(ip)
+  const key = storeKey(ip, namespace)
+  const entry = store.get(key)
   if (!entry || entry.windowStart < windowStart) {
-    return { allowed: true, remaining: DAILY_LIMIT, resetAt: tomorrow }
+    return { allowed: true, remaining: limit, resetAt: tomorrow }
   }
-  return { allowed: entry.count < DAILY_LIMIT, remaining: Math.max(0, DAILY_LIMIT - entry.count), resetAt: tomorrow }
+  return { allowed: entry.count < limit, remaining: Math.max(0, limit - entry.count), resetAt: tomorrow }
 }
