@@ -16,5 +16,14 @@ export function usePosthogEvent() {
     }
   }
 
-  return { capture }
+  function getDistinctId(): string | undefined {
+    if (!import.meta.client || !$posthog) return undefined
+    try {
+      return $posthog.get_distinct_id?.()
+    } catch {
+      return undefined
+    }
+  }
+
+  return { capture, getDistinctId }
 }
