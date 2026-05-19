@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Mathieu Rerat : Qui pilote Survivant-IA',
-  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et l\'immobilier. Le parcours de Mathieu Rerat et l\'esprit derrière Survivant-IA : aider les salariés à piloter l\'IA dans leur métier.',
+  description: 'De PwC à Deputy Head of IT, en passant par Nestlé et l\'immobilier. Le parcours de Mathieu Rerat et l\'esprit derrière Survivant-IA : aider les professionnels à piloter l\'IA dans leur métier.',
   ogTitle: 'Mathieu Rerat : Identité du Survivant-IA',
   ogDescription: 'Le parcours et l\'esprit derrière Survivant-IA. Concret, sans théorie.',
   twitterCard: 'summary_large_image',
@@ -23,7 +23,7 @@ useHead({
           alternateName: 'Mathieu le Survivant de l\'IA',
           url: 'https://survivant-ia.ch/identite',
           jobTitle: 'Deputy Head of IT',
-          description: 'Fondateur de Survivant-IA. Ex-PwC, Nestlé, Immopac. Aide les salariés à piloter l\'IA dans leur métier.',
+          description: 'Fondateur de Survivant-IA. Ex-PwC, Nestlé, Immopac. Aide les professionnels à piloter l\'IA dans leur métier.',
           worksFor: { '@id': 'https://survivant-ia.ch/#organization' },
         },
         {
@@ -130,7 +130,7 @@ const tooltipStyle = computed(() => {
 
         <p>Jusqu'au jour où j'ai réalisé que je n'avais plus la notion de l'effort. Je produisais vite, beaucoup, mais je ne construisais plus rien. L'IA faisait, je validais. Ce signal ne m'a pas rendu anti-IA. Il m'a rendu <span class="lucide">lucide</span>.</p>
 
-        <p>Ce site existe pour les salariés qui voient l'IA arriver sans savoir comment se positionner. Pas pour en faire des experts. Pour leur donner les cartes que j'aurais aimé avoir et éviter les erreurs que j'ai faites.</p>
+        <p>Ce site existe pour les professionnels qui voient l'IA arriver sans savoir comment se positionner. Pas pour en faire des experts. Pour leur donner les cartes que j'aurais aimé avoir et éviter les erreurs que j'ai faites.</p>
 
         <p>Je ne suis pas l'expert IA ultime. Je suis quelqu'un qui traverse la même zone que vous, avec quelques cartes en main, et les cicatrices pour prouver que j'y suis déjà passé.</p>
       </div>
@@ -214,7 +214,7 @@ const tooltipStyle = computed(() => {
 
       <!-- ── MISSION ──────────────────────────── -->
       <div class="id-mission">
-        <p>Aider les salariés à <em>piloter l'IA</em> dans leur métier <em>avant</em> de la subir.</p>
+        <p>Aider les professionnels à <em>piloter l'IA</em> dans leur métier <em>avant</em> de la subir.</p>
       </div>
 
       <!-- ── CTA ─────────────────────────────── -->
