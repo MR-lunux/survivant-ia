@@ -1,5 +1,6 @@
-// Couche 5 du garde-fou : rate limit IP-based, 10 requêtes / jour / IP.
-// Compteur PARTAGÉ entre parse et transcribe (une dictée + parsing = 1 essai).
+// Rate limit IP-based, quota journalier configurable (default 10/jour).
+// Store partagé Map en mémoire, namespace optionnel pour isoler les quotas
+// entre outils. Window = jour calendaire Europe/Zurich.
 
 interface RateLimitEntry {
   count: number
