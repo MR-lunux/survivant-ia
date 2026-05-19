@@ -24,7 +24,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: "Quel modèle d'IA fait le travail ?",
-      answer: 'Mistral Ministral-3 (14 milliards de paramètres, instruction-tuned), servi par Infomaniak. Pourquoi celui-ci : modèle ouvert, bon en français, solide sur le JSON structuré, hébergé en Suisse. Pas du GPT-4 ou Claude. Pour structurer une ligne comptable, pas besoin de la puissance d\'un frontier model.',
+      answer: 'Mistral Small 3.2 (24 milliards de paramètres, instruction-tuned, version juin 2026), servi par Infomaniak. Pourquoi celui-ci : modèle ouvert, bon en français, solide sur le JSON structuré, hébergé en Suisse. Pas du GPT-4 ou Claude. Pour structurer une ligne comptable, pas besoin de la puissance d\'un frontier model.',
     },
     {
       question: 'Combien coûte un appel à Survivant-IA ?',
