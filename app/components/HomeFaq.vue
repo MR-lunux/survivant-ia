@@ -6,23 +6,23 @@ const faqs = [
     a: "Trois leviers concrets : (1) maîtriser ce que l'IA fait mal, la précision du langage, le contexte humain, le jugement ; (2) utiliser l'IA comme un copilote pour automatiser ce qui te ralentit ; (3) renforcer ton relationnel, ta stratégie et ton jugement éthique, c'est là que ta valeur devient irremplaçable. Bref : tu ne luttes pas contre l'IA, tu apprends à t'en servir mieux que les autres.",
   },
   {
-    q: "Quelles sont les compétences à développer face à l'IA ?",
+    q: "Quelles compétences développer face à l'IA ?",
     a: "Trois familles : la pensée critique (formuler le bon problème, reconnaître quand l'IA hallucine), la relation humaine (communiquer, désamorcer un conflit, lire une salle), et le jugement contextuel (prendre des décisions en environnement ambigu). Aucune n'est automatisable : toutes se travaillent.",
   },
   {
-    q: "Faut-il se former à l'IA même si on n'est pas dans la tech ?",
+    q: "Faut-il se former à l'IA même quand on n'est pas dans la tech ?",
     a: "Oui, mais pas comme tu l'imagines. Tu n'as pas besoin d'apprendre à coder. Tu dois apprendre à dialoguer avec l'IA : savoir quoi lui demander, comment formuler une contrainte, quand ne pas lui faire confiance. C'est de la maîtrise du langage et du raisonnement, pas de la tech.",
   },
   {
     q: "Comment survivre à l'IA au travail quand on n'a pas de compétences techniques ?",
-    a: "En devenant indispensable sur ce que l'IA ne fait pas : décider en contexte ambigu, motiver une équipe, négocier, comprendre ce que veut vraiment un client. La technique se rattrape, la posture humaine non. Survivant-IA t'aide à structurer cette posture, à intégrer l'IA dans ton workflow, et à devenir le salarié qui sait.",
+    a: "En devenant indispensable sur ce que l'IA ne fait pas : décider en contexte ambigu, motiver une équipe, négocier, comprendre ce que veut vraiment un client. La technique se rattrape, la posture humaine non. Survivant-IA t'aide à structurer cette posture, à intégrer l'IA dans ton workflow, et à devenir le pro qui sait.",
   },
   {
-    q: "C'est quoi « prendre le virage de l'IA » concrètement ?",
+    q: "C'est quoi « prendre le virage de l'IA », concrètement ?",
     a: "C'est passer du statut d'observateur (peur, attente) à celui d'opérateur (j'utilise l'IA, je l'oriente, je l'évalue). Concrètement : intégrer 1 outil IA dans ton flux de travail chaque mois, mesurer ce que tu gagnes, garder le contrôle sur ce qui sort. C'est progressif, pas une révolution.",
   },
   {
-    q: "Mon métier va-t-il vraiment être remplacé par l'IA ?",
+    q: "Mon métier va-t-il vraiment être transformé par l'IA ?",
     a: "Probablement pas en entier. Mais certaines tâches le seront, et certaines deviendront au contraire beaucoup plus précieuses (celles où tu pilotes l'IA au lieu de la subir). Lance le diagnostic Survivant-IA : il croise les rapports 2026 (Tufts, McKinsey, WEF) pour estimer l'impact de l'IA sur ton métier en 10 secondes.",
   },
   {
