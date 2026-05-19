@@ -5,6 +5,7 @@
 const OVERRIDES: Record<string, string> = {
   'trc-01': 'MESURER MA RÉSILIENCE',
   'generateur-ecriture-comptable': 'TESTER GRATUITEMENT',
+  'ameliorer-son-prompt': 'AMÉLIORER MON PROMPT',
 }
 
 const KIND_DEFAULTS: Record<string, string> = {
