@@ -75,10 +75,16 @@ export default defineEventHandler(async (event) => {
     return { error: 'bad_input', message: "Ce prompt n'est pas accepté. Survivant-IA refuse les contenus dénigrants, sexuels explicites, ou nocifs. Reformule en restant pro." }
   }
 
-  // ─── Call Infomaniak (avec retry 1× si JSON cassé) ───
+  // ─── Call Infomaniak (avec retry 1× si JSON parse fail OU shape invalide) ───
   let chatResult: { data: AmeliorerChatResult; meta: { input_tokens: number | null; output_tokens: number | null; model: string } }
   try {
-    chatResult = await callAmeliorerChat({ promptBrut: sanitized })
+    try {
+      chatResult = await callAmeliorerChat({ promptBrut: sanitized })
+    } catch (firstErr) {
+      // Premier appel a throw (JSON parse fail, network glitch, etc). Retry à temp 0.1.
+      console.warn('[ameliorer-prompt/improve] first attempt failed, retrying at temp 0.1:', firstErr instanceof Error ? firstErr.message : firstErr)
+      chatResult = await callAmeliorerChat({ promptBrut: sanitized, temperature: 0.1 })
+    }
     if (!isValidShape(chatResult.data)) {
       chatResult = await callAmeliorerChat({ promptBrut: sanitized, temperature: 0.1 })
       if (!isValidShape(chatResult.data)) {
@@ -92,7 +98,8 @@ export default defineEventHandler(async (event) => {
       }
     }
   } catch (err) {
-    console.error('[ameliorer-prompt/improve] Infomaniak call failed:', err instanceof Error ? err.message : err)
+    // Les deux tentatives ont échoué (network, auth, ou parse error répété).
+    console.error('[ameliorer-prompt/improve] Infomaniak call failed after retry:', err instanceof Error ? err.message : err)
     setResponseStatus(event, 502)
     await captureServerEvent({
       event: 'ameliorer_prompt_api_error',
