@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'La Boîte à outils : tests et instruments pour piloter l\'IA | Survivant-IA',
-  description: 'Tests, calculateurs, cheatsheets pour les salariés non-tech qui veulent piloter l\'IA dans leur métier. Gratuit, sans inscription, résultats privés.',
+  description: 'Tests, calculateurs, cheatsheets pour les professionnels non-tech qui veulent piloter l\'IA dans leur métier. Gratuit, sans inscription, résultats privés.',
   ogTitle: 'La Boîte à outils · Survivant-IA',
   ogDescription: 'Des instruments de poche pour piloter l\'IA dans ton métier. Chaque outil prolonge un article.',
   twitterCard: 'summary_large_image',

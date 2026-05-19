@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Rapports de Survie : compétences pour piloter l\'IA dans son métier | Survivant-IA',
-  description: 'La veille hebdo des salariés qui veulent piloter l\'IA dans leur métier : soft skills, comprendre l\'IA, cas pratiques. Sans jargon, sans coder.',
+  description: 'La veille hebdo des professionnels qui veulent piloter l\'IA dans leur métier : soft skills, comprendre l\'IA, cas pratiques. Sans jargon, sans coder.',
   ogTitle: 'Rapports de Survie - Survivant-IA',
   ogDescription: 'Soft skills, comprendre l\'IA, cas pratiques. La veille hebdo pour piloter l\'IA dans son métier.',
   twitterCard: 'summary_large_image',

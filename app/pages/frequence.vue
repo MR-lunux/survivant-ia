@@ -2,7 +2,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Rejoindre la Fréquence : newsletter pour piloter l\'IA dans son métier | Survivant-IA',
-  description: 'Un nouvel article chaque semaine pour les salariés qui veulent maîtriser l\'IA dans leur métier. Gratuit, sans jargon, sans spam. 5 minutes de lecture.',
+  description: 'Un nouvel article chaque semaine pour les professionnels qui veulent piloter l\'IA dans leur métier. Gratuit, sans jargon, sans spam. 5 minutes de lecture.',
   ogTitle: 'Rejoindre la Fréquence - Newsletter Survivant-IA',
   ogDescription: 'Un nouvel article chaque semaine pour piloter l\'IA dans son métier. Gratuit.',
   twitterCard: 'summary_large_image',
