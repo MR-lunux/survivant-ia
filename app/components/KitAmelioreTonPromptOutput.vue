@@ -50,7 +50,7 @@ const blockCopy = computed(() => {
   if (!props.structured) return ''
   const s = props.structured
   const parts: string[] = []
-  parts.push(s.role)
+  parts.push(`RÔLE\n${s.role}`)
   if (s.context) parts.push(`\nCONTEXTE\n${s.context}`)
   parts.push(`\nTÂCHE\n${s.task}`)
   parts.push(`\nFORMAT DE SORTIE\n${s.format}`)

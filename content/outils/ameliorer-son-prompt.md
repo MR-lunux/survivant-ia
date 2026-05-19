@@ -21,6 +21,17 @@ outro: |
 
   Cet outil applique à ton prompt brut une grille de 6 champs : rôle, contexte, tâche, format, contraintes, exemples. C'est ce que les guides d'Anthropic et d'OpenAI utilisent comme base. Tu vois la grille se remplir, et tu vois ce que tu n'avais pas pensé à mettre.
 
+  ## Sources
+
+  La grille des 6 champs n'est pas inventée : c'est la médiane des guides de prompt engineering publics que j'ai consultés pour construire cet outil.
+
+  - [Anthropic — Prompt engineering best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) : la référence canonique sur la structure role/context/instructions/examples/output, l'usage des XML tags, le contrôle de la verbosité, le few-shot.
+  - [The Tricontinental — How to talk to AI](https://thetricontinental.org/how-to-talk-to-ai-a-prompt-engineering-guide/) : framework Context-Action-Output, anti-patterns sur les prompts vagues et monolithiques.
+  - [Eonist — Prompt Markdown Guidelines (gist)](https://gist.github.com/eonist/bf948cea1af1463732e2f5528a49572b) : templates markdown réutilisables, organisation d'une bibliothèque de prompts.
+  - [Panaversity — AI prompting 2026](https://agentfactory.panaversity.org/docs/ai-prompting-2026) : context-stack, boucle d'itération avec feedback explicite, rubric d'auto-évaluation.
+
+  Les 4 sources convergent sur ces 6 champs (rôle / tâche / format en obligatoires, contexte / contraintes / exemples en optionnels). C'est ce qu'applique cet outil.
+
   ## Quand cet outil est utile (et quand il ne l'est pas)
 
   Cet outil est fait pour les prompts isolés du quotidien : un mail à écrire, une synthèse à pondre, une analyse à demander. Le moment où tu te dis « ça pourrait être mieux » sans savoir comment.
