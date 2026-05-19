@@ -49,13 +49,15 @@ function toggleStructure() {
 const blockCopy = computed(() => {
   if (!props.structured) return ''
   const s = props.structured
-  const parts: string[] = []
-  parts.push(`RÔLE : ${s.role}`)
-  if (s.context) parts.push(`CONTEXTE : ${s.context}`)
-  parts.push(`TÂCHE : ${s.task}`)
-  parts.push(`FORMAT DE SORTIE : ${s.format}`)
-  if (s.constraints) parts.push(`CONTRAINTES : ${s.constraints}`)
-  if (s.examples) parts.push(`EXEMPLES : ${s.examples}`)
+  const placeholder = '[à compléter si besoin]'
+  const parts: string[] = [
+    `RÔLE : ${s.role}`,
+    `CONTEXTE : ${s.context ?? placeholder}`,
+    `TÂCHE : ${s.task}`,
+    `FORMAT DE SORTIE : ${s.format}`,
+    `CONTRAINTES : ${s.constraints ?? placeholder}`,
+    `EXEMPLES : ${s.examples ?? placeholder}`,
+  ]
   return parts.join('\n\n')
 })
 
