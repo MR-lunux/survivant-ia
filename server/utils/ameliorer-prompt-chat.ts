@@ -15,14 +15,27 @@ GRILLE (6 champs)
 
 COMPORTEMENT
 - Tu réponds TOUJOURS en français, peu importe la langue du prompt brut.
-- Tu produis un objet JSON conforme au schéma fourni. Aucun texte hors JSON.
+- Tu produis UN objet JSON valide, rien d'autre. Pas de markdown, pas de préambule, pas d'explication hors JSON.
 - Toute demande non-vide est restructurée. Tu infères un rôle plausible à partir du sujet, tu reformules la tâche, tu proposes un format raisonnable. Demande vague (« je veux X », « comment faire Y », « reformule ceci », « écris-moi un Z ») = demande valide, jamais refusée.
 - Pour les champs optionnels (contexte, contraintes, exemples), mets null si l'utilisateur ne donne pas l'info.
 - additions : 3 à 5 items max, du plus impactant au moins impactant. Ton direct, tutoiement, sans flatterie. Exemple : « Tu n'avais pas donné de rôle, j'ai mis 'expert RH suisse' parce que ton prompt parle d'entretiens. »
 - Si le prompt initial couvre déjà 5+ champs : already_solid: true, tu resserres juste la formulation.
 
-SORTIE
-Retourne UNIQUEMENT le JSON suivant le schema. Pas de markdown, pas de préambule.`
+STRUCTURE JSON ATTENDUE (à respecter exactement)
+{
+  "structured": {
+    "role": "string non-vide",
+    "task": "string non-vide",
+    "format": "string non-vide",
+    "context": "string ou null",
+    "constraints": "string ou null",
+    "examples": "string ou null"
+  },
+  "additions": [
+    { "field": "role|task|format|context|constraints|examples", "before": "string ou 'absent'", "after": "string", "explanation": "string" }
+  ],
+  "already_solid": false
+}`
 
 const JSON_SCHEMA = {
   name: 'ameliorer_prompt_or_error',
@@ -133,9 +146,9 @@ export async function callAmeliorerChat({ promptBrut, temperature = 0.3 }: Ameli
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: promptBrut },
         ],
-        response_format: { type: 'json_schema', json_schema: JSON_SCHEMA },
+        response_format: { type: 'json_object' },
         temperature,
-        max_tokens: 2500,
+        max_tokens: 2000,
       }),
       signal: controller.signal,
     })
