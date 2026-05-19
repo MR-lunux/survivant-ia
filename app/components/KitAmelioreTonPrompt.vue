@@ -18,16 +18,9 @@ interface Structured {
   examples: string | null
 }
 
-interface Addition {
-  field: 'role' | 'task' | 'format' | 'context' | 'constraints' | 'examples'
-  before: string
-  after: string
-  explanation: string
-}
-
 interface ApiSuccessResponse {
   structured: Structured
-  additions: Addition[]
+  additions: string[]
   already_solid: boolean
 }
 
@@ -40,7 +33,7 @@ interface ApiErrorResponse {
 const state = ref<State>('idle')
 const promptBrut = ref('')
 const structured = ref<Structured | null>(null)
-const additions = ref<Addition[]>([])
+const additions = ref<string[]>([])
 const alreadySolid = ref(false)
 const errorMsg = ref<string | null>(null)
 

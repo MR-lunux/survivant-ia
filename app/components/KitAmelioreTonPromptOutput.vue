@@ -11,17 +11,10 @@ interface Structured {
   examples: string | null
 }
 
-interface Addition {
-  field: 'role' | 'task' | 'format' | 'context' | 'constraints' | 'examples'
-  before: string
-  after: string
-  explanation: string
-}
-
 const props = defineProps<{
   state: 'idle' | 'loading' | 'success' | 'error'
   structured: Structured | null
-  additions: Addition[]
+  additions: string[]
   alreadySolid: boolean
 }>()
 
@@ -144,7 +137,7 @@ async function onCopy() {
         <span class="ko-additions-label">CE QUE L'IA A AJOUTÉ</span>
         <ul class="ko-add-list">
           <li v-for="(add, idx) in additions" :key="idx" class="ko-add-item">
-            {{ add.explanation }}
+            {{ add }}
           </li>
         </ul>
       </div>

@@ -31,11 +31,11 @@ STRUCTURE JSON ATTENDUE (à respecter exactement)
     "constraints": "string ou null",
     "examples": "string ou null"
   },
-  "additions": [
-    { "field": "role|task|format|context|constraints|examples", "before": "string ou 'absent'", "after": "string", "explanation": "string" }
-  ],
+  "additions": ["string", "string", "string"],
   "already_solid": false
-}`
+}
+
+Chaque entrée de "additions" est une phrase courte qui décrit ce que tu as ajouté/changé, tutoiement, voix directe. Exemple : « Tu n'avais pas donné de rôle, j'ai mis 'expert RH suisse'. »`
 
 const JSON_SCHEMA = {
   name: 'ameliorer_prompt_or_error',
@@ -56,16 +56,7 @@ const JSON_SCHEMA = {
       },
       additions: {
         type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            field: { type: 'string', enum: ['role', 'task', 'format', 'context', 'constraints', 'examples'] },
-            before: { type: 'string' },
-            after: { type: 'string' },
-            explanation: { type: 'string' },
-          },
-          required: ['field', 'before', 'after', 'explanation'],
-        },
+        items: { type: 'string' },
       },
       already_solid: { type: 'boolean' },
       // shape d'erreur
@@ -85,12 +76,7 @@ export interface AmeliorerChatResult {
     constraints: string | null
     examples: string | null
   }
-  additions?: Array<{
-    field: 'role' | 'task' | 'format' | 'context' | 'constraints' | 'examples'
-    before: string
-    after: string
-    explanation: string
-  }>
+  additions?: string[]
   already_solid?: boolean
   // shape erreur (renvoyé par le modèle si garde-fou déclenché)
   error?: 'bad_input'
@@ -113,7 +99,7 @@ export interface AmeliorerChatOptions {
   temperature?: number
 }
 
-export async function callAmeliorerChat({ promptBrut, temperature = 0.3 }: AmeliorerChatOptions): Promise<AmeliorerChatCallResult> {
+export async function callAmeliorerChat({ promptBrut, temperature = 0.2 }: AmeliorerChatOptions): Promise<AmeliorerChatCallResult> {
   const config = useRuntimeConfig()
   const token = config.infomaniakAiToken
   const productId = config.infomaniakAiProductId
@@ -146,9 +132,9 @@ export async function callAmeliorerChat({ promptBrut, temperature = 0.3 }: Ameli
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: promptBrut },
         ],
-        response_format: { type: 'json_object' },
+        response_format: { type: 'json_schema', json_schema: JSON_SCHEMA },
         temperature,
-        max_tokens: 2000,
+        max_tokens: 1000,
       }),
       signal: controller.signal,
     })
