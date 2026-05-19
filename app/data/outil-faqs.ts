@@ -42,23 +42,23 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
   'ameliorer-son-prompt': [
     {
       question: 'L\'outil garde-t-il mon prompt ?',
-      answer: 'Non. On capture des métriques anonymes — taille, durée, succès — jamais le texte. Le prompt transite par notre serveur le temps du call à l\'IA Infomaniak (Suisse, Genève) et n\'est pas persisté.',
+      answer: 'Non. On capture des métriques anonymes (taille, durée, succès), jamais le texte. Le prompt transite par notre serveur le temps de l\'appel à l\'IA Infomaniak (Suisse, Genève) et n\'est pas stocké.',
     },
     {
       question: 'Quelle IA est utilisée derrière ?',
-      answer: 'Mistral 24B, hébergée chez Infomaniak en Suisse. Même infra que tous nos outils. Pas d\'OpenAI, pas d\'Anthropic — ton prompt ne traverse pas l\'Atlantique.',
+      answer: 'Mistral 24B, hébergée chez Infomaniak en Suisse. Même infra que pour nos autres outils. Pas d\'OpenAI, pas d\'Anthropic. Ton prompt ne traverse pas l\'Atlantique.',
     },
     {
       question: 'Pourquoi 6 champs et pas plus / pas moins ?',
-      answer: 'C\'est la médiane des bonnes pratiques publiées par Anthropic, OpenAI, et la recherche sur le prompting. Moins → tu rates des leviers. Plus → c\'est de la sur-spécification qui dégrade les réponses. Les 6 couvrent 95% des cas pros.',
+      answer: 'C\'est ce que les guides d\'Anthropic et d\'OpenAI utilisent comme base utile. Moins de 6, tu rates des leviers (typiquement le rôle et le format). Plus de 6, tu sur-spécifies et la qualité baisse. Les 6 couvrent l\'écrasante majorité des cas pros.',
     },
     {
       question: 'L\'outil refuse mon prompt, c\'est normal ?',
-      answer: 'Oui si ton prompt contient des insultes, du contenu sexuel explicite, du dénigrement ciblé ou des demandes nocives. Politique stricte, raisons légales et éditoriales. Reformule en restant pro et ça passera.',
+      answer: 'Oui si ton prompt contient des insultes, du contenu sexuel explicite, du dénigrement ciblé ou des demandes nocives. Raisons légales (responsabilité de l\'éditeur) et éditoriales. Reformule en restant pro, ça passera.',
     },
     {
       question: 'Combien de fois par jour je peux l\'utiliser ?',
-      answer: '20 améliorations par jour et par IP. Si tu atteins la limite, reviens demain — ou inscris-toi à La Fréquence (un bypass abonnés est en cours).',
+      answer: '20 améliorations par jour et par IP. Si tu atteins la limite, reviens demain. Un bypass pour les abonnés de La Fréquence est en chantier.',
     },
     {
       question: 'Ça marche aussi pour les prompts en anglais ?',
@@ -66,7 +66,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: 'Comment cet outil a-t-il été construit ?',
-      answer: 'En environ 3 heures, avec Claude Code comme assistant de développement. Je ne suis pas développeur full-stack à temps plein — je suis Deputy Head of IT dans une boîte qui n\'a rien de tech, cet outil a été construit en marge de mes journées. Le system prompt qui restructure ton prompt a été itéré une dizaine de fois pour atteindre une grille stable. « 3 heures » ne veut pas dire que tu peux le refaire en 3 heures, ni que c\'est trivial — cela veut dire que la barrière entre une idée et un outil fonctionnel a fondu, à condition de savoir poser le problème et reconnaître quand l\'IA hallucine.',
+      answer: 'Environ 3 heures, avec Claude Code comme assistant. Je ne suis pas développeur full-stack à temps plein : je suis Deputy Head of IT dans une boîte qui n\'a rien de tech, et cet outil a été construit en marge de mes journées. Le system prompt qui restructure ton prompt a été itéré une dizaine de fois avant d\'atteindre une grille stable. « 3 heures » ne veut pas dire que tu peux le refaire en 3 heures (ce n\'est pas trivial). Ça veut dire qu\'aujourd\'hui, entre l\'idée d\'un outil et un outil qui marche, il n\'y a presque plus de friction si tu sais poser le problème et repérer quand l\'IA hallucine.',
     },
   ],
 }

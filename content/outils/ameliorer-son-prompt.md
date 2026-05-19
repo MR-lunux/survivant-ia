@@ -3,7 +3,7 @@ code: ameliorer-son-prompt
 kind: app
 title: Améliore ton prompt
 subtitle: Le template + l'améliorateur, dans le même outil. Colle ton prompt, l'IA le restructure et te montre ce qui manquait.
-description: "Outil interactif gratuit. Colle ton prompt brut, l'IA le restructure selon les bonnes pratiques (rôle, contexte, tâche, format, contraintes). Gratuit, sans inscription. IA hébergée en Suisse."
+description: "Outil interactif. Tu colles ton prompt brut, l'IA le restructure selon les bonnes pratiques (rôle, contexte, tâche, format, contraintes). Gratuit, sans inscription. IA hébergée en Suisse."
 kicker: OUTIL · AMÉLIORE TON PROMPT
 parentArticleSlug:
 metiers: []
@@ -12,32 +12,32 @@ specs:
   - "IA HÉBERGÉE EN SUISSE"
   - "AUCUN STOCKAGE"
   - "GRATUIT SANS INSCRIPTION"
-calloutPitch: "Colle ton prompt brut dans le champ. L'IA souveraine d'Infomaniak le restructure en suivant la grille des 6 champs (rôle, contexte, tâche, format, contraintes, exemples) et te dit ce qui manquait à ton prompt initial. Rien n'est sauvé."
+calloutPitch: "Colle ton prompt brut dans le champ. L'IA d'Infomaniak (hébergée en Suisse) le restructure selon la grille des 6 champs (rôle, contexte, tâche, format, contraintes, exemples), et te dit ce qui manquait. Rien n'est gardé."
 intro: |
-  Tu utilises ChatGPT, Claude ou Mistral mais tu sens que tes réponses sont moyennes sans savoir pourquoi. La cause est presque toujours la même : ton prompt n'est pas structuré. Tu balances une demande, l'IA comble les trous comme elle peut, et tu obtiens une réponse générique.
+  Tu utilises ChatGPT, Claude ou Mistral mais tu trouves que tes réponses sont moyennes, sans savoir pourquoi. Neuf fois sur dix : ton prompt n'est pas structuré. Tu balances une demande, l'IA comble les trous comme elle peut, et tu obtiens une réponse générique.
 
-  Cet outil applique à ton prompt brut la grille des 6 champs que les bonnes pratiques de prompt engineering reconnaissent comme la médiane : rôle, contexte, tâche, format, contraintes, exemples. Tu vois la structure remplie sous tes yeux, et tu vois ce que tu n'avais pas pensé à mettre.
+  Cet outil applique à ton prompt brut une grille de 6 champs : rôle, contexte, tâche, format, contraintes, exemples. C'est ce que les guides d'Anthropic et d'OpenAI utilisent comme base. Tu vois la grille se remplir, et tu vois ce que tu n'avais pas pensé à mettre.
 outro: |
   ## Quand cet outil est utile (et quand il ne l'est pas)
 
-  Tu utilises ChatGPT / Claude / Mistral mais tu sens que tes réponses sont moyennes sans savoir pourquoi. Cet outil est conçu pour **les prompts isolés du quotidien** — un mail à écrire, un texte à reformuler, une synthèse à produire, une analyse à demander — où tu veux passer de « ça pourrait être mieux » à « ça touche juste ».
+  Cet outil est fait pour les prompts isolés du quotidien : un mail à écrire, une synthèse à pondre, une analyse à demander. Le moment où tu te dis « ça pourrait être mieux » sans savoir comment.
 
-  Il est **moins utile** sur :
+  Il est moins utile sur :
 
-  - Les prompts de **codage technique** (où le contexte = des centaines de lignes de code). L'IA généraliste de l'outil n'a pas accès à ton repo ; un assistant code-spécialisé (Cursor, Claude Code) le fera mieux.
-  - Les prompts en **langues autres que FR/EN**. La sortie est en français, et la qualité de restructuration baisse hors FR/EN.
-  - Les **flows conversationnels longue durée** (chat de 20 messages où tu itères). L'outil structure un prompt isolé, pas un dialogue.
-  - Quand ton **prompt initial est déjà solide** — l'outil te dira « already_solid », tu auras juste perdu 5 secondes.
+  - Les prompts de codage technique (où le contexte fait des centaines de lignes). L'IA n'a pas ton repo en main, un assistant code (Cursor, Claude Code) fera mieux.
+  - Les prompts en langues autres que français ou anglais. La sortie est en français, et la restructuration baisse en qualité hors FR/EN.
+  - Les chats longue durée où tu itères sur 20 messages. L'outil structure un prompt isolé, pas un dialogue.
+  - Quand ton prompt initial est déjà solide. L'outil te dira « already_solid » et tu auras perdu 5 secondes.
 
   ## Le pari derrière l'outil
 
-  L'IA en 2026, dans ton métier, n'est ni la révolution promise par McKinsey, ni le risque existentiel craint sur LinkedIn. C'est un multiplicateur — à condition de savoir lui parler.
+  L'IA en 2026 dans ton métier, ce n'est pas la révolution promise par McKinsey. Ce n'est pas non plus le risque existentiel craint sur LinkedIn. C'est un multiplicateur. Mais seulement si tu sais lui parler.
 
-  Et « savoir lui parler » ne veut pas dire devenir prompt engineer. Ça veut dire connaître **6 boutons** : rôle, contexte, tâche, format, contraintes, exemples. Tu n'utilises pas tous les 6 à chaque fois. Mais tu sais qu'ils existent, et tu sais lesquels tu n'as pas remplis dans ton prompt actuel.
+  « Savoir lui parler » ne demande pas de devenir prompt engineer. Six boutons suffisent : rôle, contexte, tâche, format, contraintes, exemples. Tu ne les utilises pas tous à chaque fois. Mais tu sais qu'ils existent, et tu repères ceux qui manquent dans ton prompt.
 
-  Le piège : croire que c'est l'IA qui s'améliore. Faux. Ce sont **tes prompts** qui s'améliorent. Entre deux pros qui utilisent le même ChatGPT, celui qui sait structurer un prompt aura des réponses 3× meilleures, point.
+  Le piège, c'est de croire que c'est l'IA qui progresse. Non. Ce sont tes prompts qui progressent. Avec un même ChatGPT, deux pros n'auront pas la même qualité de réponse, et l'écart est large.
 
-  C'est exactement la question que tu dois te poser dans ton métier : qu'est-ce que tu peux faire **cette semaine** pour rester pertinent face à l'IA sans te reconvertir ? Apprendre à structurer un prompt, c'est 5 minutes par jour pendant une semaine. C'est ce que cet outil te force à apprendre, sans manuel.
+  La question utile, c'est : qu'est-ce que tu peux faire cette semaine pour rester pertinent face à l'IA, sans te reconvertir ? Apprendre à structurer un prompt, ça prend une semaine en y passant 5 minutes par jour. Et cet outil t'apprend par la pratique.
 data:
   posthog_event_prefix: ameliorer_prompt
 ---
