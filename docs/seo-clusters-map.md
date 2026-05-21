@@ -17,9 +17,14 @@ Référence pour la décision « à quel cluster rattacher cet article ? » lors
 - quelles compétences développer pour résister à l'IA
 - comment piloter l'IA dans son métier
 - comment maîtriser l'IA au travail
+- comment écrire un prompt
+- comment parler à l'IA
+- pourquoi ChatGPT répond mal / nul
+- comment poser un bon prompt
 
 **Articles qui servent ce cluster** :
 - [L'IA ne supprime pas des postes : elle supprime l'inefficience](/rapports/2026-05-08-ia-supprime-inefficience) — 2026-05-08
+- [Comment écrire un prompt qui améliore tes réponses](/rapports/2026-05-21-comment-ecrire-prompt-ameliore-reponses) — 2026-05-21 (pilier, s'adosse à l'outil `/outils/ameliorer-son-prompt`)
 
 ---
 
@@ -69,3 +74,4 @@ Référence pour la décision « à quel cluster rattacher cet article ? » lors
 |---|---|
 | 2026-05-07 | Création — cluster 2 + cluster Autonomie cognitive ouvert par l'article démence numérique |
 | 2026-05-08 | Cluster 2 — premier article servant la colonne vertébrale ("L'IA ne supprime pas des postes : elle supprime l'inefficience") |
+| 2026-05-21 | Cluster 2 — pilier prompting ajouté ("Comment écrire un prompt qui améliore tes réponses") + 4 requêtes types ajoutées pour capturer le territoire prompt-engineering (comment écrire un prompt, comment parler à l'IA, pourquoi ChatGPT répond mal, comment poser un bon prompt). S'adosse à l'outil `/outils/ameliorer-son-prompt` (sous-projet A du programme prompting). |

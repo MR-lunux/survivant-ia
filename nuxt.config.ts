@@ -121,6 +121,7 @@ export default defineNuxtConfig({
         '/outils/ameliorer-son-prompt',
         '/rapports/2026-05-08-ia-supprime-inefficience',
         '/rapports/offloading-cognitif-quand-l-ia-pense-a-ta-place',
+        '/rapports/2026-05-21-comment-ecrire-prompt-ameliore-reponses',
         '/frequence', '/identite', '/confidentialite', '/cookies', '/chantier',
         ...scannerRoutes,
       ],
