@@ -5,37 +5,35 @@ cluster: action (cluster 2 — "comment parler à l'IA / écrire un bon prompt")
 archetype: A+C compressé (cadre transformative → tactique 6 composants)
 format: court (LinkedIn, post text seul, pas de carrousel V1)
 cta: article pilier en 1er commentaire + outil en 2e commentaire
-mode_redac: C (Claude draft depuis brief inversé étape 2, voice full tutoiement)
+mode_redac: A (Mathieu draft → Claude copyedit chirurgical, 1 itération typos)
 target_chars: 1500-1800
 ---
 
 # Comment écrire un prompt qui améliore tes réponses (post LinkedIn)
 
-Les modèles d'IA s'améliorent chaque trimestre. GPT, Claude, Gemini, Mistral. C'est une vraie chance pour toi.
+Bien que les modèles IA s'améliorent d'année en année, tu dois savoir prompter correctement.
 
-Mais à modèle équivalent, deux pros auront des réponses très différentes. Ce qui fait la différence, ce n'est pas le modèle. C'est le prompt.
+Qui n'a jamais pesté contre son IA car sa première réponse était au chou ? Et pourtant, le problème pourrait bien se situer entre la chaise et le clavier, pas à cause de l'IA.
 
-Et le prompt, c'est la seule variable qui reste sous ton contrôle.
+Car après tout, il ne faut pas oublier que la réponse d'une IA est le résultat de statistiques. Bien qu'on ait l'impression qu'elle nous répond en langage naturel, il ne s'agit que de probabilité.
 
-Quand tu apprends à mieux prompter aujourd'hui, tu débloques deux gains :
-1. Tu obtiens des réponses plus précises sur les modèles actuels.
-2. Tu profites pleinement de chaque nouvelle version du modèle. Plus il sera puissant, plus l'écart entre ton output et celui d'un pro qui prompt mal sera large.
+Comment faire alors pour réduire la variance et s'assurer d'obtenir une bonne réponse du premier coup ?
 
-J'ai mis du temps à le voir. Au début, je trouvais les réponses décevantes, comme tout le monde. J'ai lu les guides Anthropic, Google, des vidéos d'Andrej Karpathy. Tous disaient la même chose : le LLM ne comprend pas comme un humain comprend, il complète des patterns. Plus le pattern que tu lui poses est précis, plus la réponse qui suit est précise.
+C'est grâce au prompt. Et bonne nouvelle, c'est facile à apprivoiser. Veille à bien définir ces 6 éléments :
 
-Image qui m'aide depuis : un LLM, c'est un génie qui sait à peu près tout, mais qui a du mal à marcher seul. Si tu lui dis "parle-moi", il part dans n'importe quelle direction. Si tu lui poses un cadre clair, il y arrive en trois secondes.
+- Rôle (qui doit-il incarner)
+- Tâche (action précise, pas intention vague)
+- Format de sortie (longueur, structure, ton)
+- Contexte (matière première, situation)
+- Contraintes (ce qu'il NE doit PAS faire)
+- Exemples (1-2 démos de ce que tu attends)
 
-Les guides convergent sur 6 composants à activer pour que le génie sache où poser le pied :
+Ce sont justement ces éléments qui te permettront d'obtenir des réponses de meilleure qualité et qui vont te permettre de te démarquer. Retiens-les dès à présent.
 
-→ Rôle (qui doit-il incarner)
-→ Tâche (action précise, pas intention vague)
-→ Format de sortie (longueur, structure, ton)
-→ Contexte (matière première, situation)
-→ Contraintes (ce qu'il NE doit PAS faire)
-→ Exemples (1-2 démos de ce que tu attends)
+Après, je me suis dit que ce serait pas mal si un outil pouvait transformer mon simple prompt en prompt bodybuildé. N'ayant rien trouvé de gratuit sur le marché et voulant protéger les requêtes, je l'ai construit.
 
-Tu peux retenir les 6 et les appliquer à la main. C'est ce qui marche à long terme : ton cerveau intègre le pattern et tu deviens autonome.
+Tu as le lien en premier commentaire et tu peux l'essayer dès à présent.
 
-Tu peux aussi laisser un outil les appliquer à ton prompt brut en 3 secondes. J'en ai construit un. Lien en premier commentaire.
+Je serais ravi de lire tes retours sur son utilisation !
 
-Les modèles s'amélioreront sans toi. Tes prompts, c'est à toi de les améliorer.
+N'oublie pas que les modèles s'améliorent et que les prompts, c'est à toi de les peaufiner.
