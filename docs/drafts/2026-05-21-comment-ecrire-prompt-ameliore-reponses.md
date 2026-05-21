@@ -1,46 +1,44 @@
 ---
 title: "Comment écrire un prompt qui améliore tes réponses"
-description: "Ce n'est pas l'IA qui est nulle, c'est ta manière de lui parler. Six boutons à activer pour que le savant qui sait tout sache enfin marcher."
+description: "Ce n'est pas l'IA qui est nulle, c'est ta manière de lui parler. Six composants à activer pour maîtriser l'art du prompt."
 date: 2026-05-21
 category: comprendre-ia
 kicker: "LECTURE LONGUE · 9 MIN"
 ---
 
-Au début, j'ai trouvé les réponses de ChatGPT décevantes. Comme tout le monde. Du texte apparaissait, c'était impressionnant la première fois, mais le résultat sortait « nul ». Puis j'ai entendu la même phrase chez mes collègues, mes amis, sur LinkedIn : « cette IA est surcotée ».
+Au début, j'ai trouvé les réponses de ChatGPT décevantes un peu comme tout le monde. Du texte apparaissait, c'était impressionnant la première fois, mais le résultat était "bof". Puis j'ai entendu la même phrase chez mes collègues, mes amis, sur LinkedIn : «cette IA est surcotée et ne sort que des bêtises».
 
-Je me suis posé la question dans l'autre sens. Et si le LLM ne sortait pas du nul, mais que c'était nous qui ne savions pas lui parler ?
+Je me suis posé la question dans l'autre sens. Et si le LLM ne sortait pas de la m, mais que c'était nous qui ne savions pas lui parler ?
 
 ## J'ai lu, j'ai testé, j'ai vu un pattern
 
-J'ai lu. Beaucoup. Le guide d'Anthropic pour Claude, celui de Google pour Gemini, des vidéos de chercheurs comme Andrej Karpathy. Chaque source disait la même chose, autrement formulée : le LLM ne comprend pas comme un humain comprend. Il complète des patterns statistiques. Plus le pattern qu'on lui pose est précis, plus la réponse qui suit est précise.
+J'ai lu. Beaucoup. Le guide d'Anthropic pour Claude, celui de Google pour Gemini, des vidéos de chercheurs comme Andrej Karpathy. Chaque source disait la même chose, autrement formulée : le LLM ne comprend pas comme un humain comprend bien qu'on lui parle en language naturel. Il complète des patterns statistiques. Plus le pattern qu'on lui pose est précis, plus la réponse qui suit est précise.
 
-J'ai testé. Le même prompt brut, mal cadré, donne une réponse vague et générique. Le même prompt restructuré avec un rôle clair, une tâche précise, un format défini, donne une réponse plusieurs crans au-dessus. Pas plus intelligente. L'IA n'est pas plus intelligente d'un prompt à l'autre, le modèle ne change pas entre deux requêtes. Plus exacte, parce que je lui dis exactement où viser.
+J'ai testé. Le même prompt brut, mal cadré, donne une réponse vague et générique. Le même prompt restructuré avec un rôle clair, une tâche précise, un format défini, donne une meilleure réponse. L'IA n'est pas plus intelligente d'un prompt à l'autre, le modèle ne change pas entre deux requêtes.
 
-Et j'ai vu un pattern dans tous ces guides. Ils convergent sur les mêmes six boutons à activer quand tu rédiges un prompt. Ce ne sont pas six règles ésotériques, ce sont les six leviers qui transforment une demande vague en une demande exécutable. La grille existe depuis qu'on construit des LLMs grand public. Elle marche pour ChatGPT, pour Claude, pour Gemini, pour Mistral. Elle marche pour les modèles d'aujourd'hui et probablement pour ceux des trois prochaines années.
+Et j'ai vu un pattern dans tous ces guides. Ils convergent sur les mêmes six composants à activer quand tu rédiges un prompt. Ce ne sont pas six règles ésotériques, ce sont les six leviers qui transforment une demande vague en une demande exécutable. La grille existe depuis qu'on construit des LLMs grand public. Elle marche pour tous les modèles d'aujourd'hui et probablement pour ceux des trois prochaines années.
 
-## Un savant qui sait tout mais qui a du mal à marcher
+## Un génie qui sait tout mais qui a du mal à s'orienter
 
-Une image m'aide depuis : le LLM, c'est un savant qui sait à peu près tout, mais qui a du mal à marcher seul. Si tu lui demandes « parle-moi », il part dans n'importe quelle direction, parce qu'il sait sur n'importe quel sujet. Si tu lui dis « va dans cette pièce, prends le livre rouge sur le bureau, ouvre-le à la page 12, et lis-moi le paragraphe en haut », il y arrive en trois secondes.
+Une image m'aide depuis : le LLM, c'est un génie qui sait à peu près tout, mais qui a du mal à marcher seul. Si tu lui demandes « parle-moi », il part dans n'importe quelle direction, parce qu'il sait sur n'importe quel sujet. Si tu lui dis « va dans cette pièce, prends le livre rouge sur le bureau, ouvre-le à la page 12, et lis-moi le paragraphe en haut », il y arrive en trois secondes.
 
-Ce n'est pas un défaut d'intelligence. C'est un défaut de cadrage. Le savant qui marche mal n'attend qu'une chose : que tu lui poses le sol.
+Ce n'est pas un défaut d'intelligence. C'est un défaut de cadrage. Le génie qui marche mal n'attend qu'une chose : que tu lui poses le sol.
 
 ## Pourquoi le cadrage change tout : ce qu'il se passe vraiment
 
-Pour comprendre pourquoi ces six boutons changent autant la sortie, il faut savoir ce que le modèle fait quand tu envoies une demande. La version courte : il génère le texte de réponse mot après mot, en choisissant à chaque étape le mot suivant le plus probable étant donné tout ce qui a été écrit avant.
+Pour comprendre pourquoi ces six composants changent autant la sortie, il faut savoir ce que le modèle fait quand tu envoies une demande. La version courte : il génère le texte de réponse mot après mot, en choisissant à chaque étape le mot suivant le plus probable (très important) étant donné tout ce qui a été écrit avant.
 
 « Le plus probable » est l'expression à retenir. Le modèle ne raisonne pas, il prédit. À chaque mot généré, il regarde l'ensemble de ce que tu lui as donné (ton prompt, plus les mots qu'il a déjà écrits dans sa réponse) et il calcule la suite la plus statistiquement plausible.
 
-Conséquence directe : si ton prompt est vague, plein de réponses possibles sont « probables ». Le modèle en choisit une, mais sans favoriser celle qui te servirait, parce qu'il ne sait pas ce qui te servirait. Tu te retrouves avec une réponse moyenne, statistiquement médiane, qui pourrait coller à dix demandes différentes. C'est ça qui sonne « nul ».
+Conséquence directe : si ton prompt est vague, plein de réponses possibles sont « probables ». Le modèle en choisit une, mais sans favoriser celle qui te servirait, parce qu'il ne sait pas ce qui te servirait. Tu te retrouves avec une réponse moyenne, statistiquement médiane, qui pourrait coller à dix demandes différentes. C'est ça qui sonne « bof ».
 
-Si ton prompt est précis, et surtout si tu poses un rôle, un format, des contraintes, le champ de probabilités se rétrécit. Le modèle n'a plus dix sorties plausibles, il en a deux ou trois, toutes alignées avec ce que tu attends. Il en choisit une, elle est calibrée.
-
-C'est ça qu'il faut comprendre pour ne plus voir l'IA comme une boîte qui donne du « nul ». La boîte n'est pas nulle. Elle est généraliste par construction. C'est à toi de la rendre spécifique à ton cas.
+Si ton prompt est précis, et surtout si tu poses un rôle, un format, des contraintes, le champ de probabilités se rétrécit. Le modèle n'a plus dix sorties plausibles, il en a deux ou trois, toutes alignées avec ce que tu attends. Il en choisit une qui est calibrée.
 
 Une nuance : tu ne lui parles pas en code. Tu lui parles en français, en langage naturel, comme à un humain. Les guides Anthropic et Google sont clairs sur ce point. Tu n'as pas à apprendre un langage de programmation pour piloter un LLM. Mais le langage naturel doit être structuré, parce que la structure réduit l'ambiguïté, et l'ambiguïté est l'ennemie du résultat.
 
-## La grille des six boutons
+## La grille des six composants
 
-Voici les six boutons que tous les guides sérieux reconnaissent comme la base utile. Trois sont obligatoires, trois sont optionnels mais souvent décisifs.
+Voici les six composants que tous les guides sérieux reconnaissent comme la base utile. Trois sont obligatoires, trois sont optionnels mais souvent décisifs.
 
 ### 1. Le rôle
 
@@ -58,7 +56,7 @@ La règle : si tu peux remplacer ta tâche par cinq autres formulations différe
 
 Tu décris à quoi doit ressembler la réponse : longueur, structure, ton, langue. « Mail court, 120 mots maximum, ton cordial mais ferme, signature Cordialement plus le prénom. » « 5 bullets de 1 phrase chacun. » « Tableau à 3 colonnes : action, responsable, deadline. »
 
-Le format est le bouton le plus sous-estimé. Beaucoup de pros pensent que c'est de la sur-spécification. C'est l'inverse : c'est ce qui transforme une réponse vague en une réponse qu'on peut copier-coller direct dans son mail, son slide, son ticket. Tu gagnes 5 minutes à chaque sortie.
+Le format est le bouton le plus sous-estimé. Beaucoup d'utilisateurs pensent que c'est de la sur-spécification. C'est l'inverse : c'est ce qui transforme une réponse vague en une réponse qu'on peut copier-coller direct dans son mail, son slide, son ticket.
 
 ### 4. Le contexte (optionnel)
 
@@ -70,7 +68,7 @@ Le contexte est optionnel mais c'est lui qui fait passer de « une réponse qui 
 
 Tu dis ce que tu ne veux PAS. « N'utilise pas de superlatifs marketing. Ne mentionne pas le prix. Ne propose pas d'appel téléphonique. » « Pas de jargon stat sauf si essentiel. »
 
-Les contraintes négatives sont souvent plus puissantes que les instructions positives. Elles ferment les portes que tu connais. Un pro qui écrit un mail commercial sait quelles tournures sonnent « commerciales » et ne veut pas les voir : les lister, c'est sauver une itération de réécriture.
+Les contraintes négatives sont souvent plus puissantes que les instructions positives. Elles ferment les portes que tu connais. Un utilisateur qui écrit un mail commercial sait quelles tournures sonnent « commerciales » et ne veut pas les voir : les lister, c'est sauver une itération de réécriture.
 
 ### 6. Les exemples (optionnel)
 
@@ -78,15 +76,15 @@ Tu montres une ou deux démonstrations de ce que tu attends. « Ton souhaité : 
 
 Les exemples sont ce que les chercheurs appellent du *few-shot* prompting. Tu poses littéralement le pattern devant le modèle, qui n'a plus qu'à le compléter. C'est le bouton le plus efficace quand tu as un goût précis mais que tu n'arrives pas à le décrire en règles. Tu montres, le modèle imite.
 
-## Tu peux retenir les six boutons. Ou laisser un outil te les appliquer.
+## Tu peux retenir les six composants. Ou laisser un outil te les appliquer.
 
-Tu peux retenir les six boutons et les appliquer à la main à chaque prompt. C'est ce que j'ai fait pendant des mois. C'est ce qui marche le mieux à long terme : ton cerveau intègre le pattern et tu deviens autonome. Au bout de trois ou quatre semaines de pratique régulière, tu n'as plus besoin de la grille devant toi, elle est en toi.
+Tu peux retenir les six composants et les appliquer à la main à chaque prompt. C'est ce que j'ai fait pendant des mois. C'est ce qui marche le mieux à long terme : ton cerveau intègre le pattern et tu deviens autonome. Au bout de trois ou quatre semaines de pratique régulière, tu n'as plus besoin de la grille devant toi, elle est en toi.
 
-Ou, plus rapide, tu peux laisser un outil les appliquer à ta place sur ton prompt brut. J'ai construit [un outil qui fait exactement ça](/outils/ameliorer-son-prompt) : tu colles ton prompt vague, il sort restructuré selon la grille en quelques secondes. Tu copies, tu colles dans ChatGPT, Claude, Gemini, Mistral, peu importe. Tu obtiens une vraie réponse.
+Ou, plus rapide, tu peux laisser un outil les appliquer à ta place sur ton prompt brut. J'ai construit [un outil qui fait exactement ça](/outils/ameliorer-son-prompt) : tu colles ton prompt vague, il sort restructuré selon la grille en quelques secondes. Tu copies, tu colles dans ChatGPT, Claude, Gemini, Mistral, peu importe. Tu obtiens une réponse plus précise et qualitative.
 
-L'outil n'est pas un raccourci pour ne pas réfléchir. C'est une béquille le temps que les six boutons deviennent un réflexe. Les deux approches sont complémentaires : tu testes avec l'outil pour voir ce que ça change, tu apprends en regardant ce qu'il restructure, et tu intègres petit à petit.
+L'outil n'est pas un raccourci pour ne pas réfléchir. C'est une béquille le temps que les six composants deviennent un réflexe. Les deux approches sont complémentaires : tu testes avec l'outil pour voir ce que ça change, tu apprends en regardant ce qu'il restructure, et tu intègres petit à petit.
 
-L'IA n'est pas nulle. Elle n'est pas non plus magique. C'est un savant généraliste qui n'attend qu'une chose pour te servir vraiment : que tu lui poses le sol avec les six boutons. Le faire toi-même, le faire faire par un outil, peu importe : ce qui compte, c'est que tu arrêtes de tester un prompt vague et de conclure que la machine déconne.
+L'IA n'est pas nulle. Elle n'est pas non plus magique. C'est un génie généraliste qui n'attend qu'une chose pour te servir vraiment : que tu lui poses le décor avec les six composants. Le faire toi-même, le faire faire par un outil, peu importe : ce qui compte, c'est que tu arrêtes de tester un prompt vague et de conclure que la machine déconne.
 
 ## Pour aller plus loin
 
