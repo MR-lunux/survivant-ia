@@ -6,6 +6,7 @@ import { facecamMetadata } from "./videos/facecam-metadata";
 import { Carousel } from "./carousel/Carousel";
 import { cycleTemplate } from "./carousel/data/cycle-template";
 import { cycleDictee } from "./carousel/data/cycle-dictee";
+import { cyclePrompting } from "./carousel/data/cycle-prompting";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -38,6 +39,16 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1350}
         defaultProps={{ cycle: cycleDictee }}
+      />
+
+      <Composition
+        id="Carousel-Prompting"
+        component={Carousel}
+        durationInFrames={8}
+        fps={1}
+        width={1080}
+        height={1350}
+        defaultProps={{ cycle: cyclePrompting }}
       />
     </>
   );
