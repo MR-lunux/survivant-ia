@@ -39,6 +39,32 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Service à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Rien n'est gardé côté serveur. Le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
     },
   ],
+  'generateur-processus-bpmn': [
+    {
+      question: "Quels types de processus l'outil sait générer ?",
+      answer: "Tous les éléments BPMN 2.0 courants : tâches (user/service/manuelle), événements (début, fin, intermédiaires : timer, message, erreur), gateways (exclusive, parallèle, inclusive), lanes pour les acteurs, sous-processus. Les structures très complexes (collaborations multi-organisations, événements limites) restent à éditer manuellement dans bpmn.io.",
+    },
+    {
+      question: "Le XML est-il du vrai BPMN 2.0 standard ?",
+      answer: "Oui. Le diagramme est généré via les librairies officielles bpmn-moddle et bpmn-auto-layout de l'équipe bpmn.io. Le fichier .bpmn s'ouvre sans erreur dans Camunda Modeler, Signavio, BIC ou tout outil compatible BPMN 2.0.",
+    },
+    {
+      question: "Mes données sont-elles partagées ou conservées ?",
+      answer: "Ta description est envoyée à l'IA d'Infomaniak (datacenters en Suisse) le temps de la génération, puis n'est pas stockée par Survivant-IA. Aucune donnée n'est transmise à OpenAI, Anthropic ou Google. PostHog reçoit des métriques anonymes (durée, nombre d'éléments) sans le contenu.",
+    },
+    {
+      question: "Quelle est la limite par jour ?",
+      answer: "20 générations par adresse IP, remise à zéro à minuit (heure suisse). Largement assez pour cartographier les 3-4 processus d'un atelier.",
+    },
+    {
+      question: "Pourquoi l'outil me dit que ma description est \"trop vague\" ?",
+      answer: "Il faut au moins 2 étapes identifiables et un acteur. Reformule en mentionnant qui fait quoi : \"le commercial reçoit la demande, le responsable la valide\" plutôt que \"on traite les demandes\".",
+    },
+    {
+      question: "Je suis étudiant en cours BPMN — ça marche pour mes exercices ?",
+      answer: "Oui, l'outil n'est pas vendu comme tel mais le mécanisme fonctionne aussi pour les exercices académiques. Garde en tête que ton enseignant attend probablement que tu maîtrises l'éditeur — utilise l'outil pour gagner du temps sur la première version, mais relis et valide à la main.",
+    },
+  ],
   'ameliorer-son-prompt': [
     {
       question: 'L\'outil garde-t-il mon prompt ?',

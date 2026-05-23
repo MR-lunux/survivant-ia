@@ -162,6 +162,11 @@ onMounted(() => {
           :kit-id="kit.code"
         />
 
+        <KitGenerateurBpmn
+          v-if="kit.kind === 'app' && kit.code === 'generateur-processus-bpmn'"
+          :kit-id="kit.code"
+        />
+
         <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
 
         <div v-if="OUTIL_FAQS[kit.code]" class="kit-faq-wrap">

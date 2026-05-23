@@ -6,6 +6,7 @@ const OVERRIDES: Record<string, string> = {
   'trc-01': 'MESURER MA RÉSILIENCE',
   'generateur-ecriture-comptable': 'TESTER GRATUITEMENT',
   'ameliorer-son-prompt': 'AMÉLIORER MON PROMPT',
+  'generateur-processus-bpmn': 'GÉNÉRER MON BPMN',
 }
 
 const KIND_DEFAULTS: Record<string, string> = {

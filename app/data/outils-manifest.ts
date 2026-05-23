@@ -53,6 +53,14 @@ export const OUTILS_MANIFEST: OutilManifestEntry[] = [
     kind: 'app',
     metiers: [],
   },
+  {
+    code: 'generateur-processus-bpmn',
+    path: '/outils/generateur-processus-bpmn',
+    title: 'Générateur de processus BPMN',
+    subtitle: "Dicte ou écris ton processus métier — l'IA te livre un BPMN 2.0 prêt à éditer.",
+    kind: 'app',
+    metiers: ['consultant-strategie', 'consultant-it', 'chef-de-projet-it', 'responsable-qualite'],
+  },
 ]
 
 export function outilsForMetier(metierSlug: string): OutilManifestEntry[] {
