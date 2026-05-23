@@ -87,6 +87,18 @@ describe('irToBpmnXml', () => {
     expect(xml).toContain('userTask')
   })
 
+  it('generates BPMNEdge entries for every sequence flow', async () => {
+    const xml = await irToBpmnXml(simpleLinearIR)
+    // simpleLinearIR has 2 flows (f1 and f2)
+    const edgeCount = (xml.match(/<bpmndi:BPMNEdge/g) ?? []).length
+    expect(edgeCount).toBe(2)
+  })
+
+  it('BPMNEdge has two waypoints connecting source and target shapes', async () => {
+    const xml = await irToBpmnXml(simpleLinearIR)
+    expect(xml).toMatch(/<bpmndi:BPMNEdge[^>]*bpmnElement="Flow_f1"[^>]*>[\s\S]*?<di:waypoint[^/]+\/>[\s\S]*?<di:waypoint[^/]+\/>[\s\S]*?<\/bpmndi:BPMNEdge>/)
+  })
+
   it('encodes end events with terminate event definition', async () => {
     const ir: BpmnIR = {
       process_name: 'p',

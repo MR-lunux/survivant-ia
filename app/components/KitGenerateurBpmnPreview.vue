@@ -12,6 +12,7 @@ const renderError = ref<string | null>(null)
 const isRendering = ref(false)
 const showXml = ref(false)
 const copyState = ref<'idle' | 'copied' | 'failed'>('idle')
+const bpmnIoState = ref<'idle' | 'opened' | 'clipboard_failed'>('idle')
 
 async function renderDiagram(xml: string) {
   if (!xml) return
@@ -73,9 +74,15 @@ function downloadXml() {
 }
 
 async function openInBpmnIo() {
-  try { await navigator.clipboard.writeText(props.xml) } catch { /* tolerate clipboard fail */ }
+  let clipboardOk = false
+  try {
+    await navigator.clipboard.writeText(props.xml)
+    clipboardOk = true
+  } catch { /* tolerate clipboard fail */ }
   window.open('https://demo.bpmn.io/new', '_blank', 'noopener')
-  capture('bpmn_generator_bpmnio_opened', { kit_id: 'generateur-processus-bpmn' })
+  bpmnIoState.value = clipboardOk ? 'opened' : 'clipboard_failed'
+  capture('bpmn_generator_bpmnio_opened', { kit_id: 'generateur-processus-bpmn', clipboard_ok: clipboardOk })
+  setTimeout(() => { bpmnIoState.value = 'idle' }, 5000)
 }
 
 // Fallback text list for screen readers and mobile
@@ -115,9 +122,15 @@ const stepList = computed(() => {
         Télécharger .bpmn
       </button>
       <button type="button" class="btn btn-primary" @click="openInBpmnIo">
-        Ouvrir dans bpmn.io
+        Copier le XML &amp; ouvrir bpmn.io
       </button>
     </div>
+    <p v-if="bpmnIoState === 'opened'" class="bpmn-io-hint">
+      XML copié — colle-le (Cmd+V / Ctrl+V) dans l'onglet bpmn.io qui vient de s'ouvrir.
+    </p>
+    <p v-else-if="bpmnIoState === 'clipboard_failed'" class="bpmn-io-hint warn">
+      Le navigateur a refusé la copie automatique. Utilise le bouton « Copier le XML » avant d'ouvrir bpmn.io.
+    </p>
 
     <details class="bpmn-xml-raw" @toggle="(e) => showXml = (e.target as HTMLDetailsElement).open">
       <summary>Voir le XML brut</summary>
@@ -162,6 +175,14 @@ const stepList = computed(() => {
   color: var(--color-muted);
 }
 .bpmn-steps-fallback ol { margin: 0.5rem 0 0 1.25rem; }
+.bpmn-io-hint {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+.bpmn-io-hint.warn { color: var(--color-accent); }
 .bpmn-xml-raw { margin-top: 1.5rem; }
 .bpmn-xml-raw summary {
   font-family: var(--font-mono);

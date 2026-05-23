@@ -46,6 +46,90 @@ function gatewayElementType(n: BpmnNode & { type: 'gateway' }): string {
 
 type ModdleElement = Record<string, unknown> & { $type: string; id?: string }
 
+interface BpmnBounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+interface BpmnShape extends ModdleElement {
+  bpmnElement: ModdleElement
+  bounds: BpmnBounds
+}
+
+interface BpmnSequenceFlow extends ModdleElement {
+  sourceRef: ModdleElement
+  targetRef: ModdleElement
+}
+
+/**
+ * bpmn-auto-layout generates BPMNShape positions but no BPMNEdge entries.
+ * This helper re-parses the laid-out XML, then adds a BPMNEdge for every
+ * bpmn:SequenceFlow using bottom-center → top-center waypoints.
+ */
+async function addSequenceFlowEdges(xml: string): Promise<string> {
+  const moddle = new BpmnModdle()
+  const { rootElement: definitions } = await moddle.fromXML(xml) as { rootElement: ModdleElement }
+
+  const rootElements = definitions.rootElements as ModdleElement[]
+  const process = rootElements.find(el => el.$type === 'bpmn:Process') as ModdleElement | undefined
+  if (!process) return xml
+
+  const diagrams = definitions.diagrams as ModdleElement[]
+  if (!diagrams?.length) return xml
+  const plane = (diagrams[0] as ModdleElement).plane as ModdleElement
+  if (!plane) return xml
+
+  const planeElements = plane.planeElement as ModdleElement[]
+
+  // Build lookup: bpmnElement id → BPMNShape
+  const shapesByElementId = new Map<string, BpmnShape>()
+  for (const el of planeElements) {
+    if (el.$type === 'bpmndi:BPMNShape') {
+      const shape = el as BpmnShape
+      const refId = (shape.bpmnElement as ModdleElement)?.id ?? (shape.get('bpmnElement') as ModdleElement)?.id
+      if (refId) shapesByElementId.set(refId, shape)
+    }
+  }
+
+  // For each SequenceFlow, add a BPMNEdge
+  const flowElements = process.flowElements as ModdleElement[]
+  for (const el of flowElements) {
+    if (el.$type !== 'bpmn:SequenceFlow') continue
+    const flow = el as BpmnSequenceFlow
+
+    const sourceRef = (flow.sourceRef ?? flow.get?.('sourceRef')) as ModdleElement
+    const targetRef = (flow.targetRef ?? flow.get?.('targetRef')) as ModdleElement
+    const sourceId = sourceRef?.id
+    const targetId = targetRef?.id
+    if (!sourceId || !targetId) continue
+
+    const sourceShape = shapesByElementId.get(sourceId)
+    const targetShape = shapesByElementId.get(targetId)
+    if (!sourceShape || !targetShape) continue
+
+    const sb = sourceShape.bounds
+    const tb = targetShape.bounds
+
+    // bottom-center of source → top-center of target
+    const wp1 = moddle.create('dc:Point', { x: sb.x + sb.width / 2, y: sb.y + sb.height })
+    const wp2 = moddle.create('dc:Point', { x: tb.x + tb.width / 2, y: tb.y })
+
+    const flowId = flow.id ?? (flow.get?.('id') as string)
+    const edge = moddle.create('bpmndi:BPMNEdge', {
+      id: `Edge_${flowId}`,
+      bpmnElement: flow,
+      waypoint: [wp1, wp2],
+    }) as ModdleElement
+
+    planeElements.push(edge)
+  }
+
+  const { xml: resultXml } = await moddle.toXML(definitions, { format: true })
+  return resultXml
+}
+
 export async function irToBpmnXml(ir: BpmnIR): Promise<string> {
   const moddle = new BpmnModdle()
 
@@ -139,8 +223,8 @@ export async function irToBpmnXml(ir: BpmnIR): Promise<string> {
     rootElements: [process],
   })
 
-  // ── Serialize → auto-layout → return ────────────────────────────────────────
+  // ── Serialize → auto-layout → inject edges → return ────────────────────────
   const { xml: rawXml } = await moddle.toXML(definitions, { format: true })
   const laidOutXml = await layoutProcess(rawXml)
-  return laidOutXml
+  return await addSequenceFlowEdges(laidOutXml)
 }
