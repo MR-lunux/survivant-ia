@@ -68,14 +68,14 @@ describe('validateGraph', () => {
       ...minimalValidIR,
       nodes: minimalValidIR.nodes.filter(n => n.type !== 'start'),
     }
-    expect(validateGraph(bad).ok).toBe(false)
+    expect(validateGraph(bad)).toEqual({ ok: false, reason: 'no_start' })
   })
   it('rejects multiple start events', () => {
     const bad: BpmnIR = {
       ...minimalValidIR,
       nodes: [...minimalValidIR.nodes, { id: 's2', type: 'start', lane: 'main' }],
     }
-    expect(validateGraph(bad).ok).toBe(false)
+    expect(validateGraph(bad)).toEqual({ ok: false, reason: 'multiple_start' })
   })
   it('rejects exclusive gateway with only one outgoing flow', () => {
     const bad: BpmnIR = {
@@ -91,7 +91,7 @@ describe('validateGraph', () => {
         { id: 'f2', source: 'g1', target: 'e1' },
       ],
     }
-    expect(validateGraph(bad).ok).toBe(false)
+    expect(validateGraph(bad)).toEqual({ ok: false, reason: 'gateway_branching_invalid', detail: 'g1' })
   })
   it('rejects flow referencing a lane not in lanes[]', () => {
     const bad: BpmnIR = {
@@ -102,6 +102,6 @@ describe('validateGraph', () => {
         { id: 'e1', type: 'end', lane: 'main' },
       ],
     }
-    expect(validateGraph(bad).ok).toBe(false)
+    expect(validateGraph(bad)).toEqual({ ok: false, reason: 'lane_unknown', detail: 's1 → ghost_lane' })
   })
 })

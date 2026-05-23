@@ -47,11 +47,11 @@ function isLane(v: unknown): v is BpmnLane {
 }
 
 const NODE_TYPES = ['start', 'end', 'task', 'gateway', 'event_intermediate', 'subprocess'] as const
-const GATEWAY_TYPES = ['exclusive', 'parallel', 'inclusive']
-const INTERMEDIATE_EVENT_TYPES = ['timer', 'message', 'error']
-const START_EVENT_TYPES = ['none', 'timer', 'message']
-const END_EVENT_TYPES = ['none', 'terminate', 'error', 'message']
-const TASK_TYPES = ['user', 'service', 'manual', 'send', 'receive']
+const GATEWAY_TYPES = ['exclusive', 'parallel', 'inclusive'] as const
+const INTERMEDIATE_EVENT_TYPES = ['timer', 'message', 'error'] as const
+const START_EVENT_TYPES = ['none', 'timer', 'message'] as const
+const END_EVENT_TYPES = ['none', 'terminate', 'error', 'message'] as const
+const TASK_TYPES = ['user', 'service', 'manual', 'send', 'receive'] as const
 
 function isNode(v: unknown): v is BpmnNode {
   if (!v || typeof v !== 'object') return false
@@ -59,17 +59,18 @@ function isNode(v: unknown): v is BpmnNode {
   if (!nonEmptyString(r.id) || !nonEmptyString(r.lane)) return false
   if (!isString(r.type) || !NODE_TYPES.includes(r.type as typeof NODE_TYPES[number])) return false
   switch (r.type) {
-    case 'task':
     case 'subprocess':
-      return nonEmptyString(r.label) && (r.type === 'subprocess' || r.task_type === undefined || TASK_TYPES.includes(r.task_type as string))
+      return nonEmptyString(r.label)
+    case 'task':
+      return nonEmptyString(r.label) && (r.task_type === undefined || (TASK_TYPES as readonly string[]).includes(r.task_type as string))
     case 'gateway':
-      return nonEmptyString(r.gateway_type) && GATEWAY_TYPES.includes(r.gateway_type as string)
+      return nonEmptyString(r.gateway_type) && (GATEWAY_TYPES as readonly string[]).includes(r.gateway_type as string)
     case 'event_intermediate':
-      return nonEmptyString(r.event_type) && INTERMEDIATE_EVENT_TYPES.includes(r.event_type as string)
+      return nonEmptyString(r.event_type) && (INTERMEDIATE_EVENT_TYPES as readonly string[]).includes(r.event_type as string)
     case 'start':
-      return r.event_type === undefined || START_EVENT_TYPES.includes(r.event_type as string)
+      return r.event_type === undefined || (START_EVENT_TYPES as readonly string[]).includes(r.event_type as string)
     case 'end':
-      return r.event_type === undefined || END_EVENT_TYPES.includes(r.event_type as string)
+      return r.event_type === undefined || (END_EVENT_TYPES as readonly string[]).includes(r.event_type as string)
   }
   return false
 }
