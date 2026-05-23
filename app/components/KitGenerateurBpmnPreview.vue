@@ -12,7 +12,7 @@ const renderError = ref<string | null>(null)
 const isRendering = ref(false)
 const showXml = ref(false)
 const copyState = ref<'idle' | 'copied' | 'failed'>('idle')
-const bpmnIoState = ref<'idle' | 'opened' | 'clipboard_failed'>('idle')
+const bpmnIoState = ref<'idle' | 'opened' | 'clipboard_failed' | 'popup_blocked'>('idle')
 
 async function renderDiagram(xml: string) {
   if (!xml) return
@@ -74,15 +74,30 @@ function downloadXml() {
 }
 
 async function openInBpmnIo() {
+  // CRITICAL: window.open must be called synchronously inside the click handler.
+  // Awaiting clipboard.writeText first breaks the user-gesture context → popup blocked.
+  const newTab = window.open('https://demo.bpmn.io/new', '_blank', 'noopener')
+  const popupBlocked = !newTab
+
   let clipboardOk = false
   try {
     await navigator.clipboard.writeText(props.xml)
     clipboardOk = true
   } catch { /* tolerate clipboard fail */ }
-  window.open('https://demo.bpmn.io/new', '_blank', 'noopener')
-  bpmnIoState.value = clipboardOk ? 'opened' : 'clipboard_failed'
-  capture('bpmn_generator_bpmnio_opened', { kit_id: 'generateur-processus-bpmn', clipboard_ok: clipboardOk })
-  setTimeout(() => { bpmnIoState.value = 'idle' }, 5000)
+
+  if (popupBlocked) {
+    bpmnIoState.value = 'popup_blocked'
+  } else if (clipboardOk) {
+    bpmnIoState.value = 'opened'
+  } else {
+    bpmnIoState.value = 'clipboard_failed'
+  }
+  capture('bpmn_generator_bpmnio_opened', {
+    kit_id: 'generateur-processus-bpmn',
+    clipboard_ok: clipboardOk,
+    popup_blocked: popupBlocked,
+  })
+  setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
 }
 
 // Fallback text list for screen readers and mobile
@@ -130,6 +145,9 @@ const stepList = computed(() => {
     </p>
     <p v-else-if="bpmnIoState === 'clipboard_failed'" class="bpmn-io-hint warn">
       Le navigateur a refusé la copie automatique. Utilise le bouton « Copier le XML » avant d'ouvrir bpmn.io.
+    </p>
+    <p v-else-if="bpmnIoState === 'popup_blocked'" class="bpmn-io-hint warn">
+      Ton navigateur a bloqué la nouvelle fenêtre. Autorise les popups depuis ce site et réessaie, ou utilise le bouton « Copier le XML » puis ouvre bpmn.io manuellement.
     </p>
 
     <details class="bpmn-xml-raw" @toggle="(e) => showXml = (e.target as HTMLDetailsElement).open">

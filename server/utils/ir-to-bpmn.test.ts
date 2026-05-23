@@ -112,4 +112,31 @@ describe('irToBpmnXml', () => {
     const xml = await irToBpmnXml(ir)
     expect(xml).toContain('terminateEventDefinition')
   })
+
+  it('generates BPMNShape for every lane', async () => {
+    const xml = await irToBpmnXml(xorIR)
+    // xorIR has 2 lanes (demand, resp)
+    const laneShapeCount = (xml.match(/<bpmndi:BPMNShape[^>]*bpmnElement="Lane_/g) ?? []).length
+    expect(laneShapeCount).toBe(2)
+  })
+
+  it('lane shapes have isHorizontal=true', async () => {
+    const xml = await irToBpmnXml(xorIR)
+    expect(xml).toMatch(/<bpmndi:BPMNShape[^>]*bpmnElement="Lane_[^"]+"[^>]*isHorizontal="true"/)
+  })
+
+  it('nodes are placed at increasing X by depth (horizontal flow)', async () => {
+    const xml = await irToBpmnXml(simpleLinearIR)
+    // Parse the XML to extract bounds for each node
+    // s1, t1, e1 are at increasing depths → x values must be strictly increasing
+    const moddle = new (await import('bpmn-moddle')).default()
+    const { rootElement } = await moddle.fromXML(xml)
+    const plane = rootElement.diagrams[0].plane
+    const shapes = plane.planeElement.filter((el: { $type: string }) => el.$type === 'bpmndi:BPMNShape')
+    const s1Shape = shapes.find((s: { bpmnElement: { id: string } }) => s.bpmnElement.id === 'StartEvent_s1')
+    const t1Shape = shapes.find((s: { bpmnElement: { id: string } }) => s.bpmnElement.id === 'Task_t1')
+    const e1Shape = shapes.find((s: { bpmnElement: { id: string } }) => s.bpmnElement.id === 'EndEvent_e1')
+    expect(s1Shape.bounds.x).toBeLessThan(t1Shape.bounds.x)
+    expect(t1Shape.bounds.x).toBeLessThan(e1Shape.bounds.x)
+  })
 })
