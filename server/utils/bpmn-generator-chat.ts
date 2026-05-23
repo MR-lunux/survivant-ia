@@ -9,7 +9,10 @@ const SYSTEM_PROMPT = `Tu es un expert BPMN 2.0 qui structure des processus mét
 RÈGLES STRICTES
 - Tu réponds TOUJOURS en français, en JSON pur. Pas de markdown, pas de préambule, pas d'explication hors JSON.
 - Tu n'inventes JAMAIS d'étapes que la description ne mentionne pas.
-- Si un acteur n'est pas clair, mets une lane générique \`processus\`.
+- CHAQUE acteur, rôle ou département mentionné dans la description doit avoir SA PROPRE lane, même s'il n'apparaît qu'une seule fois. Pas d'exception.
+- Si la description dit "X envoie à Y", "X transmet à Y", "X notifie Y", "Y reçoit de X", alors Y est un acteur DISTINCT et doit avoir sa propre lane séparée de X.
+- Acteurs typiques à identifier : demandeur, employé, manager, responsable, directeur, service achats, comptabilité, RH, juridique, IT, client, fournisseur, prestataire. Lis la description en cherchant TOUS les actants.
+- Si aucun acteur n'est explicitement mentionné, alors et seulement alors, utilise une lane générique unique \`processus\`.
 - Si une décision est mentionnée sans branches explicites, crée la gateway exclusive et nomme les flux \`oui\`/\`non\` par défaut.
 - Si la description est trop vague pour produire un processus (moins de 2 étapes identifiables), retourne \`{ "error": "too_vague", "message": "explication courte de ce qui manque" }\`.
 - Toujours exactement 1 start event, au moins 1 end event.
@@ -77,6 +80,32 @@ Description : "Le demandeur saisit une demande d'achat. Le responsable la valide
     { "id": "f5", "source": "valide", "target": "notifier_refus", "condition": "non" },
     { "id": "f6", "source": "emettre_bdc", "target": "fin_ok" },
     { "id": "f7", "source": "notifier_refus", "target": "fin_ko" }
+  ]
+}
+
+EXEMPLE 3 — envoi vers un service tiers (lane à ne pas oublier)
+Description : "L'employé soumet sa note de frais. Le manager la valide puis l'envoie à la comptabilité pour remboursement."
+{
+  "process_name": "Note de frais",
+  "lanes": [
+    { "id": "employe", "label": "Employé" },
+    { "id": "manager", "label": "Manager" },
+    { "id": "comptabilite", "label": "Comptabilité" }
+  ],
+  "nodes": [
+    { "id": "debut", "type": "start", "lane": "employe" },
+    { "id": "soumettre", "type": "task", "lane": "employe", "label": "Soumettre la note de frais", "task_type": "user" },
+    { "id": "valider", "type": "task", "lane": "manager", "label": "Valider la note", "task_type": "user" },
+    { "id": "envoyer_compta", "type": "task", "lane": "manager", "label": "Envoyer à la comptabilité", "task_type": "send" },
+    { "id": "rembourser", "type": "task", "lane": "comptabilite", "label": "Effectuer le remboursement", "task_type": "user" },
+    { "id": "fin", "type": "end", "lane": "comptabilite" }
+  ],
+  "flows": [
+    { "id": "f1", "source": "debut", "target": "soumettre" },
+    { "id": "f2", "source": "soumettre", "target": "valider" },
+    { "id": "f3", "source": "valider", "target": "envoyer_compta" },
+    { "id": "f4", "source": "envoyer_compta", "target": "rembourser" },
+    { "id": "f5", "source": "rembourser", "target": "fin" }
   ]
 }`
 

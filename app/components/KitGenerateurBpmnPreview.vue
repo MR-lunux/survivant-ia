@@ -100,6 +100,13 @@ async function openInBpmnIo() {
   setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
 }
 
+const xmlTextareaRef = ref<HTMLTextAreaElement | null>(null)
+
+function onXmlTextareaFocus() {
+  // Auto-select all text when the user clicks/tabs into the textarea
+  xmlTextareaRef.value?.select()
+}
+
 // Fallback text list for screen readers and mobile
 const stepList = computed(() => {
   return props.ir.nodes
@@ -151,8 +158,16 @@ const stepList = computed(() => {
     </p>
 
     <details class="bpmn-xml-raw" @toggle="(e) => showXml = (e.target as HTMLDetailsElement).open">
-      <summary>Voir le XML brut</summary>
-      <pre><code>{{ xml }}</code></pre>
+      <summary>Voir / copier le XML manuellement</summary>
+      <p class="bpmn-xml-hint">Si le bouton « Copier le XML » ne marche pas, sélectionne tout dans le champ ci-dessous (clic dans le champ puis Cmd+A / Ctrl+A) et copie (Cmd+C / Ctrl+C).</p>
+      <textarea
+        class="bpmn-xml-textarea"
+        readonly
+        :value="xml"
+        rows="14"
+        @focus="onXmlTextareaFocus"
+        ref="xmlTextareaRef"
+      ></textarea>
     </details>
   </div>
 </template>
@@ -210,13 +225,27 @@ const stepList = computed(() => {
   cursor: pointer;
   color: var(--color-muted);
 }
-.bpmn-xml-raw pre {
-  background: var(--color-surface);
+.bpmn-xml-hint {
+  margin: 0.75rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+.bpmn-xml-textarea {
+  width: 100%;
   border: 1px solid var(--color-rule);
-  padding: 1rem;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  overflow-x: auto;
-  max-height: 400px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  padding: 0.75rem;
+  resize: vertical;
+  white-space: pre;
+}
+.bpmn-xml-textarea:focus {
+  outline: 1px solid var(--color-accent);
+  border-color: var(--color-accent);
 }
 </style>
