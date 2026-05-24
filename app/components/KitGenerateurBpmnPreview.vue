@@ -12,7 +12,7 @@ const renderError = ref<string | null>(null)
 const isRendering = ref(false)
 const showXml = ref(false)
 const copyState = ref<'idle' | 'copied' | 'failed'>('idle')
-const bpmnIoState = ref<'idle' | 'opened' | 'clipboard_failed'>('idle')
+const bpmnIoState = ref<'idle' | 'opened'>('idle')
 
 async function renderDiagram(xml: string) {
   if (!xml) return
@@ -74,19 +74,12 @@ function downloadXml() {
 }
 
 function onBpmnIoClick() {
-  // On déclenche la copie en fire-and-forget : le navigateur va naviguer
-  // via le href natif du <a>, on n'attend pas la promesse. Ça évite tout
-  // problème de popup-blocking (la nav d'un <a target="_blank"> n'est jamais
-  // bloquée comme un window.open).
-  navigator.clipboard.writeText(props.xml)
-    .then(() => {
-      bpmnIoState.value = 'opened'
-      setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
-    })
-    .catch(() => {
-      bpmnIoState.value = 'clipboard_failed'
-      setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
-    })
+  // bpmn.io n'a PAS de feature "paste XML" : on doit télécharger le .bpmn
+  // ET ouvrir bpmn.io, puis l'utilisateur fait Cmd+O pour charger le fichier.
+  // On déclenche le download en parallèle de la nav du <a target="_blank">.
+  downloadXml()
+  bpmnIoState.value = 'opened'
+  setTimeout(() => { bpmnIoState.value = 'idle' }, 10000)
 
   capture('bpmn_generator_bpmnio_opened', {
     kit_id: 'generateur-processus-bpmn',
@@ -144,19 +137,16 @@ const stepList = computed(() => {
         class="btn btn-primary"
         @click="onBpmnIoClick"
       >
-        Copier le XML &amp; ouvrir bpmn.io
+        Éditer dans bpmn.io ↗
       </a>
     </div>
     <p v-if="bpmnIoState === 'opened'" class="bpmn-io-hint">
-      XML copié. Colle-le (Cmd+V / Ctrl+V) dans l'onglet bpmn.io qui vient de s'ouvrir.
-    </p>
-    <p v-else-if="bpmnIoState === 'clipboard_failed'" class="bpmn-io-hint warn">
-      Le navigateur a refusé la copie automatique. Utilise le bouton « Copier le XML » avant d'ouvrir bpmn.io.
+      Le fichier .bpmn vient d'être téléchargé. Dans l'onglet bpmn.io qui s'ouvre, fais Cmd+O (ou Ctrl+O sur Windows) et sélectionne le fichier téléchargé. bpmn.io n'accepte pas le copier-coller de XML, seulement les fichiers .bpmn.
     </p>
 
     <details class="bpmn-xml-raw" @toggle="(e) => showXml = (e.target as HTMLDetailsElement).open">
-      <summary>Voir / copier le XML manuellement</summary>
-      <p class="bpmn-xml-hint">Si le bouton « Copier le XML » ne marche pas, sélectionne tout dans le champ ci-dessous (clic dans le champ puis Cmd+A / Ctrl+A) et copie (Cmd+C / Ctrl+C).</p>
+      <summary>Voir / copier le XML brut</summary>
+      <p class="bpmn-xml-hint">Pour partager le XML ailleurs ou l'inspecter. Si le bouton « Copier le XML » échoue, clique dans le champ, fais Cmd+A / Ctrl+A puis Cmd+C / Ctrl+C. Note : ce XML ne se colle pas dans bpmn.io, qui ne supporte que l'import via Cmd+O sur un fichier .bpmn.</p>
       <textarea
         class="bpmn-xml-textarea"
         readonly
