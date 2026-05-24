@@ -61,8 +61,8 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       answer: "Il faut au moins 2 étapes identifiables et un acteur. Reformule en mentionnant qui fait quoi : \"le commercial reçoit la demande, le responsable la valide\" plutôt que \"on traite les demandes\".",
     },
     {
-      question: "Je suis étudiant en cours BPMN — ça marche pour mes exercices ?",
-      answer: "Oui, l'outil n'est pas vendu comme tel mais le mécanisme fonctionne aussi pour les exercices académiques. Garde en tête que ton enseignant attend probablement que tu maîtrises l'éditeur — utilise l'outil pour gagner du temps sur la première version, mais relis et valide à la main.",
+      question: "Je suis étudiant en cours BPMN. Ça marche pour mes exercices ?",
+      answer: "Oui, l'outil n'est pas vendu pour ça mais le mécanisme fonctionne aussi pour les exercices académiques. Garde en tête que ton enseignant attend probablement que tu maîtrises l'éditeur. Utilise l'outil pour gagner du temps sur la première version, puis relis et valide à la main.",
     },
   ],
   'ameliorer-son-prompt': [

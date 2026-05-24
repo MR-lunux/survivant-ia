@@ -123,7 +123,7 @@ function handleApiError(body: ApiErrorResponse) {
   stopElapsedTimer()
   switch (body.error) {
     case 'rate_limit':
-      errorMsg.value = 'Tu as atteint la limite de 20 générations par jour. Reviens demain — ou inscris-toi à La Fréquence en bas de page.'; break
+      errorMsg.value = 'Tu as atteint la limite de 20 générations par jour. Reviens demain, ou inscris-toi à La Fréquence en bas de page.'; break
     case 'invalid_input':
       if (body.reason === 'too_short') errorMsg.value = 'Décris ton processus en au moins 20 caractères (un acteur, une action, un résultat).'
       else if (body.reason === 'too_long') errorMsg.value = 'Ta description est trop longue. Garde-la sous 4000 caractères.'
@@ -133,7 +133,7 @@ function handleApiError(body: ApiErrorResponse) {
     case 'bad_input':
       errorMsg.value = body.message ?? "Ce contenu n'est pas accepté. Reformule en restant pro."; break
     case 'too_vague':
-      errorMsg.value = body.message ?? 'Ta description est trop vague — décris au moins 2 étapes et qui les exécute.'; break
+      errorMsg.value = body.message ?? 'Ta description est trop vague. Décris au moins 2 étapes et qui les exécute.'; break
     case 'ir_invalid':
     case 'bad_json':
       errorMsg.value = "L'IA a eu un trou. Réessaie dans un instant."; break

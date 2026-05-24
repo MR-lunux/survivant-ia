@@ -12,7 +12,7 @@ const renderError = ref<string | null>(null)
 const isRendering = ref(false)
 const showXml = ref(false)
 const copyState = ref<'idle' | 'copied' | 'failed'>('idle')
-const bpmnIoState = ref<'idle' | 'opened' | 'clipboard_failed' | 'popup_blocked'>('idle')
+const bpmnIoState = ref<'idle' | 'opened' | 'clipboard_failed'>('idle')
 
 async function renderDiagram(xml: string) {
   if (!xml) return
@@ -73,31 +73,25 @@ function downloadXml() {
   capture('bpmn_generator_xml_downloaded', { kit_id: 'generateur-processus-bpmn' })
 }
 
-async function openInBpmnIo() {
-  // CRITICAL: window.open must be called synchronously inside the click handler.
-  // Awaiting clipboard.writeText first breaks the user-gesture context → popup blocked.
-  const newTab = window.open('https://demo.bpmn.io/new', '_blank', 'noopener')
-  const popupBlocked = !newTab
+function onBpmnIoClick() {
+  // On déclenche la copie en fire-and-forget : le navigateur va naviguer
+  // via le href natif du <a>, on n'attend pas la promesse. Ça évite tout
+  // problème de popup-blocking (la nav d'un <a target="_blank"> n'est jamais
+  // bloquée comme un window.open).
+  navigator.clipboard.writeText(props.xml)
+    .then(() => {
+      bpmnIoState.value = 'opened'
+      setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
+    })
+    .catch(() => {
+      bpmnIoState.value = 'clipboard_failed'
+      setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
+    })
 
-  let clipboardOk = false
-  try {
-    await navigator.clipboard.writeText(props.xml)
-    clipboardOk = true
-  } catch { /* tolerate clipboard fail */ }
-
-  if (popupBlocked) {
-    bpmnIoState.value = 'popup_blocked'
-  } else if (clipboardOk) {
-    bpmnIoState.value = 'opened'
-  } else {
-    bpmnIoState.value = 'clipboard_failed'
-  }
   capture('bpmn_generator_bpmnio_opened', {
     kit_id: 'generateur-processus-bpmn',
-    clipboard_ok: clipboardOk,
-    popup_blocked: popupBlocked,
   })
-  setTimeout(() => { bpmnIoState.value = 'idle' }, 6000)
+  // Pas de preventDefault : le <a href> navigue normalement après ce handler.
 }
 
 const xmlTextareaRef = ref<HTMLTextAreaElement | null>(null)
@@ -143,18 +137,21 @@ const stepList = computed(() => {
       <button type="button" class="btn" @click="downloadXml">
         Télécharger .bpmn
       </button>
-      <button type="button" class="btn btn-primary" @click="openInBpmnIo">
+      <a
+        href="https://demo.bpmn.io/new"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+        @click="onBpmnIoClick"
+      >
         Copier le XML &amp; ouvrir bpmn.io
-      </button>
+      </a>
     </div>
     <p v-if="bpmnIoState === 'opened'" class="bpmn-io-hint">
-      XML copié — colle-le (Cmd+V / Ctrl+V) dans l'onglet bpmn.io qui vient de s'ouvrir.
+      XML copié. Colle-le (Cmd+V / Ctrl+V) dans l'onglet bpmn.io qui vient de s'ouvrir.
     </p>
     <p v-else-if="bpmnIoState === 'clipboard_failed'" class="bpmn-io-hint warn">
       Le navigateur a refusé la copie automatique. Utilise le bouton « Copier le XML » avant d'ouvrir bpmn.io.
-    </p>
-    <p v-else-if="bpmnIoState === 'popup_blocked'" class="bpmn-io-hint warn">
-      Ton navigateur a bloqué la nouvelle fenêtre. Autorise les popups depuis ce site et réessaie, ou utilise le bouton « Copier le XML » puis ouvre bpmn.io manuellement.
     </p>
 
     <details class="bpmn-xml-raw" @toggle="(e) => showXml = (e.target as HTMLDetailsElement).open">
