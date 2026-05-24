@@ -172,7 +172,10 @@ export async function callBpmnGeneratorChat({ description, temperature = 0.2 }: 
   let response: Response
   const fetchStart = Date.now()
   try {
-    response = await fetch(`https://api.infomaniak.com/1/ai/${productId}/openai/chat/completions`, {
+    // v2 endpoint (au lieu de v1) pour accepter les slugs HuggingFace modernes
+    // (ex. mistralai/Mistral-Small-4-119B-2603). v1 est legacy et n'accepte
+    // que 6 slugs courts (mistral24b, qwen3, etc.). Voir docs/infomaniak-models.md.
+    response = await fetch(`https://api.infomaniak.com/2/ai/${productId}/openai/v1/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -214,9 +217,16 @@ export async function callBpmnGeneratorChat({ description, temperature = 0.2 }: 
   const content = data.choices?.[0]?.message?.content
   if (!content) throw new Error('Infomaniak returned no content')
 
+  // Certains modèles (Mistral, Llama) emballent le JSON dans ```json ... ```
+  // malgré response_format. On strippe préventivement.
+  const stripped = content
+    .replace(/^\s*```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim()
+
   let parsed: Record<string, unknown>
   try {
-    parsed = JSON.parse(content)
+    parsed = JSON.parse(stripped)
   } catch {
     throw new Error('Infomaniak returned invalid JSON')
   }
