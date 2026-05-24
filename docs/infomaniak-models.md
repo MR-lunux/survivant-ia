@@ -26,12 +26,14 @@ Piège majeur : il y a DEUX endpoints chat completions avec des catalogues de mo
 
 Les nouveaux modèles puissants (Mistral Small 4, Qwen 3.5, Apertus 70B...) ne sont accessibles QUE via v2. Si tu vois une 422 "validation_failed: The selected model is invalid" sur v1, c'est probablement que tu utilises un slug v2 sur l'endpoint v1.
 
-Outils Survivant-IA déjà sur v2 :
+Tous les outils Survivant-IA sont sur v2 depuis 2026-05-24 :
 - BPMN generator (`server/utils/bpmn-generator-chat.ts`)
-
-Outils encore sur v1 (legacy, à migrer si besoin de modèles modernes) :
 - Améliorateur de prompt (`server/utils/ameliorer-prompt-chat.ts`)
-- Générateur d'écriture comptable (`server/utils/generateur-comptable-chat.ts`)
+- Générateur d'écriture comptable (`server/utils/infomaniak-ai-client.ts`)
+
+Le défaut hardcodé dans le code est `mistralai/Mistral-Small-4-119B-2603` (slug v2). Les env vars `NUXT_INFOMANIAK_AI_MODEL_*` overrident par outil ; `NUXT_INFOMANIAK_AI_MODEL` override globalement.
+
+**⚠️ Side effect de la migration** : si la global env var `NUXT_INFOMANIAK_AI_MODEL` est restée sur un slug v1 (typiquement `mistral24b`), elle sera envoyée à l'endpoint v2 qui la rejettera (422). Soit la mettre à jour avec un slug v2 (`mistralai/Mistral-Small-4-119B-2603`), soit la supprimer pour laisser le défaut hardcodé prendre le relais, soit définir une env var par outil qui override.
 
 ## Catalogue 2026-05-23
 
@@ -73,8 +75,8 @@ Mini-prompt "JSON {name, steps[]}" pour 3 étapes simples, `max_tokens: 500`, vi
 
 | Outil | Tâche | Modèle reco | Justification |
 |---|---|---|---|
-| Améliorateur de prompt | Restructure prompt en JSON 6 champs (sortie courte) | `mistral24b` (legacy v1) | Sortie petite, latence acceptable. Migrer vers v2 + Mistral Small 4 si on veut accélérer. |
-| Générateur d'écriture comptable | Extrait 1 écriture en JSON (sortie minuscule) | `mistral24b` (legacy v1) | Idem. |
+| Améliorateur de prompt | Restructure prompt en JSON 6 champs (sortie courte) | `mistralai/Mistral-Small-4-119B-2603` (v2) | Bench 0.97s sur sortie courte → idéal UX synchrone. |
+| Générateur d'écriture comptable | Extrait 1 écriture en JSON (sortie minuscule) | `mistralai/Mistral-Small-4-119B-2603` (v2) | Sortie encore plus petite (400 tokens max) → temps de réponse sub-seconde. |
 | Générateur BPMN | Extrait IR JSON de 5-15 nodes + lanes + flows (sortie longue) | **`mistralai/Mistral-Small-4-119B-2603`** | Benchmark le plus rapide (0.97s mini-prompt vs 2.85s Qwen3.5), pas de reasoning à gérer, schéma respecté, capacité de raisonnement structuré 119B. |
 | (Futur) Tâches agentiques / tool use | Multi-step planning | `Qwen/Qwen3.5-122B-A10B-FP8` ou `moonshotai/Kimi-K2.6` | Reasoning utile si on demande explicit pour la qualité. |
 | (Futur) Cherche IA suisse de bout en bout | Argument marketing | `swiss-ai/Apertus-70B-Instruct-2509` | 100% suisse (modèle + infra). |

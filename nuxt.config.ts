@@ -17,7 +17,9 @@ export default defineNuxtConfig({
     infomaniakAiToken: '',
     infomaniakAiProductId: '',
     infomaniakAiModel: 'mistral24b',
-    infomaniakAiModelBpmn: '',  // override BPMN-only ; vide → fallback sur infomaniakAiModel
+    infomaniakAiModelBpmn: '',       // override BPMN-only ; vide → Mistral Small 4 hardcodé (v2)
+    infomaniakAiModelAmeliorer: '',  // override améliorateur ; vide → Mistral Small 4 (v2)
+    infomaniakAiModelComptable: '',  // override comptable ; vide → Mistral Small 4 (v2)
     generateurEcritureEnabled: 'true',
     posthogServerKey: '',
     public: {

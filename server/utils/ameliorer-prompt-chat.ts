@@ -103,7 +103,14 @@ export async function callAmeliorerChat({ promptBrut, temperature = 0.2 }: Ameli
   const config = useRuntimeConfig()
   const token = config.infomaniakAiToken
   const productId = config.infomaniakAiProductId
-  const model = config.infomaniakAiModel || 'mistral24b'
+  // Fallback chain : per-tool env var → global env var → Mistral Small 4 (v2).
+  // ATTENTION : ce wrapper appelle maintenant l'endpoint v2 (catalogue HF complet).
+  // Si la global env var est restée sur un slug v1 (ex. 'mistral24b'), il faut
+  // soit définir NUXT_INFOMANIAK_AI_MODEL_AMELIORER avec un slug v2, soit
+  // mettre à jour NUXT_INFOMANIAK_AI_MODEL avec un slug v2.
+  const model = (config as { infomaniakAiModelAmeliorer?: string }).infomaniakAiModelAmeliorer
+    || config.infomaniakAiModel
+    || 'mistralai/Mistral-Small-4-119B-2603'
 
   if (!token || !productId) {
     throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
@@ -120,7 +127,9 @@ export async function callAmeliorerChat({ promptBrut, temperature = 0.2 }: Ameli
   let response: Response
   const fetchStart = Date.now()
   try {
-    response = await fetch(`https://api.infomaniak.com/1/ai/${productId}/openai/chat/completions`, {
+    // v2 endpoint pour accepter les slugs HuggingFace modernes (catalogue Infomaniak 2026).
+    // Cf. docs/infomaniak-models.md pour le mapping v1 → v2.
+    response = await fetch(`https://api.infomaniak.com/2/ai/${productId}/openai/v1/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -162,9 +171,16 @@ export async function callAmeliorerChat({ promptBrut, temperature = 0.2 }: Ameli
   const content = data.choices?.[0]?.message?.content
   if (!content) throw new Error('Infomaniak returned no content')
 
+  // Strip markdown wrapper que certains modèles (Mistral, Llama) ajoutent
+  // malgré response_format.
+  const stripped = content
+    .replace(/^\s*```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim()
+
   let parsed: AmeliorerChatResult
   try {
-    parsed = JSON.parse(content) as AmeliorerChatResult
+    parsed = JSON.parse(stripped) as AmeliorerChatResult
   } catch {
     throw new Error('Infomaniak returned invalid JSON')
   }

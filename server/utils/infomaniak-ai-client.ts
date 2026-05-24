@@ -71,7 +71,14 @@ export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptio
   const config = useRuntimeConfig()
   const token = config.infomaniakAiToken
   const productId = config.infomaniakAiProductId
-  const model = config.infomaniakAiModel || 'mistral24b'
+  // Fallback chain : per-tool env var → global env var → Mistral Small 4 (v2).
+  // ATTENTION : ce wrapper appelle maintenant l'endpoint v2 (catalogue HF complet).
+  // Si la global env var est restée sur un slug v1 (ex. 'mistral24b'), il faut
+  // soit définir NUXT_INFOMANIAK_AI_MODEL_COMPTABLE avec un slug v2, soit
+  // mettre à jour NUXT_INFOMANIAK_AI_MODEL avec un slug v2.
+  const model = (config as { infomaniakAiModelComptable?: string }).infomaniakAiModelComptable
+    || config.infomaniakAiModel
+    || 'mistralai/Mistral-Small-4-119B-2603'
 
   if (!token || !productId) {
     throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
@@ -79,7 +86,9 @@ export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptio
 
   const userMessage = `Date d'aujourd'hui : ${currentDateISO}\nÉcriture : "${text}"`
 
-  const response = await fetch(`https://api.infomaniak.com/1/ai/${productId}/openai/chat/completions`, {
+  // v2 endpoint pour accepter les slugs HuggingFace modernes.
+  // Cf. docs/infomaniak-models.md pour le mapping v1 → v2.
+  const response = await fetch(`https://api.infomaniak.com/2/ai/${productId}/openai/v1/chat/completions`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -129,8 +138,15 @@ export async function callInfomaniakChat({ text, currentDateISO }: ChatCallOptio
   const content = data.choices?.[0]?.message?.content
   if (!content) throw new Error('Infomaniak returned no content')
 
+  // Strip markdown wrapper que certains modèles (Mistral, Llama) ajoutent
+  // malgré response_format.
+  const stripped = content
+    .replace(/^\s*```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim()
+
   try {
-    return JSON.parse(content)
+    return JSON.parse(stripped)
   } catch {
     throw new Error('Infomaniak returned invalid JSON')
   }
