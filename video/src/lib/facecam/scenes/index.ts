@@ -22,6 +22,11 @@ import { BrainEmptying } from "./BrainEmptying";
 import { AIComparison } from "./AIComparison";
 import { ClockTicking } from "./ClockTicking";
 import { IdeaToKeyboard } from "./IdeaToKeyboard";
+import { FakeAIChatScene } from "./FakeAIChatScene";
+import { SlamPayoff } from "./SlamPayoff";
+import { PillarsBuild } from "./PillarsBuild";
+import { PillarsStress } from "./PillarsStress";
+import { ToolReplayScene } from "./ToolReplayScene";
 
 export const SCENES: Record<string, SceneComponent> = {
   KickerOpening,
@@ -42,4 +47,9 @@ export const SCENES: Record<string, SceneComponent> = {
   AIComparison,
   ClockTicking,
   IdeaToKeyboard,
+  FakeAIChatScene,
+  SlamPayoff,
+  PillarsBuild,
+  PillarsStress,
+  ToolReplayScene,
 };
