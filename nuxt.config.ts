@@ -112,6 +112,13 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
+    vercel: {
+      functions: {
+        'api/generateur-processus-bpmn/generate': {
+          maxDuration: 60,
+        },
+      },
+    },
     prerender: {
       crawlLinks: true,
       routes: [

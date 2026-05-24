@@ -94,7 +94,20 @@ export default defineEventHandler(async (event) => {
     try {
       chatResult = await callBpmnGeneratorChat({ description: sanitized })
     } catch (firstErr) {
-      console.warn('[bpmn-generator/generate] first attempt failed, retrying at temp 0.1:', firstErr instanceof Error ? firstErr.message : firstErr)
+      const errMsg = firstErr instanceof Error ? firstErr.message : String(firstErr)
+      // Skip retry if the first attempt was a timeout — retry would just time out
+      // again and burn 45s for nothing, potentially exceeding Vercel's 60s cap.
+      if (errMsg.toLowerCase().includes('timeout')) {
+        console.error('[bpmn-generator/generate] timeout, not retrying:', errMsg)
+        setResponseStatus(event, 502)
+        await captureBpmnServerEvent({
+          event: 'bpmn_generator_api_error',
+          properties: { error_type: 'ai_timeout', duration_ms: Date.now() - start },
+          distinctId,
+        })
+        return { error: 'ai_unreachable' }
+      }
+      console.warn('[bpmn-generator/generate] first attempt failed, retrying at temp 0.1:', errMsg)
       retryUsed = true
       chatResult = await callBpmnGeneratorChat({ description: sanitized, temperature: 0.1 })
     }

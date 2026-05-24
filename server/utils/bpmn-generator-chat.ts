@@ -156,7 +156,11 @@ export async function callBpmnGeneratorChat({ description, temperature = 0.2 }: 
     throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
   }
 
-  const ABORT_MS = 25_000
+  // Timeout côté client pour l'appel Infomaniak. mistral24b est lent sur des
+  // prompts BPMN moyens/complexes (8+ nodes, lanes multiples) — il faut au moins
+  // 40-45s. On est sous la limite Vercel Pro (60s/function) avec marge.
+  // Si on retry, ça peut dépasser 60s : on désactive le retry sur timeout.
+  const ABORT_MS = 45_000
   const controller = new AbortController()
   const abortTimeout = setTimeout(() => controller.abort(), ABORT_MS)
 
