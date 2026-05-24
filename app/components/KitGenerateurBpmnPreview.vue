@@ -138,10 +138,11 @@ const stepList = computed(() => {
         @click="onBpmnIoClick"
       >
         Éditer dans bpmn.io ↗
+        <span v-if="bpmnIoState === 'opened'" class="btn-tick">✓</span>
       </a>
     </div>
-    <p v-if="bpmnIoState === 'opened'" class="bpmn-io-hint">
-      Le fichier .bpmn vient d'être téléchargé. Dans l'onglet bpmn.io qui s'ouvre, fais Cmd+O (ou Ctrl+O sur Windows) et sélectionne le fichier téléchargé. bpmn.io n'accepte pas le copier-coller de XML, seulement les fichiers .bpmn.
+    <p class="bpmn-io-hint always-visible">
+      <strong>Comment ça marche :</strong> au clic, on télécharge ton fichier <code>.bpmn</code> et on ouvre bpmn.io dans un nouvel onglet. Sur bpmn.io, clique sur l'icône en forme de <strong>dossier</strong> (en bas à gauche) pour ouvrir le fichier qui vient d'être téléchargé. bpmn.io ne supporte pas le coller de XML, uniquement l'import de fichiers <code>.bpmn</code>.
     </p>
 
     <details class="bpmn-xml-raw" @toggle="(e) => showXml = (e.target as HTMLDetailsElement).open">
@@ -223,9 +224,33 @@ const stepList = computed(() => {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--color-muted);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 .bpmn-io-hint.warn { color: var(--color-accent); }
+.bpmn-io-hint code {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  padding: 0.05rem 0.35rem;
+  border-radius: 2px;
+  font-size: 0.95em;
+}
+.bpmn-io-hint strong { color: var(--color-text); font-weight: 600; }
+.bpmn-io-hint.always-visible {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 0.8rem;
+  margin-top: 1rem;
+}
+.btn-tick {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: var(--color-accent);
+  font-weight: bold;
+  animation: tick-pop 0.3s ease-out;
+}
+@keyframes tick-pop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 .bpmn-xml-raw { margin-top: 1.5rem; }
 .bpmn-xml-raw summary {
   font-family: var(--font-mono);
