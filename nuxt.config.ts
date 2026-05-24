@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     infomaniakAiToken: '',
     infomaniakAiProductId: '',
     infomaniakAiModel: 'mistral24b',
+    infomaniakAiModelBpmn: '',  // override BPMN-only ; vide → fallback sur infomaniakAiModel
     generateurEcritureEnabled: 'true',
     posthogServerKey: '',
     public: {

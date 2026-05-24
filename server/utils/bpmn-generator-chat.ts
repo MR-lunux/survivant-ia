@@ -150,7 +150,12 @@ export async function callBpmnGeneratorChat({ description, temperature = 0.2 }: 
   const config = useRuntimeConfig()
   const token = config.infomaniakAiToken
   const productId = config.infomaniakAiProductId
-  const model = config.infomaniakAiModel || 'mistral24b'
+  // Fallback chain : NUXT_INFOMANIAK_AI_MODEL_BPMN → NUXT_INFOMANIAK_AI_MODEL → 'mistral24b'
+  // Permet d'override le modèle pour le BPMN (qui demande output JSON plus long)
+  // sans toucher les autres outils.
+  const model = (config as { infomaniakAiModelBpmn?: string }).infomaniakAiModelBpmn
+    || config.infomaniakAiModel
+    || 'mistral24b'
 
   if (!token || !productId) {
     throw new Error('Infomaniak AI configuration missing (NUXT_INFOMANIAK_AI_TOKEN, NUXT_INFOMANIAK_AI_PRODUCT_ID)')
