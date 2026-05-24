@@ -26,6 +26,11 @@ export const SCENE_NAMES = [
   "AIComparison",
   "ClockTicking",
   "IdeaToKeyboard",
+  "FakeAIChatScene",
+  "SlamPayoff",
+  "PillarsBuild",
+  "PillarsStress",
+  "ToolReplayScene",
 ] as const;
 
 export const TimelineEventSchema = z

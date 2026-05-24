@@ -52,3 +52,27 @@ describe("FaceCamTimelineSchema", () => {
     expect(() => FaceCamTimelineSchema.parse(ok)).not.toThrow();
   });
 });
+
+describe("prompt-rush new scenes", () => {
+  const base = {
+    episodeId: "prompt-rush",
+    inputAspect: "9:16" as const,
+    cropAnchor: "top" as const,
+    cuts: [],
+    totalDurationSec: 122,
+  };
+
+  it.each([
+    ["FakeAIChatScene", { mode: "glitch", promptText: "x", outputLines: [] }],
+    ["SlamPayoff", { lines: ["c'est de la"], accentWord: "TIENNE" }],
+    ["PillarsBuild", { visiblePillars: 3, highlight: 3 }],
+    ["PillarsStress", { phase: "overload" }],
+    ["ToolReplayScene", { phase: "typing" }],
+  ])("accepts scene %s", (scene, props) => {
+    const timeline = {
+      ...base,
+      events: [{ tStart: 0, tEnd: 5, scene, props }],
+    };
+    expect(() => FaceCamTimelineSchema.parse(timeline)).not.toThrow();
+  });
+});
