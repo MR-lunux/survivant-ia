@@ -176,12 +176,35 @@ const stepList = computed(() => {
 .bpmn-preview { margin-top: 2rem; }
 .bpmn-canvas {
   border: 1px solid var(--color-rule);
-  background: var(--color-surface);
-  padding: 1rem;
+  background: #ffffff;
+  padding: 1.5rem;
   overflow-x: auto;
   min-height: 300px;
 }
-.bpmn-svg-wrap :deep(svg) { max-width: 100%; height: auto; }
+.bpmn-svg-wrap :deep(svg) {
+  max-width: 100%;
+  height: auto;
+  background: #ffffff;
+}
+/* Force white fill on lane shapes (default bpmn-js renders them grey-ish) */
+.bpmn-svg-wrap :deep(g[data-element-id^="Lane_"] .djs-visual > rect),
+.bpmn-svg-wrap :deep(g[data-element-id^="Lane_"] .djs-visual > polygon) {
+  fill: #ffffff !important;
+}
+/* Lane label text in dark color for readability */
+.bpmn-svg-wrap :deep(g[data-element-id^="Lane_"] .djs-visual > text) {
+  fill: #1a1a1a !important;
+}
+/* Ensure all shape texts are dark (in case theme inheritance bleeds in) */
+.bpmn-svg-wrap :deep(.djs-visual > text) {
+  fill: #1a1a1a;
+}
+/* Strokes for shapes — ensure visibility on white */
+.bpmn-svg-wrap :deep(.djs-visual > rect),
+.bpmn-svg-wrap :deep(.djs-visual > circle),
+.bpmn-svg-wrap :deep(.djs-visual > polygon) {
+  stroke: #2a2a2a;
+}
 .bpmn-status { color: var(--color-muted); font-family: var(--font-mono); font-size: 0.8rem; }
 .bpmn-error { color: var(--color-accent); font-size: 0.9rem; }
 .bpmn-actions {

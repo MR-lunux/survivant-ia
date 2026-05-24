@@ -24,6 +24,37 @@ interface ApiErrorResponse {
 const state = ref<State>('idle')
 const description = ref('')
 const result = ref<ApiSuccessResponse | null>(null)
+
+const elapsedMs = ref(0)
+let elapsedInterval: ReturnType<typeof setInterval> | null = null
+
+function startElapsedTimer() {
+  elapsedMs.value = 0
+  if (elapsedInterval) clearInterval(elapsedInterval)
+  const start = Date.now()
+  elapsedInterval = setInterval(() => {
+    elapsedMs.value = Date.now() - start
+  }, 200)
+}
+
+function stopElapsedTimer() {
+  if (elapsedInterval) {
+    clearInterval(elapsedInterval)
+    elapsedInterval = null
+  }
+}
+
+onBeforeUnmount(() => { stopElapsedTimer() })
+
+const loadingPhase = computed(() => {
+  const s = elapsedMs.value / 1000
+  if (s < 3) return "Analyse de ta description…"
+  if (s < 10) return "Structuration du processus…"
+  if (s < 22) return "Génération du diagramme…"
+  return "Presque… le modèle finalise."
+})
+
+const elapsedSec = computed(() => Math.floor(elapsedMs.value / 1000))
 const errorMsg = ref<string | null>(null)
 const voiceRecording = ref(false)
 
@@ -51,6 +82,7 @@ async function onSubmit() {
   })
 
   state.value = 'loading'
+  startElapsedTimer()
   errorMsg.value = null
 
   try {
@@ -71,6 +103,7 @@ async function onSubmit() {
     }
 
     result.value = response
+    stopElapsedTimer()
     state.value = 'success'
   } catch (err) {
     const httpErr = err as { data?: ApiErrorResponse }
@@ -78,6 +111,7 @@ async function onSubmit() {
     if (body && 'error' in body) {
       handleApiError(body)
     } else {
+      stopElapsedTimer()
       errorMsg.value = "La génération a échoué. Réessaie dans une minute."
       capture('bpmn_generator_api_error', { kit_id: 'generateur-processus-bpmn', error_type: 'network' })
       state.value = 'error'
@@ -86,6 +120,7 @@ async function onSubmit() {
 }
 
 function handleApiError(body: ApiErrorResponse) {
+  stopElapsedTimer()
   switch (body.error) {
     case 'rate_limit':
       errorMsg.value = 'Tu as atteint la limite de 20 générations par jour. Reviens demain — ou inscris-toi à La Fréquence en bas de page.'; break
@@ -148,7 +183,12 @@ function onReset() {
         :disabled="state === 'loading' || description.trim().length === 0 || voiceRecording"
         @click="onSubmit"
       >
-        {{ state === 'loading' ? 'Génération en cours…' : 'Générer le diagramme' }}
+        <template v-if="state === 'loading'">
+            {{ loadingPhase }} <span class="elapsed-badge">{{ elapsedSec }}s</span>
+          </template>
+          <template v-else>
+            Générer le diagramme
+          </template>
       </button>
 
       <p v-if="errorMsg" class="form-error">{{ errorMsg }}</p>
@@ -212,6 +252,16 @@ textarea:focus { outline: 1px solid var(--color-accent); border-color: var(--col
   cursor: pointer;
 }
 .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.elapsed-badge {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
 .btn-secondary {
   margin-top: 1.5rem;
   font-family: var(--font-mono);
