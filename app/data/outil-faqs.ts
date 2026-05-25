@@ -24,7 +24,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: "Quel modèle d'IA fait le travail ?",
-      answer: 'Un modèle Mistral via Infomaniak AI Services, hébergé en Suisse. Pourquoi un Mistral : modèle ouvert, bon en français, solide sur le JSON structuré. Pas du GPT-4 ou Claude. Pour structurer une ligne comptable, pas besoin de la puissance d\'un frontier model.',
+      answer: "Mistral Small 4 (119 milliards de paramètres) via Infomaniak AI Tools, hébergé en Suisse. Modèle français, ouvert, qui gère bien le JSON structuré. Pas de GPT-4 ni Claude derrière. Pour structurer une ligne comptable, pas besoin d'un frontier model. Et ça reste en Suisse.",
     },
     {
       question: 'Combien coûte un appel à Survivant-IA ?',
@@ -36,7 +36,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: 'Comment ça marche techniquement ?',
-      answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Service à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Rien n'est gardé côté serveur. Le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
+      answer: "Flow texte : ton navigateur → survivant-ia.ch (proxy léger côté serveur) → Infomaniak AI Tools à Genève → réponse JSON structurée. Flow voix : ton navigateur → survivant-ia.ch → Infomaniak Whisper V3 (batch asynchrone) → polling toutes les ~800ms jusqu'à transcription complète → la transcription devient l'input du parsing comptable. Rien n'est gardé côté serveur. Le journal vit en localStorage de ton navigateur (tu peux tout effacer via le bouton « Nouveau journal »).",
     },
   ],
   'generateur-processus-bpmn': [
@@ -46,7 +46,11 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: "Le XML est-il du vrai BPMN 2.0 standard ?",
-      answer: "Oui. Le diagramme est généré via les librairies officielles bpmn-moddle et bpmn-auto-layout de l'équipe bpmn.io. Le fichier .bpmn s'ouvre sans erreur dans Camunda Modeler, Signavio, BIC ou tout outil compatible BPMN 2.0.",
+      answer: "Oui. Le XML est sérialisé via bpmn-moddle, la librairie officielle de bpmn.io. Le fichier .bpmn s'ouvre sans erreur dans Camunda Modeler, Signavio, BIC ou tout outil compatible BPMN 2.0.",
+    },
+    {
+      question: "Quelle IA est utilisée derrière ?",
+      answer: "Mistral Small 4 (119 milliards de paramètres) via Infomaniak AI Tools, hébergé en Suisse. Même setup pour tous nos outils. Aucun appel vers OpenAI, Anthropic ou Google. Ton processus reste en Suisse.",
     },
     {
       question: "Mes données sont-elles partagées ou conservées ?",
@@ -72,7 +76,7 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
     },
     {
       question: 'Quelle IA est utilisée derrière ?',
-      answer: 'Un modèle Mistral via Infomaniak AI Services, hébergé en Suisse. Même setup que pour nos autres outils. On ne route rien vers OpenAI ou Anthropic. Ton prompt ne traverse pas l\'Atlantique.',
+      answer: "Mistral Small 4 (119 milliards de paramètres) via Infomaniak AI Tools, hébergé en Suisse. Même setup pour tous nos outils. Aucun appel vers OpenAI, Anthropic ou Google. Ton prompt ne traverse pas l'Atlantique.",
     },
     {
       question: 'Pourquoi 6 champs et pas plus / pas moins ?',
