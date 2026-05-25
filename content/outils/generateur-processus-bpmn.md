@@ -2,7 +2,7 @@
 code: generateur-processus-bpmn
 kind: app
 title: Générateur de processus BPMN
-subtitle: "Dicte ou écris ton processus métier. L'IA te livre un BPMN 2.0 prêt à éditer."
+subtitle: "Écris ton processus métier. L'IA te livre un BPMN 2.0 prêt à éditer."
 description: "Outil gratuit pour cartographier rapidement un processus métier en BPMN 2.0. Décris ton flux (onboarding, achat, conformité), l'IA structure le diagramme, tu l'ouvres dans bpmn.io pour l'ajuster."
 kicker: OUTIL · GÉNÉRATEUR DE PROCESSUS BPMN
 parentArticleSlug:

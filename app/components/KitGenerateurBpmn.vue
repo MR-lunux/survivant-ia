@@ -168,12 +168,16 @@ function onReset() {
         placeholder="Exemple : le demandeur saisit une demande d'achat. Le responsable la valide ou la refuse. Si validée, le bon de commande est émis. Sinon, le demandeur reçoit le refus."
       ></textarea>
       <div class="form-meta">
-        <KitVoiceInput
+        <!-- KitVoiceInput temporairement caché tant que la dictée n'a pas été
+             testée end-to-end sur ce tool. Réactiver en décommentant + en
+             remettant "Dicte ou écris" dans la copy (content + subtitle). -->
+        <!-- <KitVoiceInput
           upload-endpoint="/api/generateur-processus-bpmn/transcribe"
           status-endpoint="/api/generateur-processus-bpmn/transcribe-status"
           @transcribed="onVoiceTranscribed"
           @failed="(reason) => errorMsg = `Dictée échouée (${reason})`"
-        />
+        /> -->
+        <span></span>
         <span class="char-count" :class="charClass">{{ charCount }} / {{ MAX_CHARS }}</span>
       </div>
 
