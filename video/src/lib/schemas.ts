@@ -31,6 +31,10 @@ export const SCENE_NAMES = [
   "PillarsBuild",
   "PillarsStress",
   "ToolReplayScene",
+  "HookGlitch",
+  "LevelUp",
+  "ProblemBranches",
+  "NegativeVerdict",
 ] as const;
 
 export const TimelineEventSchema = z

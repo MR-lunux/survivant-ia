@@ -9,17 +9,18 @@ type Props = {
   mode: "glitch" | "spam" | "neutral";
   /** When true (spam mode), spawn drifting emojis on top of the output. */
   emojiBurst?: boolean;
+  /** Chars per second for auto-typing the prompt. Default 24. */
+  typeSpeed?: number;
 };
 
-export const FakeChatFrame: React.FC<Props> = ({ promptText, outputLines, mode, emojiBurst = false }) => {
+export const FakeChatFrame: React.FC<Props> = ({ promptText, outputLines, mode, emojiBurst = false, typeSpeed = 24 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Prompt types in over first ~1.5s
-  const typedPrompt = typeSubstring(promptText, frame, 24, fps);
+  const typedPrompt = typeSubstring(promptText, frame, typeSpeed, fps);
 
   // Output appears line-by-line after the prompt finishes typing
-  const promptDoneFrame = Math.ceil((promptText.length / 24) * fps);
+  const promptDoneFrame = Math.ceil((promptText.length / typeSpeed) * fps);
   const outputStartFrame = promptDoneFrame + 8;
   const linesShown = Math.max(
     0,
@@ -30,7 +31,7 @@ export const FakeChatFrame: React.FC<Props> = ({ promptText, outputLines, mode, 
   const glitchOffset = mode === "glitch" ? Math.sin(frame * 1.2) * 3 : 0;
 
   return (
-    <AbsoluteFill style={{ padding: 60, justifyContent: "flex-start" }}>
+    <AbsoluteFill style={{ padding: "240px 60px 40px 60px", justifyContent: "flex-start" }}>
       {/* Outer chat frame */}
       <div style={{
         border: `1px solid ${COLORS.hairlineStrong}`,

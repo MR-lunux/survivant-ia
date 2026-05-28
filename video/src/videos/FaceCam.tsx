@@ -1,4 +1,4 @@
-import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
+import { AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
 import { SCENES } from "../lib/facecam/scenes";
 import { FaceCamZone, type FaceTrackPoint } from "../lib/facecam/face-cam-zone";
 import { HairlinePulse } from "../lib/facecam/hairline-pulse";
@@ -29,6 +29,16 @@ export const FaceCam: React.FC<Props> = ({
   const { fps, width, height } = useVideoConfig();
   const motionHeight = height / 2; // 960
   const faceHeight = height / 2;
+
+  // Hide the split hairline whenever a scene paints over the full canvas
+  // (SlamPayoff, or ToolReplayScene phase=output) — the bar makes no sense there.
+  const frame = useCurrentFrame();
+  const currentTime = frame / fps;
+  const activeEvent = events.find((e) => currentTime >= e.tStart && currentTime < e.tEnd);
+  const phase = activeEvent?.props?.phase as string | undefined;
+  const isFullScreenScene =
+    activeEvent?.scene === "SlamPayoff" ||
+    (activeEvent?.scene === "ToolReplayScene" && phase === "output");
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#0F0F0E" }}>
@@ -70,9 +80,8 @@ export const FaceCam: React.FC<Props> = ({
       </AbsoluteFill>
 
       {/* Hairline separator: rendered LAST so it sits on top of the face cam zone.
-          Otherwise the face cam wrapper (top: motionHeight) starts at y=motionHeight
-          and visually covers the 1px line at that exact y. */}
-      <HairlinePulse topPx={motionHeight} />
+          Hidden during full-screen overlay scenes (SlamPayoff, ToolReplayScene output). */}
+      {!isFullScreenScene && <HairlinePulse topPx={motionHeight} />}
 
       {/* Burned-in captions for silent viewing. Positioned in the top of the face
           cam zone so they don't conflict with TikTok's bottom UI. */}

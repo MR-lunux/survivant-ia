@@ -27,6 +27,10 @@ import { SlamPayoff } from "./SlamPayoff";
 import { PillarsBuild } from "./PillarsBuild";
 import { PillarsStress } from "./PillarsStress";
 import { ToolReplayScene } from "./ToolReplayScene";
+import { HookGlitch } from "./HookGlitch";
+import { LevelUp } from "./LevelUp";
+import { ProblemBranches } from "./ProblemBranches";
+import { NegativeVerdict } from "./NegativeVerdict";
 
 export const SCENES: Record<string, SceneComponent> = {
   KickerOpening,
@@ -52,4 +56,8 @@ export const SCENES: Record<string, SceneComponent> = {
   PillarsBuild,
   PillarsStress,
   ToolReplayScene,
+  HookGlitch,
+  LevelUp,
+  ProblemBranches,
+  NegativeVerdict,
 };

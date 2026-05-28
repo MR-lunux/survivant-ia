@@ -6,6 +6,7 @@ type Props = {
   promptText: string;
   outputLines: string[];
   emojiBurst?: boolean;
+  typeSpeed?: number;
 };
 
 export const FakeAIChatScene: React.FC<SceneCommonProps & { props: Record<string, unknown> }> = ({ props }) => {
@@ -16,6 +17,7 @@ export const FakeAIChatScene: React.FC<SceneCommonProps & { props: Record<string
       outputLines={p.outputLines}
       mode={p.mode}
       emojiBurst={p.emojiBurst ?? false}
+      typeSpeed={p.typeSpeed}
     />
   );
 };
