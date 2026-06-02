@@ -386,7 +386,7 @@ git commit -m "chore(hermes): add Coolify compose reference for Hermes container
 
 - [ ] **13.1 [HUMAN]** Coolify → Projects → New Resource → Docker Compose
 
-- [ ] **13.2 [HUMAN]** Coller le contenu de `coolify/hermes-compose.yaml` (ajusté avec la version pinnée et le compose officiel récupéré en Tâche 11)
+- [ ] **13.2 [HUMAN]** Coller le contenu de `coolify/hermes-compose.yaml` (ajusté avec la version pinnée et le compose officiel récupéré en Tâche 0.6)
 
 - [ ] **13.3 [HUMAN]** Dans l'onglet Environment Variables, coller TOUTES les variables du secrets bag (Tâche 10). Vérifier qu'aucune n'est en clair dans le YAML.
 
@@ -505,9 +505,9 @@ Maintenu automatiquement par Hermes. Ne pas éditer à la main (sera réécrasé
 (vide — Hermes crée les MOC par questions au fur et à mesure)
 ```
 
-- [ ] **17.2 [AGENT]** Créer `wiki/_provenance.md` :
+- [ ] **17.2 [AGENT]** Créer `wiki/_provenance.md` avec ce contenu (utiliser fence `~~~` à l'outer pour ne pas casser le code-block interne) :
 
-```markdown
+~~~markdown
 ---
 maintainer: hermes
 type: wiki-provenance
@@ -521,7 +521,7 @@ Traçabilité source → atomic notes. Maintenu par `ingest-article`.
 
 Une entrée par article ingéré :
 
-```
+```yaml
 - source: content/rapports/<slug>.md
   ingested_at: <ISO timestamp>
   notes:
@@ -529,8 +529,8 @@ Une entrée par article ingéré :
     - wiki/claims/<slug>.md
 ```
 
-(vide — bootstrap pending Tâche 26)
-```
+(vide — bootstrap pending Tâche 27-29)
+~~~
 
 ## Tâche 18 — `hermes-models.yaml`
 
@@ -1226,15 +1226,22 @@ Coût : 0.018 CHF.
 [Voir wiki/_index.md]
 ```
 
-- [ ] **27.3 [VERIFY]** Sur le Mac :
+- [ ] **27.3 [VERIFY]** Sur le Mac, regarder ce que Hermes a poussé (sans merger — le merge formel est en Tâche 31) :
 
 ```bash
 cd /Users/mathieu/Documents/survivor
-git pull origin hermes/auto 2>/dev/null || git fetch origin hermes/auto
-ls wiki/concepts/ wiki/claims/ wiki/examples/
+git fetch origin hermes/auto
+git log --oneline origin/hermes/auto -5
+git show origin/hermes/auto --stat
 ```
 
-Attendu : 4 fichiers `.md` répartis selon types.
+Attendu : un commit récent par Hermes touchant ~5 fichiers dans `wiki/concepts/`, `wiki/claims/`, `wiki/examples/` + `wiki/_provenance.md` + `wiki/_index.md`.
+
+Pour inspecter le contenu sans merger :
+
+```bash
+git show origin/hermes/auto:wiki/concepts/<nom-fichier>.md
+```
 
 - [ ] **27.4 [HUMAN]** Spot-check 1 note : ouvre-la, vérifie :
   - Citation verbatim correcte (section "Source brute")
