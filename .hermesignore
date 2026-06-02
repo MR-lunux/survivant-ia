@@ -1,0 +1,21 @@
+# Code applicatif (Hermes consomme du contenu, pas du code)
+app/
+server/
+video/src/
+node_modules/
+.nuxt/
+.output/
+.claude/
+coolify/
+
+# Secrets, env, builds
+.env*
+*.log
+**/dist/
+**/build/
+
+# Mémoire Hermes runtime (gérée séparément)
+.hermes/runtime/
+
+# Fichiers OS
+.DS_Store
