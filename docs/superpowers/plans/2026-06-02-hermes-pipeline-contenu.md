@@ -47,7 +47,7 @@
 ### À modifier
 | Fichier | Pourquoi |
 |---|---|
-| `docs/linkedin/published/2026-05-30-bpmn-ia/post.md` | Backfill optionnel depuis le carousel (Tâche 16) |
+_(Pas de fichier existant modifié en scope MVP. Backfill optionnel du post BPMN listé en Annexe B comme différé post-J21.)_
 
 ### À ne PAS toucher
 - `app/`, `server/`, `video/`, `content/rapports/`, `content/outils/`, `nuxt.config.ts`, etc. — Hermes consomme, ne modifie pas.
@@ -81,6 +81,26 @@ Ouvrir Telegram, tester un message. Si Telegram n'est pas installé, l'installer
 - [ ] **0.5 [HUMAN]** Préparer un gestionnaire de mots de passe ouvert
 
 Pour stocker les secrets générés en Phase 1.
+
+- [ ] **0.6 [HUMAN]** **GATE BLOQUANT — Vérifier que Hermes Agent self-hosted existe et identifier la version + env vars exacts**
+
+Le compose YAML en Tâche 12.2 est un **template indicatif basé sur la recherche brainstorming**. Les noms d'env vars (`HERMES_LLM_PROVIDER`, `HERMES_WORKSPACE_GIT_URL`, etc.) sont SUPPOSÉS, pas vérifiés. Avant de continuer, valider :
+
+1. Aller sur le repo officiel : `https://github.com/NousResearch/hermes-agent` (ou nom à jour)
+2. Confirmer que c'est bien le produit decrit dans le spec (self-hosted, MIT, Telegram + Web UI, custom OpenAI-compatible endpoint)
+3. Identifier la **version stable courante** à pinner (PAS `latest`) — ex `v2.3.1`
+4. Récupérer le **`docker-compose.yaml` officiel** (ou Dockerfile + run instructions)
+5. Identifier les **vrais noms d'env vars** pour : LLM endpoint custom, Telegram token + whitelist, Web UI auth, workspace Git, skills path, prompts path, models config, rate limits, budget cap, memory volume
+6. Documenter dans `hermes/install-checklist.md` les vraies valeurs (annexe "Env vars officiels Hermes vX.Y.Z")
+
+**Si le produit n'existe pas tel que décrit dans le spec, ARRÊTER ici et reprendre le design.** Ne pas tenter Phase 2 avec le compose template tel quel.
+
+- [ ] **0.7 [VERIFY]** Confirmer dans Coolify que la version d'image Hermes choisie est pullable :
+
+```bash
+docker pull <image:version exact identifié en 0.6>
+```
+Attendu : "Pull complete" sans erreur. Si 404 → mauvaise image, retour 0.6.
 
 ---
 
@@ -277,13 +297,14 @@ HERMES_WEB_UI_PASSWORD=...
 
 Hermes container up, Web UI accessible, Telegram bot répondant à `/start`.
 
-## Tâche 11 — Fetch la dernière doc Hermes Coolify
+## Tâche 11 — (Validation Hermes déjà faite en Tâche 0.6)
 
-- [ ] **11.1 [HUMAN]** Aller sur `https://hermes-agent.nousresearch.com/docs/deployment` (ou équivalent au moment de l'install) — récupérer le `docker-compose.yaml` officiel + liste à jour des env vars supportées.
+Cette tâche est absorbée par la Tâche 0.6 (gate bloquant Phase 0). À ce stade, tu dois avoir :
+- Version Hermes pinnée (ex `v2.3.1`)
+- Compose officiel récupéré
+- Vraie liste d'env vars notée dans `hermes/install-checklist.md`
 
-- [ ] **11.2 [HUMAN]** Lire spécifiquement la section "Self-hosting" pour confirmer la version stable à pinner (PAS `latest`).
-
-- [ ] **11.3 [HUMAN]** Noter la version exacte (ex : `nousresearch/hermes-agent:v2.3.1`).
+- [ ] **11.1 [VERIFY]** Confirmer que les éléments ci-dessus sont prêts. Sinon, retourner à Tâche 0.6.
 
 ## Tâche 12 — Compose spec dans le repo
 
@@ -293,59 +314,58 @@ Hermes container up, Web UI accessible, Telegram bot répondant à `/start`.
 mkdir -p /Users/mathieu/Documents/survivor/coolify
 ```
 
-- [ ] **12.2 [AGENT]** Créer `coolify/hermes-compose.yaml` (template référence, adapter au docker-compose officiel récupéré en 11.1) :
+- [ ] **12.2 [AGENT]** Créer `coolify/hermes-compose.yaml` à partir du compose officiel récupéré en Tâche 0.6.
+
+⚠️ **NE PAS COPIER VERBATIM LE TEMPLATE CI-DESSOUS.** Il sert uniquement d'aide-mémoire pour mapper les concepts ("ici met l'env var qui correspond à X"). Les vrais noms d'env vars viennent de la doc officielle Hermes vérifiée en Tâche 0.6.
 
 ```yaml
-# Référence pour Coolify. Adapter avec le compose officiel Hermes au moment de l'install.
+# === TEMPLATE INDICATIF — REMPLACER LES NOMS D'ENV VARS PAR LES VRAIS DE LA DOC HERMES vX.Y.Z ===
 services:
   hermes:
-    image: ghcr.io/nousresearch/hermes-agent:vX.Y.Z  # version pinnée Tâche 11
+    image: <image:version exact de Tâche 0.6>
     container_name: hermes-survivant
     restart: unless-stopped
     environment:
-      # LLM provider (Custom API OpenAI-compatible)
-      HERMES_LLM_PROVIDER: custom
-      HERMES_LLM_BASE_URL: ${INFOMANIAK_AI_ENDPOINT}
-      HERMES_LLM_API_KEY: ${INFOMANIAK_AI_TOKEN}
-      # Telegram
-      HERMES_TELEGRAM_TOKEN: ${TELEGRAM_BOT_TOKEN}
-      HERMES_TELEGRAM_ALLOWED_USERS: ${TELEGRAM_OWNER_USER_ID}
-      # Web UI
-      HERMES_WEB_UI_ENABLED: "true"
-      HERMES_WEB_UI_AUTH_USER: ${HERMES_WEB_UI_USER}
-      HERMES_WEB_UI_AUTH_PASSWORD: ${HERMES_WEB_UI_PASSWORD}
-      # Workspace (clone Git)
-      HERMES_WORKSPACE_PATH: /workspace
-      HERMES_WORKSPACE_GIT_URL: ${GIT_REPO_URL}
-      HERMES_WORKSPACE_GIT_SSH_KEY: ${GIT_DEPLOY_KEY}
-      # Skills config
-      HERMES_SKILLS_PATH: /workspace/.hermes/skills
-      HERMES_PROMPTS_PATH: /workspace/.hermes/prompts
-      HERMES_MODELS_CONFIG: /workspace/.hermes/hermes-models.yaml
-      # Limits
-      HERMES_RATE_LIMIT_PER_HOUR: 20
-      HERMES_RATE_LIMIT_PER_DAY: 50
-      HERMES_BUDGET_MONTHLY_CHF: 50
-      # Memory
-      HERMES_MEMORY_PATH: /hermes-memory
-      # PostHog
+      # === Timezone obligatoire pour les crons matinaux (6h30 Geneva) ===
+      TZ: Europe/Zurich
+
+      # === LLM provider (Custom API OpenAI-compatible vers Infomaniak) ===
+      # Mapper aux vrais noms Hermes (probablement OPENAI_API_BASE / OPENAI_API_KEY ou propres à Hermes)
+      <ENV_LLM_BASE_URL>: ${INFOMANIAK_AI_ENDPOINT}
+      <ENV_LLM_API_KEY>: ${INFOMANIAK_AI_TOKEN}
+
+      # === Telegram ===
+      <ENV_TELEGRAM_TOKEN>: ${TELEGRAM_BOT_TOKEN}
+      <ENV_TELEGRAM_ALLOWED_USERS>: ${TELEGRAM_OWNER_USER_ID}
+
+      # === Web UI ===
+      <ENV_WEB_UI_ENABLED>: "true"
+      <ENV_WEB_UI_AUTH_USER>: ${HERMES_WEB_UI_USER}
+      <ENV_WEB_UI_AUTH_PASSWORD>: ${HERMES_WEB_UI_PASSWORD}
+
+      # === Workspace (clone Git pour skills/prompts/wiki/) ===
+      <ENV_WORKSPACE_GIT_URL>: ${GIT_REPO_URL}
+      <ENV_WORKSPACE_GIT_SSH_KEY>: ${GIT_DEPLOY_KEY}
+
+      # === Skills config (si Hermes supporte la convention) ===
+      <ENV_SKILLS_PATH>: /workspace/.hermes/skills
+      <ENV_PROMPTS_PATH>: /workspace/.hermes/prompts
+      <ENV_MODELS_CONFIG>: /workspace/.hermes/hermes-models.yaml
+
+      # === Intégrations optionnelles ===
       POSTHOG_API_KEY: ${POSTHOG_API_KEY}
       POSTHOG_HOST: ${POSTHOG_HOST}
       POSTHOG_PROJECT_ID: ${POSTHOG_PROJECT_ID}
-      # Brevo
       BREVO_API_KEY: ${BREVO_API_KEY}
-      # Google Alerts
       GOOGLE_ALERTS_FEED_URLS: ${GOOGLE_ALERTS_FEED_URLS}
+
     volumes:
-      - hermes-memory:/hermes-memory
+      - hermes-memory:/hermes-memory     # ou path natif Hermes selon doc 0.6
       - hermes-workspace:/workspace
-    # Traefik labels — Coolify ajoute automatiquement, juste pour référence
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.hermes.rule=Host(`hermes.survivant-ia.ch`)"
-      - "traefik.http.routers.hermes.tls.certresolver=letsencrypt"
-      - "traefik.http.middlewares.hermes-auth.basicauth.users=mathieu:$$apr1$$..."  # à générer
-      - "traefik.http.routers.hermes.middlewares=hermes-auth"
+
+    # === PAS de labels Traefik ici ===
+    # Coolify gère Traefik + Let's Encrypt + BasicAuth via son UI (Tâche 13.4).
+    # Ne pas mélanger compose-labels et Coolify-managed Traefik.
 
 volumes:
   hermes-memory:
@@ -370,7 +390,10 @@ git commit -m "chore(hermes): add Coolify compose reference for Hermes container
 
 - [ ] **13.3 [HUMAN]** Dans l'onglet Environment Variables, coller TOUTES les variables du secrets bag (Tâche 10). Vérifier qu'aucune n'est en clair dans le YAML.
 
-- [ ] **13.4 [HUMAN]** Configurer le domaine dans Coolify : `https://hermes.survivant-ia.ch`. Coolify gère Traefik + Let's Encrypt automatiquement.
+- [ ] **13.4 [HUMAN]** Configurer dans Coolify :
+  - Domaine : `https://hermes.survivant-ia.ch` (Coolify gère Traefik + Let's Encrypt auto)
+  - **BasicAuth middleware** (via UI Coolify, pas via labels compose) : user `mathieu`, password = `${HERMES_WEB_UI_PASSWORD}` (générer le hash bcrypt/apr1 si Coolify le demande)
+  - (Optionnel mais reco) **IP allowlist middleware** : ton IP fixe ou plage VPN
 
 - [ ] **13.5 [HUMAN]** Déployer.
 
@@ -678,9 +701,16 @@ Je suis un instrument du contenu, pas un éditorialiste autonome.
 
 ## Qui est Mathieu
 
-Voir mémoires Claude Code dans `/Users/mathieu/.claude/projects/.../memory/` (consulter au démarrage si accessible).
-Référence centrale : `docs/charte-voix.md`.
+Sources canoniques **dans le repo** (accessibles depuis le container Hermes) :
+- `docs/charte-voix.md` — charte de voix complète
+- `docs/voice-fingerprint.md` — résumé voix (que je maintiens via lint)
+- `.hermes/prompts/voice-survivant-ia.md` — patterns observés sur posts publiés
+- `content/rapports/*.md` — articles piliers (3 aujourd'hui)
+- `docs/linkedin/published/**/post.md` — corpus voix réel (2 posts texte)
+
 Persona : "Mathieu le Survivant de l'IA" (référence Ken le Survivant).
+
+(Note : les mémoires Claude Code locales sur le Mac de Mathieu — `~/.claude/projects/.../memory/` — ne sont PAS accessibles depuis le container Hermes sur le VPS. Ce qui compte pour moi est dans le repo Git.)
 
 ## Architecture du second cerveau
 
@@ -711,7 +741,7 @@ Persona : "Mathieu le Survivant de l'IA" (référence Ken le Survivant).
 5. Voice-check (humanizer) obligatoire avant livraison de draft. Si fail → je signale, je ne livre pas.
 6. Si redite_risk > 0.7 sur un sujet, j'alerte AVANT de générer.
 7. Si exit criteria atteint, j'alerte et je m'arrête.
-8. Je commit dans `branch hermes/auto`, jamais directement sur `main`.
+8. **Mes commits vont sur la branche `hermes/auto`, jamais directement sur `main`.** (Cette règle s'applique uniquement aux commits que JE génère — Mathieu commit librement sur `main` selon le workflow du repo. Mathieu merge `hermes/auto` → `main` après spot-check.)
 
 ## Exit criteria (je m'arrête et alerte si)
 
@@ -790,7 +820,7 @@ Ingère un article pilier `content/rapports/<slug>.md` avec `status: published` 
 - Titre = phrase complète qui exprime l'idée (ex : `"L'IA n'évacue pas l'expertise, elle l'externalise"`)
 - Section "Source brute" OBLIGATOIRE avec citation verbatim depuis l'article. Si impossible → ne pas écrire la note.
 - Body ≤ 1 écran (Meunier)
-- Wikilinks vers concepts/claims/examples EXISTANTS uniquement
+- Wikilinks vers notes EXISTANTES (dans le wiki) OU notes créées dans CE MÊME batch d'ingest. Jamais inventer une référence vers une note qui n'existe ni dans le wiki ni dans le batch courant.
 
 ## Output
 
@@ -973,10 +1003,11 @@ Lint hebdo du wiki. 4 parties : maintenance technique, audit hallucinations cros
 ## Coût estimé
 ~0.05-0.10 CHF par run.
 
-## TODO d'itération
-- [ ] Première implémentation : focus PART A + PART D (technique + rapport)
-- [ ] Ajouter PART B quand wiki > 20 notes
-- [ ] Ajouter PART C quand premier mois complet de données
+## Notes de calibration (à ajuster pendant l'usage, pas à l'install)
+
+- Tant que le wiki contient < 20 notes, PART B peut sampler les notes existantes même si répétitif (acceptable).
+- PART C check exit criteria devient pleinement signifiant après 1 mois de données.
+- Seuils contamination_rate à ajuster si les premières alertes sont faux positifs systématiques.
 ```
 
 - [ ] **25.2 [AGENT]** Créer `.hermes/skills/draft-from-idea.md` :
@@ -1060,11 +1091,16 @@ Skill central du Push flow. Reçoit une intention de Mathieu (vocal transcrit, t
 
 Par draft : 0.02-0.04 CHF selon canal.
 
-## TODO d'itération
-- [ ] J3 : créer la sous-routine `draft-linkedin` complète (premier vrai test)
-- [ ] J5-J7 : itérer prompt voix selon résultats observation
-- [ ] J15 : ajouter sous-routine carousel
-- [ ] J15+ : intégrer délégation `survivant-tiktok`
+## Sous-routines fonctionnelles dès J3
+
+- `draft-linkedin` : opérationnelle dès commit J3 (Tâche 26). Utilisée en J5 (Tâche 32).
+- `draft-linkedin-carousel` : opérationnelle dès J3. Utilisée d'abord en J17 (Tâche 48).
+- `draft-tiktok` : opérationnelle dès J3 si skill `survivant-tiktok` existe. Utilisée d'abord en J18 (Tâche 49).
+
+## Notes de calibration (pendant usage, pas à l'install)
+
+- Prompt voix sera affiné en J5-J7 selon retours observation (Tâche 36).
+- Mode "annonce-outil" se vérifie d'abord sur un draft réel — si pattern manque, itérer le prompt.
 ```
 
 - [ ] **25.3 [AGENT]** Créer `.hermes/skills/pull-brief.md` :
@@ -1112,11 +1148,13 @@ Skill central du Pull flow. Tourne lundi-samedi à 6h30 Geneva (dimanche silence
 ## Coût estimé
 ~0.015 CHF/jour = ~0.45 CHF/mois
 
-## TODO d'itération
-- [ ] J8 : activer avec seulement les 9 RSS (sans PostHog/Git/Brevo/Google encore)
-- [ ] J9-J14 : observation pure, mesurer ignore_rate, fit voix réel
-- [ ] J15+ : ajouter PostHog/Git/Brevo si signaux internes nécessaires
-- [ ] Ajouter Google News RSS keywords FR quand prompt classification stable
+## Activation progressive (cohérent avec calendrier Phase 6 et 8)
+
+- **J8 (Phase 6)** : activer avec **9 RSS uniquement**. PostHog/Git/Brevo/Google sont décrits dans cette skill mais leur ingestion est *commentée out* dans `.hermes/config/rss-sources.yaml` au démarrage.
+- **J15+ (Phase 8)** : décommenter PostHog/Git/Brevo dans la config si fit voix réel justifie l'ajout (cf. décision en J14, Tâche 46).
+- **J15+** : décommenter Google News RSS keywords FR quand prompt classification est stable (false positive rate acceptable).
+
+⚠️ La skill body est fonctionnelle dès J8 ; la liste de sources actives est juste plus courte au démarrage. Aucune partie du pipeline n'est en TODO.
 ```
 
 ## Tâche 26 — Commit Phase 3
@@ -1166,10 +1204,10 @@ Ingest des 3 articles piliers + init voice-fingerprint. Au démarrage on a un wi
 
 ## Tâche 27 — Ingest article #1
 
-- [ ] **27.1 [HUMAN]** Sur Telegram, envoyer au bot :
+- [ ] **27.1 [HUMAN]** Sur Telegram, envoyer au bot (langage naturel — Hermes route vers la skill `ingest-article` via son LLM, pas via slash-command) :
 
 ```
-/ingest offloading-cognitif-quand-l-ia-pense-a-ta-place
+Ingère l'article content/rapports/offloading-cognitif-quand-l-ia-pense-a-ta-place.md
 ```
 
 - [ ] **27.2 [VERIFY]** Attendre réponse (~30s). Format attendu :
@@ -1210,7 +1248,7 @@ Si problème → reporter à l'itération du prompt (Tâche 36).
 
 - [ ] **28.1 [HUMAN]** Telegram :
 ```
-/ingest 2026-05-08-ia-supprime-inefficience
+Ingère l'article content/rapports/2026-05-08-ia-supprime-inefficience.md
 ```
 
 - [ ] **28.2 [VERIFY]** Cf. 27.2-27.4.
@@ -1219,7 +1257,7 @@ Si problème → reporter à l'itération du prompt (Tâche 36).
 
 - [ ] **29.1 [HUMAN]** Telegram :
 ```
-/ingest 2026-05-21-comment-ecrire-prompt-ameliore-reponses
+Ingère l'article content/rapports/2026-05-21-comment-ecrire-prompt-ameliore-reponses.md
 ```
 
 - [ ] **29.2 [VERIFY]** Cf. 27.2-27.4.
@@ -1231,34 +1269,71 @@ ls wiki/concepts/ wiki/claims/ wiki/examples/ | wc -l
 ```
 Attendu : 10-15 fichiers (≤5 par article × 3 articles).
 
-## Tâche 30 — Init voice-fingerprint
+## Tâche 30 — Init voice-fingerprint (one-shot via Web UI)
 
-- [ ] **30.1 [HUMAN]** Telegram :
-```
-/init-voice-fingerprint
-```
+Pas de skill dédié (par discipline anti-bloat : c'est un one-shot, pas un cron). Exécution adhoc via le Web UI Hermes.
 
-(Si pas de skill dédié encore, Hermes peut le faire en exécution adhoc via Web UI : "Analyse `docs/charte-voix.md` + les 2 posts dans `docs/linkedin/published/.../post.md` + le welcome email dans `docs/superpowers/plans/2026-04-27-newsletter-brevo.md` + les 3 articles `content/rapports/*.md`. Produis un résumé 5 lignes de la voix Survivant-IA : rythme de phrase, transitions favorites, tics positifs. Sauvegarde dans `docs/voice-fingerprint.md` avec frontmatter `maintainer: hermes`.")
+- [ ] **30.1 [HUMAN]** Web UI Hermes → nouvelle session → coller ce prompt :
+
+```
+Analyse les fichiers suivants pour extraire la voix Survivant-IA :
+- docs/charte-voix.md (charte canonique)
+- docs/linkedin/published/2026-05-15-dictee-comptable/post.md
+- docs/linkedin/published/2026-05-21-comment-ecrire-prompt/post.md
+- docs/superpowers/plans/2026-04-27-newsletter-brevo.md (welcome email = ton newsletter)
+- content/rapports/*.md (les 3 articles piliers)
+
+Produis un résumé de 5-7 lignes décrivant :
+- Rythme de phrase (court/long, ponctuation favorite)
+- Transitions favorites (mots/structures qui reviennent)
+- Tics positifs à conserver (cf. signatures Survivant autorisées dans charte §4.3)
+
+Sauvegarde le résultat dans docs/voice-fingerprint.md avec ce frontmatter :
+---
+maintainer: hermes
+last_updated: <ISO timestamp>
+type: voice-fingerprint
+sources_analyzed: [<liste fichiers>]
+---
+
+Commit + push avec message "feat(voice): init voice-fingerprint from charte + corpus".
+```
 
 - [ ] **30.2 [VERIFY]** :
 ```bash
-cat docs/voice-fingerprint.md
+cd /Users/mathieu/Documents/survivor && git pull origin main && cat docs/voice-fingerprint.md
 ```
-Attendu : ~5 lignes denses, frontmatter `maintainer: hermes`.
+Attendu : 5-7 lignes denses + frontmatter complet.
 
-## Tâche 31 — Commit bootstrap
+- [ ] **30.3 [HUMAN]** Spot-check : le résumé reflète-t-il TA voix (pas une voix générique LinkedIn-influenceur) ? Si non → itérer la prompt et re-générer.
 
-- [ ] **31.1 [AGENT]** :
+## Tâche 31 — Merge bootstrap depuis branche `hermes/auto` vers `main`
+
+Convention git du projet :
+- **Commits Mathieu (humain)** : directement sur `main` (workflow existant du repo, cf. git log)
+- **Commits Hermes (auto-generated)** : sur branche `hermes/auto`, mergés vers `main` par Mathieu après spot-check
+
+- [ ] **31.1 [AGENT]** Stash si changements locaux non commités, puis merge :
 
 ```bash
 cd /Users/mathieu/Documents/survivor
-git pull origin hermes/auto  # récupérer les commits Hermes
+git status  # vérifier état clean (sinon stash ou commit avant)
+git fetch origin
 git checkout main
-git merge hermes/auto
+git pull --ff-only origin main  # s'assure main est à jour
+git merge --no-ff origin/hermes/auto -m "merge(hermes): bootstrap wiki — 3 articles ingérés"
 git push origin main
 ```
 
-(Ou si Hermes commit directement sur main : juste `git pull`.)
+- [ ] **31.2 [VERIFY]** :
+
+```bash
+git log --oneline -5
+ls wiki/concepts/ wiki/claims/ wiki/examples/ | wc -l
+```
+Attendu : 10-15 fichiers présents, merge commit visible.
+
+- [ ] **31.3 [VERIFY]** Si conflit merge : c'est anormal au bootstrap. Investiguer (Hermes a-t-il touché un fichier `maintainer: human` ?). Abort, examiner, fixer. Ne pas force-push.
 
 ---
 
@@ -1404,15 +1479,16 @@ sources:
 
 - [ ] **37.2 [AGENT]** Mettre à jour `.hermes/skills/pull-brief.md` pour pointer sur ce fichier de config (Tâche 25.3 a déjà le squelette).
 
-- [ ] **37.3 [AGENT]** Activer le cron dans Hermes (Web UI Cron Jobs section) :
-  - Name : `pull-brief-morning`
-  - Schedule : `30 6 * * 1-6` (lundi-samedi 6h30, dimanche silence)
-  - Target : Telegram
+- [ ] **37.3 [AGENT]** Les crons sont déclarés dans le **frontmatter de chaque skill** (Tâches 24/25 : `trigger: cron-21h-daily`, `cron-mon-sat-6h30`, `cron-fri-17h`). Vérifier que les frontmatters sont corrects et qu'Hermes les a parsés au restart de Tâche 26.4.
 
-- [ ] **37.4 [AGENT]** Activer le cron lint-wiki :
-  - Name : `lint-wiki-friday`
-  - Schedule : `0 17 * * 5` (vendredi 17h)
-  - Target : Telegram
+Spécifiquement vérifier :
+- `.hermes/skills/daily-budget-check.md` → `trigger: cron-21h-daily`
+- `.hermes/skills/pull-brief.md` → `trigger: cron-mon-sat-6h30` (équivalent cron `30 6 * * 1-6`)
+- `.hermes/skills/lint-wiki.md` → `trigger: cron-fri-17h` (équivalent cron `0 17 * * 5`)
+
+- [ ] **37.4 [VERIFY]** Sur Hermes Web UI section Cron Jobs : les 3 jobs apparaissent avec `next_run` cohérent (heure Geneva).
+
+Si l'UI montre les jobs absents alors que frontmatters sont corrects → checker la doc Hermes sur la syntaxe de cron-trigger acceptée et adapter les frontmatters (peut nécessiter syntaxe cron classique `30 6 * * 1-6` au lieu du raccourci).
 
 - [ ] **37.5 [AGENT]** Commit :
 
@@ -1475,7 +1551,7 @@ Coût : 0.0XX CHF
 ...
 ```
 
-- [ ] **40.3 [HUMAN]** Calculer ignore_rate à J14 : `total 🗑️ / total briefs`. Si > 50% → ajuster sources ou prompt classification (Tâche 45).
+- [ ] **40.3 [HUMAN]** Calculer ignore_rate à J14 : `total 🗑️ / total briefs`. Si > 75% → exit criteria touché (cf. SKILL.md Tâche 21), Hermes alertera vendredi. À mi-parcours (> 50%) : prendre note pour ajuster sources ou prompt classification au lint Tâche 45 sans encore déclencher l'alerte rouge.
 
 ## Tâche 45 — Premier lint-wiki (vendredi J12 ou J13 selon calendrier)
 
@@ -1531,7 +1607,13 @@ Ignore_rate Pull : XX% (cap 75%)
 
 - [ ] **47.4 [HUMAN]** Ouvrir `docs/linkedin/drafts/<slug>/post.md`, copier-coller dans LinkedIn, publier.
 
-- [ ] **47.5 [HUMAN]** Telegram : `/published <slug>` → Hermes déplace draft → published, mémorise pour anti-redite.
+- [ ] **47.5 [HUMAN]** Telegram (langage naturel) :
+
+```
+Le post <slug> est publié sur LinkedIn. Déplace le draft vers published et mets à jour le frontmatter status: published.
+```
+
+Hermes déplace `drafts/<slug>/post.md` → `published/<slug>/post.md`, met `status: published`, ajoute aux refs anti-redite.
 
 - [ ] **47.6 [HUMAN]** Suivre l'engagement LinkedIn dans les 24h. Performance vs tes posts manuels précédents ?
 
@@ -1650,3 +1732,44 @@ LA review qui justifie le bootstrap passif. Discipline anti-graveyard.
 
 - J+60 : ajout potentiel `ingest-tool`, activation potentielle newsletter
 - J+180 : décision long-terme, refonte éventuelle Karpathy → RAG simple
+
+## E — Teardown / rollback (si décision = abandonner à J+21 ou plus tard)
+
+Procédure de retrait propre du système. Cohérent avec règle "wiki éphémère" + discipline anti-graveyard.
+
+### E.1 — Arrêt du service
+- [ ] Coolify → service `hermes-survivant` → Stop
+- [ ] Confirmer : Hermes Web UI 503 / down
+- [ ] Confirmer : Telegram bot ne répond plus
+
+### E.2 — Backup avant suppression
+- [ ] Avant de supprimer quoi que ce soit, archiver pour analyse post-mortem :
+  ```bash
+  ssh -i ~/.ssh/infomaniak_vps ubuntu@83.228.212.229 \
+    'docker run --rm -v hermes-memory:/data -v /tmp:/backup \
+     alpine tar czf /backup/hermes-memory-final-$(date +%Y%m%d).tar.gz /data'
+  scp -i ~/.ssh/infomaniak_vps \
+    ubuntu@83.228.212.229:/tmp/hermes-memory-final-*.tar.gz \
+    ~/Documents/survivor-archives/
+  ```
+
+### E.3 — Suppression Coolify
+- [ ] Coolify → service `hermes-survivant` → Delete (avec volumes)
+- [ ] Vérifier : `docker volume ls | grep hermes` retourne vide
+
+### E.4 — Nettoyage VPS
+- [ ] DNS : retirer A-record `hermes.survivant-ia.ch` (ou laisser, n'est plus servi)
+- [ ] Swap : peut rester (utile pour autres services), pas urgent à enlever
+- [ ] Deploy key GitHub : Settings → Deploy keys → supprimer `hermes-vps`
+- [ ] Telegram BotFather : `/deletebot` → confirmer
+
+### E.5 — Nettoyage repo (optionnel, garder pour archive recommandé)
+- [ ] Choisir entre :
+  - **A. Garder le repo** comme archive d'expérience (recommandé pour apprentissage)
+  - **B. Supprimer** : `git rm -rf hermes/ .hermes/ wiki/ docs/superpowers/plans/2026-06-02-hermes-pipeline-contenu.md docs/superpowers/specs/2026-06-02-hermes-pipeline-contenu-design.md && git commit -m "chore: remove abandoned Hermes pipeline"`
+- [ ] Dans tous les cas, mettre à jour la mémoire Claude Code avec `reference_hermes_abandoned.md` (date, raison, ce qu'on a appris)
+
+### E.6 — Documentation post-mortem
+- [ ] Écrire `hermes/post-mortem-<date>.md` : qu'est-ce qui a marché, qu'est-ce qui n'a pas marché, qu'est-ce qu'on referait différemment
+
+**Coût teardown total estimé** : ~30 min + backup archive.
