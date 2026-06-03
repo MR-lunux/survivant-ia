@@ -9,11 +9,15 @@ secteurs:
   - cognitif-admin-finance-juridique
   - tech-data-design
   - marketing-comm-management
+status: published
+maintainer: human
 ---
 
 Tu l'as entendue. Dans le train, au resto, à la machine à café :
 
+
 > « L'IA va me remplacer, tu verras. Bientôt je n'aurai plus de travail. »
+
 
 Une phrase pessimiste, qui se propage vite. Et qui rate le débat.
 
@@ -24,6 +28,7 @@ Tu te demandes peut-être comment ne pas te faire remplacer par l'IA dans ton m�
 Le débat n'est pas *l'IA contre toi*. Le débat, c'est *toi sans l'IA contre toi avec l'IA*.
 
 Faisons les comptes. Un employé n'est pas à 100 % d'efficience tous les jours. La vérité, c'est qu'il l'est plutôt à 40 %. Réunions improductives, attentes, contexte switching, tâches répétitives qui le ralentissent.
+
 
 Ce même employé, équipé de l'IA et formé à s'en servir, peut monter à 80 %.
 
@@ -66,7 +71,6 @@ C'est un dialogue, pas une commande. Tu lui expliques ton contexte, ton public, 
 Plus tu pratiques ce dialogue, plus c'est fluide. Et plus tu construis une bibliothèque mentale de prompts qui marchent. Le rapport hebdo qui te prenait deux heures, dans six mois, il te prendra vingt minutes.
 
 ## Pourquoi je travaille sur Survivant-IA
-
 Je ne suis pas l'expert IA ultime. Je suis [Deputy Head of IT](/identite) chez une boîte qui n'a rien de tech. J'ai vu de l'intérieur ce que ça change quand un salarié s'en sert vraiment, et ce que ça coûte quand il fait l'autruche.
 
 Je travaille sur Survivant-IA parce que je reste persuadé que cet outil doit être maîtrisé pour survivre dans ce monde du travail en mutation. Pas paniquer. Pas devenir tech. Maîtriser.

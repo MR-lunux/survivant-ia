@@ -1,6 +1,6 @@
 ---
 maintainer: hermes
-last_updated: 2026-06-03T15:42:00Z
+last_updated: 2026-06-03T20:41:00Z
 type: wiki-index
 ---
 
@@ -17,6 +17,9 @@ Ne pas éditer à la main — sera réécrasé.
 - [[economie-cognitive]]
 - [[attention-residuelle]]
 - [[competence-en-decision-sous-incertitude]]
+- [[ia-n-est-pas-remplacement-postes-supprime-inefficience]]
+- [[augmentation-efficacite-personnelle-grace-ia]]
+- [[dialogue-itératif-ia-vers-prompts-efficaces]]
 
 ## Claims
 
@@ -29,6 +32,8 @@ Ne pas éditer à la main — sera réécrasé.
 
 - [[trois-symptomes-dependance-ia]]
 - [[exemple-validation-diagonale-rapports]]
+- [[reperer-taches-soupir-quotidiennes]]
+- [[reste-dans-la-conversation-ia]]
 
 ## Maps of Content (MOC)
 
