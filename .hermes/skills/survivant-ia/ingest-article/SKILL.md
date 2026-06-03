@@ -31,16 +31,23 @@ Ne PAS utiliser si :
    - `concept` : un concept réutilisable (ex : "L'IA n'évacue pas l'expertise, elle l'externalise")
    - `claim` : une prise de position
    - `example` : une anecdote / cas concret mémorisable
-5. **Pour chaque atomic note** :
-   - Titre = phrase complète qui exprime l'idée (pas un mot-clé)
-   - Slug : kebab-case dérivé du titre
-   - Body ≤ 1 écran (méthode Meunier)
-   - **Section "Source brute" obligatoire** avec citation verbatim depuis l'article
-   - Wikilinks `[[autre-note]]` uniquement vers des notes existantes OU créées dans CE batch
-   - Frontmatter complet (cf. format ci-dessous)
-6. **Écrire** dans `wiki/concepts/<slug>.md` / `wiki/claims/<slug>.md` / `wiki/examples/<slug>.md`.
-7. **Update `wiki/_provenance.md`** : ajouter entrée avec source + ISO timestamp + liste des notes créées.
-8. **Update `wiki/_index.md`** : ajouter les nouvelles notes dans la section appropriée.
+5. **Pour chaque atomic note candidate, EN AMONT de l'écriture du fichier** :
+   - **5a. Trouver la citation verbatim** depuis l'article qui soutient l'idée. Si tu ne peux PAS produire une citation verbatim non-modifiée de l'article (mot à mot, ponctuation incluse) qui soutient le claim → **ABANDONNE cette atomic note et N'ÉCRIS RIEN**. Reprends ta sélection avec une autre idée. Cette règle est NON-NÉGOCIABLE.
+   - 5b. Titre = phrase complète qui exprime l'idée (pas un mot-clé).
+   - 5c. Slug : kebab-case dérivé du titre, ASCII uniquement (pas d'accents — `delegation` pas `délégation`).
+   - 5d. Body ≤ 1 écran (méthode Meunier).
+   - 5e. Section "Source brute" remplie avec la citation verbatim de 5a.
+   - 5f. Wikilinks `[[autre-note]]` uniquement vers des notes EXISTANTES sur disque OU créées dans CE batch d'ingest. AVANT d'ajouter chaque wikilink, vérifier `ls wiki/{concepts,claims,examples}/<slug>.md`. Si la note référencée n'existe pas et ne sera pas créée dans le batch, NE PAS ajouter le wikilink.
+   - 5g. Frontmatter complet (cf. format ci-dessous).
+6. **Écrire le fichier** dans `wiki/concepts/<slug>.md` / `wiki/claims/<slug>.md` / `wiki/examples/<slug>.md`. Si une étape 5a a abandonné une note, écris seulement les notes qui ont passé.
+7. **Update `wiki/_provenance.md`** :
+   - 7a. Lire le fichier existant.
+   - 7b. Si la mention `*(vide — bootstrap pending ...)*` ou similaire est présente, la SUPPRIMER avant d'ajouter ta nouvelle entrée.
+   - 7c. Ajouter sous la section `## Entrées` une nouvelle entrée YAML avec source + ISO timestamp + ingest_skill_version: 1.0.0 + liste EXACTE des fichiers `notes` écrits à l'étape 6 (pas de fichier inventé).
+8. **Update `wiki/_index.md`** :
+   - 8a. Lire le fichier existant.
+   - 8b. Mettre à jour la ligne `last_updated:` avec ISO timestamp.
+   - 8c. Ajouter sous `## Concepts`, `## Claims`, `## Examples` des wikilinks `[[<slug>]]` UNIQUEMENT vers les fichiers que tu viens d'écrire (vérifier avec `ls wiki/{concepts,claims,examples}/`). N'INVENTE PAS de wikilinks vers des notes que tu n'as pas écrites. Si tu hésites → lance `find wiki -name "*.md"` et compare à ta liste.
 9. **MOC check** : si la note s'inscrit dans une MOC existante (`wiki/_moc/*.md`), proposer le lien. Sinon, proposer à Mathieu via Telegram "nouvelle MOC suggérée : <question> ?"
 10. **Commit** sur branche `hermes/auto` (jamais `main` directement) :
     ```
@@ -87,17 +94,58 @@ Body ≤ 1 écran (méthode Meunier).
 
 ## Pitfalls
 
-- **Inventer une wikilink** vers une note qui n'existe pas → JAMAIS. Si la note référencée n'existe pas dans le wiki ni dans le batch courant, ne pas créer le wikilink.
+- **Section "Source brute" vide** → HARD FAIL. Si tu ne peux pas produire une citation verbatim de l'article, tu DOIS abandonner la note (étape 5a). Une note avec "Source brute" vide ou inventée viole le contrat anti-hallucination de la skill.
+- **Inventer une wikilink** vers une note qui n'existe pas → JAMAIS. Vérifier avec `ls`/`find` avant d'écrire chaque wikilink.
+- **Over-lister dans `_index.md`** → JAMAIS de wikilinks vers des notes que tu n'as pas écrites dans ce batch. Ce piège est documenté : on a déjà eu 12 entrées listées pour 5 fichiers réels en juin 2026. Comparer ta liste à `find wiki -name "*.md"` avant de committer.
 - **Dépasser 5 notes** même si l'article est dense. Choisir les plus utiles pour produire du contenu dérivé, pas les plus complètes.
-- **Citation source manquante** → ne pas écrire la note. Si impossible de citer verbatim, abandonner cette atomic note.
+- **Laisser des artefacts** dans `_provenance.md` (mention "*(vide)*", `bootstrap pending`, etc.) après ton ingest → les supprimer.
+- **Slug avec accents/cédilles** : les filesystems gèrent mal — utiliser kebab-case ASCII (`delegation`, pas `délégation`).
 - **Toucher un fichier `maintainer: human`** → interdit absolu.
 - **Commit sur main directement** → toujours `hermes/auto`.
 
 ## Verification
 
+Avant de committer, **lance ces vérifications** :
+
+1. **Files written = files listed** : 
+   ```
+   find wiki/{concepts,claims,examples} -name "*.md" -newer /tmp/ingest-start
+   ```
+   Le nombre de fichiers doit matcher ce que tu vas écrire dans `_provenance.md` et `_index.md`.
+
+2. **Pas de Source brute vide** :
+   ```
+   for f in wiki/{concepts,claims,examples}/*.md; do
+     if ! sed -n '/^## Source brute/,/^$/p' "$f" | grep -q '^>'; then
+       echo "EMPTY SOURCE BRUTE: $f"
+     fi
+   done
+   ```
+   Output attendu : VIDE. Si une note est listée → la supprimer avant commit.
+
+3. **Pas de wikilink mort** dans `_index.md` :
+   ```
+   grep -o '\[\[[^]]*\]\]' wiki/_index.md | sort -u | while read link; do
+     slug="${link//[\[\]]/}"
+     if ! find wiki -name "${slug}.md" | grep -q .; then
+       echo "BROKEN LINK: $link"
+     fi
+   done
+   ```
+   Output attendu : VIDE.
+
+4. **Pas d'artefact "(vide)"** dans `_provenance.md` :
+   ```
+   grep -i "vide\|bootstrap pending" wiki/_provenance.md
+   ```
+   Output attendu : VIDE.
+
+Si toutes les vérifications passent → commit + push. Sinon → corriger.
+
+Final check côté Mathieu :
 - ≤ 5 fichiers `.md` créés dans `wiki/{concepts,claims,examples}/`
 - Chaque fichier a une section "Source brute" avec citation verbatim présente dans l'article source
-- `wiki/_provenance.md` mis à jour avec entrée pour cet article
+- `wiki/_provenance.md` mis à jour avec entrée propre pour cet article (pas d'artefact)
+- `wiki/_index.md` ne liste QUE les notes effectivement écrites
 - Commit visible sur branche `hermes/auto` (pas main)
 - Ping Telegram récap envoyé
-- Mathieu valide spot-check sur 1 note au hasard (titre, citation, wikilinks cohérents)
