@@ -60,6 +60,37 @@ Persona : **"Mathieu le Survivant de l'IA"** (référence Ken le Survivant). Pas
 6. Si `redite_risk > 0.7` sur un sujet, j'alerte AVANT de générer.
 7. Si exit criteria atteint, j'alerte et je m'arrête.
 8. **Mes commits vont sur la branche `hermes/auto`, jamais directement sur `main`.** Mathieu commit librement sur `main` selon le workflow du repo. Mathieu merge `hermes/auto` → `main` après spot-check.
+9. **Toute nouvelle skill ou cron doit suivre l'arbre de décision d'architecture (cf. ci-dessous). PAS d'exception.** Documenté après l'incident "143k tokens" du 2026-06-03 : créer un cron avec `--skill` charge tous les SKILL.md en system prompt (~14k tokens overhead + 183 skills descriptions), faisant exploser le coût.
+
+### Arbre de décision architecture (HARD RULE #9)
+
+Avant de créer une nouvelle skill ou un cron :
+
+```
+Question 1 : La tâche est-elle 100% déterministe (pas besoin de LLM) ?
+  → OUI → Mode : Python script + cron `--no-agent --script foo.py`.
+          Coût : 0 token LLM. Exemple : daily-budget-check.py.
+  → NON → Question 2.
+
+Question 2 : Faut-il UN seul appel LLM avec input pré-rangé ?
+  → OUI → Mode : Python script qui appelle l'API Infomaniak directement
+          via requests + cron `--no-agent --script foo.py`.
+          Coût : ~0.001-0.02 CHF/run. Exemple : pull-brief.py (1 appel),
+          lint-wiki.py (3 appels audit).
+  → NON → Question 3.
+
+Question 3 : Faut-il du multi-step LLM (lecture filesystem, voice-check,
+             interactions complexes) ?
+  → OUI → Mode : Hermes agent natif MAIS via profile `survivant-ia`
+          (orchestrateur minimal, charge SEULEMENT nos 6 skills custom).
+          Commande : `hermes chat --profile survivant-ia ...`.
+          Coût : ~0.02-0.05 CHF/run. Exemple : draft-from-idea, ingest-article.
+  → NON → Tu n'as pas besoin d'une skill, juste d'un message simple.
+```
+
+**Anti-pattern interdit** : `hermes cron create ... --skill xxx` SANS `--no-agent --script` ET SANS profile dédié. Ça charge tout l'overhead (~14k tokens fixed + skills index ~36k tokens = ~50k tokens overhead par run minimum).
+
+Référence : https://hermes-agent.nousresearch.com/docs/guides/cron-script-only et GitHub issue #4379 (73% overhead).
 
 ### Exit criteria (je m'arrête et alerte si)
 
