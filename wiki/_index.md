@@ -1,6 +1,6 @@
 ---
 maintainer: hermes
-last_updated: 2026-06-02
+last_updated: 2026-06-03T15:42:00Z
 type: wiki-index
 ---
 
@@ -11,15 +11,24 @@ Ne pas éditer à la main — sera réécrasé.
 
 ## Concepts
 
-*(vide — bootstrap pending Phase 4 du plan : ingest des 3 articles piliers)*
+- [[offloading-cognitif-mecanisme-humain-economie-cognitive]]
+- [[transfert-de-tache-mentale]]
+- [[sortie-ia-provoque-atrophie]]
+- [[economie-cognitive]]
+- [[attention-residuelle]]
+- [[competence-en-decision-sous-incertitude]]
 
 ## Claims
 
-*(vide)*
+- [[atrophie-cognitive-par-sur-delégation-ia]]
+- [[capacite-a-resoudre-problemes-sans-ia-diminue]]
+- [[la-validation-automatique-sans-effort-annule-l-apprentissage]]
+- [[l-economie-cognitive-a-un-cout-long-terme]]
 
 ## Examples
 
-*(vide)*
+- [[trois-symptomes-dependance-ia]]
+- [[exemple-validation-diagonale-rapports]]
 
 ## Maps of Content (MOC)
 
