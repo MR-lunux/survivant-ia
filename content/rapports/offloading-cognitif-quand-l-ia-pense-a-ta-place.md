@@ -4,6 +4,8 @@ description: "Le mécanisme cognitif derrière la dépendance à l'IA : pourquoi
 date: 2026-05-08
 category: comprendre-ia
 relatedKit: trc-01
+status: published
+maintainer: human
 ---
 
 Tu fermes l'application. Tu te dis que tu as bien travaillé. Tu as livré trois rapports, écrit deux mails délicats, refait une présentation. Sauf que, si on te demandait demain comment tu as résolu tel point, tu serais incapable de retracer le raisonnement. C'est l'IA qui l'a fait. Tu as validé.

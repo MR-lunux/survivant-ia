@@ -24,8 +24,12 @@ Ne PAS utiliser si :
 
 ## Procedure
 
-1. **Lire l'article** : `content/rapports/<slug>.md` + parser frontmatter YAML.
-2. **Valider** : `status == published` ET `maintainer == human`. Sinon refuser.
+1. **Lire l'article** : `content/rapports/<slug>.md` + parser frontmatter YAML. **JAMAIS modifier ce fichier**, même en lecture.
+2. **Valider strictement** : `status == published` ET `maintainer == human` dans le frontmatter. Si une de ces clés est ABSENTE ou différente :
+   - **NE PAS modifier l'article pour "corriger"** — c'est une violation absolue de hard rule #2 (interdit de toucher un fichier `maintainer: human`).
+   - **REFUSER l'ingest** et retourner ce message exact à l'invocateur : *"Article `<slug>` non éligible : frontmatter doit contenir `status: published` ET `maintainer: human`. Demander à Mathieu de mettre à jour le frontmatter, puis relancer."*
+   - **NE RIEN ÉCRIRE dans `wiki/`** pour cet article.
+   - Arrêter la procédure ici.
 3. **Check existing** : grep `wiki/_provenance.md` pour vérifier que l'article n'a pas déjà été ingéré. Si oui, ping Mathieu pour confirmation.
 4. **Reasoning** : identifier **au maximum 5** idées atomiques transportables hors contexte. Pour chaque, déterminer le type :
    - `concept` : un concept réutilisable (ex : "L'IA n'évacue pas l'expertise, elle l'externalise")
@@ -94,6 +98,8 @@ Body ≤ 1 écran (méthode Meunier).
 
 ## Pitfalls
 
+- **Modifier un fichier `maintainer: human`** → INTERDIT ABSOLU. Ça inclut l'article source `content/rapports/<slug>.md`. Si le frontmatter ne valide pas (étape 2), tu REFUSES, tu n'écris pas, tu n'altères pas. Ce piège est documenté : Hermes a déjà ajouté `status: published` à un article en juin 2026 — violation grave, on ne recommence pas.
+- **Slug avec caractères non-ASCII** (`délégation`, `itératif`, `école`...) → REFUSER d'écrire le fichier. Translittérer en ASCII : `delegation`, `iteratif`, `ecole`. Ce piège est documenté : on a eu `dialogue-itératif-...` qui passait sur Linux mais cassait Obsidian sync iCloud sur macOS.
 - **Section "Source brute" vide** → HARD FAIL. Si tu ne peux pas produire une citation verbatim de l'article, tu DOIS abandonner la note (étape 5a). Une note avec "Source brute" vide ou inventée viole le contrat anti-hallucination de la skill.
 - **Inventer une wikilink** vers une note qui n'existe pas → JAMAIS. Vérifier avec `ls`/`find` avant d'écrire chaque wikilink.
 - **Over-lister dans `_index.md`** → JAMAIS de wikilinks vers des notes que tu n'as pas écrites dans ce batch. Ce piège est documenté : on a déjà eu 12 entrées listées pour 5 fichiers réels en juin 2026. Comparer ta liste à `find wiki -name "*.md"` avant de committer.

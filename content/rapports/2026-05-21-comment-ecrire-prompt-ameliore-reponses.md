@@ -4,6 +4,8 @@ description: "Ce n'est pas l'IA qui est nulle, c'est ta manière de lui parler. 
 date: 2026-05-21
 category: comprendre-ia
 kicker: "LECTURE LONGUE · 9 MIN"
+status: published
+maintainer: human
 ---
 
 Au début, j'ai trouvé les réponses de ChatGPT décevantes un peu comme tout le monde. Du texte apparaissait, c'était impressionnant la première fois, mais le résultat était "bof". Puis j'ai entendu la même phrase chez mes collègues, mes amis, sur LinkedIn : «cette IA est surcotée et ne sort que des bêtises».
