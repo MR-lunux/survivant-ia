@@ -12,6 +12,23 @@
 
 **Travail dans le repo principal** (`/Users/mathieu/Documents/survivor`) sur la branche `main`. Pas de worktree créé : le scope ne touche que des fichiers nouveaux + ajouts ciblés à 3 fichiers de config.
 
+**⚠️ MODE DRAFT — décision Mathieu 2026-06-07** : tout est créé sur disque mais **rien n'est rendu visible sur le site live tant que Mathieu ne donne pas le go**. Concrètement :
+
+- Article pilier : frontmatter `status: draft` (au lieu de `published`)
+- Outil : fichier `.md` créé mais **pas wiré** dans `outils-manifest.ts`, **pas ajouté** aux prerender routes, **pas de FAQs déclarées** dans `outil-faqs.ts`, **pas de CTA override**. Le fichier dort sur disque.
+- Posts LinkedIn : drafts dans `docs/linkedin/published/`, prêts à copier-coller mais pas postés.
+- PDF source : peut vivre dans `public/downloads/` (statique, mais pas linké tant que l'outil n'est pas wiré → pas de chemin SEO vers lui)
+
+**Conséquence sur les tasks** :
+- Tasks 1, 2, 3, 7 : exécutées **maintenant** (création des assets)
+- Task 4 (wiring code), Task 5 (visual check sur site live), Task 6 (analytics), Task 8 (ship readiness) : **différées au jour J** où Mathieu donne le go.
+
+À mettre en prod le moment venu, il suffira de :
+1. Flip `status: draft` → `status: published` dans `content/rapports/angles-morts-ia-entreprise-suisse.md`
+2. Exécuter Task 4 (manifest + CTAs + FAQs + prerender routes)
+3. Exécuter Task 5 (visual check) + Task 6 (analytics) + Task 8 (verif finale + sitemap)
+4. Push / déployer.
+
 **Lecture obligatoire avant de commencer :**
 - Spec : `docs/superpowers/specs/2026-06-07-angles-morts-ia-suisse-design.md`
 - Charte voix : `docs/charte-voix.md`
@@ -125,10 +142,12 @@ description: "nLPD, secret d'affaires, Cloud Act. Ce que les éditeurs ne te dis
 date: 2026-06-07
 category: souverainete-ia
 kicker: "LECTURE LONGUE · 12 MIN"
-status: published
+status: draft
 maintainer: human
 ---
 ```
+
+> **Mode draft** : `status: draft` — à flipper en `published` au jour du ship.
 
 Note : `category: souverainete-ia` est nouvelle. Vérifier que les pages `/rapports/index.vue` et filtres existants ne cassent pas (les autres categories sont des strings libres, donc OK).
 
@@ -391,7 +410,9 @@ git commit -m "feat(outils): le grand filtre — matrice sécurité IA pour l'en
 
 ---
 
-## Task 4 : Intégration code (manifest + CTAs + FAQs + prerender)
+## Task 4 : Intégration code (manifest + CTAs + FAQs + prerender) — **DIFFÉRÉE AU JOUR DU SHIP**
+
+> Cette task et toutes les suivantes (5, 6, 8) sont **différées** jusqu'au moment où Mathieu donne le go pour publier. À ce moment-là, suivre ces tasks dans l'ordre.
 
 **Files:**
 - Modify: `app/data/outils-manifest.ts`
@@ -481,7 +502,7 @@ git commit -m "feat(outils): wire le-grand-filtre dans manifest + FAQs + prerend
 
 ---
 
-## Task 5 : Vérification rendu `kind: cheatsheet`
+## Task 5 : Vérification rendu `kind: cheatsheet` — **DIFFÉRÉE AU JOUR DU SHIP**
 
 **Objectif :** confirmer que le template `[slug].vue` rend correctement le nouveau type d'outil sans qu'on ait à toucher au composant.
 
@@ -527,7 +548,7 @@ Sauvegarder dans `idea/le-grand-filtre-render-2026-06-07.png` (référence visue
 
 ---
 
-## Task 6 : PostHog events instrumentation
+## Task 6 : PostHog events instrumentation — **DIFFÉRÉE AU JOUR DU SHIP**
 
 **Objectif :** capturer les événements définis dans le spec §10.
 
@@ -686,7 +707,7 @@ git commit -m "feat(linkedin): série 'angles morts de l'IA' — 4 posts (post 4
 
 ---
 
-## Task 8 : Verification finale + ship readiness
+## Task 8 : Verification finale + ship readiness — **DIFFÉRÉE AU JOUR DU SHIP**
 
 **Objectif :** confirmer que tout l'asset evergreen est prêt à servir et que les posts sont prêts à programmer.
 
