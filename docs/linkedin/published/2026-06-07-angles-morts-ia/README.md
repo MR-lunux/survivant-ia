@@ -6,10 +6,10 @@ Cycle de 4 posts LinkedIn distribuant l'asset evergreen `/outils/le-grand-filtre
 
 | Post | Jour | Statut |
 |---|---|---|
-| Post 1 — origin / le grand filtre | J | prêt |
-| Post 2 — Shadow IT / nLPD | J+1 | prêt |
-| Post 3 — Cloud Act / coffre-clé | J+2 | prêt |
-| Post 4 — kDrive Infomaniak | J+X (7-15 jours) | bloqué sur REX kDrive |
+| Post 1 : origin / le grand filtre | J | prêt |
+| Post 2 : Shadow IT / nLPD | J+1 | prêt |
+| Post 3 : Cloud Act / coffre-clé | J+2 | prêt |
+| Post 4 : kDrive Infomaniak | J+X (7-15 jours) | bloqué sur REX kDrive |
 
 ## CTAs
 

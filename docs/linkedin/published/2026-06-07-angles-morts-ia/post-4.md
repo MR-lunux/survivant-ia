@@ -1,18 +1,18 @@
 ---
 date: 2026-06-XX
-status: skeleton — bloqué sur REX kDrive
+status: skeleton : bloqué sur REX kDrive
 cluster: souverainete-ia
 archetype: D (REX / expérimentation)
 format: court (LinkedIn, post text seul)
 cta_1: lien outil /outils/le-grand-filtre en 1er commentaire
-cta_2: invitation explicite La Fréquence — "le REX complet sur kDrive part dans La Fréquence cette semaine, inscris-toi" → /frequence
+cta_2: invitation explicite La Fréquence : "le REX complet sur kDrive part dans La Fréquence cette semaine, inscris-toi" → /frequence
 target_chars: 1000-1200
 serie: angles-morts-ia (4/4)
 ---
 
-# Post 4 — kDrive Infomaniak
+# Post 4 : kDrive Infomaniak
 
-> **Statut :** squelette validé en design. Le contenu sera ajusté après l'expérimentation kDrive / kChat Infomaniak — verdict réel, points forts / points faibles, écart aux modèles frontière.
+> **Statut :** squelette validé en design. Le contenu sera ajusté après l'expérimentation kDrive / kChat Infomaniak : verdict réel, points forts / points faibles, écart aux modèles frontière.
 
 Le moyen le plus sûr d'utiliser l'IA en Suisse demande beaucoup trop d'efforts. Alors je cherche une alternative.
 

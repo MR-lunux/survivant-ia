@@ -2,7 +2,7 @@
 date: 2026-06-08
 status: ready-to-publish
 cluster: souverainete-ia
-archetype: B (didactique structuré — règle + trois conditions)
+archetype: B (didactique structuré : règle + trois conditions)
 format: court (LinkedIn, post text seul)
 cta_1: lien outil /outils/le-grand-filtre en 1er commentaire
 cta_2: lien article /rapports/angles-morts-ia-entreprise-suisse en 2e commentaire
@@ -10,7 +10,7 @@ target_chars: 1000-1200
 serie: angles-morts-ia (2/4)
 ---
 
-# Post 2 — Shadow IT / nLPD
+# Post 2 : Shadow IT / nLPD
 
 Ne copie JAMAIS les données d'un client dans le ChatGPT gratuit. Jamais.
 
