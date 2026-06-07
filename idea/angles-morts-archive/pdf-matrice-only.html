@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le grand filtre — matrice de sécurité de l'IA en entreprise suisse</title>
+<style>
+  @page { size: A4 landscape; margin: 1.3cm 1.5cm; }
+  html, body { background: #fff; color: #15161A; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10pt; line-height: 1.45; margin: 0; padding: 0; }
+  h1 { font-size: 18pt; margin: 0 0 0.2rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 13pt; margin: 1.2rem 0 0.5rem; font-weight: 700; }
+  h3 { font-size: 11pt; margin: 0.8rem 0 0.4rem; font-weight: 700; }
+  p { margin: 0.4rem 0; }
+  .subtitle { font-size: 10.5pt; color: #44464C; margin-bottom: 0.7rem; }
+  .lede { margin-bottom: 1rem; }
+
+  table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 0.8rem; font-size: 9pt; }
+  th, td { padding: 6pt 8pt; border: 1px solid #D7D9DD; text-align: left; vertical-align: top; }
+  thead th {
+    background: #15161A; color: #fff; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; font-size: 8pt;
+  }
+  tbody td:first-child { font-weight: 600; white-space: nowrap; }
+
+  /* Verdict couleurs (alignées sur la web app) */
+  td.r { background: #FDE7EA; color: #B83A4D; font-weight: 600; }
+  td.o { background: #FDF1DE; color: #8F6418; font-weight: 600; }
+  td.g { background: #E1F8EE; color: #1F7E5C; font-weight: 600; }
+
+  .legend { font-size: 9pt; color: #44464C; margin-top: 0.3rem; }
+  .legend .dot { display: inline-block; width: 9pt; height: 9pt; border-radius: 2pt; vertical-align: middle; margin: 0 0.3rem 0 0.6rem; }
+  .legend .dot.r { background: #FDE7EA; border: 1px solid #E8B0BB; }
+  .legend .dot.o { background: #FDF1DE; border: 1px solid #E8C99A; }
+  .legend .dot.g { background: #E1F8EE; border: 1px solid #A6DCC5; }
+
+  .page-break { page-break-before: always; }
+
+  .cond { margin: 0.6rem 0; font-size: 9.5pt; }
+  .cond strong { font-weight: 700; }
+
+  .footer-note { margin-top: 1.2rem; font-size: 8.5pt; color: #64676E; border-top: 1px solid #E0E2E6; padding-top: 0.4rem; }
+  .footer-note a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h1>Le grand filtre</h1>
+<p class="subtitle">Matrice de sécurité de l'IA en entreprise suisse — conformité LPD, secret d'affaires, souveraineté.</p>
+<p class="lede">Le groupe de gauche évalue la conformité LPD. Le groupe de droite évalue la protection effective du secret d'affaires. Un outil peut satisfaire l'un sans l'autre. Les marqueurs (a), (b), (c) renvoient aux conditions de la page suivante.</p>
+
+<h2>Matrice des verdicts</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Outil</th>
+      <th>Résidence</th>
+      <th>DPA</th>
+      <th>No-train</th>
+      <th>Verdict LPD</th>
+      <th>CMK / clés</th>
+      <th>Cloud Act</th>
+      <th>Verdict secret</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ChatGPT perso (Free / Plus)</td>
+      <td class="r">US</td>
+      <td class="r">Non</td>
+      <td class="r">Non</td>
+      <td class="r">Non conforme</td>
+      <td class="r">Non</td>
+      <td class="r">Élevé</td>
+      <td class="r">Exposé</td>
+    </tr>
+    <tr>
+      <td>ChatGPT Team / Enterprise</td>
+      <td class="r">US (UE option)</td>
+      <td class="g">Oui</td>
+      <td class="g">Oui</td>
+      <td class="o">Conforme (a)</td>
+      <td class="r">Non</td>
+      <td class="r">Élevé</td>
+      <td class="r">Risqué</td>
+    </tr>
+    <tr>
+      <td>API OpenAI (+ ZDR)</td>
+      <td class="r">US</td>
+      <td class="g">Oui</td>
+      <td class="g">Oui</td>
+      <td class="o">Conforme (a)</td>
+      <td class="r">Non</td>
+      <td class="r">Élevé</td>
+      <td class="r">Risqué</td>
+    </tr>
+    <tr>
+      <td>Azure OpenAI (CH North)</td>
+      <td class="g">CH</td>
+      <td class="g">Oui</td>
+      <td class="g">Oui</td>
+      <td class="g">Conforme</td>
+      <td class="g">Oui (+ HYOK)</td>
+      <td class="o">Moyen</td>
+      <td class="o">Bon (b)</td>
+    </tr>
+    <tr>
+      <td>AWS Bedrock (Zurich)</td>
+      <td class="g">CH</td>
+      <td class="g">Oui</td>
+      <td class="g">Oui</td>
+      <td class="g">Conforme</td>
+      <td class="g">Oui (+ HYOK)</td>
+      <td class="o">Moyen</td>
+      <td class="o">Bon (b)</td>
+    </tr>
+    <tr>
+      <td>Infomaniak AI (API)</td>
+      <td class="g">CH</td>
+      <td class="g">Oui</td>
+      <td class="g">Oui</td>
+      <td class="g">Conforme</td>
+      <td class="g">Chiffrement CH</td>
+      <td class="g">Nul</td>
+      <td class="g">Protégé</td>
+    </tr>
+    <tr>
+      <td>Self-host (Ollama / on-prem)</td>
+      <td class="o">CH requis (c)</td>
+      <td>Sans objet</td>
+      <td class="g">Oui</td>
+      <td class="g">Conforme (c)</td>
+      <td class="g">Total</td>
+      <td class="g">Nul</td>
+      <td class="g">Maximal (c)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="legend">
+  <span class="dot g"></span>conforme / risque faible
+  <span class="dot o"></span>sous conditions
+  <span class="dot r"></span>non / risque élevé
+</p>
+
+<h2>Réalité opérationnelle</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 22%;">Outil</th>
+      <th>Point d'attention</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>ChatGPT perso</td><td>Cauchemar du Shadow IT. Aucun contrôle d'accès, aucune visibilité sur ce que les employés copient-collent.</td></tr>
+    <tr><td>ChatGPT Team / Enterprise</td><td>Faux sentiment de sécurité. Protège de l'entraînement, pas du Cloud Act. SSO strict requis.</td></tr>
+    <tr><td>API OpenAI (+ ZDR)</td><td>Nécessite un middleware pour filtrer ou pseudonymiser les requêtes avant le départ US.</td></tr>
+    <tr><td>Azure OpenAI (CH North)</td><td>Niveau "Bon" suppose HYOK + calcul confidentiel (TEE) + exemption de journalisation.</td></tr>
+    <tr><td>AWS Bedrock (Zurich)</td><td>Profil jumeau d'Azure. Souveraineté par empilement KMS externalisé + Nitro Enclaves.</td></tr>
+    <tr><td>Infomaniak AI (API)</td><td>Écart possible sur les raisonnements très complexes vs modèles frontière propriétaires.</td></tr>
+    <tr><td>Self-host (Ollama / on-prem)</td><td>Le risque se déplace vers la sécurité interne (accès, sauvegardes, durcissement). Coûts GPU souvent cachés.</td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h2>Conditions</h2>
+
+<p class="cond"><strong>(a) Transfert vers les États-Unis.</strong> "Conforme" seulement si le mécanisme de transfert est en place : fournisseur certifié Swiss-US DPF (adéquation reconnue depuis septembre 2024, à vérifier sur la liste officielle <em>dataprivacyframework.gov/list</em>, certification annuelle) <strong>ou</strong> clauses contractuelles types + analyse d'impact (TIA). Le statut DPF d'OpenAI est ambigu selon les sources ; Microsoft est certifié.</p>
+
+<p class="cond"><strong>(b) Niveau "Bon" Azure / Bedrock.</strong> Atteint uniquement en empilant : clé en HYOK (hors d'atteinte de l'hébergeur), calcul confidentiel (TEE) pour l'inférence, et exemption de journalisation. Sans ces couches, le verdict retombe à "Moyen".</p>
+
+<p class="cond"><strong>(c) Self-host.</strong> Valable à deux conditions : serveur physiquement en Suisse (matériel propre ou hébergeur suisse type Infomaniak ; un VPS étranger ou un cloud américain fait retomber la résidence et peut réintroduire le Cloud Act par la couche infrastructure), <strong>et</strong> sécurité interne (accès, sauvegardes, durcissement) à la hauteur.</p>
+
+<h2>Avertissement</h2>
+<p class="cond">Aide à la décision, pas un avis juridique. La qualification précise des données et la conformité d'un déploiement donné doivent être validées par un conseil juridique spécialisé, en particulier sur le volet FINMA. Les caractéristiques des fournisseurs (résidence, options de chiffrement, statut DPF, conditions contractuelles) évoluent et doivent être vérifiées au moment de la contractualisation.</p>
+
+<p class="footer-note">Mathieu, Survivant de l'IA · dernière révision 7 juin 2026 · version étendue + glossaire sur <a href="https://survivant-ia.ch/outils/le-grand-filtre">survivant-ia.ch/outils/le-grand-filtre</a></p>
+
+</body>
+</html>
