@@ -200,6 +200,11 @@ a:hover { opacity: 0.75; }
   font-family: var(--font-mono);
   color: var(--color-text);
 }
+.prose h2 { margin-top: 3rem; margin-bottom: 1rem; }
+.prose h3 { margin-top: 2.5rem; margin-bottom: 1rem; }
+.prose h2:first-child, .prose h3:first-child { margin-top: 0; }
+.prose p + h2, .prose ul + h2, .prose ol + h2,
+.prose p + h3, .prose ul + h3, .prose ol + h3 { margin-top: 3rem; }
 .prose strong { color: var(--color-accent); font-weight: 700; }
 .prose a { color: var(--color-accent); }
 .prose code {
@@ -227,7 +232,9 @@ a:hover { opacity: 0.75; }
   font-size: 0.9rem;
   background: var(--color-surface-2, #15161A);
   border: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 1.5rem 0 2.5rem;
 }
+.prose h3 + table { margin-top: 1rem; }
 .prose thead th {
   font-family: var(--font-mono);
   font-size: 0.72rem;
