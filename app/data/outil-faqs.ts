@@ -99,4 +99,26 @@ export const OUTIL_FAQS: Record<string, FaqItem[]> = {
       answer: 'Environ 3 heures, avec Claude Code comme assistant. Je ne suis pas développeur full-stack : je suis Deputy Head of IT dans une boîte qui n\'a rien de tech, et j\'ai bossé sur cet outil en marge de mes journées. Le prompt système qui restructure ton input, je l\'ai réécrit une dizaine de fois avant d\'avoir un comportement à peu près prévisible. « 3 heures » ne veut pas dire que tu peux le refaire en 3 heures (ce n\'est pas trivial). Ça veut dire qu\'aujourd\'hui, passer d\'une idée à un outil qui marche prend beaucoup moins de temps qu\'avant, si tu sais bien poser le problème et repérer les moments où l\'IA hallucine.',
     },
   ],
+  'le-grand-filtre': [
+    {
+      question: "Qui est responsable si je me trompe d'outil ?",
+      answer: "Toi, et ton conseil juridique. Le grand filtre est une aide à la décision, pas un avis juridique. La qualification précise des données et la conformité d'un déploiement donné doivent être validées par un juriste spécialisé, en particulier sur le volet FINMA. Le document récapitule l'état du marché à la date affichée, les caractéristiques des fournisseurs évoluent.",
+    },
+    {
+      question: "Pourquoi ChatGPT Enterprise est 'risqué' alors qu'il est conforme LPD ?",
+      answer: "Parce que la LPD et le secret d'affaires sont deux choses différentes. ChatGPT Enterprise garantit le non-entraînement et un DPA, donc la LPD est respectée. Mais OpenAI reste une entreprise américaine, soumise au Cloud Act. Sur injonction d'un juge américain, elle peut être contrainte de livrer des données, même celles d'un client suisse. La LPD protège les personnes ; le Cloud Act expose les secrets d'entreprise.",
+    },
+    {
+      question: "Self-host = solution parfaite ?",
+      answer: "Sur le papier oui, en pratique non. Un VPS étranger fait retomber la résidence et peut réintroduire le Cloud Act par la couche infrastructure. Et la sécurité interne (accès, sauvegardes, durcissement, GPU à payer) devient ton problème. Le risque ne disparaît pas, il se déplace.",
+    },
+    {
+      question: "Et les agents de codage comme Claude Code ou Cursor ?",
+      answer: "Ils n'ont pas de conformité propre. Ils héritent de leur backend. Claude Code routé vers l'API Anthropic (US) = profil 'API OpenAI'. Routé vers Bedrock région européenne = profil 'Azure / Bedrock CH'. Et un plan grand public (Pro/Max) peut activer l'entraînement par défaut, même piège que ChatGPT personnel.",
+    },
+    {
+      question: "C'est mis à jour quand ?",
+      answer: "La date de dernière révision est affichée en bas de la fiche. Le marché de l'IA en entreprise change rapidement (nouveaux outils, changements de statut DPF, évolutions FINMA). Pour être notifié des mises à jour, inscris-toi à La Fréquence.",
+    },
+  ],
 }

@@ -61,6 +61,14 @@ export const OUTILS_MANIFEST: OutilManifestEntry[] = [
     kind: 'app',
     metiers: ['consultant-strategie', 'consultant-it', 'chef-de-projet-it', 'responsable-qualite'],
   },
+  {
+    code: 'le-grand-filtre',
+    path: '/outils/le-grand-filtre',
+    title: 'Le grand filtre',
+    subtitle: "La matrice qui croise conformité LPD, secret d'affaires et réalité opérationnelle pour 7 outils IA.",
+    kind: 'cheatsheet',
+    metiers: [],
+  },
 ]
 
 export function outilsForMetier(metierSlug: string): OutilManifestEntry[] {

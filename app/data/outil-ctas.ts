@@ -7,6 +7,7 @@ const OVERRIDES: Record<string, string> = {
   'generateur-ecriture-comptable': 'TESTER GRATUITEMENT',
   'ameliorer-son-prompt': 'AMÉLIORER MON PROMPT',
   'generateur-processus-bpmn': 'GÉNÉRER MON BPMN',
+  'le-grand-filtre': 'OUVRIR LE GRAND FILTRE',
 }
 
 const KIND_DEFAULTS: Record<string, string> = {
