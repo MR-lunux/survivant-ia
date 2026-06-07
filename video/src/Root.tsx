@@ -7,6 +7,8 @@ import { Carousel } from "./carousel/Carousel";
 import { cycleTemplate } from "./carousel/data/cycle-template";
 import { cycleDictee } from "./carousel/data/cycle-dictee";
 import { cyclePrompting } from "./carousel/data/cycle-prompting";
+import { cycleBpmn } from "./carousel/data/cycle-bpmn";
+import { cycleAnglesMorts } from "./carousel/data/cycle-angles-morts";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -49,6 +51,26 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1350}
         defaultProps={{ cycle: cyclePrompting }}
+      />
+
+      <Composition
+        id="Carousel-Bpmn"
+        component={Carousel}
+        durationInFrames={8}
+        fps={1}
+        width={1080}
+        height={1350}
+        defaultProps={{ cycle: cycleBpmn }}
+      />
+
+      <Composition
+        id="Carousel-AnglesMorts"
+        component={Carousel}
+        durationInFrames={8}
+        fps={1}
+        width={1080}
+        height={1350}
+        defaultProps={{ cycle: cycleAnglesMorts }}
       />
     </>
   );
