@@ -7,7 +7,7 @@ date: "2026-06-07"
 
 # Le grand filtre
 
-**Matrice de sécurité de l'IA en entreprise suisse — conformité LPD, secret d'affaires, souveraineté.**
+**Matrice de sécurité de l'IA en entreprise suisse : conformité LPD, secret d'affaires, souveraineté.**
 
 Le groupe de gauche évalue la conformité LPD. Le groupe de droite évalue la protection effective du secret d'affaires. Un outil peut satisfaire l'un sans l'autre. Les marqueurs a, b, c renvoient aux conditions en bas de page.
 
