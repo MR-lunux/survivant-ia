@@ -220,6 +220,60 @@ a:hover { opacity: 0.75; }
 .prose ol { list-style: decimal; padding-left: 1.5rem; margin: 0 0 1rem; }
 .prose li { margin-bottom: 0.4rem; }
 
+/* ── Prose tables (utilisé notamment par /outils/le-grand-filtre) ── */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--color-surface-2, #15161A);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.prose thead th {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.85rem 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+.prose tbody td {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: top;
+  line-height: 1.45;
+}
+.prose tbody tr:last-child td { border-bottom: none; }
+.prose tbody td:first-child {
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+.prose tbody td strong { color: inherit; font-weight: 700; }
+
+/* Verdicts colorés (badges discrets, pas tape-à-l'œil) */
+.prose td.verdict-red {
+  background: rgba(227, 108, 126, 0.12);
+  color: #F4A5B0;
+  font-weight: 600;
+}
+.prose td.verdict-orange {
+  background: rgba(227, 181, 108, 0.12);
+  color: #F0CB8A;
+  font-weight: 600;
+}
+.prose td.verdict-green {
+  background: rgba(108, 227, 181, 0.12);
+  color: var(--color-accent, #6CE3B5);
+  font-weight: 600;
+}
+.prose td.verdict-red strong,
+.prose td.verdict-orange strong,
+.prose td.verdict-green strong { color: inherit; }
+
 /* ── Scroll reveal ───────────────────────────── */
 [data-reveal] {
   opacity: 0;
