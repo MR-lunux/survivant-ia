@@ -14,7 +14,7 @@ serie: angles-morts-ia (2/4)
 
 Ne copie JAMAIS les données d'un client dans le ChatGPT gratuit. Jamais.
 
-C'est la règle numéro 1. Et c'est pourtant le cauchemar quotidien des directions IT que je croise.
+C'est la règle numéro 1. Et c'est pourtant ce qui revient sans arrêt côté directions IT en ce moment.
 
 On veut gagner du temps. On demande à l'IA de résumer le dossier d'un locataire, de trier des fiches de paie, de rédiger un mail RH.
 

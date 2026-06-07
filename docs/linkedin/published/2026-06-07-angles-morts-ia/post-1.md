@@ -22,7 +22,7 @@ Mais de quelle sécurité parle-t-on ?
 - Le secret d'affaires de la boîte ?
 - La résidence des serveurs face aux lois étrangères ?
 
-J'étais fatigué des discours évasifs des éditeurs. J'avais besoin d'une matrice claire pour savoir, en un coup d'œil, si je mettais une entreprise en danger.
+J'étais fatigué des discours évasifs des éditeurs. J'avais besoin d'une matrice claire pour savoir, en un coup d'œil, où on se mettait en danger.
 
 Le document n'existait pas. Je l'ai construit. Je l'appelle le grand filtre.
 
