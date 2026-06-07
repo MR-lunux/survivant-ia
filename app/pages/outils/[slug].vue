@@ -108,6 +108,18 @@ onMounted(() => {
     router.replace({ path: route.path, query: {} })
   }
 })
+
+function onBodyClick(ev: MouseEvent) {
+  const target = (ev.target as HTMLElement)?.closest('a[href*="/downloads/"]') as HTMLAnchorElement | null
+  if (!target || !kit.value) return
+  const href = target.getAttribute('href') ?? ''
+  const filename = href.split('/').pop() ?? ''
+  capture('kit_pdf_download', {
+    id: kit.value.code,
+    filename,
+    href,
+  })
+}
 </script>
 
 <template>
@@ -143,7 +155,7 @@ onMounted(() => {
         <div class="parent-arrow" aria-hidden="true">→</div>
       </NuxtLink>
 
-      <div class="kit-body prose">
+      <div class="kit-body prose" @click="onBodyClick">
         <MDC v-if="kit.intro" :value="kit.intro" tag="div" />
 
         <KitQuiz
