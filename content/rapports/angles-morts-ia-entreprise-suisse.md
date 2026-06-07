@@ -4,7 +4,7 @@ description: "LPD, secret d'affaires, Cloud Act. Ce que les éditeurs ne te dise
 date: 2026-06-07
 category: souverainete-ia
 kicker: "LECTURE LONGUE · 12 MIN"
-status: draft
+status: published
 maintainer: human
 ---
 
