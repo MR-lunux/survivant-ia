@@ -2,8 +2,8 @@
 code: le-grand-filtre
 kind: cheatsheet
 title: Le grand filtre
-subtitle: "La matrice qui croise conformité nLPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA."
-description: "Matrice consultable. Croise conformité nLPD, protection du secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA (ChatGPT, API, Azure, Bedrock, Infomaniak, self-host). Gratuit, PDF téléchargeable, indexable."
+subtitle: "La matrice qui croise conformité LPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA."
+description: "Matrice consultable. Croise conformité LPD, protection du secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA (ChatGPT, API, Azure, Bedrock, Infomaniak, self-host). Gratuit, PDF téléchargeable, indexable."
 kicker: KIT · LE GRAND FILTRE
 parentArticleSlug: angles-morts-ia-entreprise-suisse
 specs:
@@ -11,18 +11,18 @@ specs:
   - "3 DIMENSIONS"
   - "MATRICE CONSULTABLE"
   - "PDF TÉLÉCHARGEABLE"
-calloutPitch: "Tu veux savoir si ton outil IA expose ta boîte ? Le grand filtre croise trois dimensions (conformité nLPD, secret d'affaires, réalité opérationnelle) pour 7 catégories d'outils. Une consultation, un verdict."
+calloutPitch: "Tu veux savoir si ton outil IA expose ta boîte ? Le grand filtre croise trois dimensions (conformité LPD, secret d'affaires, réalité opérationnelle) pour 7 catégories d'outils. Une consultation, un verdict."
 metiers: []
 intro: |
   Tu veux intégrer l'IA dans ton entreprise sans mettre tes données client ou ton secret d'affaires en risque. Mais entre "ChatGPT", "API OpenAI", "Azure CH", "Infomaniak", "Llama en self-host", les éditeurs te jurent tous que c'est "sécurisé". Sauf que ce mot recouvre trois choses qui ne se recoupent pas.
 
   Le grand filtre croise ces trois choses pour 7 catégories d'outils.
 
-  Lis dans cet ordre : matrice 1 (conformité nLPD, ai-je le droit ?), matrice 2 (secret d'affaires, mon secret tient-il face au Cloud Act ?), matrice 3 (réalité opérationnelle, qu'est-ce qui va peser une fois l'outil choisi ?).
+  Lis dans cet ordre : matrice 1 (conformité LPD, ai-je le droit ?), matrice 2 (secret d'affaires, mon secret tient-il face au Cloud Act ?), matrice 3 (réalité opérationnelle, qu'est-ce qui va peser une fois l'outil choisi ?).
 
   **Légende verdicts** : vert = conforme / risque faible, orange = sous conditions (a, b, c, voir conditions plus bas), rouge = non / risque élevé.
 
-  ### Matrice 1 : conformité nLPD
+  ### Matrice 1 : conformité LPD
 
   | Outil | Résidence | DPA | No-train | Verdict |
   |---|---|---|---|---|
@@ -60,7 +60,7 @@ intro: |
 outro: |
   ## Lecture des verdicts et conditions
 
-  Le verdict nLPD dépend de la chaîne : résidence + DPA + non-entraînement + encadrement du transfert.
+  Le verdict LPD dépend de la chaîne : résidence + DPA + non-entraînement + encadrement du transfert.
   Le verdict secret d'affaires dépend de qui peut, de fait, accéder au contenu : maîtrise des clés et exposition au Cloud Act.
 
   ### Condition a : transfert vers les États-Unis
@@ -89,7 +89,7 @@ outro: |
 
   ## Avant de déployer (checklist)
 
-  - **DPA / contrat de sous-traitance signé** (art. 9 nLPD)
+  - **DPA / contrat de sous-traitance signé** (art. 9 LPD)
   - **Mécanisme de transfert** pour tout flux hors CH/UE : adéquation Swiss-US DPF ou CCT + analyse d'impact (TIA)
   - **Confirmation contractuelle du non-entraînement** (et du zero-data-retention si disponible)
   - **AIPD** (analyse d'impact) si le risque est élevé
@@ -102,12 +102,12 @@ outro: |
 
   ## Glossaire
 
-  - **nLPD** : Nouvelle Loi fédérale suisse sur la protection des données, en vigueur depuis le 1er septembre 2023.
+  - **LPD** : Loi fédérale suisse sur la protection des données, dans sa version révisée en vigueur depuis le 1er septembre 2023.
   - **RGPD** : Règlement général européen sur la protection des données.
   - **Donnée personnelle** : information se rapportant à une personne identifiée ou identifiable.
   - **Anonymisation** : rupture durable du lien avec la personne (réidentification à effort disproportionné) ; sort la donnée du champ de la loi.
   - **Pseudonymisation** : remplacement des identifiants par un pseudonyme, clé conservée à part ; la donnée reste personnelle.
-  - **DPA** : Data Processing Agreement, contrat de sous-traitance (art. 9 nLPD).
+  - **DPA** : Data Processing Agreement, contrat de sous-traitance (art. 9 LPD).
   - **CCT / SCC** : clauses contractuelles types pour les transferts transfrontières.
   - **Swiss-US DPF** : Data Privacy Framework ; depuis le 15 septembre 2024, voie d'adéquation pour les transferts vers les entreprises US certifiées.
   - **TIA** : Transfer Impact Assessment, requise hors voie d'adéquation.

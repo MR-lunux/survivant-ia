@@ -48,7 +48,7 @@
 | `content/outils/le-grand-filtre.md` | Outil cheatsheet (frontmatter + intro avec matrices + outro) |
 | `public/downloads/le-grand-filtre.pdf` | PDF source dépollué du contexte S&F |
 | `docs/linkedin/published/2026-06-07-angles-morts-ia/post-1.md` | Post 1 origin / "le grand filtre" |
-| `docs/linkedin/published/2026-06-07-angles-morts-ia/post-2.md` | Post 2 Shadow IT / nLPD |
+| `docs/linkedin/published/2026-06-07-angles-morts-ia/post-2.md` | Post 2 Shadow IT / LPD |
 | `docs/linkedin/published/2026-06-07-angles-morts-ia/post-3.md` | Post 3 Cloud Act / coffre-clé |
 | `docs/linkedin/published/2026-06-07-angles-morts-ia/post-4.md` | Post 4 kDrive Infomaniak (squelette) |
 | `docs/linkedin/published/2026-06-07-angles-morts-ia/README.md` | Notes série (cadence, dépendances, CTAs) |
@@ -138,7 +138,7 @@ git commit -m "ingest(angles-morts-ia): source dépolluée + PDF distribuable"
 ```yaml
 ---
 title: "Les angles morts de l'IA en entreprise suisse"
-description: "nLPD, secret d'affaires, Cloud Act. Ce que les éditeurs ne te disent pas quand ils vendent 'leur IA sécurisée'. Sept angles morts à vérifier avant de connecter une donnée client à un modèle."
+description: "LPD, secret d'affaires, Cloud Act. Ce que les éditeurs ne te disent pas quand ils vendent 'leur IA sécurisée'. Sept angles morts à vérifier avant de connecter une donnée client à un modèle."
 date: 2026-06-07
 category: souverainete-ia
 kicker: "LECTURE LONGUE · 12 MIN"
@@ -157,7 +157,7 @@ Hook : "Quand un éditeur te dit que son IA est sécurisée, il ne te dit pas de
 
 - [ ] **Step 2.3 : Section 2 — "Conformité ≠ secret d'affaires" (~600 mots)**
 
-L'angle mort majeur. ChatGPT Enterprise compliant nLPD mais exposé Cloud Act. Pose la distinction. Cas d'école : un cabinet immobilier suisse qui passe en Enterprise et croit être protégé.
+L'angle mort majeur. ChatGPT Enterprise compliant LPD mais exposé Cloud Act. Pose la distinction. Cas d'école : un cabinet immobilier suisse qui passe en Enterprise et croit être protégé.
 
 - [ ] **Step 2.4 : Section 3 — "L'arbre de décision" (~700 mots)**
 
@@ -170,12 +170,12 @@ Les 5 questions du doc, chacune dépliée avec un exemple concret :
 
 - [ ] **Step 2.5 : Section 4 — "La matrice des verdicts" (~400 mots)**
 
-Version narrative : "7 catégories d'outils, 2 verdicts par outil (nLPD + secret d'affaires)". Renvoyer explicitement à l'outil pour la matrice complète : "La matrice complète vit dans le grand filtre, lien plus bas. Ici, on extrait ce qui surprend le plus."
+Version narrative : "7 catégories d'outils, 2 verdicts par outil (LPD + secret d'affaires)". Renvoyer explicitement à l'outil pour la matrice complète : "La matrice complète vit dans le grand filtre, lien plus bas. Ici, on extrait ce qui surprend le plus."
 
 Surprises clés à raconter :
-- ChatGPT perso = non-conforme nLPD ET exposé
-- ChatGPT Enterprise = conforme nLPD MAIS exposé
-- Infomaniak AI = conforme nLPD ET protégé (point souvent ignoré)
+- ChatGPT perso = non-conforme LPD ET exposé
+- ChatGPT Enterprise = conforme LPD MAIS exposé
+- Infomaniak AI = conforme LPD ET protégé (point souvent ignoré)
 
 - [ ] **Step 2.6 : Section 5 — "Les 7 angles morts" (~1200 mots, ~170 mots / angle)**
 
@@ -198,7 +198,7 @@ Checklist déploiement : DPA, mécanisme de transfert, no-train confirmé, AIPD 
 
 - [ ] **Step 2.9 : Section 8 — "Glossaire et limites" (~400 mots)**
 
-Glossaire (extraire du doc : nLPD, RGPD, DPA, CCT/SCC, Swiss-US DPF, TIA, ZDR, CMK, HYOK, TEE, Cloud Act, AIPD, FINMA Circ. 2018/3).
+Glossaire (extraire du doc : LPD, RGPD, DPA, CCT/SCC, Swiss-US DPF, TIA, ZDR, CMK, HYOK, TEE, Cloud Act, AIPD, FINMA Circ. 2018/3).
 
 Limites : "Ce n'est pas un conseil juridique. La qualification précise des données et la conformité d'un déploiement donné doivent être validées par un conseil juridique spécialisé. Les caractéristiques des fournisseurs évoluent. Date de dernière révision : 7 juin 2026."
 
@@ -254,8 +254,8 @@ git commit -m "feat(rapports): article pilier 'angles morts de l'IA en entrepris
 code: le-grand-filtre
 kind: cheatsheet
 title: Le grand filtre
-subtitle: "La matrice qui croise conformité nLPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA."
-description: "Matrice consultable. Croise conformité nLPD, protection du secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA (ChatGPT, API, Azure, Bedrock, Infomaniak, self-host). Gratuit, PDF téléchargeable, indexable."
+subtitle: "La matrice qui croise conformité LPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA."
+description: "Matrice consultable. Croise conformité LPD, protection du secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA (ChatGPT, API, Azure, Bedrock, Infomaniak, self-host). Gratuit, PDF téléchargeable, indexable."
 kicker: KIT · LE GRAND FILTRE
 parentArticleSlug: angles-morts-ia-entreprise-suisse
 specs:
@@ -263,18 +263,18 @@ specs:
   - "3 DIMENSIONS"
   - "MATRICE CONSULTABLE"
   - "PDF TÉLÉCHARGEABLE"
-calloutPitch: "Tu veux savoir si ton outil IA expose ta boîte ? Le grand filtre croise trois dimensions (conformité nLPD, secret d'affaires, réalité opérationnelle) pour 7 catégories d'outils. Une consultation, un verdict."
+calloutPitch: "Tu veux savoir si ton outil IA expose ta boîte ? Le grand filtre croise trois dimensions (conformité LPD, secret d'affaires, réalité opérationnelle) pour 7 catégories d'outils. Une consultation, un verdict."
 metiers: []
 intro: |
   Tu veux intégrer l'IA dans ton entreprise sans mettre tes données client ou ton secret d'affaires en risque. Mais entre "ChatGPT", "API OpenAI", "Azure CH", "Infomaniak", "Llama en self-host", les éditeurs te jurent tous que c'est "sécurisé". Sauf que ce mot recouvre trois choses qui ne se recoupent pas.
 
   Le grand filtre croise ces trois choses pour 7 catégories d'outils.
 
-  Lis dans cet ordre : matrice 1 (conformité nLPD — ai-je le droit ?), matrice 2 (secret d'affaires — mon secret tient-il face au Cloud Act ?), matrice 3 (réalité opérationnelle — qu'est-ce qui va peser une fois l'outil choisi ?).
+  Lis dans cet ordre : matrice 1 (conformité LPD — ai-je le droit ?), matrice 2 (secret d'affaires — mon secret tient-il face au Cloud Act ?), matrice 3 (réalité opérationnelle — qu'est-ce qui va peser une fois l'outil choisi ?).
 
   **Légende verdicts** : vert = conforme / risque faible, orange = sous conditions (a, b, c — voir conditions plus bas), rouge = non / risque élevé.
 
-  ### Matrice 1 — Conformité nLPD
+  ### Matrice 1 — Conformité LPD
 
   | Outil | Résidence | DPA | No-train | Verdict |
   |---|---|---|---|---|
@@ -312,7 +312,7 @@ intro: |
 outro: |
   ## Lecture des verdicts et conditions
 
-  Le verdict nLPD dépend de la chaîne : résidence + DPA + non-entraînement + encadrement du transfert.
+  Le verdict LPD dépend de la chaîne : résidence + DPA + non-entraînement + encadrement du transfert.
   Le verdict secret d'affaires dépend de qui peut, de fait, accéder au contenu : maîtrise des clés et exposition au Cloud Act.
 
   ### Condition a — Transfert vers les États-Unis
@@ -341,7 +341,7 @@ outro: |
 
   ## Avant de déployer (checklist)
 
-  - **DPA / contrat de sous-traitance signé** (art. 9 nLPD)
+  - **DPA / contrat de sous-traitance signé** (art. 9 LPD)
   - **Mécanisme de transfert** pour tout flux hors CH/UE : adéquation Swiss-US DPF ou CCT + analyse d'impact (TIA)
   - **Confirmation contractuelle du non-entraînement** (et du zero-data-retention si disponible)
   - **AIPD** (analyse d'impact) si le risque est élevé
@@ -354,12 +354,12 @@ outro: |
 
   ## Glossaire
 
-  - **nLPD** : Nouvelle Loi fédérale suisse sur la protection des données, en vigueur depuis le 1er septembre 2023.
+  - **LPD** : Loi fédérale suisse sur la protection des données, en vigueur depuis le 1er septembre 2023.
   - **RGPD** : Règlement général européen sur la protection des données.
   - **Donnée personnelle** : information se rapportant à une personne identifiée ou identifiable.
   - **Anonymisation** : rupture durable du lien avec la personne (réidentification à effort disproportionné) ; sort la donnée du champ de la loi.
   - **Pseudonymisation** : remplacement des identifiants par un pseudonyme, clé conservée à part ; la donnée reste personnelle.
-  - **DPA** : Data Processing Agreement, contrat de sous-traitance (art. 9 nLPD).
+  - **DPA** : Data Processing Agreement, contrat de sous-traitance (art. 9 LPD).
   - **CCT / SCC** : clauses contractuelles types pour les transferts transfrontières.
   - **Swiss-US DPF** : Data Privacy Framework ; depuis le 15 septembre 2024, voie d'adéquation pour les transferts vers les entreprises US certifiées.
   - **TIA** : Transfer Impact Assessment, requise hors voie d'adéquation.
@@ -429,7 +429,7 @@ Modifier `app/data/outils-manifest.ts` après l'entrée `generateur-processus-bp
     code: 'le-grand-filtre',
     path: '/outils/le-grand-filtre',
     title: 'Le grand filtre',
-    subtitle: 'La matrice qui croise conformité nLPD, secret d\'affaires et réalité opérationnelle pour 7 outils IA.',
+    subtitle: 'La matrice qui croise conformité LPD, secret d\'affaires et réalité opérationnelle pour 7 outils IA.',
     kind: 'cheatsheet',
     metiers: [],
   },
@@ -456,8 +456,8 @@ Modifier `app/data/outil-faqs.ts` — ajouter dans `OUTIL_FAQS` :
       answer: "Toi, et ton conseil juridique. Le grand filtre est une aide à la décision, pas un avis juridique. La qualification précise des données et la conformité d'un déploiement donné doivent être validées par un juriste spécialisé, en particulier sur le volet FINMA. Le document récapitule l'état du marché à la date affichée — les caractéristiques des fournisseurs évoluent.",
     },
     {
-      question: "Pourquoi ChatGPT Enterprise est 'risqué' alors qu'il est conforme nLPD ?",
-      answer: "Parce que la nLPD et le secret d'affaires sont deux choses différentes. ChatGPT Enterprise garantit le non-entraînement et un DPA, donc la nLPD est respectée. Mais OpenAI reste une entreprise américaine, soumise au Cloud Act. Sur injonction d'un juge américain, elle peut être contrainte de livrer des données — même celles d'un client suisse. La nLPD protège les personnes ; le Cloud Act expose les secrets d'entreprise.",
+      question: "Pourquoi ChatGPT Enterprise est 'risqué' alors qu'il est conforme LPD ?",
+      answer: "Parce que la LPD et le secret d'affaires sont deux choses différentes. ChatGPT Enterprise garantit le non-entraînement et un DPA, donc la LPD est respectée. Mais OpenAI reste une entreprise américaine, soumise au Cloud Act. Sur injonction d'un juge américain, elle peut être contrainte de livrer des données — même celles d'un client suisse. La LPD protège les personnes ; le Cloud Act expose les secrets d'entreprise.",
     },
     {
       question: "Self-host = solution parfaite ?",
@@ -607,7 +607,7 @@ Cycle de 4 posts LinkedIn distribuant l'asset evergreen `/outils/le-grand-filtre
 | Post | Jour | Statut |
 |---|---|---|
 | Post 1 — origin / le grand filtre | J | prêt |
-| Post 2 — Shadow IT / nLPD | J+1 | prêt |
+| Post 2 — Shadow IT / LPD | J+1 | prêt |
 | Post 3 — Cloud Act / coffre-clé | J+2 | prêt |
 | Post 4 — kDrive Infomaniak | J+X (7-15 jours) | bloqué sur REX kDrive |
 
@@ -652,7 +652,7 @@ Quand on parle d'intégrer l'IA dans nos processus, surtout dans des secteurs ex
 
 Mais de quelle sécurité parle-t-on ?
 
-- La protection des données personnelles (nLPD) ?
+- La protection des données personnelles (LPD) ?
 - Le secret d'affaires de la boîte ?
 - La résidence des serveurs face aux lois étrangères ?
 
@@ -660,11 +660,11 @@ J'étais fatigué des discours évasifs des éditeurs. J'avais besoin d'une matr
 
 Le document n'existait pas. Je l'ai construit. Je l'appelle le grand filtre.
 
-Il croise la conformité nLPD, la protection du secret d'affaires et la réalité opérationnelle. Des outils grand public aux API, en passant par le cloud suisse et le self-host.
+Il croise la conformité LPD, la protection du secret d'affaires et la réalité opérationnelle. Des outils grand public aux API, en passant par le cloud suisse et le self-host.
 
 Je l'ai mis en libre accès sur Survivant-IA. Lien en premier commentaire.
 
-Demain, l'erreur la plus fréquente que je vois sur ChatGPT et la nLPD.
+Demain, l'erreur la plus fréquente que je vois sur ChatGPT et la LPD.
 ```
 
 - [ ] **Step 7.3 : `post-2.md`**

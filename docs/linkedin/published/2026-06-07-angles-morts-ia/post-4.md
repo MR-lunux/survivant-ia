@@ -16,7 +16,7 @@ serie: angles-morts-ia (4/4)
 
 Le moyen le plus sûr d'utiliser l'IA en Suisse demande beaucoup trop d'efforts. Alors je cherche une alternative.
 
-On l'a vu cette semaine : pour une sécurité maximale (zéro risque Cloud Act, conformité nLPD complète), la voie la plus solide est le self-host. Un modèle open source (Llama 3, Mistral) qui tourne sur un VPS chez un hébergeur 100% suisse. Aucune frontière traversée, aucune entreprise étrangère dans la boucle.
+On l'a vu cette semaine : pour une sécurité maximale (zéro risque Cloud Act, conformité LPD complète), la voie la plus solide est le self-host. Un modèle open source (Llama 3, Mistral) qui tourne sur un VPS chez un hébergeur 100% suisse. Aucune frontière traversée, aucune entreprise étrangère dans la boucle.
 
 Sauf que techniquement, c'est lourd.
 

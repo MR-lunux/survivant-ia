@@ -1,6 +1,6 @@
 # IA & données d'entreprise
 
-## Conformité nLPD et protection du secret d'affaires — guide de choix des outils
+## Conformité LPD et protection du secret d'affaires — guide de choix des outils
 
 **Aide à la décision — sécurité de l'IA en entreprise suisse**
 
@@ -17,11 +17,11 @@ Il s'adresse à toute PME suisse régulée — cabinet immobilier, fiduciaire, �
 Suivez les questions dans l'ordre. La première réponse qui débouche sur un verdict vous arrête ; sinon, continuez.
 
 1. **Les données contiennent-elles des données personnelles ?** (noms de clients, locataires, ou parties prenantes financières, coordonnées, identifiants, dossiers médicaux, données RH…)
-   - Non : risque nLPD faible. Passez à la matrice (section 2) pour vérifier le secret d'affaires.
+   - Non : risque LPD faible. Passez à la matrice (section 2) pour vérifier le secret d'affaires.
    - Oui : passez à la question 2.
 
 2. **Peut-on anonymiser durablement les données avant traitement** (réidentification à effort disproportionné) ?
-   - Oui : les données sortent du champ de la nLPD — large flexibilité. Rare en pratique pour des données immobilières, financières ou de santé, souvent réidentifiables par recoupement (rapprochement avec un registre foncier, un cadastre patient, une base actionnariat).
+   - Oui : les données sortent du champ de la LPD — large flexibilité. Rare en pratique pour des données immobilières, financières ou de santé, souvent réidentifiables par recoupement (rapprochement avec un registre foncier, un cadastre patient, une base actionnariat).
    - Non / pseudonymisation seulement : la donnée reste personnelle. Passez à la question 3.
 
 3. **Données sensibles, secret particulier, ou traitement dans le périmètre de l'externalisation FINMA ?**
@@ -40,9 +40,9 @@ Suivez les questions dans l'ordre. La première réponse qui débouche sur un ve
 
 ## 2. Matrice des verdicts
 
-Le groupe de gauche évalue la conformité nLPD ; le groupe de droite, la protection effective du secret d'affaires. Un outil peut satisfaire l'un sans l'autre. Les marqueurs a, b, c renvoient aux conditions de la section 4.
+Le groupe de gauche évalue la conformité LPD ; le groupe de droite, la protection effective du secret d'affaires. Un outil peut satisfaire l'un sans l'autre. Les marqueurs a, b, c renvoient aux conditions de la section 4.
 
-| Outil | Résidence | DPA | No-train | Verdict nLPD | CMK / clés | Cloud Act | Verdict secret d'affaires |
+| Outil | Résidence | DPA | No-train | Verdict LPD | CMK / clés | Cloud Act | Verdict secret d'affaires |
 |---|---|---|---|---|---|---|---|
 | ChatGPT perso (Free/Plus) | US | Non | Non | Non conforme | Non | Élevé | Exposé |
 | ChatGPT Team / Enterprise | US (UE en option) | Oui | Oui | Conforme sous cond. a | Non | Élevé | Risqué |
@@ -74,7 +74,7 @@ La matrice dit si un outil est acceptable ; ce tableau dit ce qui vous attend un
 
 ## 4. Lecture des verdicts et conditions
 
-Le verdict nLPD dépend de la chaîne résidence + DPA + non-entraînement + encadrement du transfert. Le verdict secret d'affaires dépend de qui peut, de fait, accéder au contenu : maîtrise des clés et exposition au Cloud Act.
+Le verdict LPD dépend de la chaîne résidence + DPA + non-entraînement + encadrement du transfert. Le verdict secret d'affaires dépend de qui peut, de fait, accéder au contenu : maîtrise des clés et exposition au Cloud Act.
 
 ### Conditions des astérisques
 
@@ -86,7 +86,7 @@ Le verdict nLPD dépend de la chaîne résidence + DPA + non-entraînement + enc
 
 ### À garder en tête
 
-- **Conformité nLPD ≠ secret d'affaires :** ChatGPT Enterprise et l'API peuvent être conformes tout en laissant le secret d'affaires « risqué » (pas de CMK, maison-mère américaine dans le périmètre du Cloud Act).
+- **Conformité LPD ≠ secret d'affaires :** ChatGPT Enterprise et l'API peuvent être conformes tout en laissant le secret d'affaires « risqué » (pas de CMK, maison-mère américaine dans le périmètre du Cloud Act).
 - **Cloud Act :** les autorités suisses ne le considèrent pas comme contraire en soi à l'ordre public suisse ; c'est un risque à documenter et à mitiger, pas un veto, d'où des verdicts « risqué / bon » et non « interdit ».
 - **Secret d'affaires :** juridiquement protégé par les clauses de confidentialité du DPA, la LCD (art. 6) et le Code pénal (art. 162) ; mais ces protections ne tiennent pas face à une injonction étrangère qui les court-circuite. Pour les régimes spéciaux (secret bancaire art. 47 LB, secret médical art. 321 CP, secret professionnel de l'avocat art. 321 CP), la base légale est plus dure mais la mécanique d'exposition reste la même.
 - **ChatGPT Team / Enterprise :** résidence UE possible en Enterprise, jamais en Suisse.
@@ -114,7 +114,7 @@ De plus en plus utilisés, ces outils ne sont pas une ligne de la matrice : ce s
 
 ### Pour toute option faisant intervenir un tiers
 
-- DPA / contrat de sous-traitance signé (art. 9 nLPD).
+- DPA / contrat de sous-traitance signé (art. 9 LPD).
 - Mécanisme de transfert pour tout flux hors CH/UE : adéquation Swiss-US DPF (statut vérifié) ou CCT + analyse d'impact (TIA).
 - Confirmation contractuelle du non-entraînement (et du zero-data-retention si disponible).
 - AIPD (analyse d'impact) si le risque est élevé.
@@ -136,12 +136,12 @@ De plus en plus utilisés, ces outils ne sont pas une ligne de la matrice : ce s
 
 ## 7. Glossaire
 
-- **nLPD** : Nouvelle Loi fédérale suisse sur la protection des données, en vigueur depuis le 1er septembre 2023.
+- **LPD** : Loi fédérale suisse sur la protection des données, dans sa version révisée en vigueur depuis le 1er septembre 2023.
 - **RGPD** : Règlement général européen sur la protection des données ; s'applique dès qu'on traite des données de personnes dans l'UE.
 - **Donnée personnelle** : Toute information se rapportant à une personne identifiée ou identifiable.
 - **Anonymisation** : Rupture durable du lien avec la personne (réidentification à effort disproportionné) ; sort la donnée du champ de la loi.
 - **Pseudonymisation** : Remplacement des identifiants par un pseudonyme, clé conservée à part ; la donnée reste personnelle.
-- **DPA** : Data Processing Agreement / contrat de sous-traitance encadrant le traitement par un tiers (art. 9 nLPD).
+- **DPA** : Data Processing Agreement / contrat de sous-traitance encadrant le traitement par un tiers (art. 9 LPD).
 - **CCT / SCC** : Clauses contractuelles types : mécanisme de garantie reconnu pour les transferts transfrontières.
 - **Swiss-US DPF** : Data Privacy Framework : depuis le 15 septembre 2024, voie d'adéquation pour les transferts vers les entreprises US certifiées (certification annuelle).
 - **TIA** : Transfer Impact Assessment : analyse d'impact du transfert, requise hors voie d'adéquation.

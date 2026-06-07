@@ -7,7 +7,7 @@ Source matière : `~/Downloads/Guide_IA_donnees_immobilier_nLPD_secret_affaires_
 
 ## 1. Intention
 
-Produire un cycle éditorial autour de la sécurité de l'IA en Suisse — nLPD, secret d'affaires, Cloud Act, FINMA — pour ouvrir une nouvelle zone de positionnement Survivant-IA : la souveraineté de l'IA en entreprise. Le cycle s'articule autour d'un asset evergreen (article pilier + outil cheatsheet) et d'une série de 4 posts LinkedIn qui le distribuent.
+Produire un cycle éditorial autour de la sécurité de l'IA en Suisse — LPD, secret d'affaires, Cloud Act, FINMA — pour ouvrir une nouvelle zone de positionnement Survivant-IA : la souveraineté de l'IA en entreprise. Le cycle s'articule autour d'un asset evergreen (article pilier + outil cheatsheet) et d'une série de 4 posts LinkedIn qui le distribuent.
 
 L'angle éditorial unifiant : **les angles morts de l'utilisation de l'IA**. Le mot "sécurisé" est jeté à toutes les sauces par les éditeurs, alors qu'il recouvre trois choses distinctes qui ne se recoupent pas (conformité réglementaire, protection du secret d'affaires, résidence des données). L'asset central met ces angles morts en lumière de manière scannable.
 
@@ -44,7 +44,7 @@ Chaque post pointe vers l'asset evergreen. L'asset evergreen survit aux posts (d
 **Slug** : `angles-morts-ia-entreprise-suisse`
 **Path** : `content/rapports/angles-morts-ia-entreprise-suisse.md`
 **Titre** : Les angles morts de l'IA en entreprise suisse
-**Description** : nLPD, secret d'affaires, Cloud Act. Ce que les éditeurs ne te disent pas quand ils vendent "leur IA sécurisée". Sept angles morts à vérifier avant de connecter une donnée client à un modèle.
+**Description** : LPD, secret d'affaires, Cloud Act. Ce que les éditeurs ne te disent pas quand ils vendent "leur IA sécurisée". Sept angles morts à vérifier avant de connecter une donnée client à un modèle.
 **Kicker** : `LECTURE LONGUE · 12 MIN`
 **Catégorie** : `souverainete-ia` (nouvelle catégorie à introduire)
 **Status** : `published`
@@ -54,13 +54,13 @@ Chaque post pointe vers l'asset evergreen. L'asset evergreen survit aux posts (d
 
 Nouveau cluster "souveraineté IA" qui s'ajoute aux clusters existants (action, résilience cognitive). Cluster mots-clés :
 
-- Principal : `ia entreprise suisse nLPD`
-- Secondaires : `chatgpt enterprise suisse conformité`, `cloud act ia suisse`, `outil ia souverain suisse`, `secret d'affaires ia`, `finma ia externalisation`, `nLPD chatgpt`
+- Principal : `ia entreprise suisse LPD`
+- Secondaires : `chatgpt enterprise suisse conformité`, `cloud act ia suisse`, `outil ia souverain suisse`, `secret d'affaires ia`, `finma ia externalisation`, `LPD chatgpt`
 
 ### 4.2 Structure (8 sections)
 
 1. **Le mot "sécurisé" ne veut rien dire** — intro. Trois sens distincts, jamais explicités.
-2. **Conformité ≠ secret d'affaires** — angle mort majeur. ChatGPT Enterprise est conforme nLPD mais le Cloud Act vide quand même ton secret. Cas d'école.
+2. **Conformité ≠ secret d'affaires** — angle mort majeur. ChatGPT Enterprise est conforme LPD mais le Cloud Act vide quand même ton secret. Cas d'école.
 3. **L'arbre de décision** — les 5 questions du doc, dépliées avec exemples concrets.
 4. **La matrice des verdicts** — version narrative (la matrice complète vit dans l'outil, l'article résume et renvoie).
 5. **Les 7 angles morts** — un par un, chacun avec un exemple court :
@@ -82,7 +82,7 @@ Nouveau cluster "souveraineté IA" qui s'ajoute aux clusters existants (action, 
 - Mode rédac A : Mathieu draft → Claude copyedit chirurgical → Mathieu remix final
 - Voix : Mathieu le Survivant de l'IA, lucide, sec. Pas de jargon juridique sans glossaire inline.
 - Charte de voix §3-4 appliquée strictement (négation complète, em-dashes interdits, emojis interdits, anti-patterns AI)
-- Pas d'invention factuelle : sourcer la nLPD (art. 9), la FINMA Circ. 2018/3, le Swiss-US DPF (15 sept 2024), la LCD art. 6, le CP art. 162.
+- Pas d'invention factuelle : sourcer la LPD (art. 9), la FINMA Circ. 2018/3, le Swiss-US DPF (15 sept 2024), la LCD art. 6, le CP art. 162.
 
 ## 5. Outil "le grand filtre" (matrice statique)
 
@@ -93,7 +93,7 @@ Nouveau cluster "souveraineté IA" qui s'ajoute aux clusters existants (action, 
 **Kind** : `cheatsheet` (premier outil à utiliser ce type — déjà prévu dans le manifest)
 **parentArticleSlug** : `angles-morts-ia-entreprise-suisse`
 **Titre** : Le grand filtre
-**Subtitle** : La matrice qui croise conformité nLPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA.
+**Subtitle** : La matrice qui croise conformité LPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA.
 **Specs** (cards header) :
 - "7 OUTILS"
 - "3 DIMENSIONS"
@@ -106,7 +106,7 @@ Hero standard (KickerLabel `KIT · LE GRAND FILTRE`, titre, subtitle, specs card
 
 Bloc intro court (3-4 lignes) : comment lire la matrice, à qui elle s'adresse, ce qu'elle ne remplace pas.
 
-**Matrice 1 — Conformité nLPD**
+**Matrice 1 — Conformité LPD**
 Colonnes : Outil / Résidence / DPA / No-train / Verdict
 Lignes : ChatGPT perso, ChatGPT Team/Enterprise, API OpenAI + ZDR, Azure OpenAI (CH North), AWS Bedrock (Zurich), Infomaniak AI (API), Self-host (Ollama/on-prem)
 
@@ -147,7 +147,7 @@ Checklist d'ajout d'un nouvel outil (selon header de `app/data/outils-manifest.t
 ### 5.4 SEO de l'outil
 
 - Title ≤ 60 caractères : "Le grand filtre · matrice sécurité IA en entreprise suisse"
-- Description : "Matrice qui croise conformité nLPD, secret d'affaires et souveraineté pour 7 catégories d'outils IA. Gratuit, consultable, PDF téléchargeable."
+- Description : "Matrice qui croise conformité LPD, secret d'affaires et souveraineté pour 7 catégories d'outils IA. Gratuit, consultable, PDF téléchargeable."
 - Schema.org `HowTo` ou `Table` (à arbitrer en plan)
 
 ## 6. Série LinkedIn (4 posts)
@@ -163,7 +163,7 @@ Quand on parle d'intégrer l'IA dans nos processus, surtout dans des secteurs ex
 
 Mais de quelle sécurité parle-t-on ?
 
-- La protection des données personnelles (nLPD) ?
+- La protection des données personnelles (LPD) ?
 - Le secret d'affaires de la boîte ?
 - La résidence des serveurs face aux lois étrangères ?
 
@@ -171,17 +171,17 @@ J'étais fatigué des discours évasifs des éditeurs. J'avais besoin d'une matr
 
 Le document n'existait pas. Je l'ai construit. Je l'appelle le grand filtre.
 
-Il croise la conformité nLPD, la protection du secret d'affaires et la réalité opérationnelle. Des outils grand public aux API, en passant par le cloud suisse et le self-host.
+Il croise la conformité LPD, la protection du secret d'affaires et la réalité opérationnelle. Des outils grand public aux API, en passant par le cloud suisse et le self-host.
 
 Je l'ai mis en libre accès sur Survivant-IA. Lien en premier commentaire.
 
-Demain, l'erreur la plus fréquente que je vois sur ChatGPT et la nLPD.
+Demain, l'erreur la plus fréquente que je vois sur ChatGPT et la LPD.
 ```
 
 CTA 1er commentaire : `https://survivant-ia.ch/outils/le-grand-filtre`
 CTA 2e commentaire : `https://survivant-ia.ch/rapports/angles-morts-ia-entreprise-suisse`
 
-### 6.2 Post 2 — Shadow IT / nLPD (J+1)
+### 6.2 Post 2 — Shadow IT / LPD (J+1)
 
 ```
 Ne copie JAMAIS les données d'un client dans le ChatGPT gratuit. Jamais.
@@ -190,7 +190,7 @@ C'est la règle numéro 1. Et c'est pourtant le cauchemar quotidien des directio
 
 On veut gagner du temps. On demande à l'IA de résumer le dossier d'un locataire, de trier des fiches de paie, de rédiger un mail RH.
 
-Avec un compte gratuit, ou même un abonnement Plus individuel, tu paies avec ces données. Le modèle s'entraîne dessus. C'est une fuite caractérisée, et une violation directe de la nLPD.
+Avec un compte gratuit, ou même un abonnement Plus individuel, tu paies avec ces données. Le modèle s'entraîne dessus. C'est une fuite caractérisée, et une violation directe de la LPD.
 
 Pour être en règle, il n'y a pas 36 solutions. Trois conditions à cocher :
 
@@ -202,7 +202,7 @@ Tant que ces trois conditions ne sont pas posées, tes données personnelles son
 
 Le grand filtre que j'ai partagé hier classe les outils selon ce standard. Lien en premier commentaire.
 
-Mais respecter la nLPD ne protège pas ton secret d'affaires. Demain, j'explique pourquoi.
+Mais respecter la LPD ne protège pas ton secret d'affaires. Demain, j'explique pourquoi.
 ```
 
 CTA 1er commentaire : `https://survivant-ia.ch/outils/le-grand-filtre`
@@ -215,7 +215,7 @@ Imagine un coffre-fort construit en Suisse, avec des matériaux suisses. Mais la
 
 C'est exactement ce que font beaucoup de boîtes avec leurs données stratégiques (stratégie de fonds, M&A, secrets de fabrication).
 
-Elles choisissent des serveurs physiquement basés en Suisse, comme Azure Switzerland North. Elles se disent : "C'est en Suisse, c'est nLPD compliant, on est tranquilles."
+Elles choisissent des serveurs physiquement basés en Suisse, comme Azure Switzerland North. Elles se disent : "C'est en Suisse, c'est LPD compliant, on est tranquilles."
 
 Faux.
 
@@ -236,7 +236,7 @@ CTA 2e commentaire : `https://survivant-ia.ch/rapports/angles-morts-ia-entrepris
 ```
 Le moyen le plus sûr d'utiliser l'IA en Suisse demande beaucoup trop d'efforts. Alors je cherche une alternative.
 
-On l'a vu cette semaine : pour une sécurité maximale (zéro risque Cloud Act, conformité nLPD complète), la voie la plus solide est le self-host. Un modèle open source (Llama 3, Mistral) qui tourne sur un VPS chez un hébergeur 100% suisse. Aucune frontière traversée, aucune entreprise étrangère dans la boucle.
+On l'a vu cette semaine : pour une sécurité maximale (zéro risque Cloud Act, conformité LPD complète), la voie la plus solide est le self-host. Un modèle open source (Llama 3, Mistral) qui tourne sur un VPS chez un hébergeur 100% suisse. Aucune frontière traversée, aucune entreprise étrangère dans la boucle.
 
 Sauf que techniquement, c'est lourd.
 

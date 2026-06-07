@@ -16,7 +16,7 @@ Imagine un coffre-fort construit en Suisse, avec des matériaux suisses. Mais la
 
 C'est exactement ce que font beaucoup de boîtes avec leurs données stratégiques (stratégie de fonds, M&A, secrets de fabrication).
 
-Elles choisissent des serveurs physiquement basés en Suisse, comme Azure Switzerland North. Elles se disent : "C'est en Suisse, c'est nLPD compliant, on est tranquilles."
+Elles choisissent des serveurs physiquement basés en Suisse, comme Azure Switzerland North. Elles se disent : "C'est en Suisse, c'est LPD compliant, on est tranquilles."
 
 Faux.
 

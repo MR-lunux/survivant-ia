@@ -18,7 +18,7 @@ Quand on parle d'intégrer l'IA dans nos processus, surtout dans des secteurs ex
 
 Mais de quelle sécurité parle-t-on ?
 
-- La protection des données personnelles (nLPD) ?
+- La protection des données personnelles (LPD) ?
 - Le secret d'affaires de la boîte ?
 - La résidence des serveurs face aux lois étrangères ?
 
@@ -26,8 +26,8 @@ J'étais fatigué des discours évasifs des éditeurs. J'avais besoin d'une matr
 
 Le document n'existait pas. Je l'ai construit. Je l'appelle le grand filtre.
 
-Il croise la conformité nLPD, la protection du secret d'affaires et la réalité opérationnelle. Des outils grand public aux API, en passant par le cloud suisse et le self-host.
+Il croise la conformité LPD, la protection du secret d'affaires et la réalité opérationnelle. Des outils grand public aux API, en passant par le cloud suisse et le self-host.
 
 Je l'ai mis en libre accès sur Survivant-IA. Lien en premier commentaire.
 
-Demain, l'erreur la plus fréquente que je vois sur ChatGPT et la nLPD.
+Demain, l'erreur la plus fréquente que je vois sur ChatGPT et la LPD.
