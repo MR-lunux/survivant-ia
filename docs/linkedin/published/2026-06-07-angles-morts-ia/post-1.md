@@ -5,7 +5,7 @@ cluster: souverainete-ia (nouveau cluster : sécurité IA entreprise suisse)
 archetype: A (origin story : pose la légitimité en début de série)
 format: court (LinkedIn, post text seul)
 cta_1: lien outil /outils/le-grand-filtre en 1er commentaire
-cta_2: lien article /rapports/angles-morts-ia-entreprise-suisse en 2e commentaire
+cta_2: lien La Fréquence /frequence en 2e commentaire (article pilier différé)
 target_chars: 1000-1200
 serie: angles-morts-ia (1/4)
 ---

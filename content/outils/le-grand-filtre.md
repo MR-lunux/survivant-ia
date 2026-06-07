@@ -5,7 +5,6 @@ title: Le grand filtre
 subtitle: "La matrice qui croise conformité LPD, secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA."
 description: "Matrice consultable. Croise conformité LPD, protection du secret d'affaires et réalité opérationnelle pour 7 catégories d'outils IA (ChatGPT, API, Azure, Bedrock, Infomaniak, self-host). Gratuit, PDF téléchargeable, indexable."
 kicker: KIT · LE GRAND FILTRE
-parentArticleSlug: angles-morts-ia-entreprise-suisse
 specs:
   - "7 OUTILS"
   - "3 DIMENSIONS"
@@ -130,8 +129,6 @@ outro: |
   Le grand filtre est aussi disponible en PDF : [le-grand-filtre.pdf](/downloads/le-grand-filtre.pdf)
 
   ## Pour aller plus loin
-
-  L'article pilier ["Les angles morts de l'IA en entreprise suisse"](/rapports/angles-morts-ia-entreprise-suisse) déplie chacun des angles morts avec des exemples concrets.
 
   Pour recevoir les mises à jour de la matrice quand le marché bouge (nouveaux outils, changements de statut DPF, évolutions FINMA), inscris-toi à [La Fréquence](/frequence).
 data:
