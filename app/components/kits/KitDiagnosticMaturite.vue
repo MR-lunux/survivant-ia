@@ -72,6 +72,27 @@ const ADVICE: Record<string, string> = {
   Direction:   'Sécurise un sponsor à la direction, relié à un objectif explicite. Sans ça, le projet meurt à la première friction.',
 }
 
+const CX = 150, CY = 138, R = 104
+
+function pointFor(i: number, ratio: number): [number, number] {
+  const ang = -Math.PI / 2 + i * (Math.PI * 2 / 6)
+  return [CX + R * ratio * Math.cos(ang), CY + R * ratio * Math.sin(ang)]
+}
+
+function ringPath(ratio: number): string {
+  return AXES.map((_, i) => pointFor(i, ratio).join(',')).join(' ')
+}
+
+function dimColor(avg: number): string {
+  if (avg < 1.5) return 'var(--color-danger)'
+  if (avg < 2.5) return 'var(--color-mutation)'
+  return '#6FA86B'
+}
+
+const radarPoints = computed(() =>
+  AXES.map((_, i) => pointFor(i, 1))
+)
+
 const props = defineProps<{ kitId: string }>()
 
 const { capture } = usePosthogEvent()
@@ -106,6 +127,19 @@ const result = computed(() => {
 
   return { dims, overall, level, levelIndex, weak }
 })
+
+const dataPoly = computed(() =>
+  result.value.dims.map((d, i) => pointFor(i, d.ratio).join(',')).join(' ')
+)
+
+const axisLabels = computed(() =>
+  AXES.map((label, i) => {
+    const ax = CX + (R + 18) * Math.cos(-Math.PI / 2 + i * (Math.PI * 2 / 6))
+    const ay = CY + (R + 18) * Math.sin(-Math.PI / 2 + i * (Math.PI * 2 / 6))
+    const anchor = Math.abs(ax - CX) < 12 ? 'middle' : ax > CX ? 'start' : 'end'
+    return { label, ax, ay: ay + 3, anchor }
+  })
+)
 
 function answer(val: number) {
   const now = Date.now()
@@ -304,9 +338,82 @@ onBeforeUnmount(() => {
           <!-- Section label -->
           <div class="section-label">PROFIL PAR DIMENSION</div>
 
-          <!-- Radar placeholder — complété en Task 4 -->
+          <!-- Radar + légende -->
           <div class="result-panel radar-panel">
-            <p class="placeholder-label">// RADAR — Task 4</p>
+            <div class="radar-card">
+              <svg
+                viewBox="0 0 300 276"
+                width="260"
+                height="240"
+                role="img"
+                aria-label="Radar de maturité IA"
+              >
+                <!-- Grid rings -->
+                <polygon
+                  v-for="r in [0.25, 0.5, 0.75, 1]"
+                  :key="r"
+                  :points="ringPath(r)"
+                  fill="none"
+                  stroke="var(--color-hairline)"
+                  stroke-width="1"
+                />
+
+                <!-- Axis spokes -->
+                <line
+                  v-for="(pt, i) in radarPoints"
+                  :key="'spoke-' + i"
+                  :x1="CX" :y1="CY"
+                  :x2="pt[0]" :y2="pt[1]"
+                  stroke="var(--color-hairline)"
+                  stroke-width="1"
+                />
+
+                <!-- Data polygon -->
+                <polygon
+                  :points="dataPoly"
+                  fill="rgba(108, 227, 181, 0.12)"
+                  stroke="var(--color-accent)"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                />
+
+                <!-- Data points -->
+                <circle
+                  v-for="(d, i) in result.dims"
+                  :key="'pt-' + i"
+                  :cx="pointFor(i, d.ratio)[0]"
+                  :cy="pointFor(i, d.ratio)[1]"
+                  r="3.5"
+                  :fill="dimColor(d.avg)"
+                />
+
+                <!-- Axis labels -->
+                <text
+                  v-for="al in axisLabels"
+                  :key="al.label"
+                  :x="al.ax"
+                  :y="al.ay"
+                  :text-anchor="al.anchor"
+                  font-family="var(--font-mono)"
+                  font-size="9"
+                  fill="var(--color-muted)"
+                  style="text-transform: uppercase; letter-spacing: 0.04em;"
+                >{{ al.label }}</text>
+              </svg>
+
+              <!-- Legend -->
+              <div class="radar-legend">
+                <div
+                  v-for="d in result.dims"
+                  :key="d.dim"
+                  class="legend-row"
+                >
+                  <span class="legend-dot" :style="{ background: dimColor(d.avg) }" />
+                  <span class="legend-dim">{{ d.dim }}</span>
+                  <span class="legend-pct">{{ d.pct }}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Priorités -->
@@ -501,9 +608,27 @@ onBeforeUnmount(() => {
   color: var(--color-muted); margin: 0.5rem 0;
 }
 
-.radar-panel { min-height: 120px; display: grid; place-items: center; }
-.placeholder-label {
-  color: var(--color-muted); font-family: var(--font-mono); font-size: 0.75rem; text-align: center;
+.radar-panel { overflow: hidden; }
+.radar-card {
+  display: flex; align-items: center; gap: 2rem;
+  flex-wrap: wrap; justify-content: center;
+  padding: 0.5rem 0;
+}
+.radar-legend {
+  display: flex; flex-direction: column; gap: 0.6rem;
+  min-width: 130px;
+}
+.legend-row {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.88rem;
+}
+.legend-dot {
+  width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+}
+.legend-dim { color: var(--color-text-soft); flex: 1; }
+.legend-pct {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--color-muted);
 }
 
 .recos { display: flex; flex-direction: column; }
