@@ -131,6 +131,7 @@ export default defineNuxtConfig({
         '/outils/ameliorer-son-prompt',
         '/outils/generateur-processus-bpmn',
         '/outils/le-grand-filtre',
+        '/outils/diagnostic-maturite-ia',
         '/rapports/2026-05-08-ia-supprime-inefficience',
         '/rapports/offloading-cognitif-quand-l-ia-pense-a-ta-place',
         '/rapports/2026-05-21-comment-ecrire-prompt-ameliore-reponses',

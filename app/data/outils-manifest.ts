@@ -69,6 +69,14 @@ export const OUTILS_MANIFEST: OutilManifestEntry[] = [
     kind: 'cheatsheet',
     metiers: [],
   },
+  {
+    code: 'diagnostic-maturite-ia',
+    path: '/outils/diagnostic-maturite-ia',
+    title: 'Diagnostic de maturité IA',
+    subtitle: "Es-tu en état de déployer l'IA — ou prêt à la regretter ?",
+    kind: 'app',
+    metiers: [],
+  },
 ]
 
 export function outilsForMetier(metierSlug: string): OutilManifestEntry[] {

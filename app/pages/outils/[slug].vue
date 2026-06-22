@@ -179,6 +179,11 @@ function onBodyClick(ev: MouseEvent) {
           :kit-id="kit.code"
         />
 
+        <KitDiagnosticMaturite
+          v-if="kit.kind === 'app' && kit.code === 'diagnostic-maturite-ia'"
+          :kit-id="kit.code"
+        />
+
         <MDC v-if="kit.outro" :value="kit.outro" tag="div" />
 
         <div v-if="OUTIL_FAQS[kit.code]" class="kit-faq-wrap">
