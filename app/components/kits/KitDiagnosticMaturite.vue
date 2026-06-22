@@ -60,6 +60,7 @@ const answers = ref<Record<number, number>>({})
 const startedFired = ref(false)
 const questionStartTime = ref(Date.now())
 const diagnosticStartTime = ref(0)
+const decryptTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const total = QUESTIONS.length
 const currentQuestion = computed(() => QUESTIONS[idx.value])
@@ -91,7 +92,7 @@ function answer(val: number) {
     questionStartTime.value = Date.now()
   } else {
     stage.value = 'decrypting'
-    setTimeout(() => { stage.value = 'result' }, 1200)
+    decryptTimer.value = setTimeout(() => { stage.value = 'result' }, 1200)
   }
 }
 
@@ -127,6 +128,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (decryptTimer.value) clearTimeout(decryptTimer.value)
   if (import.meta.client) window.removeEventListener('beforeunload', maybeFireAbandoned)
   maybeFireAbandoned()
 })
@@ -141,7 +143,7 @@ onBeforeUnmount(() => {
         <div v-if="stage === 'quiz'" class="quiz-frame">
           <div class="prog-row">
             <span class="step-label">{{ String(idx + 1).padStart(2, '0') }} / {{ total }}</span>
-            <div class="prog-bar" role="progressbar" :aria-valuenow="idx" :aria-valuemax="total">
+            <div class="prog-bar" role="progressbar" aria-valuemin="0" :aria-valuenow="idx" :aria-valuemax="total">
               <span :style="{ width: `${(idx / total) * 100}%` }" />
             </div>
           </div>
