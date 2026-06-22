@@ -50,14 +50,17 @@ const QUESTIONS = [
 
 const OPTION_KEYS = ['A', 'B', 'C', 'D'] as const
 
+const COLOR_PALIER_2 = '#E8C13D'
+const COLOR_PALIER_3 = '#6FA86B'
+
 const LEVELS = [
   { min: 0,  code: 'Palier 0', name: 'Angle mort',       tone: 'var(--color-danger)',
     body: 'Les fondations ne sont pas là. Lancer un projet IA maintenant, c\'est gaspiller du budget pour suivre la mode. Construis d\'abord la base — un objectif clair, des données propres, des processus documentés.' },
   { min: 26, code: 'Palier 1', name: 'Velléités',         tone: 'var(--color-mutation)',
     body: 'De l\'envie, peu de socle. C\'est le profil qui rejoint les organisations qui abandonnent leur projet IA en cours de route. Comble les écarts ci-dessous avant de te lancer pour de bon.' },
-  { min: 46, code: 'Palier 2', name: 'Prêt à piloter',   tone: '#E8C13D',
+  { min: 46, code: 'Palier 2', name: 'Prêt à piloter',   tone: COLOR_PALIER_2,
     body: 'Assez solide pour un pilote ciblé et mesurable — pas pour un déploiement large. Choisis un seul cas d\'usage, prouve la valeur, puis avance.' },
-  { min: 66, code: 'Palier 3', name: 'Prêt à déployer',  tone: '#6FA86B',
+  { min: 66, code: 'Palier 3', name: 'Prêt à déployer',  tone: COLOR_PALIER_3,
     body: 'Les fondations sont en place. Tu peux passer à l\'échelle, méthodiquement, en gardant un œil sur les 1 ou 2 points encore faibles.' },
   { min: 86, code: 'Palier 4', name: 'Mature',            tone: 'var(--color-accent)',
     body: 'L\'IA est intégrée à ta façon de travailler. L\'enjeu n\'est plus de démarrer mais d\'optimiser, de gouverner et de diffuser.' },
@@ -86,7 +89,7 @@ function ringPath(ratio: number): string {
 function dimColor(avg: number): string {
   if (avg < 1.5) return 'var(--color-danger)'
   if (avg < 2.5) return 'var(--color-mutation)'
-  return '#6FA86B'
+  return COLOR_PALIER_3
 }
 
 const radarPoints = computed(() =>
