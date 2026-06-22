@@ -50,6 +50,28 @@ const QUESTIONS = [
 
 const OPTION_KEYS = ['A', 'B', 'C', 'D'] as const
 
+const LEVELS = [
+  { min: 0,  code: 'Palier 0', name: 'Angle mort',       tone: 'var(--color-danger)',
+    body: 'Les fondations ne sont pas là. Lancer un projet IA maintenant, c\'est gaspiller du budget pour suivre la mode. Construis d\'abord la base — un objectif clair, des données propres, des processus documentés.' },
+  { min: 26, code: 'Palier 1', name: 'Velléités',         tone: 'var(--color-mutation)',
+    body: 'De l\'envie, peu de socle. C\'est le profil qui rejoint les organisations qui abandonnent leur projet IA en cours de route. Comble les écarts ci-dessous avant de te lancer pour de bon.' },
+  { min: 46, code: 'Palier 2', name: 'Prêt à piloter',   tone: '#E8C13D',
+    body: 'Assez solide pour un pilote ciblé et mesurable — pas pour un déploiement large. Choisis un seul cas d\'usage, prouve la valeur, puis avance.' },
+  { min: 66, code: 'Palier 3', name: 'Prêt à déployer',  tone: '#6FA86B',
+    body: 'Les fondations sont en place. Tu peux passer à l\'échelle, méthodiquement, en gardant un œil sur les 1 ou 2 points encore faibles.' },
+  { min: 86, code: 'Palier 4', name: 'Mature',            tone: 'var(--color-accent)',
+    body: 'L\'IA est intégrée à ta façon de travailler. L\'enjeu n\'est plus de démarrer mais d\'optimiser, de gouverner et de diffuser.' },
+] as const
+
+const ADVICE: Record<string, string> = {
+  Objectif:    'Pars d\'un seul cas d\'usage douloureux et chiffrable. Pas dix. Un, défini avant de toucher au moindre outil.',
+  Données:     'Fais l\'état des lieux de tes données avant tout pilote : où elles sont, qui y accède, leur fiabilité. C\'est l\'obstacle n°1 documenté.',
+  Processus:   'Documente le processus que tu veux augmenter. L\'IA amplifie un processus clair et casse sur un processus implicite.',
+  Culture:     'Travaille l\'adhésion avant l\'outil. Un pilote imposé à une équipe méfiante échoue, quelle que soit la qualité du modèle.',
+  Gouvernance: 'Pose une grille de conformité (nLPD/RGPD, sécurité) avant de tester un outil. En contexte réglementé, ce n\'est pas négociable.',
+  Direction:   'Sécurise un sponsor à la direction, relié à un objectif explicite. Sans ça, le projet meurt à la première friction.',
+}
+
 const props = defineProps<{ kitId: string }>()
 
 const { capture } = usePosthogEvent()
@@ -64,6 +86,26 @@ const decryptTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const total = QUESTIONS.length
 const currentQuestion = computed(() => QUESTIONS[idx.value])
+
+const result = computed(() => {
+  const byDim: Record<string, number[]> = {}
+  AXES.forEach(d => { byDim[d] = [] })
+  QUESTIONS.forEach((q, i) => byDim[q.dim].push(answers.value[i] ?? 0))
+
+  const dims = AXES.map(d => {
+    const avg = byDim[d].reduce((a, b) => a + b, 0) / byDim[d].length
+    return { dim: d, ratio: avg / 3, pct: Math.round((avg / 3) * 100), avg }
+  })
+  const overall = Math.round(dims.reduce((a, d) => a + d.ratio, 0) / dims.length * 100)
+
+  let level = LEVELS[0] as typeof LEVELS[number]
+  LEVELS.forEach(l => { if (overall >= l.min) level = l })
+  const levelIndex = LEVELS.indexOf(level as (typeof LEVELS)[number])
+
+  const weak = [...dims].sort((a, b) => a.avg - b.avg).filter(d => d.avg < 1.5).slice(0, 3)
+
+  return { dims, overall, level, levelIndex, weak }
+})
 
 function answer(val: number) {
   const now = Date.now()
@@ -92,7 +134,41 @@ function answer(val: number) {
     questionStartTime.value = Date.now()
   } else {
     stage.value = 'decrypting'
-    decryptTimer.value = setTimeout(() => { stage.value = 'result' }, 1200)
+    const r = result.value
+    const timeToComplete = Date.now() - diagnosticStartTime.value
+
+    capture('kit_diagnostic_completed', {
+      id: props.kitId,
+      overall_score: r.overall,
+      level_code: r.level.code,
+      level_name: r.level.name,
+      score_objectif:    r.dims.find(d => d.dim === 'Objectif')?.pct ?? 0,
+      score_donnees:     r.dims.find(d => d.dim === 'Données')?.pct ?? 0,
+      score_processus:   r.dims.find(d => d.dim === 'Processus')?.pct ?? 0,
+      score_culture:     r.dims.find(d => d.dim === 'Culture')?.pct ?? 0,
+      score_gouvernance: r.dims.find(d => d.dim === 'Gouvernance')?.pct ?? 0,
+      score_direction:   r.dims.find(d => d.dim === 'Direction')?.pct ?? 0,
+      weak_dims: r.weak.map(d => d.dim),
+      time_to_complete: timeToComplete,
+    })
+
+    decryptTimer.value = setTimeout(() => {
+      stage.value = 'result'
+      const r2 = result.value
+      capture('kit_diagnostic_result_viewed', {
+        id: props.kitId,
+        overall_score: r2.overall,
+        level_code: r2.level.code,
+        level_name: r2.level.name,
+        score_objectif:    r2.dims.find(d => d.dim === 'Objectif')?.pct ?? 0,
+        score_donnees:     r2.dims.find(d => d.dim === 'Données')?.pct ?? 0,
+        score_processus:   r2.dims.find(d => d.dim === 'Processus')?.pct ?? 0,
+        score_culture:     r2.dims.find(d => d.dim === 'Culture')?.pct ?? 0,
+        score_gouvernance: r2.dims.find(d => d.dim === 'Gouvernance')?.pct ?? 0,
+        score_direction:   r2.dims.find(d => d.dim === 'Direction')?.pct ?? 0,
+        weak_dims: r2.weak.map(d => d.dim),
+      })
+    }, 1200)
   }
 }
 
@@ -105,6 +181,12 @@ function goBack() {
 }
 
 function restart() {
+  const r = result.value
+  capture('kit_diagnostic_restarted', {
+    id: props.kitId,
+    previous_score: r.overall,
+    previous_level: r.level.code,
+  })
   answers.value = {}
   idx.value = 0
   startedFired.value = false
@@ -182,12 +264,73 @@ onBeforeUnmount(() => {
           <div class="decrypt-bar"><span /></div>
         </div>
 
-        <!-- RESULT (placeholder — complété en Task 3) -->
-        <div v-else-if="stage === 'result'" class="result-placeholder">
-          <p style="color: var(--color-muted); font-family: var(--font-mono); font-size: 0.8rem;">
-            // RÉSULTATS — Task 3
-          </p>
-          <button type="button" class="restart-btn" @click="restart">↻ REFAIRE</button>
+        <!-- RESULT -->
+        <div v-else-if="stage === 'result'" class="result">
+
+          <!-- Palier -->
+          <div class="result-panel">
+            <div class="palier-code" :style="{ color: result.level.tone }">
+              ● {{ result.level.code }} — {{ result.level.name }}
+            </div>
+            <h2 class="palier-name">{{ result.level.name }}.</h2>
+            <p class="palier-body">{{ result.level.body }}</p>
+
+            <!-- Ladder -->
+            <div class="ladder" aria-label="Échelle de maturité">
+              <div
+                v-for="(l, i) in LEVELS"
+                :key="i"
+                class="rung"
+              >
+                <div
+                  class="rung-bar"
+                  :style="{
+                    background: i <= result.levelIndex ? result.level.tone : 'var(--color-hairline)'
+                  }"
+                />
+                <div
+                  class="rung-lab"
+                  :style="{ color: i === result.levelIndex ? 'var(--color-text)' : 'var(--color-muted)' }"
+                >{{ l.name }}</div>
+              </div>
+            </div>
+
+            <div class="score-line">
+              Indice de maturité :
+              <strong>{{ result.overall }}</strong>/100
+            </div>
+          </div>
+
+          <!-- Section label -->
+          <div class="section-label">PROFIL PAR DIMENSION</div>
+
+          <!-- Radar placeholder — complété en Task 4 -->
+          <div class="result-panel radar-panel">
+            <p class="placeholder-label">// RADAR — Task 4</p>
+          </div>
+
+          <!-- Priorités -->
+          <div v-if="result.weak.length > 0" class="result-panel">
+            <div class="section-label" style="margin: 0 0 0.75rem;">TES PRIORITÉS — PAR ORDRE D'URGENCE</div>
+            <div class="recos">
+              <div
+                v-for="(d, i) in result.weak"
+                :key="d.dim"
+                class="reco"
+              >
+                <span class="reco-n">{{ String(i + 1).padStart(2, '0') }}</span>
+                <div>
+                  <div class="reco-title">{{ d.dim }}</div>
+                  <div class="reco-body">{{ ADVICE[d.dim] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Restart -->
+          <button type="button" class="restart-btn" data-attr="kit-diag-restart" @click="restart">
+            ↻ REFAIRE LE DIAGNOSTIC
+          </button>
         </div>
 
       </div>
@@ -296,16 +439,95 @@ onBeforeUnmount(() => {
 }
 @keyframes decrypt-fill { to { width: 100%; } }
 
-/* Placeholder */
-.result-placeholder {
-  padding: 3rem 2rem; border: 1px solid var(--color-rule);
-  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+/* Result */
+.result { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.result-panel {
+  position: relative;
+  border: 1px solid var(--color-rule);
+  background: var(--color-surface);
+  padding: 2rem;
 }
+.result-panel::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 60px; height: 3px;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent-glow);
+}
+
+.palier-code {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.palier-name {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1.1; color: var(--color-text);
+  margin: 0.4rem 0 1rem;
+}
+.palier-body {
+  color: var(--color-text-soft); font-size: 0.97rem; line-height: 1.65;
+  max-width: 62ch;
+}
+
+.ladder {
+  display: flex; gap: 0.4rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.rung { flex: 1; }
+.rung-bar {
+  height: 5px; border-radius: 5px;
+  transition: background 0.3s;
+}
+.rung-lab {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  margin-top: 0.5rem; line-height: 1.3;
+}
+
+.score-line {
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--color-muted); margin-top: 1rem;
+}
+.score-line strong {
+  color: var(--color-text); font-size: 1.3rem; margin: 0 0.15rem;
+}
+
+.section-label {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-muted); margin: 0.5rem 0;
+}
+
+.radar-panel { min-height: 120px; display: grid; place-items: center; }
+.placeholder-label {
+  color: var(--color-muted); font-family: var(--font-mono); font-size: 0.75rem; text-align: center;
+}
+
+.recos { display: flex; flex-direction: column; }
+.reco {
+  display: flex; gap: 1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--color-hairline);
+}
+.reco:first-child { border-top: none; padding-top: 0; }
+.reco-n {
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--color-accent); font-weight: 600;
+  flex-shrink: 0; width: 1.8rem;
+}
+.reco-title { font-weight: 600; font-size: 0.97rem; color: var(--color-text); margin-bottom: 0.3rem; }
+.reco-body { color: var(--color-muted); font-size: 0.9rem; line-height: 1.55; }
+
 .restart-btn {
+  align-self: center;
   background: none; border: 1px solid var(--color-hairline);
   cursor: pointer; font-family: var(--font-mono);
   font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--color-muted); padding: 0.6rem 1rem;
+  color: var(--color-muted); padding: 0.75rem 1.5rem;
+  transition: color 0.15s, border-color 0.15s;
 }
 .restart-btn:hover { color: var(--color-accent); border-color: var(--color-accent); }
 
@@ -320,5 +542,6 @@ onBeforeUnmount(() => {
   .fade-slide-enter-active, .fade-slide-leave-active { transition: none; }
   .decrypt-bar span { animation: none; width: 100%; }
   .prog-bar span { transition: none; }
+  .rung-bar { transition: none; }
 }
 </style>
