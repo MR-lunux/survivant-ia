@@ -342,7 +342,7 @@ onBeforeUnmount(() => {
           <div class="result-panel radar-panel">
             <div class="radar-card">
               <svg
-                viewBox="0 0 300 276"
+                viewBox="-40 -5 380 286"
                 width="260"
                 height="240"
                 role="img"
@@ -608,7 +608,7 @@ onBeforeUnmount(() => {
   color: var(--color-muted); margin: 0.5rem 0;
 }
 
-.radar-panel { overflow: hidden; }
+.radar-panel { }
 .radar-card {
   display: flex; align-items: center; gap: 2rem;
   flex-wrap: wrap; justify-content: center;
